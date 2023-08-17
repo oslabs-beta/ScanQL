@@ -53,10 +53,10 @@ body {
     }
   }
 :root {
-    background: #292929;
+    background: #0d0d0d;
 }
 
-body {
+/* body {
     background: radial-gradient(
             farthest-side at bottom left,
             rgba(27, 8, 96, 0.511),
@@ -65,6 +65,20 @@ body {
         radial-gradient(
             farthest-corner at bottom right,
             rgba(255, 50, 217, 0.093),
+            transparent 
+        );
+} */
+
+
+body {
+    background: radial-gradient(
+            farthest-side at bottom left,
+            rgba(54, 6, 71, 0.425),
+            transparent
+        ),
+        radial-gradient(
+            farthest-corner at bottom right,
+            rgba(25, 14, 95, 0.395),
             transparent 
         );
 }
