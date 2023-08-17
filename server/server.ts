@@ -7,7 +7,7 @@ import express, { Request, Response, NextFunction } from 'express';
 const app = express();
 const PORT = 3000;
 import pgRoute from './routes/pgRoute.js';
-import authRoute from './routes/authRoute.js';
+// import authRoute from './routes/authRoute.js';
 
 // app.use(express.static(path.join(__dirname, '../src/assets')));
 app.use(express.json());
@@ -16,9 +16,9 @@ app.use(express.urlencoded({extended: false}));
 // routes
 app.use('/api/pg', pgRoute);
   
-app.use('/auth', authRoute);
+// app.use('/auth', authRoute);
  
-// unknown routre handler
+// unknown route handler
 app.use((req: Request, res: Response) => {
   res.status(404).send('No page found');
 });

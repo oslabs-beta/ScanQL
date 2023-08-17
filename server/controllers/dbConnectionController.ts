@@ -10,6 +10,10 @@ type DbConnectionController = {
 
 // on request, connect to user's database and return query pool on res.locals
 const dbConnectionController: DbConnectionController = {
+  //create controller for first time connection and storage 
+
+
+
   connectAndInitializeDB: async (req, res, next) => {
     const uri_string = req.body.uri;
     const pool = new Pool({
@@ -31,9 +35,10 @@ const dbConnectionController: DbConnectionController = {
     const queryString = 'SELECT tablename FROM pg_catalog.pg_tables WHERE schemaname != \'pg_catalog\' AND schemaname != \'information_schema\';';
 
     try {
-      const dbStats = await db.query(queryString);
+      // const dbStats = 
+      await db.query(queryString);
       res.locals.result.validURI = true;
-      res.locals.result.currentStats = dbStats;
+      res.locals.result.currentStats = 'Connected To Database';
       return next();
     } catch (error) {
       return next({

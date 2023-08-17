@@ -1,6 +1,6 @@
 import { RequestHandler } from 'express';
-import pkg from 'pg';
-const { QueryResult } = pkg;
+// import pkg from 'pg';
+import { QueryResult } from 'pg';
 // QueryResult doesn't exist in pg package. May need to install another package.
 
 type DbInfoController = {
@@ -47,43 +47,60 @@ const dbInfoController: DbInfoController = {
       res.locals.tableNames = tableNames;
 
       //creating an array of comprehensive info on the tables
-      const tableInfoPromises: Promise<TableInfo>[] = tables.rows.map(async (row:any) => {
+      const tableInfoPromises: Promise<TableInfo>[] = tables.rows.map(async (row: any) => {
         const tableName = row.tablename;
-        const numberOfFields: QueryResult = await db.query('SELECT COUNT(*) FROM information_schema.columns WHERE table_name = $1;',[tableName]);
-        const numberOfRows: QueryResult = await db.query('SELECT COUNT(*) FROM $1;',[tableName]);
-        const numberOfIndexes: QueryResult = await db.query('SELECT COUNT(*) FROM pg_indexes WHERE tablename = $1;', [tableName]);
+    
+        const numberOfFields: QueryResult = await db.query(
+          'SELECT COUNT(*) FROM information_schema.columns WHERE table_name = $1;',
+          [tableName]
+        );
+    
+        const numberOfRows: QueryResult = await db.query(
+          `SELECT COUNT(*) FROM ${tableName};`
+        );
+    
+        const numberOfIndexes: QueryResult = await db.query(
+          'SELECT COUNT(*) FROM pg_indexes WHERE tablename = $1;',
+          [tableName]
+        );
+    
         const foreignKeys: QueryResult = await db.query(`
-                SELECT 
-                  kcu.column_name AS column, 
-                  ccu.table_name AS referencedTable, 
-                  ccu.column_name AS referencedColumn 
-                FROM 
-                  information_schema.table_constraints AS tc 
-                  JOIN information_schema.key_column_usage AS kcu ON tc.constraint_name = kcu.constraint_name 
-                  JOIN information_schema.constraint_column_usage AS ccu ON ccu.constraint_name = tc.constraint_name 
-                WHERE 
-                  tc.constraint_type = 'FOREIGN KEY' AND tc.table_name = $1`, [tableName]);
-              
-        const primaryKey: QueryResult = await db.query(`
-                SELECT 
-                  kcu.column_name AS column 
-                FROM 
-                  information_schema.table_constraints AS tc 
-                  JOIN information_schema.key_column_usage AS kcu ON tc.constraint_name = kcu.constraint_name 
-                WHERE 
-                  tc.constraint_type = 'PRIMARY KEY' AND tc.table_name = $1
-                LIMIT 1;`,[tableName]);
-        // Get the first row of data from the table as sample data
-        const sampleData: QueryResult = await db.query(`SELECT * FROM ${tableName} LIMIT 1;`);
-
-        // Get the column names and their corresponding data types
-        const columnDataTypes: QueryResult = await db.query(`
-                SELECT column_name, data_type 
-                FROM information_schema.columns 
-                WHERE table_name = $1;`,
+            SELECT 
+              kcu.column_name AS column, 
+              ccu.table_name AS referencedTable, 
+              ccu.column_name AS referencedColumn 
+            FROM 
+              information_schema.table_constraints AS tc 
+              JOIN information_schema.key_column_usage AS kcu ON tc.constraint_name = kcu.constraint_name 
+              JOIN information_schema.constraint_column_usage AS ccu ON ccu.constraint_name = tc.constraint_name 
+            WHERE 
+              tc.constraint_type = 'FOREIGN KEY' AND tc.table_name = $1`,
         [tableName]
         );
-
+    
+        const primaryKey: QueryResult = await db.query(`
+            SELECT 
+              kcu.column_name AS column 
+            FROM 
+              information_schema.table_constraints AS tc 
+              JOIN information_schema.key_column_usage AS kcu ON tc.constraint_name = kcu.constraint_name 
+            WHERE 
+              tc.constraint_type = 'PRIMARY KEY' AND tc.table_name = $1
+            LIMIT 1;`,
+        [tableName]
+        );
+    
+        const sampleData: QueryResult = await db.query(
+          `SELECT * FROM ${tableName} LIMIT 1;`
+        );
+    
+        const columnDataTypes: QueryResult = await db.query(`
+            SELECT column_name, data_type 
+            FROM information_schema.columns 
+            WHERE table_name = $1;`,
+        [tableName]
+        );
+    
         return {
           tableName,
           numberOfRows: parseInt(numberOfRows.rows[0].count, 10),
@@ -96,10 +113,15 @@ const dbInfoController: DbInfoController = {
           columnDataTypes: columnDataTypes.rows  // Column names and their data types
         };
       });
-          
-      const databaseInfo = await Promise.all(tableInfoPromises);
-      res.locals.databaseInfo = databaseInfo;
-      return next();
+      // Usage
+      //  use Promise.all() to wait for all promises to resolve
+      // const databaseInfo = await Promise.all(tableInfoPromises);
+      Promise.all(tableInfoPromises).then((databaseInfo) => {
+        console.log(databaseInfo);
+        res.locals.databaseInfo = databaseInfo;
+        return next();
+      });    
+      
     } catch (error) {
       return next(error);
     }
