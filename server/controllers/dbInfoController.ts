@@ -1,5 +1,7 @@
 import { RequestHandler } from 'express';
-import { QueryResult } from 'pg';
+import pkg from 'pg';
+const { QueryResult } = pkg;
+// QueryResult doesn't exist in pg package. May need to install another package.
 
 type DbInfoController = {
   getDataBaseInfo: RequestHandler;

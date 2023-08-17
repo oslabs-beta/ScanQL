@@ -1,5 +1,6 @@
 import { RequestHandler } from 'express';
-import { Pool } from 'pg';
+import pkg from 'pg';
+const { Pool } = pkg;
 
 type DbConnectionController = {
   connectAndInitializeDB: RequestHandler;
@@ -27,11 +28,12 @@ const dbConnectionController: DbConnectionController = {
     res.locals.dbConnection = db;
     res.locals.result = {};
 
-    const queryString = 'CREATE EXTENSION IF NOT EXISTS pg_stat_statements';
+    const queryString = 'SELECT tablename FROM pg_catalog.pg_tables WHERE schemaname != \'pg_catalog\' AND schemaname != \'information_schema\';';
 
     try {
-      await db.query(queryString);
+      const dbStats = await db.query(queryString);
       res.locals.result.validURI = true;
+      res.locals.result.currentStats = dbStats;
       return next();
     } catch (error) {
       return next({

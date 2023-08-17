@@ -1,6 +1,7 @@
 import { RequestHandler } from 'express';
-import { Pool, QueryResult } from 'pg';
 // import { explainQuery } from '../helpers/explainQuery';
+import pkg from 'pg';
+const { Pool } = pkg;
 
 
 type GeneralMetricsController = {
