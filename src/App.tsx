@@ -1,12 +1,11 @@
 import React from "react";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 // import Home from "./pages/Home";
-import Dashboard from "./components/layout/Dashboard";
+import Dashboard from "./pages/Dashboard";
 // import Login from "./pages/Login";
 // import Signup from "./pages/Signup";
 import "./styles/index.css";
 import "./App.css";
-import "./Dashboard2.css";
 
 
 const App: React.FC = () => {
