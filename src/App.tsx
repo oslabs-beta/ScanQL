@@ -6,6 +6,7 @@ import Dashboard from "./components/layout/Dashboard";
 // import Signup from "./pages/Signup";
 import "./styles/index.css";
 import "./App.css";
+import "./Dashboard2.css";
 
 
 const App: React.FC = () => {
