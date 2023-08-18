@@ -135,14 +135,7 @@ export default function Dashboard() {
           <div className="dashboard-card">
             <Line options={options} data={data} />
           </div>
-          {/* <div className="dashboard-card">
-                    <Bar options = {options2} data={data2} />
-                </div> */}
         </div>
-        <FaceIcon />
-        <SunIcon />
-        <ImageIcon />
-        <HamburgerMenuIcon />
       </div>
     </body>
   );
