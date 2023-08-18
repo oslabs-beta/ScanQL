@@ -1,20 +1,21 @@
 import React from "react";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 // import Home from "./pages/Home";
-// import Dashboard from "./pages/About";
+import Dashboard from "./pages/Dashboard";
 // import Login from "./pages/Login";
 // import Signup from "./pages/Signup";
-// import "./styles/index.css";
+import "./styles/index.css";
+import "./App.css";
 
 
 const App: React.FC = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+        {/* <Route path="/" element={<Home />} /> */}
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
+        {/* <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} /> */}
       </Routes>
     </BrowserRouter>
   );
