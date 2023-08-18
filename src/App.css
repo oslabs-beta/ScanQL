@@ -115,3 +115,21 @@
     transform: scale(1.005);
 }
 
+.login-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    max-width: 100vw;
+}
+
+
+.login-container{
+    padding: 30px;
+    border: 2px solid rgb(255, 255, 255, 0.05);
+    background-color: rgba(235, 233, 233, 0.255);
+    border-radius: 20px;
+}
+
+
