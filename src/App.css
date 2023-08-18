@@ -1,5 +1,11 @@
+/* 
+:root {
+    background: #0d0d0d;
+} */
 
-.main-container{
+
+
+/* .main-container{
     position: relative;
     background: radial-gradient(
         farthest-side at bottom left,
@@ -47,7 +53,7 @@
         );
     opacity: 0;
     animation: fadeInOut 10s ease infinite 7.5s;
-} 
+}  */
 
 @keyframes fadeInOut {
     0%, 100% {

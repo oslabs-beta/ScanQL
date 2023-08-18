@@ -4,7 +4,7 @@ import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 // import Login from "./pages/Login";
 // import Signup from "./pages/Signup";
-import "./styles/index.css";
+import "./index.css";
 import "./App.css";
 
 
