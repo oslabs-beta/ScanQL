@@ -1,7 +1,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-import useAppStore from '../../store/AppStore';
+import useAppStore from '../../store/appStore';
+import LogoutButton from './LogoutButton';
+import { useAuth0 } from "@auth0/auth0-react";
 
 import {
   HamburgerMenuIcon,
@@ -17,6 +19,7 @@ const DropdownMenuIcon = () => {
   const handleConnectToDB = () => {
     openConnectDB(); // open the connectdb modal
   };
+  const { logout } = useAuth0();
 
   return (
     <DropdownMenu.Root>
@@ -41,15 +44,15 @@ const DropdownMenuIcon = () => {
             </div>
           </DropdownMenu.Item>
 
-          <DropdownMenu.Item className="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1">
-            Help{' '}
+          <DropdownMenu.Item onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })} className="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1">
+            Logout{' '}
             <div className="ml-auto pl-[20px] text-mauve11 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8">
               ⌘+H
             </div>
           </DropdownMenu.Item>
 
 
-          <DropdownMenu.Sub>
+          {/* <DropdownMenu.Sub>
             <DropdownMenu.SubTrigger className="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[state=open]:bg-violet4 data-[state=open]:text-violet11 data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1 data-[highlighted]:data-[state=open]:bg-violet9 data-[highlighted]:data-[state=open]:text-violet1">
               Settings
               <div className="ml-auto pl-[20px] text-mauve11 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8">
@@ -77,7 +80,7 @@ const DropdownMenuIcon = () => {
                 </DropdownMenu.Item>
               </DropdownMenu.SubContent>
             </DropdownMenu.Portal>
-          </DropdownMenu.Sub>
+          </DropdownMenu.Sub> */}
           <DropdownMenu.Arrow className="fill-white" />
         </DropdownMenu.Content>
       </DropdownMenu.Portal>

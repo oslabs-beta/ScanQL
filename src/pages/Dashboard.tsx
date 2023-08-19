@@ -5,7 +5,10 @@ import ConnectDB from "../components/layout/ConnectDB";
 import MetricsView from "../components/layout/MetricsView";
 
 const Dashboard: React.FC = () => {
-    const { isConnectDBOpen, closeConnectDB, openConnectDB } = useAppStore();
+
+  const navigate = useNavigate();
+  const { user, isAuthenticated, isLoading } = useAuth0();
+  const { isConnectDBOpen, closeConnectDB, openConnectDB } = useAppStore();
 
     return (
         <div>
