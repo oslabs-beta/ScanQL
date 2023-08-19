@@ -1,5 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import useAppStore from '../store/AppStore';
+import { useAuth0 } from '@auth0/auth0-react';
+import Loading from '../components/ui/Loading';
 
 import {
   Chart as ChartJS,
@@ -107,46 +109,52 @@ export const data2 = {
 
 const Dashboard: React.FC = () => {
 
+  const { user, isAuthenticated, isLoading } = useAuth0();
   const { isConnectDBOpen, closeConnectDB, openConnectDB } = useAppStore();
 
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
-    <div>
-      <Header />
-      {isConnectDBOpen && <ConnectDB closeModal={closeConnectDB} />}
-      <div className="dashboard-page">
-        <div className="dashboard-container">
-          <div className="dashboard-card">
-            <Line options={options} data={data} />
-          </div>
-          <div className="dashboard-card">
-            <Bar options={options2} data={data2} />
-          </div>
-          <div className="dashboard-card">
-            <Line options={options} data={data} />
-          </div>
-          <div className="dashboard-card">
-            <Line options={options} data={data} />
-          </div>
-          <div className="dashboard-card">
-            <Bar options={options2} data={data2} />
-          </div>
-          <div className="dashboard-card">
-            <Line options={options} data={data} />
-          </div>
-          <div className="dashboard-card">
-            <Line options={options} data={data} />
-          </div>
-          <div className="dashboard-card">
-            <Bar options={options2} data={data2} />
-          </div>
-          <div className="dashboard-card">
-            <Line options={options} data={data} />
+    isAuthenticated && (
+      <div>
+        {/* <div>{JSON.stringify(user)}</div> */}
+        <Header />
+        {isConnectDBOpen && <ConnectDB closeModal={closeConnectDB} />}
+        <div className="dashboard-page">
+          <div className="dashboard-container">
+            <div className="dashboard-card">
+              <Line options={options} data={data} />
+            </div>
+            <div className="dashboard-card">
+              <Bar options={options2} data={data2} />
+            </div>
+            <div className="dashboard-card">
+              <Line options={options} data={data} />
+            </div>
+            <div className="dashboard-card">
+              <Line options={options} data={data} />
+            </div>
+            <div className="dashboard-card">
+              <Bar options={options2} data={data2} />
+            </div>
+            <div className="dashboard-card">
+              <Line options={options} data={data} />
+            </div>
+            <div className="dashboard-card">
+              <Line options={options} data={data} />
+            </div>
+            <div className="dashboard-card">
+              <Bar options={options2} data={data2} />
+            </div>
+            <div className="dashboard-card">
+              <Line options={options} data={data} />
+            </div>
           </div>
         </div>
       </div>
-
-      
-    </div>
+    )
   );
 }
 
