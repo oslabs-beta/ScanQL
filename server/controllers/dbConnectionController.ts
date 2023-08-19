@@ -13,7 +13,6 @@ const dbConnectionController: DbConnectionController = {
   //create controller for first time connection and storage 
 
 
-
   connectAndInitializeDB: async (req, res, next) => {
     const uri_string = req.body.uri;
     const pool = new Pool({
