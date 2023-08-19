@@ -7,28 +7,10 @@ const Login: React.FC = () => {
 
   const navigate = useNavigate();
 
-  const handleLoginSubmit = () => {
-    fetch('/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email: 'email', password: 'password' }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        navigate('/dashboard');
-      })
-      .catch((err) => {
-        console.log('error occurred:', err);
-      }
-      );
-  }
 
-  const handleSignupSubmit = () => {
-    navigate('/signup');
-  };
+  // const handleSignupSubmit = () => {
+  //   navigate('/signup');
+  // };
 
 
   return (
