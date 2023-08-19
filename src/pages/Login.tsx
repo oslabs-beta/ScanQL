@@ -55,7 +55,7 @@ const Login: React.FC = () => {
               </Form.Control>
             </Form.Field>
             <Form.Submit asChild>
-              <button onClick={handleLoginSubmit} className="border-solid border-1 border-indigo-400 text-indigo-900" style={{ marginTop: 10 }}>
+              <button onClick ="" className="border-solid border-1 border-indigo-400 text-indigo-900" style={{ marginTop: 10 }}>
                 Sign In
               </button>
             </Form.Submit>
