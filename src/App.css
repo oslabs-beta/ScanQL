@@ -127,9 +127,16 @@
 
 .login-container{
     padding: 30px;
-    border: 2px solid rgb(255, 255, 255, 0.05);
-    background-color: rgba(235, 233, 233, 0.255);
+    border: 2px solid rgba(255, 255, 255, 0.049);
+    background-color: rgba(235, 233, 233, 0.215);
     border-radius: 20px;
+    transition: transform ease-in-out 0.25s;
+    box-shadow: 2px 2px 25px 0px rgba(108, 108, 108, 0.418);
 }
+
+/* .login-container:hover{
+    transform: scale(1.015);
+    transition: all ease-in-out .25s;
+} */
 
 
