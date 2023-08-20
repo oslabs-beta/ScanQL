@@ -118,11 +118,11 @@ const Dashboard: React.FC = () => {
     return <Loading />;
   }
 
-  if (!isAuthenticated) navigate('/Home');
+  if (!isAuthenticated) navigate('/');
   if (isAuthenticated) {
     return (
       <div>
-        <div>{JSON.stringify(user)}</div>
+        {/* <div>{JSON.stringify(user)}</div> */}
         <Header />
         {isConnectDBOpen && <ConnectDB closeModal={closeConnectDB} />}
         <div className="dashboard-page">
