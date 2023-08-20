@@ -24,7 +24,7 @@ const Header: React.FC = () => {
       </div>
       <div className="flex items-center">
         {/* <Switch size="1" radius="full" defaultChecked /> */}
-        <MoonIcon />
+        <MoonIcon width={22} height={22} />
         <DropdownMenuDemo />
       </div>
     </div>
