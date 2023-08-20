@@ -1,3 +1,8 @@
+import { Routes, Route } from 'react-router-dom';
+import useAppStore from '../store/appStore';
+import { useAuth0 } from '@auth0/auth0-react';
+import Loading from '../components/ui/Loading';
+import { useNavigate } from 'react-router-dom';
 
 import {
   Chart as ChartJS,
@@ -13,10 +18,11 @@ import {
 import { Line, Bar } from 'react-chartjs-2';
 import { faker } from '@faker-js/faker';
 
-import { FaceIcon, ImageIcon, SunIcon, HamburgerMenuIcon } from '@radix-ui/react-icons';
+// import { FaceIcon, ImageIcon, SunIcon, HamburgerMenuIcon } from '@radix-ui/react-icons';
 // import { DropdownMenu } from '@radix-ui/react-dropdown-menu';
 import Header from '../components/layout/Header';
 
+import ConnectDB from '../components/layout/ConnectDB';
 
 ChartJS.register(
   CategoryScale,
@@ -101,49 +107,58 @@ export const data2 = {
 };
 
 
-export default function Dashboard() {
-  return (
-    <body>
 
-      <Header />
-      <div className="dashboard-page">
-        <div className="dashboard-container">
-          <div className="dashboard-card">
-            <Line options={options} data={data} />
+const Dashboard: React.FC = () => {
+
+  const navigate = useNavigate();
+  const { user, isAuthenticated, isLoading } = useAuth0();
+  const { isConnectDBOpen, closeConnectDB, openConnectDB } = useAppStore();
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  if (!isAuthenticated) navigate('/');
+  if (isAuthenticated) {
+    return (
+      <div>
+        {/* <div>{JSON.stringify(user)}</div> */}
+        <Header />
+        {isConnectDBOpen && <ConnectDB closeModal={closeConnectDB} />}
+        <div className="dashboard-page">
+          <div className="dashboard-container">
+            <div className="dashboard-card">
+              <Line options={options} data={data} />
+            </div>
+            <div className="dashboard-card">
+              <Bar options={options2} data={data2} />
+            </div>
+            <div className="dashboard-card">
+              <Line options={options} data={data} />
+            </div>
+            <div className="dashboard-card">
+              <Line options={options} data={data} />
+            </div>
+            <div className="dashboard-card">
+              <Bar options={options2} data={data2} />
+            </div>
+            <div className="dashboard-card">
+              <Line options={options} data={data} />
+            </div>
+            <div className="dashboard-card">
+              <Line options={options} data={data} />
+            </div>
+            <div className="dashboard-card">
+              <Bar options={options2} data={data2} />
+            </div>
+            <div className="dashboard-card">
+              <Line options={options} data={data} />
+            </div>
           </div>
-          <div className="dashboard-card">
-            <Bar options={options2} data={data2} />
-          </div>
-          <div className="dashboard-card">
-            <Line options={options} data={data} />
-          </div>
-          <div className="dashboard-card">
-            <Line options={options} data={data} />
-          </div>
-          <div className="dashboard-card">
-            <Bar options={options2} data={data2} />
-          </div>
-          <div className="dashboard-card">
-            <Line options={options} data={data} />
-          </div>
-          <div className="dashboard-card">
-            <Line options={options} data={data} />
-          </div>
-          <div className="dashboard-card">
-            <Bar options={options2} data={data2} />
-          </div>
-          <div className="dashboard-card">
-            <Line options={options} data={data} />
-          </div>
-          {/* <div className="dashboard-card">
-                    <Bar options = {options2} data={data2} />
-                </div> */}
         </div>
-        <FaceIcon />
-        <SunIcon />
-        <ImageIcon />
-        <HamburgerMenuIcon />
       </div>
-    </body>
-  );
+    )
+  } 
 }
+
+export default Dashboard;
