@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {ChangeEvent } from 'react';
 
 import { useState } from 'react';
 
@@ -16,13 +16,21 @@ interface ConnectDBProps {
 
 const ConnectDB = React.forwardRef<HTMLDivElement, ConnectDBProps>((props, ref) => {
 
-  const { uri, setUri, connecToDatabase } = useAppStore();
+  const { uri, setUri, connectToDatabase } = useAppStore();
 
-  // const [value, setValue] = useState('')
+  const [uriInput, seturiInput] = useState('')
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    connecToDatabase(uri);
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const input = event.target.value;
+    seturiInput(input);
+  }
+
+  const closeRef = React.useRef<HTMLButtonElement | null>(null);
+
+
+  const handleClick = () => {
+    connectToDatabase(uriInput);
+    closeRef.current?.click();
   }
 
   return (
@@ -70,12 +78,14 @@ const ConnectDB = React.forwardRef<HTMLDivElement, ConnectDBProps>((props, ref) 
               <input
                 className="text-violet11 shadow-violet7 focus:shadow-violet8 inline-flex h-[35px] w-full flex-1 items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none shadow-[0_0_0_1px] outline-none focus:shadow-[0_0_0_2px]"
                 id="uri-string"
+                value={uriInput}
+                onChange={handleChange}
                 defaultValue="postgres://hi/example"
               />
             </fieldset>
             <div className="mt-[25px] flex justify-end">
               <Dialog.Close asChild >
-                <button onClick={props.closeModal} className="bg-green4 text-green11 hover:bg-green5 focus:shadow-green7 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none focus:shadow-[0_0_0_2px] focus:outline-none"  >
+                <button onClick={handleClick} className="bg-green4 text-green11 hover:bg-green5 focus:shadow-green7 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none focus:shadow-[0_0_0_2px] focus:outline-none"  >
                   Submit
                 </button>
               </Dialog.Close>
