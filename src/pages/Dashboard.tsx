@@ -36,8 +36,8 @@ const Dashboard: React.FC = () => {
     <div>
       {/* <div>{JSON.stringify(user)}</div> */}
       <DashNav />
-      {isConnectDBOpen && <ConnectDB closeModal={closeConnectDB} />}
-
+      {/* {isConnectDBOpen && <ConnectDB />} */}
+      <ConnectDB />
       {view === 'metrics' && <MetricsView />}
       {view === 'erd' && <div>ERD</div>}
 

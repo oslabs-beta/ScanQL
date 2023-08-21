@@ -129,12 +129,12 @@ const dbInfoController: DbInfoController = {
       //  use Promise.all() to wait for all promises to resolve
       // const databaseInfo = await Promise.all(tableInfoPromises);
       Promise.all(tableInfoPromises).then((databaseInfo) => {
-        console.log('DBINFOARRAY', databaseInfo);
+        // console.log('DBINFOARRAY', databaseInfo);
         const databaseInfoMap: { [key: string]: TableInfo } = {};
         databaseInfo.forEach(info => {
           databaseInfoMap[info.tableName] = info;
         });
-        console.log('this is dbinfooooo!!!!!!',databaseInfoMap)
+        // console.log('this is dbinfooooo!!!!!!',databaseInfoMap)
         res.locals.databaseInfo = databaseInfoMap;
         return next();
       });    

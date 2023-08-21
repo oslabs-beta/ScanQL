@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 
 
+
 // const MetricsView: React.FC = () => {
 
 //   return (
@@ -143,7 +144,7 @@ const MetricsView: React.FC = () => {
       <div>
         {/* <div>{JSON.stringify(user)}</div> */}
         {/* <Header /> */}
-        {isConnectDBOpen && <ConnectDB closeModal={closeConnectDB} />}
+        {/* {isConnectDBOpen && <ConnectDB />} */}
         <div className="dashboard-page">
           <div className="dashboard-container">
             <div className="dashboard-card">
