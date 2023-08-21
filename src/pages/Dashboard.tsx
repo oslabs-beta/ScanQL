@@ -4,107 +4,116 @@ import { useAuth0 } from '@auth0/auth0-react';
 import Loading from '../components/ui/Loading';
 import { useNavigate } from 'react-router-dom';
 
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-  BarElement,
-} from 'chart.js';
-import { Line, Bar } from 'react-chartjs-2';
-import { faker } from '@faker-js/faker';
+import MetricsView from '../components/layout/MetricsView';
+// import ERDView from '../components/layout/ERDView';
 
-// import { FaceIcon, ImageIcon, SunIcon, HamburgerMenuIcon } from '@radix-ui/react-icons';
-// import { DropdownMenu } from '@radix-ui/react-dropdown-menu';
 import Header from '../components/layout/Header';
 
 import ConnectDB from '../components/layout/ConnectDB';
-
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  BarElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend
-);
-
-export const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: 'top' as const,
-    },
-    title: {
-      display: true,
-      text: 'Query Response Rates',
-      color: '#ffffffc8'
-    },
-  },
-};
-
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: 'Dataset 1',
-      data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-      borderColor: 'rgb(104, 99, 255)',
-      scaleFontColor: "#FFFFFF",
-      backgroundColor: 'rgba(107, 99, 255, 0.5)',
-    },
-    {
-      label: 'Dataset 2',
-      data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-      borderColor: 'rgb(53, 162, 235)',
-      color: '#ffffffc8',
-      backgroundColor: 'rgba(53, 162, 235, 0.5)',
-    },
-  ],
-};
+import { useEffect } from 'react';
 
 
-export const options2 = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: 'top' as const,
-    },
-    title: {
-      display: true,
-      text: 'Chart.js Bar Chart',
-      color: '#ffffffc8'
-    },
-  },
-};
+// import {
+//   Chart as ChartJS,
+//   CategoryScale,
+//   LinearScale,
+//   PointElement,
+//   LineElement,
+//   Title,
+//   Tooltip,
+//   Legend,
+//   BarElement,
+// } from 'chart.js';
+// import { Line, Bar } from 'react-chartjs-2';
+// import { faker } from '@faker-js/faker';
 
-const labels2 = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+// // import { FaceIcon, ImageIcon, SunIcon, HamburgerMenuIcon } from '@radix-ui/react-icons';
+// // import { DropdownMenu } from '@radix-ui/react-dropdown-menu';
+// import Header from '../components/layout/Header';
 
-export const data2 = {
-  labels,
-  datasets: [
-    {
-      label: 'Dataset 1',
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-      backgroundColor: 'rgba(107, 99, 255, 0.5)',
-      scaleFontColor: "#FFFFFF",
-    },
-    {
-      label: 'Dataset 2',
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-      backgroundColor: 'rgba(53, 162, 235, 0.5)',
-      scaleFontColor: "#FFFFFF",
-    },
-  ],
-};
+// import ConnectDB from '../components/layout/ConnectDB';
+
+// ChartJS.register(
+//   CategoryScale,
+//   LinearScale,
+//   PointElement,
+//   BarElement,
+//   LineElement,
+//   Title,
+//   Tooltip,
+//   Legend
+// );
+
+// export const options = {
+//   responsive: true,
+//   plugins: {
+//     legend: {
+//       position: 'top' as const,
+//     },
+//     title: {
+//       display: true,
+//       text: 'Query Response Rates',
+//       color: '#ffffffc8'
+//     },
+//   },
+// };
+
+// const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+
+// export const data = {
+//   labels,
+//   datasets: [
+//     {
+//       label: 'Dataset 1',
+//       data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+//       borderColor: 'rgb(104, 99, 255)',
+//       scaleFontColor: "#FFFFFF",
+//       backgroundColor: 'rgba(107, 99, 255, 0.5)',
+//     },
+//     {
+//       label: 'Dataset 2',
+//       data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
+//       borderColor: 'rgb(53, 162, 235)',
+//       color: '#ffffffc8',
+//       backgroundColor: 'rgba(53, 162, 235, 0.5)',
+//     },
+//   ],
+// };
+
+
+// export const options2 = {
+//   responsive: true,
+//   plugins: {
+//     legend: {
+//       position: 'top' as const,
+//     },
+//     title: {
+//       display: true,
+//       text: 'Chart.js Bar Chart',
+//       color: '#ffffffc8'
+//     },
+//   },
+// };
+
+// const labels2 = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+
+// export const data2 = {
+//   labels,
+//   datasets: [
+//     {
+//       label: 'Dataset 1',
+//       data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+//       backgroundColor: 'rgba(107, 99, 255, 0.5)',
+//       scaleFontColor: "#FFFFFF",
+//     },
+//     {
+//       label: 'Dataset 2',
+//       data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
+//       backgroundColor: 'rgba(53, 162, 235, 0.5)',
+//       scaleFontColor: "#FFFFFF",
+//     },
+//   ],
+// };
 
 
 
@@ -112,20 +121,31 @@ const Dashboard: React.FC = () => {
 
   const navigate = useNavigate();
   const { user, isAuthenticated, isLoading } = useAuth0();
-  const { isConnectDBOpen, closeConnectDB, openConnectDB } = useAppStore();
+  const { isConnectDBOpen, closeConnectDB, openConnectDB, view, setView } = useAppStore();
 
-  if (isLoading) {
-    return <Loading />;
-  }
 
-  if (!isAuthenticated) navigate('/Home');
-  if (isAuthenticated) {
-    return (
-      <div>
-        <div>{JSON.stringify(user)}</div>
-        <Header />
-        {isConnectDBOpen && <ConnectDB closeModal={closeConnectDB} />}
-        <div className="dashboard-page">
+
+
+  useEffect(() => {
+    if (!isAuthenticated) navigate('/');
+  }, [isAuthenticated, navigate])
+  // if (!isAuthenticated) navigate('/');
+  // if (isAuthenticated) {
+
+    if (isLoading) {
+      return <Loading />;
+    }
+  return (
+    <div>
+      {/* <div>{JSON.stringify(user)}</div> */}
+      <Header />
+      {isConnectDBOpen && <ConnectDB closeModal={closeConnectDB} />}
+
+      {view === 'metrics' && <MetricsView />}
+      {view === 'erd' && <div>ERD</div>}
+
+
+      {/* <div className="dashboard-page">
           <div className="dashboard-container">
             <div className="dashboard-card">
               <Line options={options} data={data} />
@@ -155,10 +175,10 @@ const Dashboard: React.FC = () => {
               <Line options={options} data={data} />
             </div>
           </div>
-        </div>
-      </div>
-    )
-  } 
+        </div> */}
+    </div>
+  )
 }
+// }
 
 export default Dashboard;
