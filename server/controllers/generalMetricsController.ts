@@ -1,4 +1,4 @@
-import { RequestHandler } from 'express';
+import { RequestHandler, query } from 'express';
 // import { explainQuery } from '../helpers/explainQuery';
 import pkg from 'pg';
 const { Pool } = pkg;
@@ -9,6 +9,20 @@ type GeneralMetricsController = {
   performGenericQueries: RequestHandler;
 };
 
+function modifyValue(value: any): any {
+  if (typeof value === 'string') {
+    return 'string' + '_' + Math.random().toString(36).slice(0, 18);  // Appending a random 5-character string
+  } else if (typeof value === 'number') {
+    return value + Math.floor(Math.random() * 100000000);  // Adding a random number between 0 and 9
+  } else if (value instanceof Date) {
+    return new Date(value.getTime() + (Math.random() * 1000000));  // Adding a random number of milliseconds
+  } else if (typeof value === 'boolean') {
+    return !value;  // Toggle boolean
+  } else if (Array.isArray(value)) {
+    return [...value, Math.random()];  // Adding a random number to the array
+  }
+  return value;  // If datatype is not identified, return the original value
+}
 const generalMetricsController: GeneralMetricsController = {
   analyzeCostumQuery: async (req, res, next) => {
     // Extract query string from request
@@ -41,58 +55,108 @@ const generalMetricsController: GeneralMetricsController = {
       });
     }
   },
-
   performGenericQueries: async (req, res, next) => {
-    
-    // pulling database connection from res locals
+   
+
+
+
     const db = res.locals.dbConnection;
-
-    const tableNames = res.locals.tableNames;
-    const dbInfo = res.locals.databaseInfo; // more comprehensive info on tabls
-
+    const dbInfo = res.locals.databaseInfo;
+    console.log('Expected dbInfo to be an array, but got:', dbInfo);
+    const executionPlans: any[] = [];
+    await db.query('BEGIN'); // Start the transaction
     try {
+      for (const tableName in dbInfo) {
 
-      // Store query execution plans here
-      const executionPlans: any[] = [];
+        interface ColumnDataType {
+          column_name: string;
+          data_type: string;
+        }
 
-      for (const tableInfo of dbInfo) {
-          // INSERT test
-          let values = tableInfo.sampleData;
-          let placeholders = Object.keys(values).map((key, index) => `$${index + 1}`).join(', ');
-          let query = `INSERT INTO ${tableInfo.tableName} (${Object.keys(values).join(', ')}) VALUES (${placeholders})`;
-          let plan = await db.query(`EXPLAIN (ANALYZE true, COSTS true, SETTINGS true, BUFFERS true, WAL true, SUMMARY true, FORMAT JSON) ${query}`, Object.values(values));
-          executionPlans.push({ query, plan });
-          
-          // SELECT test
-          query = `SELECT * FROM ${tableInfo.tableName} WHERE ${tableInfo.primaryKey} = $1`;
-          plan = await db.query(`EXPLAIN (ANALYZE true, COSTS true, SETTINGS true, BUFFERS true, WAL true, SUMMARY true, FORMAT JSON) ${query}`, [values[tableInfo.primaryKey]]);
-          executionPlans.push({ query, plan });
-          
-          // UPDATE test
-          const firstColumn = tableInfo.columnDataTypes[0].column_name;
-          query = `UPDATE ${tableInfo.tableName} SET ${firstColumn} = $1 WHERE ${tableInfo.primaryKey} = $2`;
-          plan = await db.query(`EXPLAIN (ANALYZE true, COSTS true, SETTINGS true, BUFFERS true, WAL true, SUMMARY true, FORMAT JSON) ${query}`, [values[firstColumn], values[tableInfo.primaryKey]]);
-          executionPlans.push({ query, plan });
-          
-          // DELETE test
-          query = `DELETE FROM ${tableInfo.tableName} WHERE ${tableInfo.primaryKey} = $1`;
-          plan = await db.query(`EXPLAIN (ANALYZE true, COSTS true, SETTINGS true, BUFFERS true, WAL true, SUMMARY true, FORMAT JSON) ${query}`, [values[tableInfo.primaryKey]]);
-          executionPlans.push({ query, plan });
-          
-          // JOIN test (if there are foreign keys)
-          if (tableInfo.numberOfForeignKeys > 0) {
-              for (const fk of tableInfo.foreignKeys) {
-                  query = `SELECT * FROM ${tableInfo.tableName} JOIN ${fk.referencedTable} ON ${tableInfo.tableName}.${fk.column} = ${fk.referencedTable}.${fk.referencedColumn}`;
-                  plan = await db.query(`EXPLAIN (ANALYZE true, COSTS true, SETTINGS true, BUFFERS true, WAL true, SUMMARY true, FORMAT JSON) ${query}`);
-                  executionPlans.push({ query, plan });
-              }
+        interface ForeignKey {
+          column: string;
+          referencedTable: string;
+          referencedColumn: string;
+        }
+        
+        const tableInfo = dbInfo[tableName];
+        const { primaryKey } = tableInfo;
+        const values = { ...tableInfo.sampleData };  // Create a shallow copy of the sampleData
+        const fkTable = tableInfo.foreignKeys.slice();
+        const foreignKeyColumns = fkTable.map((fk: ForeignKey) => fk.column);
+    
+        delete values[primaryKey];   // remove the primary key from the values
+    
+        // Handle Foreign Keys:
+        for (const fk of tableInfo.foreignKeys) {
+          console.log(fk);
+          const existingValue = await db.query(`SELECT 1 FROM ${fk.referencedtable} WHERE ${fk.referencedcolumn} = $1`, [values[fk.column]]);
+          if (existingValue.rowCount === 0) {
+            throw new Error(`ForeignKey violation: Value ${values[fk.column]} for column ${fk.column} not found in referenced table ${fk.referencedTable}.`);
           }
+        }
+    
+        // Modify values
+        for (const key in values) {
+          if (!foreignKeyColumns.includes(key)) values[key] = modifyValue(values[key]);
+        }
+    
+        const placeholders = Object.keys(values)
+          .map((key, index) => `$${index + 1}`)
+          .join(', ');
+    
+        let query = `INSERT INTO ${tableInfo.tableName} (${Object.keys(values).join(', ')}) VALUES (${placeholders})`;
+    
+        let plan = await db.query(`EXPLAIN (ANALYZE true, SUMMARY true, FORMAT JSON) ${query}`, Object.values(values));
+        executionPlans.push({ query, plan });
+
+        
+  
+        // SELECT test
+        query = `SELECT * FROM ${tableInfo.tableName} WHERE ${tableInfo.primaryKey} = $1`;
+        plan = await db.query(`EXPLAIN (ANALYZE true, SUMMARY true, FORMAT JSON) ${query}`, [values[tableInfo.primaryKey]]);
+        executionPlans.push({ query, plan });
+  
+
+
+        // UPDATE test
+        const nonConstraintColumns = tableInfo.columnDataTypes.filter((col: ColumnDataType) => col.column_name !== tableInfo.primaryKey && !tableInfo.foreignKeys.some((fk: ForeignKey) => fk.column === col.column_name));
+        if (nonConstraintColumns.length > 0) {
+          const firstNonConstraintColumn = nonConstraintColumns[0].column_name;
+          query = `UPDATE ${tableInfo.tableName} SET ${firstNonConstraintColumn} = $1 WHERE ${tableInfo.primaryKey} = $2`;
+          plan = await db.query(`EXPLAIN (ANALYZE true, SUMMARY true, FORMAT JSON) ${query}`, [values[firstNonConstraintColumn], values[tableInfo.primaryKey]]);
+          executionPlans.push({ query, plan });
+        }
+  
+        // DELETE test
+        // First check and delete any dependent rows. This is a basic approach, you might need to extend this for deep nested dependencies.
+        // for (const fk of tableInfo.foreignKeys) {
+        //   query = `DELETE FROM ${fk.referencedTable} WHERE ${fk.referencedColumn} = $1`;
+        //   await db.query(query, [values[fk.column]]);
+        // }
+        // for (const fk of tableInfo.foreignKeys) {
+        //   console.log(fk); // This will log the foreign key object
+        //   query = `DELETE FROM ${fk.referencedTable} WHERE ${fk.referencedColumn} = $1`;
+        //   await db.query(query, [values[fk.column]]);
+        // }
+        query = `DELETE FROM ${tableInfo.tableName} WHERE ${tableInfo.primaryKey} = $1`;
+        plan = await db.query(`EXPLAIN (ANALYZE true, SUMMARY true, FORMAT JSON) ${query}`, [values[tableInfo.primaryKey]]);
+        executionPlans.push({ query, plan });
+  
+        // JOIN test
+        if (tableInfo.numberOfForeignKeys > 0) {
+          for (const fk of tableInfo.foreignKeys) {
+            query = `DELETE FROM ${fk.referencedtable} WHERE ${fk.referencedcolumn} = $1`;
+            plan = await db.query(`EXPLAIN (ANALYZE true, SUMMARY true, FORMAT JSON) ${query}`, [values[fk.column]]);
+            executionPlans.push({ query, plan });
+          }
+        }
       }
-      
+      await db.query('ROLLBACK'); // Roll back the transaction, undoing all changes
       res.locals.executionPlans = executionPlans;
       return next();
-
     } catch (error) {
+      // console.log(insertQuery);
       console.log('ERROR in generalMetricsController.performGenericQueries: ', error);
       return next({
         log: `ERROR caught in generalMetricsController.performGenericQueries: ${error}`,
@@ -100,7 +164,9 @@ const generalMetricsController: GeneralMetricsController = {
         message: 'ERROR: error has occurred in generalMetricsController.performGenericQueries',
       });
     }
-  },
+  }
+  
+  
 };
 
 export default generalMetricsController;
@@ -196,3 +262,137 @@ When executed, this query will return a detailed execution plan of the SQL state
 ]
 
 */
+
+// const values = tableInfo.sampleData;
+// const placeholders = Object.keys(values).map((key, index) => `$${index + 1}`).join(', ');
+        
+// let query = `INSERT INTO ${tableInfo.tableName} (${Object.keys(values).join(', ')}) VALUES (${placeholders})`;
+// let plan = await db.query(`EXPLAIN (ANALYZE true, COSTS true, SETTINGS true, BUFFERS true, WAL true, SUMMARY true, FORMAT JSON) ${query}`, Object.values(values));
+// executionPlans.push({ query, plan });
+          
+// // SELECT test
+// query = `SELECT * FROM ${tableInfo.tableName} WHERE ${tableInfo.primaryKey} = $1`;
+// // randomize the filter so that it selects a random yet valid value for primary key
+// plan = await db.query(`EXPLAIN (ANALYZE true, COSTS true, SETTINGS true, BUFFERS true, WAL true, SUMMARY true, FORMAT JSON) ${query}`, [values[tableInfo.primaryKey]]);
+// executionPlans.push({ query, plan });
+          
+// // UPDATE test
+// const firstColumn = tableInfo.columnDataTypes[0].column_name;
+// query = `UPDATE ${tableInfo.tableName} SET ${firstColumn} = $1 WHERE ${tableInfo.primaryKey} = $2`;
+// plan = await db.query(`EXPLAIN (ANALYZE true, COSTS true, SETTINGS true, BUFFERS true, WAL true, SUMMARY true, FORMAT JSON) ${query}`, [values[firstColumn], values[tableInfo.primaryKey]]);
+// executionPlans.push({ query, plan });
+          
+// // DELETE test
+// query = `DELETE FROM ${tableInfo.tableName} WHERE ${tableInfo.primaryKey} = $1`;
+// plan = await db.query(`EXPLAIN (ANALYZE true, COSTS true, SETTINGS true, BUFFERS true, WAL true, SUMMARY true, FORMAT JSON) ${query}`, [values[tableInfo.primaryKey]]);
+// executionPlans.push({ query, plan });
+          
+// // JOIN test (if there are foreign keys)
+// if (tableInfo.numberOfForeignKeys > 0) {
+//   for (const fk of tableInfo.foreignKeys) {
+//     query = `SELECT * FROM ${tableInfo.tableName} JOIN ${fk.referencedTable} ON ${tableInfo.tableName}.${fk.column} = ${fk.referencedTable}.${fk.referencedColumn}`;
+//     plan = await db.query(`EXPLAIN (ANALYZE true, COSTS true, SETTINGS true, BUFFERS true, WAL true, SUMMARY true, FORMAT JSON) ${query}`);
+//     executionPlans.push({ query, plan });
+//   }
+// }
+// }
+
+// performGenericQueries: async (req, res, next) => {
+    
+//   const db = res.locals.dbConnection;
+//   const dbInfo = res.locals.databaseInfo;
+//   const executionPlans: any[] = [];
+
+//   try {
+//     for (const tableInfo of dbInfo) {
+//       // INSERT test with ON CONFLICT DO NOTHING to avoid unique constraint violations
+//       const values = tableInfo.sampleData;
+//       const placeholders = Object.keys(values).map((key, index) => `$${index + 1}`).join(', ');
+//       let query = `INSERT INTO ${tableInfo.tableName} (${Object.keys(values).join(', ')}) VALUES (${placeholders}) ON CONFLICT (${tableInfo.primaryKey}) DO NOTHING`;
+//       let plan = await db.query(`EXPLAIN ${query}`, Object.values(values));
+//       executionPlans.push({ query, plan });
+
+//       // SELECT test
+//       query = `SELECT * FROM ${tableInfo.tableName} WHERE ${tableInfo.primaryKey} = $1`;
+//       plan = await db.query(`EXPLAIN ${query}`, [values[tableInfo.primaryKey]]);
+//       executionPlans.push({ query, plan });
+
+//       // UPDATE test
+//       // Assuming the first column isn't a primary or unique key; otherwise, this will violate constraints.
+//       const firstColumn = tableInfo.columnDataTypes[0].column_name;
+//       query = `UPDATE ${tableInfo.tableName} SET ${firstColumn} = $1 WHERE ${tableInfo.primaryKey} = $2`;
+//       plan = await db.query(`EXPLAIN ${query}`, [values[firstColumn], values[tableInfo.primaryKey]]);
+//       executionPlans.push({ query, plan });
+
+//       // DELETE test
+//       // To handle foreign key constraints on DELETE, either:
+//       // a) Delete dependent rows first or
+//       // b) Ensure the DB has ON DELETE CASCADE for the foreign key or
+//       // c) Use a DELETE that is sure not to violate the constraint.
+//       query = `DELETE FROM ${tableInfo.tableName} WHERE ${tableInfo.primaryKey} = $1`;
+//       plan = await db.query(`EXPLAIN ${query}`, [values[tableInfo.primaryKey]]);
+//       executionPlans.push({ query, plan });
+
+//       // JOIN test (if there are foreign keys)
+//       if (tableInfo.numberOfForeignKeys > 0) {
+//         for (const fk of tableInfo.foreignKeys) {
+//           query = `SELECT * FROM ${tableInfo.tableName} JOIN ${fk.referencedTable} ON ${tableInfo.tableName}.${fk.column} = ${fk.referencedTable}.${fk.referencedColumn}`;
+//           plan = await db.query(`EXPLAIN ${query}`);
+//           executionPlans.push({ query, plan });
+//         }
+//       }
+//     }
+//     res.locals.executionPlans = executionPlans;
+//     return next();
+//   } catch (error) {
+//     console.log('ERROR in generalMetricsController.performGenericQueries: ', error);
+//     return next({
+//       log: `ERROR caught in generalMetricsController.performGenericQueries: ${error}`,
+//       status: 400,
+//       message: 'ERROR: error has occurred in generalMetricsController.performGenericQueries',
+//     });
+//   }
+// }
+
+
+// INSERT test
+// const tableInfo = dbInfo[tableName];
+// const values = tableInfo.sampleData;
+// const placeholders = Object.keys(values).map((key, index) => `$${index + 1}`).join(', ');
+
+// let insertQuery: string;
+// if (tableInfo.primaryKey && tableInfo.primaryKey.length > 0) {
+//   // Check if the column used in ON CONFLICT actually has a unique constraint
+//   const uniqueColumns = await getUniqueColumnsForTable(db,tableInfo.tableName); // You'd need to define this function
+//   if (uniqueColumns.includes(tableInfo.primaryKey)) {
+//     insertQuery = `INSERT INTO ${tableInfo.tableName} (${Object.keys(values).join(', ')}) VALUES (${placeholders}) ON CONFLICT (${tableInfo.primaryKey}) DO NOTHING`;
+//   } else {
+//     insertQuery = `INSERT INTO ${tableInfo.tableName} (${Object.keys(values).join(', ')}) VALUES (${placeholders})`;
+//   }
+// } else {
+//   insertQuery = `INSERT INTO ${tableInfo.tableName} (${Object.keys(values).join(', ')}) VALUES (${placeholders})`;
+// }
+// console.log('table', tableName,'and keys', tableInfo.primaryKey, tableInfo.foreignKeys)
+// let plan = await db.query(`EXPLAIN ${insertQuery}`, Object.values(values));
+// executionPlans.push({ query: insertQuery, plan });
+
+// interface RowResult {
+//   column_name: string;
+// }
+// async function getUniqueColumnsForTable(db:any, tableName: string): Promise<string[]> {
+//   const uniqueColumnsQuery = `
+//       SELECT a.attname AS column_name
+//       FROM pg_index i
+//       JOIN pg_attribute a ON a.attrelid = i.indrelid AND a.attnum = ANY(i.indkey)
+//       WHERE i.indrelid = $1::regclass AND i.indisunique
+//   `;
+  
+  
+//   try {
+//     const result = await db.query(uniqueColumnsQuery, [tableName]);
+//     return result.rows.map((row : RowResult)=> row.column_name);
+//   } catch (err) {
+//     console.error('Error fetching unique columns:', err);
+//     return [];
+//   }
+// }

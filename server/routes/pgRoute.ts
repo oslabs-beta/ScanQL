@@ -1,7 +1,7 @@
 import express from 'express';
 import dbConnectionController from '../controllers/dbConnectionController.js';
 import dbInfoController from '../controllers/dbInfoController.js';
-// import generalMetricsController from '../controllers/generalMetricsController.js';
+import generalMetricsController from '../controllers/generalMetricsController.js';
 
 
 const pgRoute = express.Router();
