@@ -11,14 +11,7 @@
     "start": "nodemon --watch './**/*.ts' --exec ts-node-esm ./server/server.ts"
   },
   "dependencies": {
-<<<<<<< HEAD
-=======
     "@auth0/auth0-react": "^2.2.0",
-<<<<<<< HEAD
->>>>>>> 399e3778cb5bbcf3bd365201cfab57b12dbd5b9b
-=======
-    "@esbuild/darwin-arm64": "^0.19.2",
->>>>>>> 0f142171854341e1dade0ca90e56cf8642611fa9
     "@faker-js/faker": "^8.0.2",
     "@radix-ui/react-dialog": "^1.0.4",
     "@radix-ui/react-dropdown-menu": "^2.0.5",
