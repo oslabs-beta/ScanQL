@@ -2,14 +2,10 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import useAppStore from '../../store/appStore';
-import LogoutButton from './LogoutButton';
 import { useAuth0 } from "@auth0/auth0-react";
 
 import {
-  HamburgerMenuIcon,
-  DotFilledIcon,
-  CheckIcon,
-  ChevronRightIcon,
+  HamburgerMenuIcon
 } from '@radix-ui/react-icons';
 
 

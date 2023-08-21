@@ -1,16 +1,14 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import useAppStore from '../../store/appStore';
 import LogoutButton from './LogoutButton';
 import { useAuth0 } from "@auth0/auth0-react";
 
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import {
-  HamburgerMenuIcon,
-  DotFilledIcon,
-  CheckIcon,
-  ChevronRightIcon,
+  HamburgerMenuIcon
 } from '@radix-ui/react-icons';
+
 
 
 
@@ -38,7 +36,7 @@ const DropdownMenuIcon = () => {
           sideOffset={5}
         >
           <DropdownMenu.Item onClick={openConnectDB} className="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1">
-            Connect to Database{''}
+           Connect to Database
             <div className="ml-auto pl-[20px] text-mauve11 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8">
               ⌘+D
             </div>
