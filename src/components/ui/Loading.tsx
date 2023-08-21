@@ -1,4 +1,3 @@
-
 import React from 'react';
 import * as Progress from '@radix-ui/react-progress';
 
@@ -29,9 +28,3 @@ const Loading: React.FC = () => {
 };
 
 export default Loading;
-
-// const Loading: React.FC = () => {
-//     return <button className="text-indigo-800">Loading...</button>;
-//   }
-  
-  // export default Loading;
