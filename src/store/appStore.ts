@@ -16,7 +16,7 @@ interface AppState {
 
   setUri: (uri: string) => void;
   setIsDBConnected: (isDBConnected: boolean) => void;
-  // connectToDatabase: (uri: string) => Promise<void>;
+  connectToDatabase: (uri: string) => Promise<void>;
 }
 
 
@@ -51,6 +51,7 @@ const useAppStore = create<AppState>((set) => ({
 
       const data = await response.json();
       if (data.validURI) {
+      console.log('data', data);
         set({ isDBConnected: true, errorMessage: '' });
       } else {
         set({ isDBConnected: false, errorMessage: 'Failed to connect to the database.' });

@@ -36,7 +36,7 @@ import { faker } from '@faker-js/faker';
 
 // import { FaceIcon, ImageIcon, SunIcon, HamburgerMenuIcon } from '@radix-ui/react-icons';
 // import { DropdownMenu } from '@radix-ui/react-dropdown-menu';
-import Header from './Header';
+import DashNav from './DashNav';
 
 import ConnectDB from './ConnectDB';
 import { useEffect } from 'react';
@@ -133,7 +133,7 @@ const MetricsView: React.FC = () => {
 
   useEffect(() => {
     if (!isAuthenticated) navigate('/');
-  }, [isAuthenticated, navigate])
+  }, [isAuthenticated])
 
       if (isLoading) {
     return <Loading />;

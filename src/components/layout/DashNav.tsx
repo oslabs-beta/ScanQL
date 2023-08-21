@@ -14,7 +14,7 @@ import { Switch } from '@radix-ui/react-switch';
 
 import useAppStore from '../../store/appStore';
 
-const Header: React.FC = () => {
+const DashNav: React.FC = () => {
 
   const { setView } = useAppStore();
 
@@ -54,4 +54,4 @@ const Header: React.FC = () => {
   )
 }
 
-export default Header;
+export default DashNav;
