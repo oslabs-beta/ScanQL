@@ -13,8 +13,8 @@ const dbConnectionController: DbConnectionController = {
   //create controller for first time connection and storage 
 
 
-
   connectAndInitializeDB: async (req, res, next) => {
+    // Connecting to database by first retrieve the uri sent from the client then initializing the Pool instance labled pool. Lastly declating db to use the query method from pool and passing array to use in query
     const uri_string = req.body.uri;
     const pool = new Pool({
       connectionString: uri_string,
