@@ -25,16 +25,22 @@ const useAppStore = create<AppState>((set) => ({
   //password: '',
   // isLoggedIn: false,
   isConnectDBOpen: false,
-  uri: 'string',
+  uri: '',
   isDBConnected: false,
   errorMessage: 'string',
 
   // initialize view state to metrics
   view: 'metrics',
+  
+  toggleConnectDB: () => {
+    const { isConnectDBOpen } = useAppStore();
+    isConnectDBOpen ? set({ isConnectDBOpen: false }) : set({ isConnectDBOpen: true })
+  },
 
   openConnectDB: () => set({ isConnectDBOpen: true }),
   closeConnectDB: () => set({ isConnectDBOpen: false }),
   setView: (view) => set({ view }), // method to set viewState
+
 
   setUri: (uri: string) => set({ uri }),
   setIsDBConnected: (isDBConnected) => set({ isDBConnected }),
@@ -48,14 +54,17 @@ const useAppStore = create<AppState>((set) => ({
         },
         body: JSON.stringify({ uri }),
       });
-
-      const data = await response.json();
-      if (data.validURI) {
-      console.log('data', data);
+      if (response.status === 200) {
         set({ isDBConnected: true, errorMessage: '' });
+        console.log('Valid URI String')
+
       } else {
         set({ isDBConnected: false, errorMessage: 'Failed to connect to the database.' });
+        console.log('Invalid URI String')
+        return;
       }
+      const data = await response.json();
+      console.log('data', data);
     } catch (error) {
       set({ isDBConnected: false, errorMessage: 'Error connecting to the database.' });
     }
