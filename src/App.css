@@ -70,17 +70,19 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
+    /* min-height: 100vh; */
     max-width: 100vw;
 }
 
 .dashboard-container {
+    margin-top: 4rem;
     display: flex;
     position: relative;
     flex-wrap: wrap;
     gap: 10px;
     padding: 30px;
-    height: 40vh; 
+    /* min-height: 30vh; */
+    height: 76vh; 
     overflow-y: auto;
     width: 95%; 
     align-items: center; 
@@ -132,10 +134,4 @@
     transition: transform ease-in-out 0.25s;
     box-shadow: 2px 2px 25px 0px rgba(108, 108, 108, 0.418);
 }
-
-/* .login-container:hover{
-    transform: scale(1.015);
-    transition: all ease-in-out .25s;
-} */
-
 

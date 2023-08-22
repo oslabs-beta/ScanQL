@@ -27,7 +27,7 @@ app.use((req: Request, res: Response) => {
 });
  
 // global error handler
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+app.use((err: Error, req: Request, res: Response) => {
   const errorObject = {
     log: 'Unknown error occured in middleware',
     status: 500,
@@ -36,7 +36,6 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     } 
   };
   const newErrorObj = { ...errorObject, ...err };
-  console.log(newErrorObj.log);
   res.status(newErrorObj.status).json(newErrorObj.message);
 });
 

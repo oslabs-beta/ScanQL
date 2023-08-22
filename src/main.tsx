@@ -13,11 +13,11 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       redirect_uri: window.location.origin
     }}
   >
-  <React.StrictMode>
-    <Theme>
-    <App />
-   </Theme>
-  </React.StrictMode>,
+    <React.StrictMode>
+      <Theme>
+        <App />
+      </Theme>
+    </React.StrictMode>
   </Auth0Provider>
 )
 

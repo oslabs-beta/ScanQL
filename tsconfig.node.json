@@ -9,7 +9,7 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true
   },
-  "include": ["server/**/*.ts",],
+  "include": ["server/**/*.ts"],
   "exclude": ["src/**/*", "node_modules"],
   "forceConsistentCasingInFileNames": true,
 

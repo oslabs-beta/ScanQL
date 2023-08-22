@@ -35,6 +35,7 @@ const dbInfoController: DbInfoController = {
       const tables: QueryResult = await db.query(
         'SELECT tablename FROM pg_catalog.pg_tables WHERE schemaname != \'pg_catalog\' AND schemaname != \'information_schema\';'
       );
+      console.log('tables', tables)
       // Check if we have at least one table to work with
       if (tables.rows.length === 0) {
         res.locals.result = 'No tables found in database.';
@@ -95,11 +96,20 @@ const dbInfoController: DbInfoController = {
         );
     
         const columnDataTypes: QueryResult = await db.query(`
-            SELECT column_name, data_type 
-            FROM information_schema.columns 
-            WHERE table_name = $1;`,
+        SELECT column_name, data_type, column_default, is_nullable 
+        FROM information_schema.columns 
+        WHERE table_name = $1
+        ORDER BY ordinal_position;`,
         [tableName]
         );
+
+        // Now, transform 'result.rows' to the desired format
+        const fieldTypes: { [key: string]: string } = {};
+
+        for (const row of columnDataTypes.rows) {
+          fieldTypes[row.column_name] = row.data_type;
+        }
+        console.log('columntypes!!!!!!!!!!', columnDataTypes);
     
         return {
           tableName,
@@ -110,15 +120,22 @@ const dbInfoController: DbInfoController = {
           foreignKeys: foreignKeys.rows,
           primaryKey: primaryKey.rows[0] ? primaryKey.rows[0].column : null,
           sampleData: sampleData.rows[0] || {}, // Sample data for the table
-          columnDataTypes: columnDataTypes.rows  // Column names and their data types
+          columnDataTypes: columnDataTypes.rows.map((obj) => {
+            return ({column_name: obj.column_name, dataype: obj.data_type});
+          })  // Column names and their data types
         };
       });
       // Usage
       //  use Promise.all() to wait for all promises to resolve
       // const databaseInfo = await Promise.all(tableInfoPromises);
       Promise.all(tableInfoPromises).then((databaseInfo) => {
-        console.log(databaseInfo);
-        res.locals.databaseInfo = databaseInfo;
+        // console.log('DBINFOARRAY', databaseInfo);
+        const databaseInfoMap: { [key: string]: TableInfo } = {};
+        databaseInfo.forEach(info => {
+          databaseInfoMap[info.tableName] = info;
+        });
+        // console.log('this is dbinfooooo!!!!!!',databaseInfoMap)
+        res.locals.databaseInfo = databaseInfoMap;
         return next();
       });    
       
