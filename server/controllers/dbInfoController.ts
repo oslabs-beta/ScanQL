@@ -13,17 +13,31 @@ interface ForeignKey {
     referencedColumn: string;
 }
 
+type ForeignKeyInfo = {[columName: string]: ForeignKey}
+
+type PrimaryKeyInfo = {
+  [columnName: string]: {datatype: string, isAutoIncrementing: boolean};
+};
 interface TableInfo {
     tableName: string;
     numberOfRows: number;
     numberOfIndexes: number;
     numberOfFields: number;
     numberOfForeignKeys: number;
-    foreignKeys: ForeignKey[];
-    primaryKey: string | null;
+    foreignKeysObj: ForeignKeyInfo|null;
+    primaryKeysObj: PrimaryKeyInfo | null;
 }
 
+interface CheckConstraint {
+  constraint_name: string;
+  column_name: string;
+  constraint_definition: string;
+}
 
+interface CheckConstraintMap {
+  [columnName: string]: string;
+}
+  
 
 const dbInfoController: DbInfoController = {
   getDataBaseInfo: async (req, res, next): Promise<void> => {
@@ -35,14 +49,16 @@ const dbInfoController: DbInfoController = {
       const tables: QueryResult = await db.query(
         'SELECT tablename FROM pg_catalog.pg_tables WHERE schemaname != \'pg_catalog\' AND schemaname != \'information_schema\';'
       );
-      console.log('tables', tables)
+      // console.log('tables', tables);
+
       // Check if we have at least one table to work with
       if (tables.rows.length === 0) {
         res.locals.result = 'No tables found in database.';
         return next();
       }
+
       //array of table names to use in generic metrics function
-      const tableNames = tables.rows.slice();
+      const tableNames = tables.rows.map(obj => obj.tablename);
 
       // passing tableNames through res locals
       res.locals.tableNames = tableNames;
@@ -78,22 +94,46 @@ const dbInfoController: DbInfoController = {
               tc.constraint_type = 'FOREIGN KEY' AND tc.table_name = $1`,
         [tableName]
         );
+        const foreignKeyObject: ForeignKeyInfo = {};
+
+        for (const row of foreignKeys.rows) {
+          foreignKeyObject[row.column] = {
+            column: row.column,
+            referencedTable: row.referencedtable,
+            referencedColumn: row.referencedcolumn
+          };
+        }
     
-        const primaryKey: QueryResult = await db.query(`
-            SELECT 
-              kcu.column_name AS column 
-            FROM 
-              information_schema.table_constraints AS tc 
-              JOIN information_schema.key_column_usage AS kcu ON tc.constraint_name = kcu.constraint_name 
-            WHERE 
-              tc.constraint_type = 'PRIMARY KEY' AND tc.table_name = $1
-            LIMIT 1;`,
+        const primaryKeys: QueryResult = await db.query(`
+          SELECT 
+            kcu.column_name AS column,
+            cols.data_type AS data_type,
+            CASE 
+              WHEN cols.column_default LIKE 'nextval%' THEN TRUE
+              ELSE FALSE
+            END AS is_auto_incrementing
+          FROM 
+          information_schema.table_constraints AS tc 
+          JOIN information_schema.key_column_usage AS kcu ON tc.constraint_name = kcu.constraint_name 
+          JOIN information_schema.columns AS cols ON tc.table_name = cols.table_name AND kcu.column_name = cols.column_name
+        WHERE 
+          tc.constraint_type = 'PRIMARY KEY' AND tc.table_name = $1;`,
         [tableName]
         );
+
+        const primaryKeyObject: PrimaryKeyInfo = {};
+        // creating an object of the column name as the key and { datatype, isAutoIncrementing } as the value
+        for (const row of primaryKeys.rows) {
+          primaryKeyObject[row.column] = {
+            datatype: row.data_type,
+            isAutoIncrementing: row.is_auto_incrementing
+          };
+        }
     
         const sampleData: QueryResult = await db.query(
-          `SELECT * FROM ${tableName} LIMIT 1;`
+          `SELECT * FROM ${tableName} LIMIT 10;`
         );
+        // console.log('sample data!!!!!', sampleData.rows[0])
     
         const columnDataTypes: QueryResult = await db.query(`
         SELECT column_name, data_type, column_default, is_nullable 
@@ -104,24 +144,47 @@ const dbInfoController: DbInfoController = {
         );
 
         // Now, transform 'result.rows' to the desired format
-        const fieldTypes: { [key: string]: string } = {};
+        // const fieldTypes: { [key: string]: string } = {};
 
-        for (const row of columnDataTypes.rows) {
-          fieldTypes[row.column_name] = row.data_type;
-        }
-        console.log('columntypes!!!!!!!!!!', columnDataTypes);
+        // for (const row of columnDataTypes.rows) {
+        //   fieldTypes[row.column_name] = row.data_type;
+        // }
+        // console.log('columntypes!!!!!!!!!!', columnDataTypes);
     
+        const checkContraints = await db.query(`
+        SELECT 
+            conname AS constraint_name, 
+            a.attname AS column_name, 
+            con.conkey AS constraint_definition
+        FROM 
+            pg_constraint con
+        INNER JOIN 
+            pg_class rel ON rel.oid = con.conrelid
+        INNER JOIN 
+            pg_attribute a ON a.attnum = ANY(con.conkey)
+        WHERE 
+            con.contype = 'c' AND rel.relname = $1;`,
+        [tableName]
+        );
+          console.log('this is the check constraint result', checkContraints)
+        const checkContraintObj: CheckConstraintMap = {};
+        checkContraints.rows.forEach((checkEl : CheckConstraint) => {
+          console.log(checkEl, 'this is the for each eleement')
+          checkContraintObj[checkEl.column_name] = checkEl.constraint_definition;
+        });
+
         return {
           tableName,
           numberOfRows: parseInt(numberOfRows.rows[0].count, 10),
           numberOfIndexes: parseInt(numberOfIndexes.rows[0].count, 10),
           numberOfFields: parseInt(numberOfFields.rows[0].count, 10),
           numberOfForeignKeys: foreignKeys.rowCount,
-          foreignKeys: foreignKeys.rows,
-          primaryKey: primaryKey.rows[0] ? primaryKey.rows[0].column : null,
-          sampleData: sampleData.rows[0] || {}, // Sample data for the table
+          checkConstraints: checkContraintObj,
+          foreignKeysObj: foreignKeyObject || {},
+          primaryKeysObj: primaryKeyObject || {},
+          sampleData: sampleData.rows[sampleData.rows.length-1] || {}, // Sample data for the table
           columnDataTypes: columnDataTypes.rows.map((obj) => {
-            return ({column_name: obj.column_name, dataype: obj.data_type});
+            return ({column_name: obj.column_name, datatype: obj.data_type});
           })  // Column names and their data types
         };
       });
@@ -129,12 +192,12 @@ const dbInfoController: DbInfoController = {
       //  use Promise.all() to wait for all promises to resolve
       // const databaseInfo = await Promise.all(tableInfoPromises);
       Promise.all(tableInfoPromises).then((databaseInfo) => {
-        console.log('DBINFOARRAY', databaseInfo);
+        // console.log('DBINFOARRAY', databaseInfo);
         const databaseInfoMap: { [key: string]: TableInfo } = {};
         databaseInfo.forEach(info => {
           databaseInfoMap[info.tableName] = info;
         });
-        console.log('this is dbinfooooo!!!!!!',databaseInfoMap)
+        console.log('this is dbinfooooo!!!!!!',databaseInfoMap);
         res.locals.databaseInfo = databaseInfoMap;
         return next();
       });    

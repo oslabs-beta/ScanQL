@@ -2,27 +2,106 @@ import { RequestHandler, query } from 'express';
 // import { explainQuery } from '../helpers/explainQuery';
 import pkg from 'pg';
 const { Pool } = pkg;
+import { faker } from '@faker-js/faker';
 
 
+function generateFakeData(dataType: string): any {
+  switch (dataType) {
+  case 'string':
+    return faker.lorem.word() ;
+  case 'number':
+    return faker.number.bigInt();
+  case 'date':
+    return faker.date.past();
+  case 'boolean':
+    return faker.datatype.boolean();
+  default:
+    return faker.lorem.word() ;
+  }
+}
+interface ForeignKey {
+  column: string;
+  referencedcolumn: string;
+  referencedtable: string;
+}
+// interface ForeignKey {
+//   column: string;
+//   referencedTable: string;
+//   referencedColumn: string;
+// }
+
+interface TableInfo {
+  tableName: string;
+  numberOfRows: number;
+  numberOfIndexes: number;
+  numberOfFields: number;
+  numberOfForeignKeys: number;
+  foreignKeys: ForeignKey[];
+  primaryKey: string | null;
+}
+
+interface DBinfo {
+  [tablename: string]: TableInfo;
+}
 type GeneralMetricsController = {
   analyzeCostumQuery: RequestHandler;
   performGenericQueries: RequestHandler;
 };
-
-function modifyValue(value: any): any {
-  if (typeof value === 'string') {
-    return 'string' + '_' + Math.random().toString(36).slice(0, 18);  // Appending a random 5-character string
-  } else if (typeof value === 'number') {
-    return value + Math.floor(Math.random() * 100000000);  // Adding a random number between 0 and 9
-  } else if (value instanceof Date) {
-    return new Date(value.getTime() + (Math.random() * 1000000));  // Adding a random number of milliseconds
-  } else if (typeof value === 'boolean') {
-    return !value;  // Toggle boolean
-  } else if (Array.isArray(value)) {
-    return [...value, Math.random()];  // Adding a random number to the array
+//for insert test
+async function fetchValidForeignKeyValue(db: any, fk: ForeignKey): Promise<any> {
+  const validFKValues = await db.query(`SELECT ${fk.referencedcolumn} FROM ${fk.referencedtable} LIMIT 100`);
+  if (validFKValues.rowCount === 0) {
+    throw new Error(`No valid foreign key values found for table: ${fk.referencedtable}`);
   }
-  return value;  // If datatype is not identified, return the original value
+  
+  const randomIndex = faker.number.int({ min: 0, max: validFKValues.rowCount - 1 });
+  return validFKValues.rows[randomIndex][fk.referencedcolumn];
 }
+
+function generateValueForColumn(columnName: string, tableInfo: any, fkTable: ForeignKey[]): any {
+  if (foreignKeyColumns.includes(columnName)) {
+    const fk = fkTable.find(fk => fk.column === columnName);
+    return fetchValidForeignKeyValue(db, fk);
+  }
+
+  const columnInfo = tableInfo.columnDataTypes.find((column: ColumnDataType) => column.column_name === columnName);
+  return generateFakeData(columnInfo.data_type);
+}
+//
+const identifyCascadeDeletes = async (dbInfo: DBinfo, tableName: string, key: any, visitedTables = new Set<string>()): Promise<string[]> => {
+  if (visitedTables.has(tableName)) return [];
+
+  visitedTables.add(tableName);
+  let cascadeDeletes = [tableName];
+
+  for (const potentialDependentTableName in dbInfo) {
+    const potentialDependentTableInfo = dbInfo[potentialDependentTableName];
+
+    for (const fk of potentialDependentTableInfo.foreignKeys) {
+      if (fk.referencedtable === tableName) {
+        const childDeletes = await identifyCascadeDeletes(dbInfo, potentialDependentTableName, key, visitedTables);
+        cascadeDeletes = cascadeDeletes.concat(childDeletes);
+      }
+    }
+  }
+
+  return cascadeDeletes;
+};
+ 
+// function modifyValue(value: any): any {
+//   if (typeof value === 'string') {
+//     return 'string' + '_' + Math.random().toString(36).slice(0, 18);  // Appending a random 5-character string
+//   } else if (typeof value === 'number') {
+//     return value + Math.floor(Math.random() * 100000000);  // Adding a random number between 0 and 9
+//   } else if (value instanceof Date) {
+//     return new Date(value.getTime() + (Math.random() * 1000000));  // Adding a random number of milliseconds
+//   } else if (typeof value === 'boolean') {
+//     return !value;  // Toggle boolean
+//   } else if (Array.isArray(value)) {
+//     return [...value, Math.random()];  // Adding a random number to the array
+//   }
+//   return value;  // If datatype is not identified, return the original value
+// }
 const generalMetricsController: GeneralMetricsController = {
   analyzeCostumQuery: async (req, res, next) => {
     // Extract query string from request
@@ -63,7 +142,7 @@ const generalMetricsController: GeneralMetricsController = {
     const db = res.locals.dbConnection;
     const dbInfo = res.locals.databaseInfo;
     console.log('Expected dbInfo to be an array, but got:', dbInfo);
-    const executionPlans: any[] = [];
+    const executionPlans = [];
     await db.query('BEGIN'); // Start the transaction
     try {
       for (const tableName in dbInfo) {
@@ -81,25 +160,24 @@ const generalMetricsController: GeneralMetricsController = {
         
         const tableInfo = dbInfo[tableName];
         const { primaryKey } = tableInfo;
+        const valuesOriginal = { ...tableInfo.sampleData };
         const values = { ...tableInfo.sampleData };  // Create a shallow copy of the sampleData
         const fkTable = tableInfo.foreignKeys.slice();
+        console.log(fkTable,'fk table ');
         const foreignKeyColumns = fkTable.map((fk: ForeignKey) => fk.column);
     
-        delete values[primaryKey];   // remove the primary key from the values
+        // delete values[primaryKey];   // remove the primary key from the values
     
-        // Handle Foreign Keys:
-        for (const fk of tableInfo.foreignKeys) {
-          console.log(fk);
-          const existingValue = await db.query(`SELECT 1 FROM ${fk.referencedtable} WHERE ${fk.referencedcolumn} = $1`, [values[fk.column]]);
-          if (existingValue.rowCount === 0) {
-            throw new Error(`ForeignKey violation: Value ${values[fk.column]} for column ${fk.column} not found in referenced table ${fk.referencedTable}.`);
-          }
+        interface ForeignKey {
+          column: string;
+          referencedcolumn: string;
+          referencedtable: string;
         }
-    
-        // Modify values
+        // Use the new functions in the loop
         for (const key in values) {
-          if (!foreignKeyColumns.includes(key)) values[key] = modifyValue(values[key]);
+          values[key] = await generateValueForColumn(key, tableInfo, fkTable as ForeignKey[]);
         }
+
     
         const placeholders = Object.keys(values)
           .map((key, index) => `$${index + 1}`)
@@ -139,18 +217,43 @@ const generalMetricsController: GeneralMetricsController = {
         //   query = `DELETE FROM ${fk.referencedTable} WHERE ${fk.referencedColumn} = $1`;
         //   await db.query(query, [values[fk.column]]);
         // }
-        query = `DELETE FROM ${tableInfo.tableName} WHERE ${tableInfo.primaryKey} = $1`;
-        plan = await db.query(`EXPLAIN (ANALYZE true, SUMMARY true, FORMAT JSON) ${query}`, [values[tableInfo.primaryKey]]);
-        executionPlans.push({ query, plan });
-  
-        // JOIN test
-        if (tableInfo.numberOfForeignKeys > 0) {
-          for (const fk of tableInfo.foreignKeys) {
-            query = `DELETE FROM ${fk.referencedtable} WHERE ${fk.referencedcolumn} = $1`;
-            plan = await db.query(`EXPLAIN (ANALYZE true, SUMMARY true, FORMAT JSON) ${query}`, [values[fk.column]]);
-            executionPlans.push({ query, plan });
-          }
-        }
+        // Check if there are foreign key constraints on the table.
+        // if (tableInfo.foreignKeys && tableInfo.foreignKeys.length > 0) {
+        //   console.log(`Table ${tableInfo.tableName} has ${tableInfo.foreignKeys.length} foreign key constraints.`);
+        //   // You can also push a custom message to the executionPlans to inform the user.
+        //   executionPlans.push({ query: `DELETE FROM ${tableInfo.tableName}`, plan: `Skipped due to ${tableInfo.foreignKeys.length} foreign key constraints.` });
+        // } else {
+        //   console.log(`Table ${tableInfo.tableName} has ${tableInfo.foreignKeys.length} foreign key constraints.`);
+        //   query = `DELETE FROM ${tableInfo.tableName} WHERE ${tableInfo.primaryKey} = $1`;
+        //   plan = await db.query(`EXPLAIN (ANALYZE true, SUMMARY true, FORMAT JSON) ${query}`, [valuesOriginal[tableInfo.primaryKey]]);
+        //   executionPlans.push({ query, plan });
+        // }
+        // This function will recursively identify all tables that could be affected 
+        // by a DELETE operation starting from a given table.
+
+        const tablesToCascadeDelete = await identifyCascadeDeletes(dbInfo, tableInfo.tableName, valuesOriginal[tableInfo.primaryKey]);
+
+        // Inform the user about potential cascading deletes:
+        executionPlans.push({ 
+          query: `DELETE FROM ${tableInfo.tableName} WHERE ${tableInfo.primaryKey} = ${valuesOriginal[tableInfo.primaryKey]}`, 
+          plan: `This will also affect tables: ${tablesToCascadeDelete.join(', ')} due to foreign key constraints.` 
+        });
+
+
+        // // Step 2: Now delete the desired row from the current table.
+        // query = `DELETE FROM ${tableInfo.tableName} WHERE ${tableInfo.primaryKey} = $1`;
+        // plan = await db.query(`EXPLAIN (ANALYZE true, SUMMARY true, FORMAT JSON) ${query}`, [valuesOriginal[tableInfo.primaryKey]]);
+        // executionPlans.push({ query, plan });
+
+
+        // // JOIN test
+        // if (tableInfo.numberOfForeignKeys > 0) {
+        //   for (const fk of tableInfo.foreignKeys) {
+        //     query = `DELETE FROM ${fk.referencedtable} WHERE ${fk.referencedcolumn} = $1`;
+        //     plan = await db.query(`EXPLAIN (ANALYZE true, SUMMARY true, FORMAT JSON) ${query}`, [valuesOriginal[fk.column]]);
+        //     executionPlans.push({ query, plan });
+        //   }
+        // }
       }
       await db.query('ROLLBACK'); // Roll back the transaction, undoing all changes
       res.locals.executionPlans = executionPlans;

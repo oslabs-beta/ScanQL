@@ -12,7 +12,6 @@
   },
   "dependencies": {
     "@auth0/auth0-react": "^2.2.0",
-    "@faker-js/faker": "^8.0.2",
     "@radix-ui/react-dialog": "^1.0.4",
     "@radix-ui/react-dropdown-menu": "^2.0.5",
     "@radix-ui/react-form": "^0.0.3",
@@ -33,6 +32,7 @@
     "zustand": "^4.4.1"
   },
   "devDependencies": {
+    "@faker-js/faker": "^8.0.2",
     "@types/node": "^20.5.0",
     "@types/pg": "^8.10.2",
     "@types/react": "^18.2.15",
