@@ -1,4 +1,3 @@
-import { Node } from "reactflow"
 export default function createNodes(ERDdata: any) {
     const initialNodes: any = []
 
