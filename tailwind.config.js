@@ -25,6 +25,14 @@ module.exports = {
         ...mauve,
         ...violet,
       },
+      // light: {
+      //   primary: bg-blackA11,
+      //   secondary: bg-mauve1,
+      // },
+      // dark: {
+      //   primary: bg-violet1,
+      //   secondary: bg-violet11,
+      // },
       keyframes: {
         slideDownAndFade: {
           from: { opacity: 0, transform: 'translateY(-2px)' },

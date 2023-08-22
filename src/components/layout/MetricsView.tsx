@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 
 
 
-
 // const MetricsView: React.FC = () => {
 
 //   return (
@@ -131,15 +130,23 @@ const MetricsView: React.FC = () => {
 
   const navigate = useNavigate();
   const { user, isAuthenticated, isLoading } = useAuth0();
-  const { isConnectDBOpen, closeConnectDB, openConnectDB } = useAppStore();
+  const { isConnectDBOpen, closeConnectDB, openConnectDB, metricsData } = useAppStore();
 
   useEffect(() => {
     if (!isAuthenticated) navigate('/');
   }, [isAuthenticated])
 
+  useEffect(() => {
+    if (!metricsData) return;
+    const tablesArray = Object.values(metricsData.databaseInfo)
+    console.log(tablesArray);
+  }, [metricsData])
+
       if (isLoading) {
     return <Loading />;
   }
+
+  
     return (
 
       <div>
