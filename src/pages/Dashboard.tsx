@@ -18,17 +18,18 @@ const Dashboard: React.FC = () => {
 
   const navigate = useNavigate();
   const { user, isAuthenticated, isLoading } = useAuth0();
-  const { isConnectDBOpen, closeConnectDB, openConnectDB, view, setView } = useAppStore();
+  const { view, connectToDatabase, uri, dbName } = useAppStore();
 
 
 
 
   useEffect(() => {
     if (!isAuthenticated) navigate('/');
+    else {
+        connectToDatabase(uri, dbName);
+    }
   }, [])
-  // if (!isAuthenticated) navigate('/');
-  // if (isAuthenticated) {
-
+ 
     if (isLoading) {
       return <Loading />;
     }
@@ -40,7 +41,6 @@ const Dashboard: React.FC = () => {
       <ConnectDB />
       {view === 'metrics' && <MetricsView />}
       {view === 'erd' && <div>ERD</div>}
-
     </div>
   )
 }

@@ -4,19 +4,14 @@ import * as Dialog from '@radix-ui/react-dialog';
 import useAppStore from '../../store/appStore';
 import { Cross2Icon } from '@radix-ui/react-icons';
 
-const ConnectDB = () => {
+const ConnectDB: React.FC = () => {
 
-  const { uri, setUri, connectToDatabase, closeConnectDB, isConnectDBOpen } = useAppStore();
+  const { uri, setUri, connectToDatabase, closeConnectDB, isConnectDBOpen, dbName, setDBName } = useAppStore();
 
-
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const input = event.target.value;
-    setUri(input);
-  }
-
-  const handleClick = () => {
-    connectToDatabase(uri);
+  const handleClick = (): void => {
+    connectToDatabase(uri, dbName);
     setUri('');
+    setDBName('')
   }
 
   return (
@@ -35,9 +30,11 @@ const ConnectDB = () => {
               Database Name
             </label>
             <input
+              type='text'
               className="text-violet11 shadow-violet7 focus:shadow-violet8 inline-flex h-[35px] w-full flex-1 items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none shadow-[0_0_0_1px] outline-none focus:shadow-[0_0_0_2px]"
               id="database-name"
-              defaultValue="Database 1"
+              value={dbName}
+              onChange={(e) => setDBName(e.target.value)}
             />
           </fieldset>
           <fieldset className="mb-[15px] flex items-center gap-5">
@@ -45,18 +42,17 @@ const ConnectDB = () => {
               Postgres URI String
             </label>
             <input
+              type='text'
               className="text-violet11 shadow-violet7 focus:shadow-violet8 inline-flex h-[35px] w-full flex-1 items-center justify-center rounded-[4px] px-[10px] text-[15px] leading-none shadow-[0_0_0_1px] outline-none focus:shadow-[0_0_0_2px]"
               id="uri-string"
               value={uri}
-              onChange={handleChange}
-              defaultValue="postgres://hi/example"
+              onChange={(e) => setUri(e.target.value)}
             />
           </fieldset>
           <div className="mt-[25px] flex justify-end">
               <button onClick={() => {
                 handleClick();
                 closeConnectDB();
-                setUri('');
                 }} className="bg-green4 text-green11 hover:bg-green5 focus:shadow-green7 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none focus:shadow-[0_0_0_2px] focus:outline-none"  >
                 Submit
               </button>
@@ -65,6 +61,7 @@ const ConnectDB = () => {
                 onClick={() => {
                   closeConnectDB();
                   setUri('');
+                  setDBName('');
                 }}
                 className="text-violet11 hover:bg-violet4 focus:shadow-violet7 absolute top-[10px] right-[10px] inline-flex h-[25px] w-[25px] appearance-none items-center justify-center rounded-full focus:shadow-[0_0_0_2px] focus:outline-none"
                 aria-label="Close"

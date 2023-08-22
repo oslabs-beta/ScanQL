@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import DropdownMenuDemo from '../ui/DropdownMenu';
 
-import { HomeIcon, MoonIcon } from '@radix-ui/react-icons';
+import { HomeIcon, MoonIcon, SunIcon } from '@radix-ui/react-icons';
 // import { IconButton } from '@radix-ui/react-button';
 
 import { Button, IconButton } from '@radix-ui/themes';
@@ -16,7 +16,7 @@ import useAppStore from '../../store/appStore';
 
 const DashNav: React.FC = () => {
 
-  const { setView } = useAppStore();
+  const { setView, theme, toggleTheme } = useAppStore();
 
   return (
 
@@ -29,9 +29,9 @@ const DashNav: React.FC = () => {
             </Link>
           </IconButton>
         </div>
-        <div className="flex flex-col items-center md:flex-row md:space-x-4">
-          <h1 className="text-gray-300 text-base">ScanQL</h1>
-        </div>
+          {/* <div className="flex flex-col items-center md:flex-row md:space-x-4">
+            <h1 className="text-gray-300 text-base">ScanQL</h1>
+          </div> */}
         <div>
           <Button onClick={() => setView('metrics')}>
             Metrics View
@@ -47,7 +47,9 @@ const DashNav: React.FC = () => {
       </div>
       <div className="flex items-center">
         {/* <Switch size="1" radius="full" defaultChecked /> */}
-        <MoonIcon width={22} height={22} />
+        <Switch checked={theme === 'dark'} onChange={toggleTheme} >
+        {theme === 'light' ? <MoonIcon width={22} height={22} /> : <SunIcon width={22} height={22} />}
+        </Switch>
         <DropdownMenuDemo />
       </div>
     </div>
