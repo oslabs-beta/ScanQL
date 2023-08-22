@@ -1,7 +1,11 @@
 import { create } from 'zustand';
 
-type TableInfo = {
+export type TableInfo = {
+  tableName: string;
   numberOfRows: number;
+  numberOfIndexes: number;
+  numberOfField: number;
+  numberOfForeignKeys: number;
 };
 
 type DatabaseInfo = {
@@ -90,8 +94,6 @@ const useAppStore = create<AppState>((set) => ({
       const data = await response.json();
       console.log('data', data);
       set({ metricsData: data })
-      // here we have data, need to figure out what to do with it now.
-      // need to set the data in state
     } catch (error) {
       set({ isDBConnected: false, errorMessage: 'Error connecting to the database.' });
     }
