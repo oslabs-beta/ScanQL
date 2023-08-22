@@ -3,6 +3,7 @@ import useAppStore from '../../store/appStore';
 import { useAuth0 } from '@auth0/auth0-react';
 import Loading from '../ui/Loading';
 import { useNavigate } from 'react-router-dom';
+import { PieChart } from '../charts/PieChart'
 
 
 
@@ -40,7 +41,7 @@ import DashNav from './DashNav';
 
 import ConnectDB from './ConnectDB';
 import { useEffect } from 'react';
-import { PieChart } from '../charts/PieChart';
+// import { PieChart } from '../charts/PieChart';
 
 ChartJS.register(
   CategoryScale,
@@ -136,17 +137,31 @@ const MetricsView: React.FC = () => {
     if (!isAuthenticated) navigate('/');
   }, [isAuthenticated])
 
+  let tablesArray : any[] = [];
   useEffect(() => {
     if (!metricsData) return;
-    const tablesArray = Object.values(metricsData.databaseInfo)
+    tablesArray = Object.values(metricsData.databaseInfo)
     console.log(tablesArray);
+    // loop through tablesArray
+    // build a component in each iteration that has as props to pieChart: tableName,
   }, [metricsData])
 
       if (isLoading) {
     return <Loading />;
   }
 
-  
+    const rowsData = tablesArray.map(table => {
+      return {
+        tableName: table.tableName,
+        numberOfRows: table.numberOfRows,
+      }
+    })
+    
+    const pieChartComponents = [];
+    for (let i = 0; i < 1; i++) {
+      pieChartComponents.push(<PieChart tableInfo={rowsData} />)
+    }
+
     return (
 
       <div>
@@ -161,7 +176,7 @@ const MetricsView: React.FC = () => {
             <div className="dashboard-card">
               <Bar options={options2} data={data2} />
             </div>
-              <PieChart/>
+              {pieChartComponents}
             <div className="dashboard-card">
               <Line options={options} data={data} />
             </div>

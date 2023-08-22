@@ -1,7 +1,11 @@
 import { create } from 'zustand';
 
 type TableInfo = {
+  tableName: string;
   numberOfRows: number;
+  numberOfIndexes: number;
+  numberOfField: number;
+  numberOfForeignKeys: number;
 };
 
 type DatabaseInfo = {

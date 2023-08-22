@@ -1,4 +1,14 @@
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+
+
+// table name
+
+// in each table, total number of row
+
+// in each table, total number of column
+
+c
+    // table name
+    RowsVotesent, Tooltip, Legend } from "chart.js";
 import { Pie } from "react-chartjs-2";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -30,10 +40,10 @@ export const data = {
     ],
 };
 
-export function PieChart() {
+export function PieChart( { tableInfo }) {
     return (
         <div className="dashboard-card">
-            <Pie data={data} />
+            <Pie data={tableInfo} />
         </div>
     );
 }
