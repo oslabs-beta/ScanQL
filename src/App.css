@@ -1,3 +1,69 @@
+/* 
+:root {
+    background: #0d0d0d;
+} */
+
+
+
+/* .main-container{
+    position: relative;
+    background: radial-gradient(
+        farthest-side at bottom left,
+        rgba(54, 6, 71, 0.425),
+        transparent
+    ),
+    radial-gradient(
+        farthest-corner at bottom right,
+        rgba(25, 14, 95, 0.395),
+        transparent 
+    );
+    animation: gradient 15s ease infinite;
+}
+
+
+.main-container:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: radial-gradient(
+            farthest-side at bottom left,
+            rgba(54, 6, 71, 0.425),
+            transparent
+        );
+    opacity: 0;
+    animation: fadeInOut 10s ease infinite;
+} 
+
+.main-container:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: radial-gradient(
+            farthest-corner at bottom right,
+            rgba(25, 14, 95, 0.395),
+            transparent 
+        );
+    opacity: 0;
+    animation: fadeInOut 10s ease infinite 7.5s;
+}  */
+
+@keyframes fadeInOut {
+    0%, 100% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
 
 .dashboard-page {
     display: flex;
@@ -11,19 +77,18 @@
 .dashboard-container {
     margin-top: 4rem;
     display: flex;
+    position: relative;
     flex-wrap: wrap;
     gap: 10px;
     padding: 30px;
     /* min-height: 30vh; */
     height: 76vh; 
     overflow-y: auto;
-    /* min-width: 70vw;
-    max-width: 97%; */
     width: 95%; 
     align-items: center; 
-    /* justify-content: ; */
+    justify-content: center;
     border: 2px solid rgb(255, 255, 255, 0.05);
-    background-color: rgba(212, 212, 212, 0.033);
+    background-color: rgba(106, 98, 108, 0.162);
     border-radius: 20px;
 }
 
@@ -63,8 +128,10 @@
 
 .login-container{
     padding: 30px;
-    border: 2px solid rgb(255, 255, 255, 0.05);
-    background-color: rgba(235, 233, 233, 0.255);
+    border: 2px solid rgba(255, 255, 255, 0.049);
+    background-color: rgba(235, 233, 233, 0.215);
     border-radius: 20px;
+    transition: transform ease-in-out 0.25s;
+    box-shadow: 2px 2px 25px 0px rgba(108, 108, 108, 0.418);
 }
 

@@ -41,6 +41,7 @@ import DashNav from './DashNav';
 
 import ConnectDB from './ConnectDB';
 import { useEffect } from 'react';
+import { PieChart } from '../charts/PieChart';
 
 ChartJS.register(
   CategoryScale,
@@ -153,9 +154,7 @@ const MetricsView: React.FC = () => {
             <div className="dashboard-card">
               <Bar options={options2} data={data2} />
             </div>
-            <div className="dashboard-card">
-              <Line options={options} data={data} />
-            </div>
+              <PieChart/>
             <div className="dashboard-card">
               <Line options={options} data={data} />
             </div>
