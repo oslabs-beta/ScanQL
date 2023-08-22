@@ -14,9 +14,9 @@ const Home: React.FC = () => {
   const { isAuthenticated } = useAuth0();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (isAuthenticated) navigate('/dashboard');
-  }, [isAuthenticated, navigate])
+  // useEffect(() => {
+  //   if (isAuthenticated) navigate('/dashboard');
+  // }, [])
 
   return (
     <div>
