@@ -3,8 +3,33 @@ import useAppStore from '../../store/appStore';
 import { useAuth0 } from '@auth0/auth0-react';
 import Loading from '../ui/Loading';
 import { useNavigate } from 'react-router-dom';
+import { PieChart } from '../charts/PieChart'
+import { DoughnutChart } from '../charts/DoughnutChart'
+import { RowsInfo, RowsInfoArray, indexInfo, indexTableArray } from '../../types'
+import { TableInfo } from '../../store/appStore'
+
+// let tablesArray: object[] = [];
+// useEffect(() => {
+//   if (!metricsData || !metricsData.databaseInfo) return;
+//   tablesArray = Object.values(metricsData.databaseInfo);
+//   console.log(tablesArray);
+//   // loop through tablesArray
+//   // build a component in each iteration that has as props to pieChart: tableName,
+// }, [metricsData]);
 
 
+// // Map over tablesArray directly to construct rowsData
+// const rowsData: RowsInfoArray = tablesArray.map(table => {
+//   return {
+//       tableName: table.tableName,
+//       numberOfRows: table.numberOfRows,
+//   }
+// });
+
+// // Render the PieChart components based on rowsData
+// const pieChartComponents = rowsData.map((rowData, index) => (
+//   <PieChart key={index} tableInfo={rowData} />
+// ));
 
 
 // const MetricsView: React.FC = () => {
@@ -36,10 +61,11 @@ import { faker } from '@faker-js/faker';
 
 // import { FaceIcon, ImageIcon, SunIcon, HamburgerMenuIcon } from '@radix-ui/react-icons';
 // import { DropdownMenu } from '@radix-ui/react-dropdown-menu';
-import Header from './Header';
+import DashNav from './DashNav';
 
 import ConnectDB from './ConnectDB';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+// import { PieChart } from '../charts/PieChart';
 
 ChartJS.register(
   CategoryScale,
@@ -129,31 +155,89 @@ const MetricsView: React.FC = () => {
 
   const navigate = useNavigate();
   const { user, isAuthenticated, isLoading } = useAuth0();
-  const { isConnectDBOpen, closeConnectDB, openConnectDB } = useAppStore();
+  const { metricsData } = useAppStore();
+  const [ rowsData, setRowsData ] = useState<RowsInfoArray>([]);
+  const [ indexData, setIndexData ] = useState<indexTableArray>([]);
 
   useEffect(() => {
     if (!isAuthenticated) navigate('/');
-  }, [isAuthenticated, navigate])
+  }, [isAuthenticated])
 
-      if (isLoading) {
+//   useEffect(() => {
+//     if (!metricsData) return;
+//     const currentTablesArray = Object.values(metricsData.databaseInfo);
+
+//     // row chart Data
+//     const rows = currentTablesArray.map(table => {
+//         return {
+//             tableName: table.tableName,
+//             numberOfRows: table.numberOfRows,
+//         }
+//     });
+//     setRowsData(rows);
+
+//     // index chart Data
+//     const indexes = currentTablesArray.map(table => {
+//         return {
+//             tableName: table.tableName,
+//             numberOfIndexes: table.numberOfIndexes,
+//         }
+//     });
+//     setIndexData(indexes);
+// }, [metricsData]);
+
+  
+  useEffect(() => {
+    if (!metricsData) return;
+    const tablesArray: TableInfo[] =  Object.values(metricsData.databaseInfo);
+    if (tablesArray.length) {
+
+      // row chart Data
+      const rows = tablesArray.map(table => {
+        return {
+          tableName: table.tableName,
+          numberOfRows: table.numberOfRows,
+         }
+       })
+       setRowsData(rows);
+
+       // index chart Data
+       const indexes = tablesArray.map(table => {
+        return {
+          tableName: table.tableName,
+          numberOfIndexes: table.numberOfIndexes,
+         }
+       })
+       setIndexData(indexes);
+     }
+  }, [metricsData])
+
+  if (isLoading) {
     return <Loading />;
+  }
+  const pieChartComponents: JSX.Element[] = [];
+  for (let i = 0; i < 1; i++) {
+    pieChartComponents.push(<PieChart key={i} rowsInfoData={rowsData} />)
+  }
+  const doughnutChartComponent: JSX.Element[] = [];
+  for (let i = 0; i < 1; i++) {
+    doughnutChartComponent.push(<DoughnutChart key={i} indexData={indexData} />)
   }
     return (
 
       <div>
         {/* <div>{JSON.stringify(user)}</div> */}
         {/* <Header /> */}
-        {isConnectDBOpen && <ConnectDB closeModal={closeConnectDB} />}
+        {/* {isConnectDBOpen && <ConnectDB />} */}
         <div className="dashboard-page">
           <div className="dashboard-container">
+              {pieChartComponents}
+              {doughnutChartComponent}
             <div className="dashboard-card">
               <Line options={options} data={data} />
             </div>
             <div className="dashboard-card">
               <Bar options={options2} data={data2} />
-            </div>
-            <div className="dashboard-card">
-              <Line options={options} data={data} />
             </div>
             <div className="dashboard-card">
               <Line options={options} data={data} />
@@ -178,6 +262,8 @@ const MetricsView: React.FC = () => {
       </div>
     )
   } 
-
+  
 
 export default MetricsView
+
+

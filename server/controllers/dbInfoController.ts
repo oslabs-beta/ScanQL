@@ -197,7 +197,7 @@ const dbInfoController: DbInfoController = {
         databaseInfo.forEach(info => {
           databaseInfoMap[info.tableName] = info;
         });
-        console.log('this is dbinfooooo!!!!!!',databaseInfoMap);
+        // console.log('this is dbinfooooo!!!!!!',databaseInfoMap)
         res.locals.databaseInfo = databaseInfoMap;
         return next();
       });    

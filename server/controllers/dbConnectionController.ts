@@ -43,9 +43,9 @@ const dbConnectionController: DbConnectionController = {
     } catch (error) {
       return next({
         log: `ERROR caught in connectController.connectAndInitializeDB: ${error}`,
-        status: 400,
-        message:
-          'ERROR: error has occured in connectController.connectAndInitializeDB',
+        message: {
+          Error: `Error: ${error}`,
+        }
       });
     }
   },

@@ -36,7 +36,6 @@ app.use((err: Error, req: Request, res: Response) => {
     } 
   };
   const newErrorObj = { ...errorObject, ...err };
-  console.log(newErrorObj.log);
   res.status(newErrorObj.status).json(newErrorObj.message);
 });
 

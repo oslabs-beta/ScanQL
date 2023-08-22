@@ -4,7 +4,7 @@ import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import Login from "./components/ui/LoginButton";
 // import Signup from "./pages/Signup";
-import "./styles/index.css";
+import "./index.css";
 import "./App.css";
 import { useAuth0 } from '@auth0/auth0-react'
 
