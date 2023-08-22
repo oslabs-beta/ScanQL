@@ -1,4 +1,4 @@
-import ReactFlow, {Background, Controls} from 'reactflow';
+import ReactFlow, {Background, Controls, MiniMap} from 'reactflow';
 import React, {useEffect} from 'react';
 import 'reactflow/dist/style.css';
 import createNodes from './createNodes';
@@ -15,15 +15,16 @@ export default function Flow(): JSX.Element {
   const {edges, setEdges, nodes, setNodes, onNodesChange, onEdgesChange} =
     useFlowStore((state) => state);
   const {metricsData} = useAppStore();
+  
   const masterData = metricsData.erDiagram;
-
+  console.log(metricsData)
   useEffect(() => {
     setNodes(createNodes(masterData));
     setEdges(createEdges(masterData));
   }, [masterData, setNodes, setEdges]);
 
   return (
-    <div style={{height: '100%'}}>
+    <div style={{height: '80vh', width:'80vh'}}>
       <ReactFlow
         nodes={nodes}
         onNodesChange={onNodesChange}
@@ -32,6 +33,7 @@ export default function Flow(): JSX.Element {
         nodeTypes={nodeTypes}
         fitView>
         <Background />
+        <MiniMap/>
         <Controls />
       </ReactFlow>
     </div>

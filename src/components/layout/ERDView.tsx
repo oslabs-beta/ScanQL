@@ -3,8 +3,10 @@ import React from "react";
 
 const ERDView: React.FC = () => {
     return (
-        <div>
+        <div className="FlowContainer">
             <Flow/>
         </div>
     )
 };
+
+export default ERDView;

@@ -5,7 +5,7 @@ import Loading from '../components/ui/Loading';
 import { useNavigate } from 'react-router-dom';
 
 import MetricsView from '../components/layout/MetricsView';
-// import ERDView from '../components/layout/ERDView';
+import ERDView from '../components/layout/ERDView';
 
 import DashNav from '../components/layout/DashNav';
 
@@ -40,7 +40,7 @@ const Dashboard: React.FC = () => {
       {/* {isConnectDBOpen && <ConnectDB />} */}
       <ConnectDB />
       {view === 'metrics' && <MetricsView />}
-      {view === 'erd' && <div>ERD</div>}
+      {view === 'erd' && <ERDView/>}
     </div>
   )
 }

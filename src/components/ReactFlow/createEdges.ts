@@ -11,7 +11,7 @@ export default function createEdges(ERDdata: any) {
             ERDdata[tables].foreign_tables.forEach((element: string) => {
                 const source = element
                 initialEdges.push(
-                {id:'1', source: source, target:target}
+                {id:`${source}-${target}`, source: source, target:target}
             )
             });
         }
