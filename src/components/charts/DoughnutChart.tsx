@@ -5,6 +5,7 @@ import React from "react";
 import useAppStore from "../../store/appStore";
 
 
+
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 interface DoughnutChartProps {
@@ -54,7 +55,7 @@ export const DoughnutChart: React.FC<DoughnutChartProps> = ({ indexData }) => {
   }
 //   console.log(`in doughnut chart component: ${indexData[0]}`)
   return (
-      <div className="dashboard-card">
+      <div className="dashboard-card small-card">
           <Doughnut data={data} options={options4} />
       </div>
   );

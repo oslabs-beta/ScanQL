@@ -1,3 +1,4 @@
+import { type } from 'os';
 import { create } from 'zustand';
 
 export type TableInfo = {
@@ -12,8 +13,12 @@ type DatabaseInfo = {
   [tableName: string]: TableInfo;
 };
 
+// type executionPlans = {
+//   {}
+// }
+  
+
 interface AppState {
-  // isLoggedIn: boolean;
   isConnectDBOpen: boolean;
   dbName: string;
   uri: string;
@@ -21,9 +26,10 @@ interface AppState {
   errorMessage: string;
   metricsData: {
     databaseInfo: DatabaseInfo;
+    executionPlans: {};
   }
 
-  view: 'metrics' | 'erd';
+  view: 'metrics' | 'erd' | 'loading';
 
   theme: 'light' | 'dark';
   toggleTheme: () => void;
@@ -50,9 +56,10 @@ const useAppStore = create<AppState>((set) => ({
   errorMessage: 'string',
   metricsData: {
     databaseInfo: {},
+    executionPlans: {},
   },
 
-  // initialize view state to metrics
+  // default initialize view state to metrics
   view: 'metrics',
   //set default to light
   theme: 'light',
@@ -71,10 +78,11 @@ const useAppStore = create<AppState>((set) => ({
   setDBName: (dbName: string) => set({ dbName }),
   setUri: (uri: string) => set({ uri }),
   setIsDBConnected: (isDBConnected) => set({ isDBConnected }),
-  setMetrics: (metricsData: {databaseInfo: DatabaseInfo}) => set({ metricsData }),
+  setMetrics: (metricsData: {databaseInfo: DatabaseInfo, executionPlans: {}}) => set({ metricsData }),
 
   connectToDatabase: async (uri, dbName) => {
     try {
+      set({ view: 'loading'})
       const response = await fetch('/api/pg/dbInfo', {
         method: 'POST',
         headers: {
@@ -92,8 +100,8 @@ const useAppStore = create<AppState>((set) => ({
         return;
       }
       const data = await response.json();
-      console.log('data', data);
       set({ metricsData: data })
+      set({ view: 'metrics'})
     } catch (error) {
       set({ isDBConnected: false, errorMessage: 'Error connecting to the database.' });
     }

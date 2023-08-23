@@ -3,7 +3,7 @@ import dbConnectionController from '../controllers/dbConnectionController.js';
 import dbInfoController from '../controllers/dbInfoController.js';
 import dbERDcontroller from '../controllers/dbERDcontroller.js'
 import genericMetricsController from '../controllers/genericMetricsController.js';
-
+import dbOverviewController from '../controllers/dbOverviewConroller.js';
 const pgRoute = express.Router();
 
 pgRoute.post(
@@ -12,6 +12,7 @@ pgRoute.post(
   dbInfoController.getDataBaseInfo,
   dbERDcontroller.getSchemaPostgreSQL,
   genericMetricsController.performGenericQueries,
+  dbOverviewController.dbSizeMetrics,
   (req, res) => {
     return res.status(200).json(res.locals);
   }
