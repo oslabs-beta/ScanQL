@@ -78,6 +78,7 @@
 .dashboard-page {
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 /* .dashboard-container {
@@ -100,6 +101,7 @@
 .dashboard-container {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
+
     row-gap: .6rem;
     column-gap: .6rem;
     padding: 2rem;
@@ -136,6 +138,11 @@
     background-color: rgba(31, 31, 31, 0.134);
     box-shadow: 2px 2px 25px 0px rgba(108, 108, 108, 0.75);
     transform: scale(1.005);
+}
+
+.loading-center {
+    grid-column: 1 / -1;
+    align-self: center;
 }
 
 .login-page {

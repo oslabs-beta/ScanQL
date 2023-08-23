@@ -22,9 +22,6 @@ const Dashboard: React.FC = () => {
 
   useEffect(() => {
     if (!isAuthenticated) navigate("/");
-    else {
-      connectToDatabase(uri, dbName);
-    }
   }, []);
 
   const fetchedData = Object.keys(metricsData.databaseInfo).length !== 0 ? true : false;
@@ -55,17 +52,17 @@ const Dashboard: React.FC = () => {
       </div>
       <div className="dashboard-page">
         <div className="dashboard-container">
-        {!fetchedData && 
+        {!fetchedData && view !== 'loading' &&
                   <button
                   className="dashboard-connect-uri"
                   onClick={() => openConnectDB()}
-                >
+                  >
                   Connect to a Database
                 </button>
         }
         {fetchedData && view === "metrics" && <MetricsView />}
         {fetchedData && view === "erd" && <ERDView />}
-
+        {view === 'loading' && <Loading />}
         </div>
       </div>
     </div>

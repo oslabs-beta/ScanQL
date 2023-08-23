@@ -29,7 +29,7 @@ interface AppState {
     executionPlans: {};
   }
 
-  view: 'metrics' | 'erd';
+  view: 'metrics' | 'erd' | 'loading';
 
   theme: 'light' | 'dark';
   toggleTheme: () => void;
@@ -82,6 +82,7 @@ const useAppStore = create<AppState>((set) => ({
 
   connectToDatabase: async (uri, dbName) => {
     try {
+      set({ view: 'loading'})
       const response = await fetch('/api/pg/dbInfo', {
         method: 'POST',
         headers: {
@@ -99,8 +100,8 @@ const useAppStore = create<AppState>((set) => ({
         return;
       }
       const data = await response.json();
-      console.log('data', data);
       set({ metricsData: data })
+      set({ view: 'metrics'})
     } catch (error) {
       set({ isDBConnected: false, errorMessage: 'Error connecting to the database.' });
     }
