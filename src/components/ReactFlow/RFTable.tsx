@@ -21,7 +21,7 @@ export default function RFTable (nodeData: any) {
               <td>{columns[columnNames].Constraints}</td>
               <td>{columns[columnNames].primary_key}</td>
               <td>{columns[columnNames].foreign_key}</td>
-              {handle}
+              <td>{handle}</td>
             </tr>
             
           );
