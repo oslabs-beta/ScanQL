@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../../assets/logov1.png'; 
+import logo from '../../assets/logov1.png';
 
 
 import DropdownMenuDemo from '../ui/DropdownMenu';
@@ -24,14 +24,12 @@ const DashNav: React.FC = () => {
     <div className="flex w-screen flex-col items-center justify-center md:flex-row md:justify-between px-8 py-4">
       <div className="flex flex-col items-center md:flex-row">
         <div className="flex justify-center md:mx-0 md:mr-4 md:items-center md:justify-start">
-        
-            <Link to="/">
-         
-              <img className = 'logo-nav' src ={logo}></img>
-            </Link>
-        
+          <Link to="/">
+            <img className='logo-nav' src={logo}></img>
+          </Link>
+
         </div>
-          {/* <div className="flex flex-col items-center md:flex-row md:space-x-4">
+        {/* <div className="flex flex-col items-center md:flex-row md:space-x-4">
             <h1 className="text-gray-300 text-base">ScanQL</h1>
           </div> */}
         {/* <div>
@@ -50,7 +48,7 @@ const DashNav: React.FC = () => {
       <div className="flex items-center">
         {/* <Switch size="1" radius="full" defaultChecked /> */}
         <Switch checked={theme === 'dark'} onChange={toggleTheme} >
-        {theme === 'light' ? <MoonIcon width={22} height={22} /> : <SunIcon width={22} height={22} />}
+          {theme === 'light' ? <MoonIcon width={22} height={22} /> : <SunIcon width={22} height={22} />}
         </Switch>
         <DropdownMenuDemo />
       </div>
