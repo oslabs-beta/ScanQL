@@ -36,14 +36,14 @@ const DropdownMenuIcon = () => {
           <DropdownMenu.Item onClick={() => openConnectDB()} className="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1">
            Connect to Database
             <div className="ml-auto pl-[20px] text-mauve11 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8">
-              ⌘+D
+              
             </div>
           </DropdownMenu.Item>
 
           <DropdownMenu.Item onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })} className="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1">
             Logout{' '}
             <div className="ml-auto pl-[20px] text-mauve11 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8">
-              ⌘+H
+              
             </div>
           </DropdownMenu.Item>
 
