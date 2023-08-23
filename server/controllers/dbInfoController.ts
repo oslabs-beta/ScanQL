@@ -166,10 +166,10 @@ const dbInfoController: DbInfoController = {
             con.contype = 'c' AND rel.relname = $1;`,
         [tableName]
         );
-          console.log('this is the check constraint result', checkContraints)
+          // console.log('this is the check constraint result', checkContraints)
         const checkContraintObj: CheckConstraintMap = {};
         checkContraints.rows.forEach((checkEl : CheckConstraint) => {
-          console.log(checkEl, 'this is the for each eleement')
+          // console.log(checkEl, 'this is the for each eleement')
           checkContraintObj[checkEl.column_name] = checkEl.constraint_definition;
         });
 
