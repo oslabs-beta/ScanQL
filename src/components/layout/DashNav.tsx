@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../../assets/logov1.png';
+import logo from '../../assets/logo-horizontal-v2.png';
 
 
 import DropdownMenuDemo from '../ui/DropdownMenu';
