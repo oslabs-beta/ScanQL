@@ -130,4 +130,64 @@ export default MetricsView
 
 
 // metricsData.executionPlans.event.Insert
-  // table name will be name of table: name of execution (insert, select, update)
+// table name will be name of table: name of execution (insert, select, update)
+if (isLoading) {
+  return <Loading />;
+}
+const pieChartComponents: JSX.Element[] = [];
+for (let i = 0; i < 1; i++) {
+  pieChartComponents.push(<PieChart key={i} rowsInfoData={rowsData} />);
+}
+const doughnutChartComponent: JSX.Element[] = [];
+for (let i = 0; i < 1; i++) {
+  doughnutChartComponent.push(
+    <DoughnutChart key={i} indexData={indexData} />
+  );
+}
+
+return Object.values(metricsData.databaseInfo).length ? (
+  <div className="dashboard-page">
+    <div className="dashboard-container">
+      {pieChartComponents}
+      {doughnutChartComponent}
+      <div className="dashboard-card">
+        <Line options={options} data={data} />
+      </div>
+      <div className="dashboard-card">
+        <Bar options={options2} data={data2} />
+      </div>
+      <div className="dashboard-card">
+        <Line options={options} data={data} />
+      </div>
+      <div className="dashboard-card">
+        <Bar options={options2} data={data2} />
+      </div>
+      <div className="dashboard-card">
+        <Line options={options} data={data} />
+      </div>
+      <div className="dashboard-card">
+        <Line options={options} data={data} />
+      </div>
+      <div className="dashboard-card">
+        <Bar options={options2} data={data2} />
+      </div>
+      <div className="dashboard-card">
+        <Line options={options} data={data} />
+      </div>
+    </div>
+  </div>
+) : (
+  <div className="dashboard-page">
+    <div className="dashboard-container">
+      <button
+        className="dashboard-connect-uri"
+        onClick={() => openConnectDB()}
+      >
+        Connect to a Database
+      </button>
+    </div>
+  </div>
+);
+};
+
+export default MetricsView;

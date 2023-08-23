@@ -58,6 +58,16 @@ module.exports = {
         slideRightAndFade: 'slideRightAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
       },
     },
+    borderRadius: {
+        'none': '0',
+        'sm': '0.125rem',
+        DEFAULT: '0.25rem',
+        DEFAULT: '4px',
+        'md': '0.375rem',
+        'lg': '12px',
+        'full': '9999px',
+        'large': '12px',
+      }
   },
   plugins: [],
 };

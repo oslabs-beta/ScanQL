@@ -65,7 +65,15 @@
 }
 
 
+.dashboard-button-bar{
+    display: flex; 
+    justify-content: center;
+    margin-top: 4rem;
+    margin-bottom: 1rem;
+}
+
 .dashboard-page {
+    padding: 0px; 
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -75,7 +83,7 @@
 }
 
 .dashboard-container {
-    margin-top: 4rem;
+    margin-top: 0rem;
     display: flex;
     position: relative;
     flex-wrap: wrap;
@@ -135,3 +143,16 @@
     box-shadow: 2px 2px 25px 0px rgba(108, 108, 108, 0.418);
 }
 
+.logo-nav{
+    width: 7rem; 
+}
+
+.dashboard-connect-uri{
+    margin-top: 60px;
+    padding: 30px;
+    border: 2px solid rgba(255, 255, 255, 0.049);
+    background-color: rgba(235, 233, 233, 0.215);
+    border-radius: 20px;
+    transition: transform ease-in-out 0.25s;
+    box-shadow: 2px 2px 25px 0px rgba(108, 108, 108, 0.418);
+}
