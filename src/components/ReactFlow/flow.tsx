@@ -7,6 +7,8 @@ import RFTable from './RFTable';
 import useAppStore from '../../store/appStore';
 import useFlowStore from '../../store/flowStore';
 
+import '../../../tailwind.config.js'
+
 const nodeTypes = {
   table: RFTable,
 };
@@ -14,7 +16,7 @@ const nodeTypes = {
 export default function Flow(): JSX.Element {
   const {edges, setEdges, nodes, setNodes, onNodesChange, onEdgesChange} =
     useFlowStore((state) => state);
-    
+
     const {metricsData} = useAppStore();
     const masterData = metricsData.erDiagram;
     const initialData = createNodes(masterData);
