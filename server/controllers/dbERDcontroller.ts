@@ -8,7 +8,6 @@ import { Pool } from 'pg';
 
 interface schemaControllers {
   getSchemaPostgreSQL: RequestHandler;
-  getQueryResults: RequestHandler;
 }
 //
 const dbERDcontroller: schemaControllers = {
@@ -31,7 +30,9 @@ const dbERDcontroller: schemaControllers = {
             c.column_name,
             c.data_type,
             c. ordinal_position,
+            c.is_nullable,
             max(case when tc.constraint_type = 'PRIMARY KEY' then 1 else 0 end) OVER(PARTITION BY c.table_name, c.column_name) AS is_primary_key,
+            max(case when tc.constraint_type = 'FOREIGN KEY' then 1 else 0 end) OVER(PARTITION BY c.table_name, c.column_name) AS is_foreign_key,
             cc.table_name as table_origin,
             cc.column_name as table_column
 
@@ -76,18 +77,31 @@ const dbERDcontroller: schemaControllers = {
           tableObj[current.column_name].data_type = 'int';
         else if (current.data_type === 'character varying')
           tableObj[current.column_name].data_type = 'varchar';
+        else if (current.data_type === 'timestamp without time zone')
+          tableObj[current.column_name].data_type = 'date';
         else tableObj[current.column_name].data_type = current.data_type;
         // Add relationships and constraints if there are any
         if (current.is_primary_key) {
-          tableObj[current.column_name].primary_key = true;
+          tableObj[current.column_name].primary_key = 'true';
           tableObj[current.column_name].foreign_tables = [];
+        } else if (!current.is_primary_key) {
+          tableObj[current.column_name].primary_key = 'false';
+        }
+        // Add foreign keys
+        if (current.is_foreign_key) {
+          tableObj[current.column_name].foreign_key = 'true';
+        } else if (!current.is_foreign_key) {
+          tableObj[current.column_name].foreign_key = 'false';
+        }
+        
+        // Add NOT NULL to ERD
+        if (current.is_nullable === 'NO'){
+          tableObj[current.column_name].Constraints = "NOT NULL"
         }
         // table_origin is only given when column is a foreign key
         if (current.table_origin) {
           const constraintObj: Record<string, string> = {};
-          constraintObj[`${[current.table_origin]}.${current.table_column}`] =
-            current.table_name;
-          tableObj[current.column_name].foreign_key = true;
+          constraintObj[`${[current.table_origin]}.${current.table_column}`] = current.table_name;
           tableObj[current.column_name].linkedTable = current.table_origin;
           tableObj[current.column_name].linkedTableColumn =
             current.table_column;
@@ -118,25 +132,6 @@ const dbERDcontroller: schemaControllers = {
     } catch (error) {
       return next({
         log: `Error in schemaController.getSchemaPostgreSQL ${error}`,
-        status: 400,
-        message: { error },
-      });
-    }
-  },
-  getQueryResults: async (req, res, next) => {
-    try {
-      const { queryString } = req.body;
-      const pg = res.locals.pg;
-      // Make a query based on the passed in queryString
-      const getQuery = await pg.query(queryString);
-
-      // Return query to FE
-      const results = getQuery.rows;
-      res.locals.queryResults = results;
-      return next();
-    } catch (error) {
-      return next({
-        log: `Error in schemaController.getQueryResults ${error}`,
         status: 400,
         message: { error },
       });

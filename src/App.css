@@ -56,37 +56,57 @@
 }  */
 
 @keyframes fadeInOut {
-    0%, 100% {
+
+    0%,
+    100% {
         opacity: 0;
     }
+
     50% {
         opacity: 1;
     }
 }
 
 
-.dashboard-page {
+.dashboard-button-bar {
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
-    /* min-height: 100vh; */
-    max-width: 100vw;
+    /* margin-top: 4rem; */
+    margin-bottom: 1rem;
 }
 
-.dashboard-container {
-    margin-top: 4rem;
+.dashboard-page {
+    max-width: 100vw;
+    display: flex;
+    justify-content: center;
+}
+
+/* .dashboard-container {
+    margin-top: 0rem;
     display: flex;
     position: relative;
     flex-wrap: wrap;
     gap: 10px;
     padding: 30px;
-    /* min-height: 30vh; */
-    height: 76vh; 
+    height: 76vh;
     overflow-y: auto;
-    width: 95%; 
-    align-items: center; 
+    width: 95%;
+    align-items: center;
     justify-content: center;
+    border: 2px solid rgb(255, 255, 255, 0.05);
+    background-color: rgba(106, 98, 108, 0.162);
+    border-radius: 20px;
+} */
+
+.dashboard-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: .6rem;
+    column-gap: .6rem;
+    padding: 2rem;
+    height: 76vh;
+    overflow-y: auto;
+    width: 95%;
     border: 2px solid rgb(255, 255, 255, 0.05);
     background-color: rgba(106, 98, 108, 0.162);
     border-radius: 20px;
@@ -95,11 +115,10 @@
 .dashboard-card {
     display: flex;
     flex-direction: column;
-    align-items: center; 
-    justify-content: center; 
+    align-items: center;
+    justify-content: center;
     color: white;
-    /* max-width: 30vw; */
-    width: calc(100% / 3 - 10px);
+    max-width: 30vw;
     height: 35vh;
     flex: 0 0 calc(33.33% - 10px);
     border: 2px solid rgb(255, 255, 255, 0.05);
@@ -107,7 +126,7 @@
     padding: 0.5vw;
     box-shadow: 0px 0px 5px 0px rgba(108, 108, 108, 0.75);
     margin: 1px;
-    transition: all .2s ease-in-out; 
+    transition: all .2s ease-in-out;
 }
 
 .dashboard-card:hover {
@@ -126,7 +145,7 @@
 }
 
 
-.login-container{
+.login-container {
     padding: 30px;
     border: 2px solid rgba(255, 255, 255, 0.049);
     background-color: rgba(235, 233, 233, 0.215);
@@ -135,3 +154,19 @@
     box-shadow: 2px 2px 25px 0px rgba(108, 108, 108, 0.418);
 }
 
+.logo-nav {
+    width: 4rem;
+}
+
+.dashboard-connect-uri {
+    grid-column: 1 / -1;
+    justify-self: center;
+    align-self: center;
+    margin-top: 60px;
+    padding: 30px;
+    border: 2px solid rgba(255, 255, 255, 0.049);
+    background-color: rgba(235, 233, 233, 0.215);
+    border-radius: 20px;
+    transition: transform ease-in-out 0.25s;
+    box-shadow: 2px 2px 25px 0px rgba(108, 108, 108, 0.418);
+}
