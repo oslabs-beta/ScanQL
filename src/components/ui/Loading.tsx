@@ -5,12 +5,12 @@ const Loading: React.FC = () => {
   const [progress, setProgress] = React.useState(13);
 
   React.useEffect(() => {
-    const timer = setTimeout(() => setProgress(66), 500);
+    const timer = setTimeout(() => setProgress(66), 600);
     return () => clearTimeout(timer);
   }, []);
 
   return (
-    <div className='flex justify-center .items-center'>
+    <div className='flex justify-center .items-center loading-center' >
         <Progress.Root
         className="relative overflow-hidden bg-blackA9 rounded-full w-[300px] h-[25px]"
         style={{

@@ -125,7 +125,7 @@ const generalMetricsController: GeneralMetricsController = {
       res.locals.result = result.rows;
       return next();
     } catch (error) {
-      console.log('ERROR in generalMetricsController.analyzeQuery: ', error);
+      // console.log('ERROR in generalMetricsController.analyzeQuery: ', error);
       return next({
         log: `ERROR caught in generalMetricsController.analyzeQuery: ${error}`,
         status: 400,
@@ -141,7 +141,7 @@ const generalMetricsController: GeneralMetricsController = {
 
     const db = res.locals.dbConnection;
     const dbInfo = res.locals.databaseInfo;
-    console.log('Expected dbInfo to be an array, but got:', dbInfo);
+    // console.log('Expected dbInfo to be an array, but got:', dbInfo);
     const executionPlans = [];
     await db.query('BEGIN'); // Start the transaction
     try {
@@ -163,7 +163,7 @@ const generalMetricsController: GeneralMetricsController = {
         const valuesOriginal = { ...tableInfo.sampleData };
         const values = { ...tableInfo.sampleData };  // Create a shallow copy of the sampleData
         const fkTable = tableInfo.foreignKeys.slice();
-        console.log(fkTable,'fk table ');
+        // console.log(fkTable,'fk table ');
         const foreignKeyColumns = fkTable.map((fk: ForeignKey) => fk.column);
     
         // delete values[primaryKey];   // remove the primary key from the values
@@ -260,7 +260,7 @@ const generalMetricsController: GeneralMetricsController = {
       return next();
     } catch (error) {
       // console.log(insertQuery);
-      console.log('ERROR in generalMetricsController.performGenericQueries: ', error);
+      // console.log('ERROR in generalMetricsController.performGenericQueries: ', error);
       return next({
         log: `ERROR caught in generalMetricsController.performGenericQueries: ${error}`,
         status: 400,

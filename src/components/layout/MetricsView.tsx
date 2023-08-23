@@ -77,10 +77,6 @@ const MetricsView: React.FC = () => {
     }
   }, [metricsData])
 
-  if (isLoading) {
-    return <Loading />;
-  }
-
   const pieChartComponents: JSX.Element[] = [];
   for (let i = 0; i < 1; i++) {
     pieChartComponents.push(<PieChart key={i} rowsInfoData={rowsData} />)
@@ -98,21 +94,14 @@ const MetricsView: React.FC = () => {
     return <BarGraph key={i} table={table} tableName={executionTableNames[i]} />
   })
 
-  return rowsData.length ? (
+  return (
     <>
       {pieChartComponents}
       {/* {polarChartComponents} */}
       {doughnutChartComponent}
       {executionTimes}
     </>
-  ) : (
-    <button
-      className="dashboard-connect-uri"
-      onClick={() => openConnectDB()}
-    >
-      Connect to a Database
-    </button>
-  );
+  ) 
 }
 
 export default MetricsView;

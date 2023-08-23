@@ -186,11 +186,12 @@ const genericMetricsController: GeneralMetricsController = {
           const fkColumn = foreignKeysObj[fk].column;
           const fkRefTable = foreignKeysObj[fk].referencedTable;
           const fkRefColumn = foreignKeysObj[fk].referencedColumn;
-          console.log('refssss', fkColumn, fkRefColumn, fkRefTable);
+          // console.log('refssss', fkColumn, fkRefColumn, fkRefTable);
           const validFKValues = await db.query(`SELECT ${fkRefColumn} FROM ${fkRefTable} LIMIT 100`); // fetch the first 100 rows for performance reasons
           if (validFKValues.rowCount > 0) {
             const randomIndex = faker.number.int({ min: 0, max: validFKValues.rowCount - 1 });
             values[fkColumn] = validFKValues.rows[randomIndex][fkRefColumn];
+            // console.log('randomInt is ', randomIndex, 'and the values pulled are ', values[fkColumn] );
             // console.log('randomInt is ', randomIndex, 'and the values pulled are ', values[fkColumn] );
           } else {
             throw new Error(`No valid foreign key values found for table: ${fkRefTable}`);
@@ -204,8 +205,14 @@ const genericMetricsController: GeneralMetricsController = {
           // console.log('Foreign Keys Object:', foreignKeysObj);
           // console.log('Check Constraints obj', checkContraintObj);
           // console.log('column dataTypes', columnDataTypes);
+          // console.log('Values:', values);
+          // console.log('Foreign Keys Object:', foreignKeysObj);
+          // console.log('Check Constraints obj', checkContraintObj);
+          // console.log('column dataTypes', columnDataTypes);
           if (!foreignKeysObj[key.column_name] && !checkContraintObj[key.column_name]) {
             // const valueDataType = typeof values[key];
+            // console.log('js data type',key.column_name,key.datatype);
+            // console.log('datatype and column', key.datatype, key.column_name);
             // console.log('js data type',key.column_name,key.datatype);
             // console.log('datatype and column', key.datatype, key.column_name);
             values[key.column_name] = generateFakeData(key.datatype);
@@ -218,6 +225,8 @@ const genericMetricsController: GeneralMetricsController = {
       
         const insertQuery = `INSERT INTO ${tableInfo.tableName} (${Object.keys(values).join(', ')}) VALUES (${placeholders})`;
         
+        // console.log('query', query);
+        // console.log('values array',Object.values(values));
         // console.log('query', query);
         // console.log('values array',Object.values(values));
         const insertPlan = await db.query(`EXPLAIN (ANALYZE true, COSTS true, SETTINGS true, BUFFERS true, WAL true, SUMMARY true,FORMAT JSON) ${insertQuery}`, Object.values(values));
@@ -240,13 +249,13 @@ const genericMetricsController: GeneralMetricsController = {
         let updateValue;
         for(const column of Object.keys(unchangedSample)){
           if(!primaryKeysObject[column] && !foreignKeysObj[column]){
-            console.log('entered the if block and the column is', column);
+            // console.log('entered the if block and the column is', column)
             updateColumn = column;
             updateValue = unchangedSample[column];
             break;
           }
         }
-        // console.log('update col and val', updateColumn, updateValue);
+        // console.log('update col and val', updateColumn, updateValue)
         const updateQuery = `UPDATE ${tableInfo.tableName} SET ${updateColumn} = $1 WHERE ${pkArray[pkArray.length - 1]} = $2`;
         const updatePlan = await db.query(`EXPLAIN (ANALYZE true, COSTS true, SETTINGS true, BUFFERS true, WAL true, SUMMARY true,FORMAT JSON) ${updateQuery}`, [updateValue, unchangedSample[pkArray[pkArray.length - 1]]]);
         executionPlans[tableName].UPDATE = { query: updateQuery, plan: updatePlan };
@@ -306,7 +315,7 @@ const genericMetricsController: GeneralMetricsController = {
 
     }catch (error) {
       // console.log(insertQuery);
-      console.log('ERROR in generalMetricsController.performGenericQueries: ', error);
+      // console.log('ERROR in generalMetricsController.performGenericQueries: ', error);
       return next({
         log: `ERROR caught in generalMetricsController.performGenericQueries: ${error}`,
         status: 400,

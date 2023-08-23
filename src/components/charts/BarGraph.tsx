@@ -145,7 +145,7 @@ export const BarGraph: React.FC<BarGraphProps> = ({ table, tableName }) => {
     ],
   };
   return (
-    <div className="dashboard-card">
+    <div className="dashboard-card md-card">
       <Bar data={data} options={options} />
     </div>
   );
