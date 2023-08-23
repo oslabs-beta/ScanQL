@@ -5,6 +5,7 @@ import React from "react";
 import useAppStore from "../../store/appStore";
 
 
+
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 interface DoughnutChartProps {
