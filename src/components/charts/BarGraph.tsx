@@ -139,7 +139,7 @@ export const BarGraph: React.FC<BarGraphProps> = ({ table, tableName }) => {
       {
         label: 'Total Time',
         data: totalTimes,
-        backgroundColor: 'rgba(53, 162, 235, 0.5)',
+        backgroundColor: 'rgba(235, 86, 255, 0.2)',
         scaleFontColor: "#FFFFFF",
       },
     ],

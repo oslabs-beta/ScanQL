@@ -1,12 +1,4 @@
-// import { Container } from '@radix-ui/themes';
-// import { FaceIcon, ImageIcon, SunIcon, HamburgerMenuIcon } from '@radix-ui/react-icons';
-// import { DropdownMenu } from '@radix-ui/react-dropdown-menu';
-// import DashNav from './DashNav';
-// import ConnectDB from './ConnectDB';
-
-
 import { useAuth0 } from '@auth0/auth0-react';
-
 import Loading from '../ui/Loading';
 import { useNavigate } from 'react-router-dom';
 import { PieChart } from '../charts/PieChart'
@@ -17,7 +9,6 @@ import { RowsInfoArray, indexTableArray } from '../../types'
 import { TableInfo } from '../../store/appStore'
 import { useEffect, useState } from 'react';
 import useAppStore from '../../store/appStore';
-import 'chart.js/auto';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -41,15 +32,11 @@ ChartJS.register(
   Legend
 );
 
-
-
-
-
 const MetricsView: React.FC = () => {
 
   const navigate = useNavigate();
   const { user, isAuthenticated, isLoading } = useAuth0();
-  const { metricsData } = useAppStore();
+  const { metricsData, openConnectDB } = useAppStore();
   const [rowsData, setRowsData] = useState<RowsInfoArray>([]);
   const [indexData, setIndexData] = useState<indexTableArray>([]);
   const [executionTable, setExecutionTable] = useState<{}[]>([])
@@ -93,6 +80,7 @@ const MetricsView: React.FC = () => {
   if (isLoading) {
     return <Loading />;
   }
+
   const pieChartComponents: JSX.Element[] = [];
   for (let i = 0; i < 1; i++) {
     pieChartComponents.push(<PieChart key={i} rowsInfoData={rowsData} />)
@@ -110,7 +98,7 @@ const MetricsView: React.FC = () => {
     return <BarGraph key={i} table={table} tableName={executionTableNames[i]} />
   })
 
-  return (
+  return Object.values(metricsData.databaseInfo).length ? (
     <div>
       <div className="dashboard-page">
         <div className="dashboard-container">
@@ -121,73 +109,69 @@ const MetricsView: React.FC = () => {
         </div>
       </div>
     </div>
-  )
-}
-
-
-
-export default MetricsView
-
-
-// metricsData.executionPlans.event.Insert
-// table name will be name of table: name of execution (insert, select, update)
-if (isLoading) {
-  return <Loading />;
-}
-const pieChartComponents: JSX.Element[] = [];
-for (let i = 0; i < 1; i++) {
-  pieChartComponents.push(<PieChart key={i} rowsInfoData={rowsData} />);
-}
-const doughnutChartComponent: JSX.Element[] = [];
-for (let i = 0; i < 1; i++) {
-  doughnutChartComponent.push(
-    <DoughnutChart key={i} indexData={indexData} />
+  ) : (
+    <div className="dashboard-page">
+      <div className="dashboard-container">
+        <button
+          className="dashboard-connect-uri"
+          onClick={() => openConnectDB()}
+        >
+          Connect to a Database
+        </button>
+      </div>
+    </div>
   );
 }
 
-return Object.values(metricsData.databaseInfo).length ? (
-  <div className="dashboard-page">
-    <div className="dashboard-container">
-      {pieChartComponents}
-      {doughnutChartComponent}
-      <div className="dashboard-card">
-        <Line options={options} data={data} />
-      </div>
-      <div className="dashboard-card">
-        <Bar options={options2} data={data2} />
-      </div>
-      <div className="dashboard-card">
-        <Line options={options} data={data} />
-      </div>
-      <div className="dashboard-card">
-        <Bar options={options2} data={data2} />
-      </div>
-      <div className="dashboard-card">
-        <Line options={options} data={data} />
-      </div>
-      <div className="dashboard-card">
-        <Line options={options} data={data} />
-      </div>
-      <div className="dashboard-card">
-        <Bar options={options2} data={data2} />
-      </div>
-      <div className="dashboard-card">
-        <Line options={options} data={data} />
-      </div>
-    </div>
-  </div>
-) : (
-  <div className="dashboard-page">
-    <div className="dashboard-container">
-      <button
-        className="dashboard-connect-uri"
-        onClick={() => openConnectDB()}
-      >
-        Connect to a Database
-      </button>
-    </div>
-  </div>
-);
-};
-
 export default MetricsView;
+
+// return Object.values(metricsData.databaseInfo).length ? (
+//   <div className="dashboard-page">
+//     <div className="dashboard-container">
+//       {pieChartComponents}
+//       {doughnutChartComponent}
+//       <div className="dashboard-card">
+//         <Line options={options} data={data} />
+//       </div>
+//       <div className="dashboard-card">
+//         <Bar options={options2} data={data2} />
+//       </div>
+//       <div className="dashboard-card">
+//         <Line options={options} data={data} />
+//       </div>
+//       <div className="dashboard-card">
+//         <Bar options={options2} data={data2} />
+//       </div>
+//       <div className="dashboard-card">
+//         <Line options={options} data={data} />
+//       </div>
+//       <div className="dashboard-card">
+//         <Line options={options} data={data} />
+//       </div>
+//       <div className="dashboard-card">
+//         <Bar options={options2} data={data2} />
+//       </div>
+//       <div className="dashboard-card">
+//         <Line options={options} data={data} />
+//       </div>
+//     </div>
+//   </div>
+// ) : (
+//   <div className="dashboard-page">
+//     <div className="dashboard-container">
+//       <button
+//         className="dashboard-connect-uri"
+//         onClick={() => openConnectDB()}
+//       >
+//         Connect to a Database
+//       </button>
+//     </div>
+//   </div>
+// );
+// };
+
+// export default MetricsView;
+
+
+
+

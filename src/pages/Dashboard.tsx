@@ -15,53 +15,53 @@ import ConnectDB from "../components/layout/ConnectDB";
 import { useEffect } from "react";
 
 const Dashboard: React.FC = () => {
-    const navigate = useNavigate();
-    const { user, isAuthenticated, isLoading } = useAuth0();
-    const { setView, view, connectToDatabase, uri, dbName } = useAppStore();
+  const navigate = useNavigate();
+  const { user, isAuthenticated, isLoading } = useAuth0();
+  const { setView, view, connectToDatabase, uri, dbName } = useAppStore();
 
-    useEffect(() => {
-        if (!isAuthenticated) navigate("/");
-        else {
-            connectToDatabase(uri, dbName);
-        }
-    }, []);
-
-    if (isLoading) {
-        return <Loading />;
+  useEffect(() => {
+    if (!isAuthenticated) navigate("/");
+    else {
+      connectToDatabase(uri, dbName);
     }
-    return (
-        <div>
-            {/* <div>{JSON.stringify(user)}</div> */}
-            <DashNav />
-            {/* {isConnectDBOpen && <ConnectDB />} */}
-            <ConnectDB />
-            <div className="dashboard-button-bar">
-                <Button
-                    className="rounded-lg font-normal mr-1  ml-1 bg-gray-500 bg-opacity-10 border-solid border-opacity-60 border-white text-gray-700 text-opacity-60"
-                    onClick={() => setView("metrics")}
-                >
-                    Dashboard
-                </Button>
-                <Button
-                    className="rounded-lg font-normal mr-1 ml-1 bg-gray-500 bg-opacity-10 border-solid border-opacity-60 text-gray-700 text-opacity-60"
-                    onClick={() => setView("erd")}
-                >
-                    ERD Diagram
-                </Button>
-                <Button className="rounded-lg font-normal mr-1 ml-1 bg-gray-500 bg-opacity-10 border-solid border-opacity-60 text-gray-700 text-opacity-60">
+  }, []);
+
+  if (isLoading) {
+    return <Loading />;
+  }
+  return (
+    <div>
+      {/* <div>{JSON.stringify(user)}</div> */}
+      <DashNav />
+      {/* {isConnectDBOpen && <ConnectDB />} */}
+      <ConnectDB />
+      <div className="dashboard-button-bar">
+        <Button
+          className="rounded-lg font-normal mr-1  ml-1 bg-gray-500 bg-opacity-10 border-solid border-opacity-60 border-white text-gray-700 text-opacity-60"
+          onClick={() => setView("metrics")}
+        >
+          Dashboard
+        </Button>
+        <Button
+          className="rounded-lg font-normal mr-1 ml-1 bg-gray-500 bg-opacity-10 border-solid border-opacity-60 text-gray-700 text-opacity-60"
+          onClick={() => setView("erd")}
+        >
+          ERD Diagram
+        </Button>
+        {/* <Button className="rounded-lg font-normal mr-1 ml-1 bg-gray-500 bg-opacity-10 border-solid border-opacity-60 text-gray-700 text-opacity-60">
                     {" "}
                     Custom Queries{" "}
-                </Button>
-            </div>
+                </Button> */}
+      </div>
 
-            {/* <div className="dashboard-page"> */}
-                <div className="">
-                    {view === "metrics" && <MetricsView />}
-                    {view === "erd" && <div>ERD</div>}
-                </div>
-            {/* </div> */}
-        </div>
-    );
+      {/* <div className="dashboard-page"> */}
+      <div className="">
+        {view === "metrics" && <MetricsView />}
+        {view === "erd" && <div>ERD</div>}
+      </div>
+      {/* </div> */}
+    </div>
+  );
 };
 
 export default Dashboard;
