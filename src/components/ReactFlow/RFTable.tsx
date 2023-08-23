@@ -35,8 +35,8 @@ export default function RFTable (nodeData: any) {
               {nodeData.data.table[0]}
             </label>
           </div>
-          <div>
-            <table>
+          <div className='erd-table-container'>
+            <table className ="erd-table">
               <thead>
                 <tr>
                   <th>Column</th>
