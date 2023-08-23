@@ -4,6 +4,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Loading from "../components/ui/Loading";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@radix-ui/themes";
+import ERDView from '../components/layout/ERDView'
 
 
 import MetricsView from "../components/layout/MetricsView";
@@ -53,13 +54,12 @@ const Dashboard: React.FC = () => {
                     Custom Queries{" "}
                 </Button> */}
       </div>
-
-      {/* <div className="dashboard-page"> */}
-      <div className="">
-        {view === "metrics" && <MetricsView />}
-        {view === "erd" && <div>ERD</div>}
+      <div className="dashboard-page">
+        <div className="dashboard-container">
+          {view === "metrics" && <MetricsView />}
+          {view === "erd" && <ERDView />}
+        </div>
       </div>
-      {/* </div> */}
     </div>
   );
 };

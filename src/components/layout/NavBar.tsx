@@ -12,8 +12,6 @@ import { IconButton } from '@radix-ui/themes';
 const NavBar: React.FC = () => {
   const { isAuthenticated } = useAuth0();
   return (
-
-
     <div className="flex w-screen flex-col items-center justify-center md:flex-row md:justify-between px-8 py-4">
       <div className="flex flex-col items-center md:flex-row">
         <div className="flex justify-center md:mx-0 md:mr-4 md:items-center md:justify-start gap-10">

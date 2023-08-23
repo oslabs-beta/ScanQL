@@ -98,80 +98,21 @@ const MetricsView: React.FC = () => {
     return <BarGraph key={i} table={table} tableName={executionTableNames[i]} />
   })
 
-  return Object.values(metricsData.databaseInfo).length ? (
-    <div>
-      <div className="dashboard-page">
-        <div className="dashboard-container">
-          {pieChartComponents}
-          {/* {polarChartComponents} */}
-          {doughnutChartComponent}
-          {executionTimes}
-        </div>
-      </div>
-    </div>
+  return rowsData.length ? (
+    <>
+      {pieChartComponents}
+      {/* {polarChartComponents} */}
+      {doughnutChartComponent}
+      {executionTimes}
+    </>
   ) : (
-    <div className="dashboard-page">
-      <div className="dashboard-container">
-        <button
-          className="dashboard-connect-uri"
-          onClick={() => openConnectDB()}
-        >
-          Connect to a Database
-        </button>
-      </div>
-    </div>
+    <button
+      className="dashboard-connect-uri"
+      onClick={() => openConnectDB()}
+    >
+      Connect to a Database
+    </button>
   );
 }
 
 export default MetricsView;
-
-// return Object.values(metricsData.databaseInfo).length ? (
-//   <div className="dashboard-page">
-//     <div className="dashboard-container">
-//       {pieChartComponents}
-//       {doughnutChartComponent}
-//       <div className="dashboard-card">
-//         <Line options={options} data={data} />
-//       </div>
-//       <div className="dashboard-card">
-//         <Bar options={options2} data={data2} />
-//       </div>
-//       <div className="dashboard-card">
-//         <Line options={options} data={data} />
-//       </div>
-//       <div className="dashboard-card">
-//         <Bar options={options2} data={data2} />
-//       </div>
-//       <div className="dashboard-card">
-//         <Line options={options} data={data} />
-//       </div>
-//       <div className="dashboard-card">
-//         <Line options={options} data={data} />
-//       </div>
-//       <div className="dashboard-card">
-//         <Bar options={options2} data={data2} />
-//       </div>
-//       <div className="dashboard-card">
-//         <Line options={options} data={data} />
-//       </div>
-//     </div>
-//   </div>
-// ) : (
-//   <div className="dashboard-page">
-//     <div className="dashboard-container">
-//       <button
-//         className="dashboard-connect-uri"
-//         onClick={() => openConnectDB()}
-//       >
-//         Connect to a Database
-//       </button>
-//     </div>
-//   </div>
-// );
-// };
-
-// export default MetricsView;
-
-
-
-
