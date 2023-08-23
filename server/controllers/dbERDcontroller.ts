@@ -82,15 +82,17 @@ const dbERDcontroller: schemaControllers = {
         else tableObj[current.column_name].data_type = current.data_type;
         // Add relationships and constraints if there are any
         if (current.is_primary_key) {
-          tableObj[current.column_name].primary_key = true;
+          tableObj[current.column_name].primary_key = 'true';
           tableObj[current.column_name].foreign_tables = [];
         } else if (!current.is_primary_key) {
-          tableObj[current.column_name].primary_key = false;
+          tableObj[current.column_name].primary_key = 'false';
         }
         // Add foreign keys
         if (current.is_foreign_key) {
-          tableObj[current.column_name].foreign_key = true;
-        } else {tableObj[current.column_name].foreign_key = false;}
+          tableObj[current.column_name].foreign_key = 'true';
+        } else if (!current.is_foreign_key) {
+          tableObj[current.column_name].foreign_key = 'false';
+        }
         
         // Add NOT NULL to ERD
         if (current.is_nullable === 'NO'){
