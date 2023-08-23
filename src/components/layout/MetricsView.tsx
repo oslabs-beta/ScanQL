@@ -77,10 +77,6 @@ const MetricsView: React.FC = () => {
     }
   }, [metricsData])
 
-  if (isLoading) {
-    return <Loading />;
-  }
-
   const pieChartComponents: JSX.Element[] = [];
   for (let i = 0; i < 1; i++) {
     pieChartComponents.push(<PieChart key={i} rowsInfoData={rowsData} />)

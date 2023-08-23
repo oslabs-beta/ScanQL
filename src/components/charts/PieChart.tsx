@@ -80,7 +80,7 @@ export const PieChart: React.FC<PieChartProps> = ({ rowsInfoData }) => {
     }
     // console.log(`in pie chart component: ${rowsInfoData[0]}`)
     return (
-        <div className="dashboard-card">
+        <div className="dashboard-card small-card">
             <Pie data={data} options={options3} />
         </div>
     );
