@@ -16,13 +16,15 @@ const nodeTypes = {
 export default function Flow(): JSX.Element {
   const { edges, setEdges, nodes, setNodes, onNodesChange, onEdgesChange } =
     useFlowStore((state) => state);
-  const { metricsData } = useAppStore();
 
+  const { metricsData } = useAppStore();
   const masterData = metricsData.erDiagram;
-  console.log(metricsData)
+  const initialData = createNodes(masterData);
+  const initialEdges = createEdges(masterData);
+
   useEffect(() => {
-    setNodes(createNodes(masterData));
-    setEdges(createEdges(masterData));
+    setNodes(initialData);
+    setEdges(initialEdges);
   }, [masterData, setNodes, setEdges]);
 
   return (

@@ -22,8 +22,3 @@ export type indexInfo = {
 }
 
 export type indexTableArray = indexInfo[];
-
-
-
-
-

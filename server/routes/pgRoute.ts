@@ -10,7 +10,7 @@ pgRoute.post(
   '/dbInfo', 
   dbConnectionController.connectAndInitializeDB,
   dbInfoController.getDataBaseInfo,
-  // dbERDcontroller.getSchemaPostgreSQL,
+  dbERDcontroller.getSchemaPostgreSQL,
   genericMetricsController.performGenericQueries,
   (req, res) => {
     return res.status(200).json(res.locals);
