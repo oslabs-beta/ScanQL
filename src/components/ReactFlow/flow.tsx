@@ -29,7 +29,6 @@ export default function Flow(): JSX.Element {
   }, [masterData, setNodes, setEdges]);
 
   return (
-    <Container>
       <div style={{ height: '70vh', width: '167vh' }}>
         <ReactFlow
           nodes={nodes}
@@ -43,6 +42,5 @@ export default function Flow(): JSX.Element {
           <Controls />
         </ReactFlow>
       </div>
-    </Container>
   );
 }
