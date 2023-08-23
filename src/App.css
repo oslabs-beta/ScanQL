@@ -101,7 +101,6 @@
 .dashboard-container {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
-
     row-gap: .6rem;
     column-gap: .6rem;
     padding: 2rem;
@@ -170,7 +169,6 @@
 
 .dashboard-connect-uri {
     grid-column: 1 / -1;
-    grid-row: 1 / -1;
     justify-self: center;
     align-self: center;
     padding: 2rem;
