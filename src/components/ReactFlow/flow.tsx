@@ -7,7 +7,8 @@ import RFTable from './RFTable';
 import useAppStore from '../../store/appStore';
 import useFlowStore from '../../store/flowStore';
 
-import { Container } from '@radix-ui/themes';
+import '../../../tailwind.config.js'
+
 
 const nodeTypes = {
   table: RFTable,
