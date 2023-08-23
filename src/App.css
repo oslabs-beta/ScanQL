@@ -160,10 +160,10 @@
 
 .dashboard-connect-uri {
     grid-column: 1 / -1;
+    grid-row: 1 / -1;
     justify-self: center;
     align-self: center;
-    margin-top: 60px;
-    padding: 30px;
+    padding: 2rem;
     border: 2px solid rgba(255, 255, 255, 0.049);
     background-color: rgba(235, 233, 233, 0.215);
     border-radius: 20px;

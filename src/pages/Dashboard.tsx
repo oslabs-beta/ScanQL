@@ -18,7 +18,7 @@ import { useEffect } from "react";
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
   const { user, isAuthenticated, isLoading } = useAuth0();
-  const { setView, view, connectToDatabase, uri, dbName } = useAppStore();
+  const { setView, view, connectToDatabase, uri, dbName, metricsData, openConnectDB } = useAppStore();
 
   useEffect(() => {
     if (!isAuthenticated) navigate("/");
@@ -56,8 +56,17 @@ const Dashboard: React.FC = () => {
       </div>
       <div className="dashboard-page">
         <div className="dashboard-container">
-          {view === "metrics" && <MetricsView />}
-          {view === "erd" && <ERDView />}
+        {(Object.keys(metricsData.databaseInfo).length !== 0) && view === "metrics" && <MetricsView />}
+        {(Object.keys(metricsData.databaseInfo).length !== 0) && view === "erd" && <ERDView />}
+        {!Object.keys(metricsData.databaseInfo).length && 
+                  <button
+                  className="dashboard-connect-uri"
+                  onClick={() => openConnectDB()}
+                >
+                  Connect to a Database
+                </button>
+        }
+
         </div>
       </div>
     </div>

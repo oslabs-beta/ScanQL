@@ -98,21 +98,14 @@ const MetricsView: React.FC = () => {
     return <BarGraph key={i} table={table} tableName={executionTableNames[i]} />
   })
 
-  return rowsData.length ? (
+  return (
     <>
       {pieChartComponents}
       {/* {polarChartComponents} */}
       {doughnutChartComponent}
       {executionTimes}
     </>
-  ) : (
-    <button
-      className="dashboard-connect-uri"
-      onClick={() => openConnectDB()}
-    >
-      Connect to a Database
-    </button>
-  );
+  ) 
 }
 
 export default MetricsView;
