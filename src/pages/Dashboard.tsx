@@ -5,6 +5,7 @@ import Loading from "../components/ui/Loading";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@radix-ui/themes";
 
+
 import MetricsView from "../components/layout/MetricsView";
 // import ERDView from '../components/layout/ERDView';
 
@@ -62,6 +63,5 @@ const Dashboard: React.FC = () => {
         </div>
     );
 };
-// }
 
 export default Dashboard;
