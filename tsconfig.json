@@ -22,6 +22,12 @@
     // "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
+    // other settings...
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node"
+  },
+
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
