@@ -5,7 +5,7 @@ export type TableInfo = {
   tableName: string;
   numberOfRows: number;
   numberOfIndexes: number;
-  numberOfField: number;
+  numberOfFields: number;
   numberOfForeignKeys: number;
 };
 
@@ -16,7 +16,7 @@ type DatabaseInfo = {
 // type executionPlans = {
 //   {}
 // }
-  
+
 
 interface AppState {
   isConnectDBOpen: boolean;
@@ -67,15 +67,17 @@ const useAppStore = create<AppState>((set) => ({
 
   // default initialize view state to metrics
   view: 'metrics',
+
   //set default to light
   theme: 'light',
-  
+
+  // toggle database modal
   toggleConnectDB: () => {
     const { isConnectDBOpen } = useAppStore();
     isConnectDBOpen ? set({ isConnectDBOpen: false }) : set({ isConnectDBOpen: true })
   },
   //toggle light/dark mode
-  toggleTheme: () => {set((state) => ({ theme: state.theme === 'light' ? 'dark' : 'light' }))},
+  toggleTheme: () => { set((state) => ({ theme: state.theme === 'light' ? 'dark' : 'light' })) },
 
   openConnectDB: () => set({ isConnectDBOpen: true }),
   closeConnectDB: () => set({ isConnectDBOpen: false }),
@@ -84,11 +86,11 @@ const useAppStore = create<AppState>((set) => ({
   setDBName: (dbName: string) => set({ dbName }),
   setUri: (uri: string) => set({ uri }),
   setIsDBConnected: (isDBConnected) => set({ isDBConnected }),
-  setMetrics: (metricsData: {databaseInfo: DatabaseInfo, executionPlans: {}, dbSizeMetrics: { tableSizes: {}}}) => set({ metricsData }),
+  setMetrics: (metricsData: { databaseInfo: DatabaseInfo, executionPlans: {}, dbSizeMetrics: { tableSizes: {} } }) => set({ metricsData }),
 
   connectToDatabase: async (uri, dbName) => {
     try {
-      set({ view: 'loading'})
+      set({ view: 'loading' })
       const response = await fetch('/api/pg/dbInfo', {
         method: 'POST',
         headers: {
@@ -107,7 +109,7 @@ const useAppStore = create<AppState>((set) => ({
       }
       const data = await response.json();
       set({ metricsData: data })
-      set({ view: 'metrics'})
+      set({ view: 'metrics' })
     } catch (error) {
       set({ isDBConnected: false, errorMessage: 'Error connecting to the database.' });
     }
