@@ -1,9 +1,10 @@
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Pie } from "react-chartjs-2";
-import React from "react";
+import React, { useState } from "react";
 import useAppStore from "../../store/appStore";
 import { TableInfo } from '../../store/appStore'
 
+import { Dialog } from "@radix-ui/react-dialog";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -22,7 +23,7 @@ export const options = {
   };
 
 export const RowsPerTable: React.FC = () => {
-  const { metricsData } = useAppStore();
+  const { metricsData, openModal } = useAppStore();
   const tablesArray: TableInfo[] = Object.values(metricsData.databaseInfo);
   const rows = tablesArray.map(table => {
     return {
@@ -57,9 +58,8 @@ export const RowsPerTable: React.FC = () => {
           }
         ]
     }
-    // console.log(`in pie chart component: ${rowsInfoData[0]}`)
-    return (
-        <div className="dashboard-card small-card">
+return (
+        <div onClick={openModal} className="dashboard-card small-card">
             <Pie data={data} options={options} />
         </div>
     );

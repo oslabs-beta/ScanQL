@@ -105,7 +105,7 @@ export const QueryTimes: React.FC<BarGraphProps> = ({ table, tableName }) => {
     executionTimes[2] + planningTimes[2]
   ];
 
-  console.log(`Execution Times: ${executionTimes}, Planning Times: ${planningTimes}`)
+  // console.log(`Execution Times: ${executionTimes}, Planning Times: ${planningTimes}`)
 
   const options = {
     responsive: true,
@@ -115,7 +115,7 @@ export const QueryTimes: React.FC<BarGraphProps> = ({ table, tableName }) => {
       },
       title: {
         display: true,
-        text: `Planning Execution Times - ${tableName}`,
+        text: `Planning Execution Time (ms) - ${tableName}`,
         color: '#ffffffc8'
       },
     },

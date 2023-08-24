@@ -1,17 +1,15 @@
 import { Bar } from 'react-chartjs-2';
 import useAppStore from '../../store/appStore';
 
+interface Table {
+  diskSize: string;
+  rowSize: string;
+}
+
 
 export const TableSize: React.FC = () => {
-  const { metricsData } = useAppStore();
-  console.log(metricsData.dbSizeMetrics.tableSizes);
-  const tablesArray = Object.values(metricsData.dbSizeMetrics.tableSizes);
-  const diskSize = tablesArray.map(table => {
-    // return disk size in kb
-  })
-  const rowSize = tablesArray.map(table => {
-    // return rowSize in kb
-  })
+  const { metricsData, toNumInKB } = useAppStore();
+  const tablesArray: Table[] = Object.values(metricsData.dbSizeMetrics.tableSizes);
 
   const options = {
     responsive: true,
@@ -21,7 +19,7 @@ export const TableSize: React.FC = () => {
       },
       title: {
         display: true,
-        text: `Planning Execution Times - `,
+        text: 'Table Storage (kb)',
         color: '#ffffffc8'
       },
     },
@@ -31,21 +29,15 @@ export const TableSize: React.FC = () => {
     labels: Object.keys(metricsData.dbSizeMetrics.tableSizes),
     datasets: [
       {
-        label: 'Planning Time',
-        data: [],
+        label: 'Disk Size',
+        data: tablesArray.map(table => toNumInKB(table.diskSize)),
         backgroundColor: 'rgba(107, 99, 255, 0.5)',
         scaleFontColor: "#FFFFFF",
       },
       {
-        label: 'Execution Time',
-        data: [],
+        label: 'Row Size',
+        data: tablesArray.map(table => toNumInKB(table.rowSize)),
         backgroundColor: 'rgba(53, 162, 235, 0.5)',
-        scaleFontColor: "#FFFFFF",
-      },
-      {
-        label: 'Total Time',
-        data: [],
-        backgroundColor: 'rgba(235, 86, 255, 0.2)',
         scaleFontColor: "#FFFFFF",
       },
     ],

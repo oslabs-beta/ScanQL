@@ -1,6 +1,7 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { useNavigate } from 'react-router-dom';
 import { TableSize } from '../charts/TableSize'
+import { IndexSizes } from '../charts/IndexSizes';
 import { RowsPerTable } from '../charts/RowsPerTable'
 import { IndexPerTable } from '../charts/IndexPerTable'
 import { GeneralMetrics } from '../charts/GeneralMetrics';
@@ -48,11 +49,15 @@ const MetricsView: React.FC = () => {
 
   return (
     <>
+    <h1 className='span-all'>General Metrics:</h1>
       <RowsPerTable />
       <IndexPerTable />
       <GeneralMetrics />
+    <h1 className='span-all'>Query Execution Time:</h1>
       {executionTimes}
+    <h1 className='span-all'>Database Storage:</h1>
       <TableSize />
+      <IndexSizes />
     </>
   )
 }
