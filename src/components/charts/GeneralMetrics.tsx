@@ -15,29 +15,33 @@ export const GeneralMetrics: React.FC = () => {
   })
   // total Foreign Keys
   const totalForeignKeys = rows.reduce((sum, table) => sum + table.numberOfForeignKeys, 0);
+
   // average Foreign Keys per table
   const averageForeignKeys = totalForeignKeys / rows.length;
 
-  console.log(`Total foreign keys: ${totalForeignKeys}`)
-  console.log(`Average number of foreign keys: ${averageForeignKeys}`)
+  // console.log(`Total foreign keys: ${totalForeignKeys}`)
+  // console.log(`Average number of foreign keys: ${averageForeignKeys}`)
 
   // total Number of Fields
 
   const totalNumberOfFields = rows.reduce((sum, table) => sum + table.numberOfFields, 0);
+  
   const averageNumberOfFields = totalNumberOfFields / rows.length;
 
-  console.log(`Total foreign keys: ${totalNumberOfFields}`)
-  console.log(`Average number of foreign keys: ${averageNumberOfFields}`)
+  // console.log(`Total foreign keys: ${totalNumberOfFields}`)
+  // console.log(`Average number of foreign keys: ${averageNumberOfFields}`)
 
 
   return (
 
     <>
       <div className="dashboard-card">
-        {averageForeignKeys}
+        <h3 >Average Foreign Keys Per Table</h3>
+        <p>{averageForeignKeys}</p>
         {/* {totalForeignKeys} */}
       </div>
       <div className="dashboard-card">
+        <h3>Total Number Of Fields</h3>
         {totalNumberOfFields}
         {/* {totalForeignKeys} */}
       </div>

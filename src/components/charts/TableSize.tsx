@@ -2,28 +2,13 @@ import { Bar } from 'react-chartjs-2';
 import useAppStore from '../../store/appStore';
 
 interface Table {
-  diskSize: String;
-  rowSize: String;
-}
-
-// only converts to kb. could be refactored to loop through all the size units and find the one that is the most common, than proivde different scenarios for converting to each unit (kb, mb, gb); use a cache to store quantities of found unit tied to the unit as the key. 
-const toNumInKB = (size: String): number => { 
-  let num = '';
-  for (const char of size) {
-    if (/[0-9]/.test(char)) num += char;
-    else break;
-  }
-  // check if bytes, convert accordingly and return
-  if (size.toLowerCase().includes('bytes')) return parseInt(num) / 1000;
-  // check if mB, convert accordingly and return
-  if (size.toLowerCase().includes('mb')) return parseInt(num) * 1000;
-  // return num if already kb
-  return parseInt(num);
+  diskSize: string;
+  rowSize: string;
 }
 
 
 export const TableSize: React.FC = () => {
-  const { metricsData } = useAppStore();
+  const { metricsData, toNumInKB } = useAppStore();
   const tablesArray: Table[] = Object.values(metricsData.dbSizeMetrics.tableSizes);
 
   const options = {
@@ -34,7 +19,7 @@ export const TableSize: React.FC = () => {
       },
       title: {
         display: true,
-        text: 'Table Sizes (kb)',
+        text: 'Table Storage (kb)',
         color: '#ffffffc8'
       },
     },

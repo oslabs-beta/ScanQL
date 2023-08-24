@@ -94,7 +94,7 @@
     row-gap: .6rem;
     column-gap: .6rem;
     padding: 2rem;
-    height: 76vh;
+    height: 81vh;
     overflow-y: auto;
     width: 95%;
     border: 2px solid rgb(255, 255, 255, 0.05);
@@ -104,10 +104,13 @@
 
 .dashboard-card {
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
     color: white;
+    gap: 2em;
     /* max-width: 30vw; */
-    max-height: 35vh;
+    height: 35vh;
     border: 2px solid rgb(255, 255, 255, 0.05);
     border-radius: 20px;
     padding: .6rem;
@@ -124,6 +127,10 @@
 
 .dashboard-card.small-card {
     max-width: 99%;
+}
+
+.span-all {
+    grid-column: 1 / -1;
 }
 
 .dashboard-card:hover {
