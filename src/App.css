@@ -121,6 +121,14 @@
     transition: all .2s ease-in-out;
 }
 
+.text-card {
+    height: 78%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40%;
+}
+
 .dashboard-card.md-card {
     grid-column: span 2;
 }

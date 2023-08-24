@@ -25,7 +25,7 @@ const ConnectDB: React.FC = () => {
           <Dialog.Description className="text-gray-300 mt-[10px] mb-5 text-[15px] leading-normal">
             Please submit your connection string. Click Submit when you are done.
           </Dialog.Description>
-          <fieldset className="mb-[15px] flex items-center gap-5">
+          {/* <fieldset className="mb-[15px] flex items-center gap-5">
             <label className="text-gray-200 w-[90px] text-right text-[15px]" htmlFor="name">
               Database Name
             </label>
@@ -36,7 +36,7 @@ const ConnectDB: React.FC = () => {
               value={dbName}
               onChange={(e) => setDBName(e.target.value)}
             />
-          </fieldset>
+          </fieldset> */}
           <fieldset className="mb-[15px] flex items-center gap-5">
             <label className="text-gray-200 w-[90px] text-right text-[15px]" htmlFor="username">
               Postgres URI String

@@ -115,9 +115,13 @@ export const QueryTimes: React.FC<BarGraphProps> = ({ table, tableName }) => {
       },
       title: {
         display: true,
-        text: `Planning Execution Time (ms) - ${tableName}`,
-        color: '#ffffffc8'
+        text: 'Planning Execution Times',
+        color: '#ffffffc8',
+        font: {
+          size: 14
+        }
       },
+      
     },
   };
 
@@ -125,19 +129,19 @@ export const QueryTimes: React.FC<BarGraphProps> = ({ table, tableName }) => {
     labels: ['Insert', 'Select', 'Update'],
     datasets: [
       {
-        label: 'Planning Time',
+        label: 'Planning Time (ms)',
         data: planningTimes,
         backgroundColor: 'rgba(107, 99, 255, 0.5)',
         scaleFontColor: "#FFFFFF",
       },
       {
-        label: 'Execution Time',
+        label: 'Execution Time (ms)',
         data: executionTimes,
         backgroundColor: 'rgba(53, 162, 235, 0.5)',
         scaleFontColor: "#FFFFFF",
       },
       {
-        label: 'Total Time',
+        label: 'Total Time (ms)',
         data: totalTimes,
         backgroundColor: 'rgba(235, 86, 255, 0.2)',
         scaleFontColor: "#FFFFFF",

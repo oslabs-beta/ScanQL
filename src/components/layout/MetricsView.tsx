@@ -1,7 +1,7 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { useNavigate } from 'react-router-dom';
 import { TableSize } from '../charts/TableSize'
-import { IndexSizes } from '../charts/IndexSizes';
+import { TableIndexSizes } from '../charts/TableIndexSizes';
 import { RowsPerTable } from '../charts/RowsPerTable'
 import { IndexPerTable } from '../charts/IndexPerTable'
 import { GeneralMetrics } from '../charts/GeneralMetrics';
@@ -19,6 +19,8 @@ import {
   Legend,
   BarElement,
 } from 'chart.js';
+import { ColumnIndexSizes } from '../charts/ColumnIndexSizes';
+import { MetricsSeparator } from '../ui/MetricsSeparator';
 
 ChartJS.register(
   CategoryScale,
@@ -45,19 +47,22 @@ const MetricsView: React.FC = () => {
   const executionTimes = Object.values(metricsData.executionPlans).map((table, i: number) => {
     // grab the correct data and pass as props to each component
     return <QueryTimes key={i} table={table} tableName={executionTableNames[i]} />
+
   })
 
   return (
     <>
-    <h1 className='span-all'>General Metrics:</h1>
+    {/* <h3 className='span-all'>General Metrics:</h3> */}
+      <MetricsSeparator title={'General Metrics'}/>
       <RowsPerTable />
       <IndexPerTable />
       <GeneralMetrics />
-    <h1 className='span-all'>Query Execution Time:</h1>
+      <MetricsSeparator title={'Query Execution Time'}/>
       {executionTimes}
-    <h1 className='span-all'>Database Storage:</h1>
+      <MetricsSeparator title={'Database Size'}/>
       <TableSize />
-      <IndexSizes />
+      <TableIndexSizes />
+      <ColumnIndexSizes />
     </>
   )
 }
