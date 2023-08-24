@@ -21,7 +21,7 @@ export default function RFTable (nodeData: any) {
               <td>{columns[columnNames].Constraints}</td>
               <td>{columns[columnNames].primary_key}</td>
               <td>{columns[columnNames].foreign_key}</td>
-              <td>{handle}</td>
+              {/* <td>{handle}</td> */}
             </tr>
             
           );
@@ -38,7 +38,7 @@ export default function RFTable (nodeData: any) {
           <div className='erd-table-container'>
             <table className ="erd-table">
               <thead>
-                <tr>
+                <tr className = 'erd-head-row'>
                   <th>Column</th>
                   <th>Type</th>
                   <th>Constraints</th>
