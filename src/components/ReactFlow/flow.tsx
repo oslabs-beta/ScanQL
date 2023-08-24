@@ -31,18 +31,18 @@ export default function Flow(): JSX.Element {
   }, [masterData, setNodes, setEdges]);
 
   return (
-      <div style={{ height: '70vh', width: '167vh' }}>
-        <ReactFlow
-          nodes={nodes}
-          onNodesChange={onNodesChange}
-          edges={edges}
-          onEdgesChange={onEdgesChange}
-          nodeTypes={nodeTypes}
-          fitView>
-          <MiniMap />
-          <Background />
-          <Controls />
-        </ReactFlow>
-      </div>
+    <div style={{ height: '70vh', width: '167vh' }}>
+      <ReactFlow
+        nodes={nodes}
+        onNodesChange={onNodesChange}
+        edges={edges}
+        onEdgesChange={onEdgesChange}
+        nodeTypes={nodeTypes}
+        fitView>
+        <MiniMap />
+        <Background />
+        <Controls />
+      </ReactFlow>
+    </div>
   );
 }
