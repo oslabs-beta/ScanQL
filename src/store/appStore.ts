@@ -5,7 +5,7 @@ export type TableInfo = {
   tableName: string;
   numberOfRows: number;
   numberOfIndexes: number;
-  numberOfField: number;
+  numberOfFields: number;
   numberOfForeignKeys: number;
 };
 
@@ -16,19 +16,22 @@ type DatabaseInfo = {
 // type executionPlans = {
 //   {}
 // }
-  
+
 
 interface AppState {
   isConnectDBOpen: boolean;
   dbName: string;
   uri: string;
   isDBConnected: boolean;
+  isModalOpen: boolean;
   errorMessage: string;
   metricsData: {
     databaseInfo: DatabaseInfo;
     executionPlans: {};
     dbSizeMetrics: {
       tableSizes: {};
+      indexSizesByTable: {};
+      tableNames: string[],
     };
   }
 
@@ -37,6 +40,9 @@ interface AppState {
   theme: 'light' | 'dark';
   toggleTheme: () => void;
 
+  openModal: () => void;
+  closeModal: () => void;
+
   openConnectDB: () => void;
   closeConnectDB: () => void;
   setView: (view: 'metrics' | 'erd') => void;
@@ -44,6 +50,7 @@ interface AppState {
   setDBName: (dbName: string) => void;
   setUri: (uri: string) => void;
   setIsDBConnected: (isDBConnected: boolean) => void;
+  toNumInKB: (size: string) => number;
   connectToDatabase: (uri: string, dbName: string) => Promise<void>;
 }
 
@@ -53,6 +60,7 @@ const useAppStore = create<AppState>((set) => ({
   //password: '',
   // isLoggedIn: false,
   isConnectDBOpen: false,
+  isModalOpen: false,
   dbName: '',
   uri: '',
   isDBConnected: false,
@@ -61,34 +69,52 @@ const useAppStore = create<AppState>((set) => ({
     databaseInfo: {},
     executionPlans: {},
     dbSizeMetrics: {
-      tableSizes: {}
+      tableSizes: {},
+      indexSizesByTable: {},
+      tableNames: [],
     },
   },
 
   // default initialize view state to metrics
   view: 'metrics',
+
   //set default to light
   theme: 'light',
-  
-  toggleConnectDB: () => {
-    const { isConnectDBOpen } = useAppStore();
-    isConnectDBOpen ? set({ isConnectDBOpen: false }) : set({ isConnectDBOpen: true })
-  },
+
   //toggle light/dark mode
-  toggleTheme: () => {set((state) => ({ theme: state.theme === 'light' ? 'dark' : 'light' }))},
+  toggleTheme: () => { set((state) => ({ theme: state.theme === 'light' ? 'dark' : 'light' })) },
 
   openConnectDB: () => set({ isConnectDBOpen: true }),
   closeConnectDB: () => set({ isConnectDBOpen: false }),
   setView: (view) => set({ view }), // method to set viewState
+  
+  openModal: () => set({ isModalOpen: true }),
+  closeModal: () => set({ isModalOpen: false }),
 
   setDBName: (dbName: string) => set({ dbName }),
   setUri: (uri: string) => set({ uri }),
   setIsDBConnected: (isDBConnected) => set({ isDBConnected }),
-  setMetrics: (metricsData: {databaseInfo: DatabaseInfo, executionPlans: {}, dbSizeMetrics: { tableSizes: {}}}) => set({ metricsData }),
+  setMetrics: (metricsData: { databaseInfo: DatabaseInfo, executionPlans: {}, dbSizeMetrics: { tableSizes: {}, indexSizesByTable: {}, tableNames: [] } }) => set({ metricsData }),
+
+  // helper function for converting string numbers with units to number in kb
+  // only converts to kb. could be refactored to loop through all the size units and find the one that is the most common, than proivde different scenarios for converting to each unit (kb, mb, gb); use a cache to store quantities of found unit tied to the unit as the key. 
+  toNumInKB: (size: string): number => { 
+    let num = '';
+    for (const char of size) {
+      if (/[0-9]/.test(char)) num += char;
+      else break;
+    }
+    // check if bytes, convert accordingly and return
+    if (size.toLowerCase().includes('bytes')) return parseInt(num) / 1000;
+    // check if mB, convert accordingly and return
+    if (size.toLowerCase().includes('mb')) return parseInt(num) * 1000;
+    // return num if already kb
+    return parseInt(num);
+  },
 
   connectToDatabase: async (uri, dbName) => {
     try {
-      set({ view: 'loading'})
+      set({ view: 'loading' })
       const response = await fetch('/api/pg/dbInfo', {
         method: 'POST',
         headers: {
@@ -107,7 +133,7 @@ const useAppStore = create<AppState>((set) => ({
       }
       const data = await response.json();
       set({ metricsData: data })
-      set({ view: 'metrics'})
+      set({ view: 'metrics' })
     } catch (error) {
       set({ isDBConnected: false, errorMessage: 'Error connecting to the database.' });
     }
