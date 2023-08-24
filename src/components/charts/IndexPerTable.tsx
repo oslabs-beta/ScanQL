@@ -15,7 +15,10 @@ export const options = {
     title: {
       display: true,
       text: 'Indexes Per Table',
-      color: '#ffffffc8'
+      color: '#ffffffc8',
+      font: {
+        size: 14
+      }
     },
   },
 };

@@ -2,17 +2,20 @@ import { Bar } from 'react-chartjs-2';
 import useAppStore from '../../store/appStore';
 
 
-export const IndexSizes: React.FC = () => {
+export const ColumnIndexSizes: React.FC = () => {
   const { metricsData, toNumInKB } = useAppStore();
   const indexesArray: {}[] = Object.values(metricsData.dbSizeMetrics.indexSizesByTable);
-  const indezSizeByTableArray: number[] = indexesArray.map(table => {
-    let total = 0;
-    // loop through object and at each iteration run the value through toNumInKB function and add it to total
-    // after loop return total
-    for (const key in table) {
-      total += toNumInKB(table[key]);
+  console.log(indexesArray)
+  const labelsArray: string[] = [];
+  const indexData: number[] = [];
+  // loop through indexes Array
+    // loop through keys in current object element of indexesArray
+      // create an array of
+  indexesArray.forEach((table): void => {
+    for (const name in table) {
+        labelsArray.push(name);
+        indexData.push(toNumInKB(table[name]))
     }
-    return total;
   })
 
   const options = {
@@ -23,18 +26,21 @@ export const IndexSizes: React.FC = () => {
       },
       title: {
         display: true,
-        text: 'Index Storage by Table (kb)',
-        color: '#ffffffc8'
+        text: 'Index Size by Column',
+        color: '#ffffffc8',
+        font: {
+          size: 14
+        }
       },
     },
   };
     
   const data = {
-    labels: metricsData.dbSizeMetrics.tableNames,
+    labels: labelsArray,
     datasets: [
           {
-            label: 'Index Storage',
-            data: indezSizeByTableArray,
+            label: 'Index Size (kb)',
+            data: indexData,
             backgroundColor: 'rgba(107, 99, 255, 0.5)',
             scaleFontColor: "#FFFFFF",
           },
