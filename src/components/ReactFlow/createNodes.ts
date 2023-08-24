@@ -12,7 +12,7 @@ export default function createNodes(ERDdata: any) {
     data: {table: [tableName, columnData]},
     });
 
-      x += 700; 
+      x += 800; 
 
       if (x > 2000) {
         x= 0;
