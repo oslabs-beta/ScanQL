@@ -174,3 +174,12 @@ th:last-child, td:last-child {
     border-right: none;
 }
 
+.logo-nav-loader {
+    width: 40rem;
+    animation: logo-nav-loader 3s infinite;
+}
+
+@keyframes logo-nav-loader {
+    /* 0%, 100%  { filter: blur(0px) brightness(1) hue-rotate(0deg) saturate(1); } */
+    50% { filter: brightness(3) saturate(0); }
+}
