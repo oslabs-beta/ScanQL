@@ -87,7 +87,7 @@ const identifyCascadeDeletes = async (dbInfo: DBinfo, tableName: string, key: an
       }
     }
   }
-  console.log('THIS IS CASCADE DELETES', cascadeDeletes);
+  // console.log('THIS IS CASCADE DELETES', cascadeDeletes);
   return cascadeDeletes;
 };
 

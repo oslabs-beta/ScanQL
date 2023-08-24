@@ -27,14 +27,14 @@ const dbOverviewController: DbOverviewController = {
       const tablesArr: QueryResult = await db.query(`
         SELECT tablename FROM pg_catalog.pg_tables WHERE schemaname != 'pg_catalog' AND schemaname != 'information_schema'
    `);
-      console.log('tables array', tablesArr.rows);
+      // console.log('tables array', tablesArr.rows);
 
       const tables: QueryResult = await db.query(
         'SELECT tablename FROM pg_catalog.pg_tables WHERE schemaname != \'pg_catalog\' AND schemaname != \'information_schema\';'
       );
       //array of table names to use in generic metrics function
       const tableNames = tables.rows.map(obj => obj.tablename);
-      console.log('tableNames', tableNames);
+      // console.log('tableNames', tableNames);
       // const tableNames: string[] = res.locals.tableNames; // Assuming you have the table names in dbInfo
       // Check if we have at least one table to work with
 
@@ -71,7 +71,7 @@ const dbOverviewController: DbOverviewController = {
         }
       }
       
-      console.log('here are the table sizes', tableSizes);
+      // console.log('here are the table sizes', tableSizes);
       // Size of each index
       const indexSizeResults : QueryResult = await db.query(`
         SELECT 
@@ -85,7 +85,7 @@ const dbOverviewController: DbOverviewController = {
         schemaname = 'public';  -- adjust for your schema if different
         `);
 
-      console.log('this is the index size from me', indexSizeResults);
+      // console.log('this is the index size from me', indexSizeResults);
 
 
       //size of each index for each table
@@ -113,7 +113,7 @@ const dbOverviewController: DbOverviewController = {
         allIndexSizes[row.indexname] = row.index_size;
       }
 
-      console.log(allIndexSizes);
+      // console.log(allIndexSizes);
       /////////////////////////////////////////////////////////////
 
 
@@ -122,7 +122,7 @@ const dbOverviewController: DbOverviewController = {
         `SELECT pg_size_pretty(pg_wal_lsn_diff(pg_current_wal_lsn(), '0/0'::pg_lsn) * 8192) AS wal_size;`
       );
       const logSize = logSizeQuery.rows[0].wal_size;
-      console.log('log siz results', logSizeQuery);
+      // console.log('log siz results', logSizeQuery);
 
       //current active connections 
       const dbNameRes: QueryResult = await db.query('SELECT current_database()');
@@ -148,7 +148,7 @@ const dbOverviewController: DbOverviewController = {
       };
 
       res.locals.dbSizeMetrics = dbSizeMetrics;
-      console.log('dbSizeMetrics', dbSizeMetrics);
+      // console.log('dbSizeMetrics', dbSizeMetrics);
       return next();
     } catch (error) {
       return next(error);
