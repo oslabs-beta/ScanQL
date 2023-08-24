@@ -1,6 +1,6 @@
 import ReactFlow, { Background, Controls, MiniMap } from 'reactflow';
 import React, { useEffect } from 'react';
-import 'reactflow/dist/style.css';
+import 'reactflow/dist/base.css';
 import createNodes from './createNodes';
 import createEdges from './createEdges';
 import RFTable from './RFTable';
@@ -9,6 +9,8 @@ import useFlowStore from '../../store/flowStore';
 
 import '../../../tailwind.config.js'
 
+
+// import '../../../tailwind.config.js'
 
 const nodeTypes = {
   table: RFTable,
@@ -29,18 +31,18 @@ export default function Flow(): JSX.Element {
   }, [masterData, setNodes, setEdges]);
 
   return (
-      <div style={{ height: '68vh', width: '167vh' }}>
-        <ReactFlow
-          nodes={nodes}
-          onNodesChange={onNodesChange}
-          edges={edges}
-          onEdgesChange={onEdgesChange}
-          nodeTypes={nodeTypes}
-          fitView>
-          <Background />
-          <MiniMap />
-          <Controls />
-        </ReactFlow>
-      </div>
+    <div style={{ height: '70vh', width: '167vh' }}>
+      <ReactFlow
+        nodes={nodes}
+        onNodesChange={onNodesChange}
+        edges={edges}
+        onEdgesChange={onEdgesChange}
+        nodeTypes={nodeTypes}
+        fitView>
+        <MiniMap />
+        <Background />
+        <Controls />
+      </ReactFlow>
+    </div>
   );
 }
