@@ -91,6 +91,18 @@ body:after {
     animation: fadeInOut 5s ease infinite 7.5s;
 } 
 
+@keyframes fadeInOut {
+
+    0%,
+    100% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
 a {
   font-weight: 500;
   color: #646cff;

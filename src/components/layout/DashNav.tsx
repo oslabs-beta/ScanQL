@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../../assets/logov1.png';
+import logo from '../../assets/logo-horizontal-v2.png';
 
 
 import DropdownMenuDemo from '../ui/DropdownMenu';
@@ -21,7 +21,7 @@ const DashNav: React.FC = () => {
 
   return (
 
-    <div className="flex w-screen flex-col items-center justify-center md:flex-row md:justify-between px-8 py-4">
+    <div className="flex w-screen flex-col items-center justify-center md:flex-row md:justify-between px-8 py-6 mb-8">
       <div className="flex flex-col items-center md:flex-row">
         <div className="flex justify-center md:mx-0 md:mr-4 md:items-center md:justify-start">
           <Link to="/">
@@ -29,31 +29,20 @@ const DashNav: React.FC = () => {
           </Link>
 
         </div>
-        {/* <div className="flex flex-col items-center md:flex-row md:space-x-4">
-            <h1 className="text-gray-300 text-base">ScanQL</h1>
-          </div> */}
-        {/* <div>
-          <Button onClick={() => setView('metrics')}>
-            Metrics View
-          </Button>
-        </div>
-        <Button onClick={() => setView('erd')}>
-          ERD Diagram
-        </Button>
-        <Button>
-          Query View
-        </Button> */}
 
       </div>
       <div className="flex items-center">
         {/* <Switch size="1" radius="full" defaultChecked /> */}
         <Switch checked={theme === 'dark'} onChange={toggleTheme} >
-          {theme === 'light' ? <MoonIcon width={22} height={22} /> : <SunIcon width={22} height={22} />}
+          {theme === 'light' ? <MoonIcon className = "text-indigo-900"width={22} height={22} /> : <SunIcon width={22} height={22} />}
         </Switch>
         <DropdownMenuDemo />
       </div>
     </div>
   )
 }
+
+//optional bottom border styling: 
+//border-b border-violet-900 border-opacity-10
 
 export default DashNav;

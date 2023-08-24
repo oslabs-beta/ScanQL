@@ -10,11 +10,14 @@
 //   plugins: [],
 // }
 
+/*eslint-env node*/
+/*eslint no-undef: "error"*/
 
-const { blackA, mauve, violet } = require('@radix-ui/colors');
+
+import { blackA, mauve, violet } from '@radix-ui/colors'
 
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   content: ['./index.html',
     './src/**/*.{js,jsx,ts,tsx}'
   ],
@@ -70,4 +73,5 @@ module.exports = {
       }
   },
   plugins: [],
+  important: true
 };

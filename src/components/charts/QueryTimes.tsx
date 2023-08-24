@@ -82,7 +82,7 @@ interface BarGraphProps {
   tableName: String;
 }
 
-export const BarGraph: React.FC<BarGraphProps> = ({ table, tableName }) => {
+export const QueryTimes: React.FC<BarGraphProps> = ({ table, tableName }) => {
   //  Insert Execution Metrics
   // const insertExecutionTime = table.INSERT.plan.rows[0]['QUERY PLAN'][0]['Execution Time'];
   // const insertPlanningTime = table.INSERT.plan.rows[0]['QUERY PLAN'][0]['Planning Time'];
@@ -105,7 +105,7 @@ export const BarGraph: React.FC<BarGraphProps> = ({ table, tableName }) => {
     executionTimes[2] + planningTimes[2]
   ];
 
-  console.log(`Execution Times: ${executionTimes}, Planning Times: ${planningTimes}`)
+  // console.log(`Execution Times: ${executionTimes}, Planning Times: ${planningTimes}`)
 
   const options = {
     responsive: true,
@@ -115,7 +115,7 @@ export const BarGraph: React.FC<BarGraphProps> = ({ table, tableName }) => {
       },
       title: {
         display: true,
-        text: `Planning Execution Times - ${tableName}`,
+        text: `Planning Execution Time (ms) - ${tableName}`,
         color: '#ffffffc8'
       },
     },
@@ -145,7 +145,7 @@ export const BarGraph: React.FC<BarGraphProps> = ({ table, tableName }) => {
     ],
   };
   return (
-    <div className="dashboard-card">
+    <div className="dashboard-card md-card">
       <Bar data={data} options={options} />
     </div>
   );

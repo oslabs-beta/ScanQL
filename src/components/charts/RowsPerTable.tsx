@@ -1,43 +1,14 @@
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Pie } from "react-chartjs-2";
-import  { RowsInfoArray } from '../../types'
-import React from "react";
+import React, { useState } from "react";
 import useAppStore from "../../store/appStore";
+import { TableInfo } from '../../store/appStore'
+
+import { Dialog } from "@radix-ui/react-dialog";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-// export const data = {
-//     labels: ["A", "B", "C", "D", "E", "F"],
-//     datasets: [
-//         {
-//             label: "# of Votes",
-//             data: [12, 19, 3, 5, 2, 3],
-//             backgroundColor: [
-//                 "rgba(190, 99, 255, 0.2)",
-//                 "rgba(54, 162, 235, 0.2)",
-//                 "rgba(235, 86, 255, 0.2)",
-//                 "rgba(16, 39, 215, 0.2)",
-//                 "rgba(129, 75, 236, 0.2)",
-//                 "rgba(64, 118, 255, 0.2)",
-//             ],
-//             borderColor: [
-//                 "#dbdbdbdf",
-//             //     "rgba(54, 162, 235, 1)",
-//             //     "rgba(255, 206, 86, 1)",
-//             //     "rgba(75, 192, 192, 1)",
-//             //     "rgba(153, 102, 255, 1)",
-//             //     "rgba(255, 159, 64, 1)",
-//             ],
-//             borderWidth: 1,
-//         },
-//     ],
-// };
-
-interface PieChartProps {
-    rowsInfoData: RowsInfoArray;
-}
-
-export const options3 = {
+export const options = {
     responsive: true,
     plugins: {
       legend: {
@@ -51,13 +22,22 @@ export const options3 = {
     },
   };
 
-export const PieChart: React.FC<PieChartProps> = ({ rowsInfoData }) => {
+export const RowsPerTable: React.FC = () => {
+  const { metricsData, openModal } = useAppStore();
+  const tablesArray: TableInfo[] = Object.values(metricsData.databaseInfo);
+  const rows = tablesArray.map(table => {
+    return {
+      tableName: table.tableName,
+      numberOfRows: table.numberOfRows,
+    }
+  })
+
     const data = {
-        labels: rowsInfoData.map(table => table.tableName),
+        labels: rows.map(table => table.tableName),
         datasets: [
           {
             label: 'Rows Per Table',
-            data: rowsInfoData.map(table => table.numberOfRows),
+            data: rows.map(table => table.numberOfRows),
             backgroundColor: [
                 "rgba(190, 99, 255, 0.2)",
                 "rgba(54, 162, 235, 0.2)",
@@ -78,10 +58,9 @@ export const PieChart: React.FC<PieChartProps> = ({ rowsInfoData }) => {
           }
         ]
     }
-    // console.log(`in pie chart component: ${rowsInfoData[0]}`)
-    return (
-        <div className="dashboard-card">
-            <Pie data={data} options={options3} />
+return (
+        <div onClick={openModal} className="dashboard-card small-card">
+            <Pie data={data} options={options} />
         </div>
     );
 }
