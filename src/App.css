@@ -66,8 +66,10 @@
         opacity: 1;
     }
 }
-
-
+/* dark theme */
+/* body {
+    filter: invert(100%) hue-rotate(180deg);
+} */
 .dashboard-button-bar {
     display: flex;
     justify-content: center;

@@ -11,9 +11,15 @@ type DbSizeMetrics = {
   logSize: string;
   activeConnections: number;
 };
-
+type DbPerformanceMetrics = {
+    avgQueryResponseTime: string;
+    queriesPerSecond: number;
+    slowestQueries: { query: string, executionTime: string }[];
+    cacheHitRate: number;
+  };
 type DbOverviewController = {
   dbSizeMetrics: RequestHandler;
+  dbPerformanceMetrics: RequestHandler;
 };
 
 const dbOverviewController: DbOverviewController = {
@@ -44,13 +50,13 @@ const dbOverviewController: DbOverviewController = {
       );
       const totalDatabaseSize = totalSizeQuery.rows[0].size;
 
-      //Find the Schema name 
-      const schemaNameRes: QueryResult = await db.query(`SELECT nspname 
-      FROM pg_namespace 
-      WHERE nspname NOT LIKE 'pg_%' 
-      AND nspname != 'information_schema';`);
+      //   //Find the Schema name 
+      //   const schemaNameRes: QueryResult = await db.query(`SELECT nspname 
+      //   FROM pg_namespace 
+      //   WHERE nspname NOT LIKE 'pg_%' 
+      //   AND nspname != 'information_schema';`);
       
-    //   console.log('here are the schemas', schemaNameRes);
+      //   console.log('here are the schemas', schemaNameRes);
 
 
       const tableSizes: { [key: string]: { diskSize: string, rowSize: string } } = {};
@@ -119,7 +125,7 @@ const dbOverviewController: DbOverviewController = {
 
       // Log file size
       const logSizeQuery: QueryResult = await db.query(
-        `SELECT pg_size_pretty(pg_wal_lsn_diff(pg_current_wal_lsn(), '0/0'::pg_lsn) * 8192) AS wal_size;`
+        'SELECT pg_size_pretty(pg_wal_lsn_diff(pg_current_wal_lsn(), \'0/0\'::pg_lsn) * 8192) AS wal_size;'
       );
       const logSize = logSizeQuery.rows[0].wal_size;
       console.log('log siz results', logSizeQuery);
@@ -150,6 +156,81 @@ const dbOverviewController: DbOverviewController = {
       res.locals.dbSizeMetrics = dbSizeMetrics;
       console.log('dbSizeMetrics', dbSizeMetrics);
       return next();
+    } catch (error) {
+      return next(error);
+    }
+  },
+  dbPerformanceMetrics: async (req, res, next): Promise<void> => {
+    const db = res.locals.dbConnection;
+
+    try {
+      // 1. Average query response time
+      const avgQueryResponseTimeRes: QueryResult = await db.query(
+        `SELECT avg(total_exec_time) AS avg_exec_time 
+         FROM pg_stat_statements;`
+      );
+      const avgQueryResponseTime = avgQueryResponseTimeRes.rows[0].avg_exec_time;
+
+      // 2. Number of queries executed per second (you might need to track this over time)
+      const versionResult: QueryResult = await db.query('SHOW server_version_num;');
+      const versionNumber = parseInt(versionResult.rows[0].server_version_num, 10);
+      
+      let queryStr = '';
+      
+      if (versionNumber < 100000) {
+        // For PostgreSQL versions earlier than 10
+        queryStr = 'SELECT ... , stats_reset, ... FROM pg_stat_database ...';
+      } else {
+        // For PostgreSQL versions 10 and later
+        queryStr = 'SELECT ... , stats_io_reset, ... FROM pg_stat_database ...';
+      }
+      
+      const result: QueryResult = await db.query(queryStr);
+      const queriesPerSecond = result.rows[0].qps;
+      ///tracking over time
+
+      const overTime: QueryResult = await db.query(`
+            SELECT 
+                capture_time,
+                SUM(calls) as total_queries,
+                AVG(total_time/calls) as average_query_time,
+                SUM(calls) / EXTRACT(EPOCH FROM (MAX(capture_time) - MIN(capture_time))) as queries_per_second
+            FROM query_metrics
+            GROUP BY capture_time
+            ORDER BY capture_time DESC
+        `);
+        console.log('overTime.rows' ,overTime);
+      // 3. Slowest queries and their execution times
+      const slowestQueriesRes: QueryResult = await db.query(
+        `SELECT query, total_exec_time / calls AS avg_exec_time 
+         FROM pg_stat_statements 
+         ORDER BY avg_exec_time DESC 
+         LIMIT 5;`
+      );
+      const slowestQueries = slowestQueriesRes.rows.map(row => ({
+        query: row.query,
+        executionTime: row.avg_exec_time,
+      }));
+
+      // 4. Cache hit rate
+      const cacheHitRateRes: QueryResult = await db.query(
+        `SELECT 
+           sum(heap_blks_hit) / (sum(heap_blks_hit) + sum(heap_blks_read)) as rate 
+         FROM pg_statio_user_tables;`
+      );
+      const cacheHitRate = cacheHitRateRes.rows[0].rate;
+
+      const dbPerformanceMetrics: DbPerformanceMetrics = {
+        avgQueryResponseTime,
+        queriesPerSecond,
+        slowestQueries,
+        cacheHitRate,
+      };
+
+      res.locals.dbPerformanceMetrics = dbPerformanceMetrics;
+      console.log('dbPerformanceMetrics', dbPerformanceMetrics);
+      return next();
+
     } catch (error) {
       return next(error);
     }
