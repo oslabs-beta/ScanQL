@@ -10,8 +10,6 @@ import useFlowStore from '../../store/flowStore';
 import '../../../tailwind.config.js'
 
 
-// import '../../../tailwind.config.js'
-
 const nodeTypes = {
   table: RFTable,
 };
@@ -24,6 +22,7 @@ export default function Flow(): JSX.Element {
   const masterData = metricsData.erDiagram;
   const initialData = createNodes(masterData);
   const initialEdges = createEdges(masterData);
+  const proOptions = { hideAttribution: true };
 
   useEffect(() => {
     setNodes(initialData);
@@ -38,8 +37,9 @@ export default function Flow(): JSX.Element {
           edges={edges}
           onEdgesChange={onEdgesChange}
           nodeTypes={nodeTypes}
-          fitView>
-          <MiniMap />
+          fitView
+          proOptions={proOptions}>
+          {/* <MiniMap /> */}
           <Background />
           <Controls />
         </ReactFlow>
