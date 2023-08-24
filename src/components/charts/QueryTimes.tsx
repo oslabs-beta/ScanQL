@@ -82,7 +82,7 @@ interface BarGraphProps {
   tableName: String;
 }
 
-export const BarGraph: React.FC<BarGraphProps> = ({ table, tableName }) => {
+export const QueryTimes: React.FC<BarGraphProps> = ({ table, tableName }) => {
   //  Insert Execution Metrics
   // const insertExecutionTime = table.INSERT.plan.rows[0]['QUERY PLAN'][0]['Execution Time'];
   // const insertPlanningTime = table.INSERT.plan.rows[0]['QUERY PLAN'][0]['Planning Time'];

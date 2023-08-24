@@ -1,13 +1,10 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import Loading from '../ui/Loading';
 import { useNavigate } from 'react-router-dom';
-import { PieChart } from '../charts/PieChart'
-import { DoughnutChart } from '../charts/DoughnutChart'
-import { PolarChart } from '../charts/PolarChart';
-import { BarGraph } from '../charts/BarGraph';
-import { RowsInfoArray, indexTableArray } from '../../types'
-import { TableInfo } from '../../store/appStore'
-import { useEffect, useState } from 'react';
+import { TableSize } from '../charts/TableSize'
+import { RowsPerTable } from '../charts/RowsPerTable'
+import { IndexPerTable } from '../charts/IndexPerTable'
+import { QueryTimes } from '../charts/QueryTimes';
+import { useEffect } from 'react';
 import useAppStore from '../../store/appStore';
 import {
   Chart as ChartJS,
@@ -33,73 +30,27 @@ ChartJS.register(
 );
 
 const MetricsView: React.FC = () => {
-
   const navigate = useNavigate();
-  const { user, isAuthenticated, isLoading } = useAuth0();
-  const { metricsData, openConnectDB } = useAppStore();
-  const [rowsData, setRowsData] = useState<RowsInfoArray>([]);
-  const [indexData, setIndexData] = useState<indexTableArray>([]);
-  const [executionTable, setExecutionTable] = useState<{}[]>([])
-  const [executionTableNames, setExecutionTableNames] = useState<string[]>([])
+  const { user, isAuthenticated } = useAuth0();
 
   useEffect(() => {
     if (!isAuthenticated) navigate('/');
   }, [isAuthenticated])
-
-  useEffect(() => {
-    if (!metricsData) return;
-    const tablesArray: TableInfo[] = Object.values(metricsData.databaseInfo);
-    const executionDataArray: {}[] = Object.values(metricsData.executionPlans);
-    const execTableNames: string[] = Object.keys(metricsData.executionPlans);
-
-    if (tablesArray.length) {
-
-      // row chart Data
-      const rows = tablesArray.map(table => {
-        return {
-          tableName: table.tableName,
-          numberOfRows: table.numberOfRows,
-        }
-      })
-      setRowsData(rows);
-
-      // index chart Data
-      const indexes = tablesArray.map(table => {
-        return {
-          tableName: table.tableName,
-          numberOfIndexes: table.numberOfIndexes,
-        }
-      })
-      setIndexData(indexes);
-      // Planning Execution Times component array
-      if (executionDataArray.length) setExecutionTable(executionDataArray);
-      if (execTableNames.length) setExecutionTableNames(execTableNames);
-    }
-  }, [metricsData])
-
-  const pieChartComponents: JSX.Element[] = [];
-  for (let i = 0; i < 1; i++) {
-    pieChartComponents.push(<PieChart key={i} rowsInfoData={rowsData} />)
-  }
-  // const polarChartComponents: JSX.Element[] = [];
-  // for (let i = 0; i < 1; i++) {
-  //   polarChartComponents.push(<PolarChart key={i} rowsInfoData={rowsData} />)
-  // }
-  const doughnutChartComponent: JSX.Element[] = [];
-  for (let i = 0; i < 1; i++) {
-    doughnutChartComponent.push(<DoughnutChart key={i} indexData={indexData} />)
-  }
-  const executionTimes = executionTable.map((table: {}, i: number) => {
+  
+  const { metricsData } = useAppStore();
+  
+  const executionTableNames: string[] = Object.keys(metricsData.executionPlans);
+  const executionTimes = Object.values(metricsData.executionPlans).map((table, i: number) => {
     // grab the correct data and pass as props to each component
-    return <BarGraph key={i} table={table} tableName={executionTableNames[i]} />
+    return <QueryTimes key={i} table={table} tableName={executionTableNames[i]} />
   })
 
   return (
     <>
-      {pieChartComponents}
-      {/* {polarChartComponents} */}
-      {doughnutChartComponent}
+      <RowsPerTable />
+      <IndexPerTable />
       {executionTimes}
+      <TableSize />
     </>
   ) 
 }
