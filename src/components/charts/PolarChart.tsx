@@ -19,7 +19,10 @@ export const options4 = {
     title: {
       display: true,
       text: 'Rows Per Table',
-      color: '#ffffffc8'
+      color: '#ffffffc8',
+      font: {
+        size: 14
+      }
     },
   },
 };

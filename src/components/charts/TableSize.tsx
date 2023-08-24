@@ -19,8 +19,11 @@ export const TableSize: React.FC = () => {
       },
       title: {
         display: true,
-        text: 'Table Storage (kb)',
-        color: '#ffffffc8'
+        text: 'Table Size',
+        color: '#ffffffc8',
+        font: {
+          size: 14
+        }
       },
     },
   };
@@ -29,13 +32,13 @@ export const TableSize: React.FC = () => {
     labels: Object.keys(metricsData.dbSizeMetrics.tableSizes),
     datasets: [
       {
-        label: 'Disk Size',
+        label: 'Disk Size (kb)',
         data: tablesArray.map(table => toNumInKB(table.diskSize)),
         backgroundColor: 'rgba(107, 99, 255, 0.5)',
         scaleFontColor: "#FFFFFF",
       },
       {
-        label: 'Row Size',
+        label: 'Row Size (kb)',
         data: tablesArray.map(table => toNumInKB(table.rowSize)),
         backgroundColor: 'rgba(53, 162, 235, 0.5)',
         scaleFontColor: "#FFFFFF",
