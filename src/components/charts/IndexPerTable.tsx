@@ -1,18 +1,16 @@
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import  { RowsInfoArray, indexTableArray } from '../../types'
 import React from "react";
 import useAppStore from "../../store/appStore";
+import { TableInfo } from '../../store/appStore'
+
 
 
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-interface DoughnutChartProps {
-  indexData: indexTableArray;
-}
 
-export const options4 = {
+export const options = {
   responsive: true,
   plugins: {
     legend: {
@@ -26,7 +24,15 @@ export const options4 = {
   },
 };
 
-export const DoughnutChart: React.FC<DoughnutChartProps> = ({ indexData }) => {
+export const IndexPerTable: React.FC = () => {
+  const { metricsData } = useAppStore();
+  const tablesArray: TableInfo[] = Object.values(metricsData.databaseInfo);
+  const indexData = tablesArray.map(table => {
+    return {
+      tableName: table.tableName,
+      numberOfIndexes: table.numberOfIndexes,
+    }
+  });
   const data = {
       labels: indexData.map(table => table.tableName),
       datasets: [
@@ -56,7 +62,7 @@ export const DoughnutChart: React.FC<DoughnutChartProps> = ({ indexData }) => {
 //   console.log(`in doughnut chart component: ${indexData[0]}`)
   return (
       <div className="dashboard-card small-card">
-          <Doughnut data={data} options={options4} />
+          <Doughnut data={data} options={options} />
       </div>
   );
 }

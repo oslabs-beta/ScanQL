@@ -27,6 +27,9 @@ interface AppState {
   metricsData: {
     databaseInfo: DatabaseInfo;
     executionPlans: {};
+    dbSizeMetrics: {
+      tableSizes: {};
+    };
   }
 
   view: 'metrics' | 'erd' | 'loading';
@@ -57,6 +60,9 @@ const useAppStore = create<AppState>((set) => ({
   metricsData: {
     databaseInfo: {},
     executionPlans: {},
+    dbSizeMetrics: {
+      tableSizes: {}
+    },
   },
 
   // default initialize view state to metrics
@@ -78,7 +84,7 @@ const useAppStore = create<AppState>((set) => ({
   setDBName: (dbName: string) => set({ dbName }),
   setUri: (uri: string) => set({ uri }),
   setIsDBConnected: (isDBConnected) => set({ isDBConnected }),
-  setMetrics: (metricsData: {databaseInfo: DatabaseInfo, executionPlans: {}}) => set({ metricsData }),
+  setMetrics: (metricsData: {databaseInfo: DatabaseInfo, executionPlans: {}, dbSizeMetrics: { tableSizes: {}}}) => set({ metricsData }),
 
   connectToDatabase: async (uri, dbName) => {
     try {
