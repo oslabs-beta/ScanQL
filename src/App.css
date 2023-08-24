@@ -9,7 +9,7 @@
 .dashboard-page {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center;;
 }
 
 /* .dashboard-container {
@@ -35,7 +35,7 @@
     row-gap: 1.5rem;
     column-gap: 1.5rem;
     padding: 3rem;
-    height: 81vh;
+    height: 76vh;
     overflow-y: auto;
     width: 95%;
     border: 2px solid rgb(255, 255, 255, 0.05);
