@@ -29,7 +29,7 @@ export default function Flow(): JSX.Element {
   }, [masterData, setNodes, setEdges]);
 
   return (
-      <div style={{ height: '70vh', width: '167vh' }}>
+      <div style={{ height: '68vh', width: '167vh' }}>
         <ReactFlow
           nodes={nodes}
           onNodesChange={onNodesChange}
