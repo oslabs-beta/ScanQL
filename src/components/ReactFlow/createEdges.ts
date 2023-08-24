@@ -1,6 +1,5 @@
 import { table } from "console";
 import { Edge } from "reactflow";
-
 export default function createEdges(ERDdata: any) {
     // ERDdata is an object of tables
   const initialEdges:Edge[] =  [];
@@ -15,6 +14,16 @@ export default function createEdges(ERDdata: any) {
                 id: `${source}-${target}`,
                 source: source,
                 target: target,
+                style: {
+                  strokeWidth: 2,
+                  stroke: '#535D71',
+                },
+                markerEnd: {
+                  type: 'arrowclosed',
+                  width: 20,
+                  height: 20,
+                  color: '#535D71',
+                },
               });
             });
         }
