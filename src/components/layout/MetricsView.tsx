@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { TableSize } from '../charts/TableSize'
 import { RowsPerTable } from '../charts/RowsPerTable'
 import { IndexPerTable } from '../charts/IndexPerTable'
+import { GeneralMetrics } from '../charts/GeneralMetrics';
 import { QueryTimes } from '../charts/QueryTimes';
 import { useEffect } from 'react';
 import useAppStore from '../../store/appStore';
@@ -36,9 +37,9 @@ const MetricsView: React.FC = () => {
   useEffect(() => {
     if (!isAuthenticated) navigate('/');
   }, [isAuthenticated])
-  
+
   const { metricsData } = useAppStore();
-  
+
   const executionTableNames: string[] = Object.keys(metricsData.executionPlans);
   const executionTimes = Object.values(metricsData.executionPlans).map((table, i: number) => {
     // grab the correct data and pass as props to each component
@@ -49,10 +50,11 @@ const MetricsView: React.FC = () => {
     <>
       <RowsPerTable />
       <IndexPerTable />
+      <GeneralMetrics />
       {executionTimes}
       <TableSize />
     </>
-  ) 
+  )
 }
 
 export default MetricsView;
