@@ -4,11 +4,7 @@ import React from "react";
 import useAppStore from "../../store/appStore";
 import { TableInfo } from '../../store/appStore'
 
-
-
-
 ChartJS.register(ArcElement, Tooltip, Legend);
-
 
 export const options = {
   responsive: true,

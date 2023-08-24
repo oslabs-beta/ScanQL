@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { TableSize } from '../charts/TableSize'
 import { RowsPerTable } from '../charts/RowsPerTable'
 import { IndexPerTable } from '../charts/IndexPerTable'
-import { BarGraph } from '../charts/BarGraph';
+import { QueryTimes } from '../charts/QueryTimes';
 import { useEffect } from 'react';
 import useAppStore from '../../store/appStore';
 import {
@@ -42,7 +42,7 @@ const MetricsView: React.FC = () => {
   const executionTableNames: string[] = Object.keys(metricsData.executionPlans);
   const executionTimes = Object.values(metricsData.executionPlans).map((table, i: number) => {
     // grab the correct data and pass as props to each component
-    return <BarGraph key={i} table={table} tableName={executionTableNames[i]} />
+    return <QueryTimes key={i} table={table} tableName={executionTableNames[i]} />
   })
 
   return (
@@ -50,7 +50,7 @@ const MetricsView: React.FC = () => {
       <RowsPerTable />
       <IndexPerTable />
       {executionTimes}
-      <TableSize tableSizeData={metricsData.dbSizeMetrics.tableSizes}/>
+      <TableSize />
     </>
   ) 
 }
