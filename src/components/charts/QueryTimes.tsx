@@ -115,7 +115,7 @@ export const QueryTimes: React.FC<BarGraphProps> = ({ table, tableName }) => {
       },
       title: {
         display: true,
-        text: 'Planning Execution Times',
+        text: `Planning Execution Times - ${tableName}`,
         color: '#17012866',
         font: {
           size: 14
