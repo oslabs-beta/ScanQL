@@ -28,7 +28,7 @@ export default function RFTable (nodeData: any) {
       <>
         <div>
           <div>
-            <label>
+            <label className="text-indigo-900 text-opacity-70 text-xl font-mono">
               {nodeData.data.table[0]}
             </label>
           </div>
