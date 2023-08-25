@@ -13,6 +13,8 @@ type DatabaseInfo = {
   [tableName: string]: TableInfo;
 };
 
+
+
 // type executionPlans = {
 //   {}
 // }
@@ -31,7 +33,9 @@ interface AppState {
     dbSizeMetrics: {
       tableSizes: {};
       indexSizesByTable: {};
-      tableNames: string[],
+      tableNames: string[];
+      totalDatabaseSize: string;
+      activeConnections: number;
     };
   }
 
@@ -72,6 +76,8 @@ const useAppStore = create<AppState>((set) => ({
       tableSizes: {},
       indexSizesByTable: {},
       tableNames: [],
+      totalDatabaseSize: '',
+      activeConnections: 0,
     },
   },
 
@@ -94,7 +100,7 @@ const useAppStore = create<AppState>((set) => ({
   setDBName: (dbName: string) => set({ dbName }),
   setUri: (uri: string) => set({ uri }),
   setIsDBConnected: (isDBConnected) => set({ isDBConnected }),
-  setMetrics: (metricsData: { databaseInfo: DatabaseInfo, executionPlans: {}, dbSizeMetrics: { tableSizes: {}, indexSizesByTable: {}, tableNames: [] } }) => set({ metricsData }),
+  setMetrics: (metricsData: { databaseInfo: DatabaseInfo, executionPlans: {}, dbSizeMetrics: { tableSizes: {}, indexSizesByTable: {}, tableNames: [], totalDatabaseSize: '', activeConnections: 0 } }) => set({ metricsData }),
 
   // helper function for converting string numbers with units to number in kb
   // only converts to kb. could be refactored to loop through all the size units and find the one that is the most common, than proivde different scenarios for converting to each unit (kb, mb, gb); use a cache to store quantities of found unit tied to the unit as the key. 

@@ -4,7 +4,7 @@ import { TableInfo } from '../../store/appStore'
 
 
 export const GeneralMetrics: React.FC = () => {
-  const { metricsData } = useAppStore();
+  const { metricsData, toNumInKB } = useAppStore();
   const tablesArray: TableInfo[] = Object.values(metricsData.databaseInfo);
   const rows = tablesArray.map(table => {
     return {
@@ -31,19 +31,44 @@ export const GeneralMetrics: React.FC = () => {
   // console.log(`Total foreign keys: ${totalNumberOfFields}`)
   // console.log(`Average number of foreign keys: ${averageNumberOfFields}`)
 
+    // total Database Size
+    const databaseSizeTotal = toNumInKB(metricsData.dbSizeMetrics.totalDatabaseSize);
+    console.log('databaseSizeTotal', databaseSizeTotal)
+  
+    // Active Connections
+    const activeConnections = metricsData.dbSizeMetrics.activeConnections;
+    console.log('activeConnections', activeConnections)
+  
+    console.log('metricsData', metricsData);
+
 
   return (
 
     <>
       <div className="dashboard-card">
-        <h3 >Average Foreign Keys Per Table</h3>
-        <p>{averageForeignKeys}</p>
-        {/* {totalForeignKeys} */}
+        <div className="text-card">
+          <div className="text-sm font-semibold dash-card-titles">Total Database Size (kb)</div>
+          <p className= "general-metrics-numbers">{databaseSizeTotal}</p>
+          </div>
+      </div>
+      
+      <div className="dashboard-card">
+        <div className="text-card">
+          <div className="text-sm font-semibold dash-card-titles">Total Number Of Fields</div>
+          <p className="general-metrics-numbers">{totalNumberOfFields}</p>
+        </div>
       </div>
       <div className="dashboard-card">
-        <h3>Total Number Of Fields</h3>
-        {totalNumberOfFields}
-        {/* {totalForeignKeys} */}
+        <div className="text-card">
+          <div className="text-sm font-semibold dash-card-titles">Active Connections</div>
+          <p className="general-metrics-numbers">{activeConnections}</p>
+        </div>
+      </div>
+      <div className="dashboard-card">
+        <div className="text-card">
+          <div className="text-sm font-semibold dash-card-titles">Average Foreign Keys Per Table</div>
+          <p className="general-metrics-numbers">{averageForeignKeys}</p>
+        </div>
       </div>
     </>
   );

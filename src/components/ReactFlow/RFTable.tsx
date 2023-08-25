@@ -9,19 +9,16 @@ export default function RFTable (nodeData: any) {
         const handle: JSX.Element[] = [];
         if (columns[columnNames].foreign_key === 'true'){
             handle.push (<Handle type="source" position={Position.Right} id={columnNames} />)
-        } 
-        if (columns[columnNames].primary_key === 'true'){
+        } else if (columns[columnNames].primary_key === 'true'){
             handle.push( <Handle type="target" position={Position.Left} id={columnNames} />)
         }
-        console.log(columns[columnNames].primary_key)
           rows.push(
             <tr key={columnNames}>
               <td>{columnNames}</td>
               <td>{columns[columnNames].data_type}</td>
               <td>{columns[columnNames].Constraints}</td>
               <td>{columns[columnNames].primary_key}</td>
-              <td>{columns[columnNames].foreign_key}</td>
-              <td>{handle}</td>
+              <td>{columns[columnNames].foreign_key}{handle}</td>
             </tr>
             
           );
@@ -38,7 +35,7 @@ export default function RFTable (nodeData: any) {
           <div className='erd-table-container'>
             <table className ="erd-table">
               <thead>
-                <tr>
+                <tr className = 'erd-head-row'>
                   <th>Column</th>
                   <th>Type</th>
                   <th>Constraints</th>
