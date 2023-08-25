@@ -27,7 +27,7 @@ export const ColumnIndexSizes: React.FC = () => {
       title: {
         display: true,
         text: 'Index Size by Column',
-        color: '#ffffffc8',
+        color: '#17012866',
         font: {
           size: 14
         }
