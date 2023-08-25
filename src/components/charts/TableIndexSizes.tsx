@@ -24,7 +24,7 @@ export const TableIndexSizes: React.FC = () => {
       title: {
         display: true,
         text: 'Index Size by Table',
-        color: '#ffffffc8',
+        color: '#17012866',
         font: {
           size: 14
         }

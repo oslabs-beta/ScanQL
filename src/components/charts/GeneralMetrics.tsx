@@ -47,27 +47,27 @@ export const GeneralMetrics: React.FC = () => {
     <>
       <div className="dashboard-card">
         <div className="text-card">
-          <div className="text-sm font-semibold">Total Database Size (kb)</div>
-          <p className="text-violet-500">{databaseSizeTotal}</p>
+          <div className="text-sm font-semibold dash-card-titles">Total Database Size (kb)</div>
+          <p className= "general-metrics-numbers">{databaseSizeTotal}</p>
           </div>
       </div>
       
       <div className="dashboard-card">
         <div className="text-card">
-          <div className="text-sm font-semibold">Total Number Of Fields</div>
-          <p className="text-violet-500">{totalNumberOfFields}</p>
+          <div className="text-sm font-semibold dash-card-titles">Total Number Of Fields</div>
+          <p className="general-metrics-numbers">{totalNumberOfFields}</p>
         </div>
       </div>
       <div className="dashboard-card">
         <div className="text-card">
-          <div className="text-sm font-semibold">Active Connections</div>
-          <p className="text-violet-500">{activeConnections}</p>
+          <div className="text-sm font-semibold dash-card-titles">Active Connections</div>
+          <p className="general-metrics-numbers">{activeConnections}</p>
         </div>
       </div>
       <div className="dashboard-card">
         <div className="text-card">
-          <div className="text-sm font-semibold">Average Foreign Keys Per Table</div>
-          <p className="text-violet-500">{averageForeignKeys}</p>
+          <div className="text-sm font-semibold dash-card-titles">Average Foreign Keys Per Table</div>
+          <p className="general-metrics-numbers">{averageForeignKeys}</p>
         </div>
       </div>
     </>

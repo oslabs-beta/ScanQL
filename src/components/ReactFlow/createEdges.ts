@@ -15,8 +15,8 @@ export default function createEdges(ERDdata: any) {
                 source: source,
                 target: target,
                 style: {
-                  strokeWidth: 2,
-                  stroke: '#535D71',
+                  strokeWidth: 1,
+                  stroke: 'white',
                 },
                 markerEnd: {
                   type: 'arrowclosed',
