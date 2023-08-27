@@ -19,7 +19,7 @@ type DbPerformanceMetrics = {
   };
 type DbOverviewController = {
   dbSizeMetrics: RequestHandler;
-  dbPerformanceMetrics: RequestHandler;
+//   dbPerformanceMetrics: RequestHandler;
 };
 
 const dbOverviewController: DbOverviewController = {
@@ -89,7 +89,7 @@ const dbOverviewController: DbOverviewController = {
         pg_class ON pg_class.oid = pg_stat_all_indexes.indexrelid
         WHERE 
         schemaname = 'public';  -- adjust for your schema if different
-        `);
+        `); //we will need to generalize publ
 
       console.log('this is the index size from me', indexSizeResults);
 
@@ -160,6 +160,7 @@ const dbOverviewController: DbOverviewController = {
       return next(error);
     }
   },
+  /*
   dbPerformanceMetrics: async (req, res, next): Promise<void> => {
     const db = res.locals.dbConnection;
 
@@ -172,18 +173,18 @@ const dbOverviewController: DbOverviewController = {
       const avgQueryResponseTime = avgQueryResponseTimeRes.rows[0].avg_exec_time;
 
       // 2. Number of queries executed per second (you might need to track this over time)
-      const versionResult: QueryResult = await db.query('SHOW server_version_num;');
-      const versionNumber = parseInt(versionResult.rows[0].server_version_num, 10);
+    //   const versionResult: QueryResult = await db.query('SHOW server_version_num;');
+    //   const versionNumber = parseInt(versionResult.rows[0].server_version_num, 10);
       
-      let queryStr = '';
+    //   let queryStr = '';
       
-      if (versionNumber < 100000) {
-        // For PostgreSQL versions earlier than 10
-        queryStr = 'SELECT ... , stats_reset, ... FROM pg_stat_database ...';
-      } else {
-        // For PostgreSQL versions 10 and later
-        queryStr = 'SELECT ... , stats_io_reset, ... FROM pg_stat_database ...';
-      }
+    //   if (versionNumber < 100000) {
+    //     // For PostgreSQL versions earlier than 10
+    //     queryStr = 'SELECT ... , stats_reset, ... FROM pg_stat_database ...';
+    //   } else {
+    //     // For PostgreSQL versions 10 and later
+    //     queryStr = 'SELECT ... , stats_io_reset, ... FROM pg_stat_database ...';
+    //   }
       
       const result: QueryResult = await db.query(queryStr);
       const queriesPerSecond = result.rows[0].qps;
@@ -235,6 +236,7 @@ const dbOverviewController: DbOverviewController = {
       return next(error);
     }
   },
+  */
 };
 
 export default dbOverviewController;

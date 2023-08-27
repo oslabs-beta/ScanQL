@@ -14,7 +14,7 @@ pgRoute.post(
   dbInfoController.getDataBaseInfo,
   dbERDcontroller.getSchemaPostgreSQL,
   genericMetricsController.performGenericQueries,
-  dbOverviewController.dbPerformanceMetrics,
+  dbOverviewController.dbSizeMetrics,
   dBHistoryController.dbPastMetrics,
   (req, res) => {
     return res.status(200).json(res.locals);
