@@ -8,7 +8,14 @@
 .dashboard-page {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center;;
+}
+
+.general-metrics-numbers{
+    background: -webkit-linear-gradient(#726dad, #67077d41);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 60px;
 }
 
 /* .dashboard-container {
@@ -28,13 +35,29 @@
     border-radius: 20px;
 } */
 
+.home-logo-container{
+    display: flex; 
+    flex-direction: column;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.home-logo-nav{
+    width: 50rem;
+}
+.dash-card-titles{
+    color: #17012866
+}
+
+
 .dashboard-container {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     row-gap: 1.5rem;
     column-gap: 1.5rem;
     padding: 3rem;
-    height: 81vh;
+    height: 76vh;
     overflow-y: auto;
     width: 95%;
     border: 2px solid rgb(255, 255, 255, 0.05);
@@ -61,6 +84,14 @@
     /* background-image: linear-gradient(rgba(117, 82, 172, 0.04), rgba(8, 0, 151, 0.04)); */
     box-shadow: 0px 0px 5px 0px rgba(108, 108, 108, 0.75);
     transition: all .2s ease-in-out;
+}
+
+.text-card {
+    height: 78%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 35%;
 }
 
 .dashboard-card.md-card {
@@ -152,10 +183,6 @@ th, td {
     /* border-right: 2px solid rgb(255, 255, 255, 0.3); */
   }
 
-/* thead {
-    background-color: black;
-    border-radius: 20px;
-} */
 
 
 th{
@@ -173,3 +200,12 @@ th:last-child, td:last-child {
     border-right: none;
 }
 
+.logo-nav-loader {
+    width: 40rem;
+    animation: logo-nav-loader 3s infinite;
+}
+
+@keyframes logo-nav-loader {
+    /* 0%, 100%  { filter: blur(0px) brightness(1) hue-rotate(0deg) saturate(1); } */
+    50% { filter: brightness(3) saturate(0); }
+}
