@@ -43,9 +43,9 @@ const dbConnectionController: DbConnectionController = {
     } catch (error) {
       return next({
         log: `ERROR caught in connectController.connectAndInitializeDB: ${error}`,
-        status: 400,
-        message:
-          'ERROR: error has occured in connectController.connectAndInitializeDB',
+        message: {
+          Error: `Error: ${error}`,
+        }
       });
     }
   },
@@ -90,7 +90,7 @@ const dbConnectionController: DbConnectionController = {
       const permissions = await db.query(permissionsQuery, [username]);//the permissions of that user
       const userPermissions = permissions.rows
       res.locals.userPermissions = userPermissions
-      console.log(userPermissions) //just to see what we recieve
+      // console.log(userPermissions) //just to see what we recieve
       if (canConnect) {
         return next(); // User has CONNECT privilege, so continue to the next middleware
       } else {

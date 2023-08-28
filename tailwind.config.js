@@ -10,11 +10,14 @@
 //   plugins: [],
 // }
 
+/*eslint-env node*/
+/*eslint no-undef: "error"*/
 
-const { blackA, mauve, violet } = require('@radix-ui/colors');
+
+import { blackA, mauve, violet } from '@radix-ui/colors'
 
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   content: ['./index.html',
     './src/**/*.{js,jsx,ts,tsx}'
   ],
@@ -25,6 +28,14 @@ module.exports = {
         ...mauve,
         ...violet,
       },
+      // light: {
+      //   primary: bg-blackA11,
+      //   secondary: bg-mauve1,
+      // },
+      // dark: {
+      //   primary: bg-violet1,
+      //   secondary: bg-violet11,
+      // },
       keyframes: {
         slideDownAndFade: {
           from: { opacity: 0, transform: 'translateY(-2px)' },
@@ -50,6 +61,17 @@ module.exports = {
         slideRightAndFade: 'slideRightAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1)',
       },
     },
+    borderRadius: {
+        'none': '0',
+        'sm': '0.125rem',
+        DEFAULT: '0.25rem',
+        DEFAULT: '4px',
+        'md': '0.375rem',
+        'lg': '12px',
+        'full': '9999px',
+        'large': '12px',
+      }
   },
   plugins: [],
+  important: true
 };

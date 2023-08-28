@@ -1,25 +1,13 @@
-// import { Container } from '@radix-ui/themes';
-import useAppStore from '../../store/appStore';
 import { useAuth0 } from '@auth0/auth0-react';
-import Loading from '../ui/Loading';
 import { useNavigate } from 'react-router-dom';
-
-
-
-
-// const MetricsView: React.FC = () => {
-
-//   return (
-
-//     <Container size="3">
-    
-//     </Container>
-//   )
-// }
-
-// export default MetricsView;
-
-
+import { TableSize } from '../charts/TableSize'
+import { TableIndexSizes } from '../charts/TableIndexSizes';
+import { RowsPerTable } from '../charts/RowsPerTable'
+import { IndexPerTable } from '../charts/IndexPerTable'
+import { GeneralMetrics } from '../charts/GeneralMetrics';
+import { QueryTimes } from '../charts/QueryTimes';
+import { useEffect } from 'react';
+import useAppStore from '../../store/appStore';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -31,15 +19,8 @@ import {
   Legend,
   BarElement,
 } from 'chart.js';
-import { Line, Bar } from 'react-chartjs-2';
-import { faker } from '@faker-js/faker';
-
-// import { FaceIcon, ImageIcon, SunIcon, HamburgerMenuIcon } from '@radix-ui/react-icons';
-// import { DropdownMenu } from '@radix-ui/react-dropdown-menu';
-import Header from './Header';
-
-import ConnectDB from './ConnectDB';
-import { useEffect } from 'react';
+import { ColumnIndexSizes } from '../charts/ColumnIndexSizes';
+import { MetricsSeparator } from '../ui/MetricsSeparator';
 
 ChartJS.register(
   CategoryScale,
@@ -52,132 +33,38 @@ ChartJS.register(
   Legend
 );
 
-export const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: 'top' as const,
-    },
-    title: {
-      display: true,
-      text: 'Query Response Rates',
-      color: '#ffffffc8'
-    },
-  },
-};
-
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: 'Dataset 1',
-      data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-      borderColor: 'rgb(104, 99, 255)',
-      scaleFontColor: "#FFFFFF",
-      backgroundColor: 'rgba(107, 99, 255, 0.5)',
-    },
-    {
-      label: 'Dataset 2',
-      data: labels.map(() => faker.datatype.number({ min: -1000, max: 1000 })),
-      borderColor: 'rgb(53, 162, 235)',
-      color: '#ffffffc8',
-      backgroundColor: 'rgba(53, 162, 235, 0.5)',
-    },
-  ],
-};
-
-
-export const options2 = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: 'top' as const,
-    },
-    title: {
-      display: true,
-      text: 'Chart.js Bar Chart',
-      color: '#ffffffc8'
-    },
-  },
-};
-
-const labels2 = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-
-export const data2 = {
-  labels,
-  datasets: [
-    {
-      label: 'Dataset 1',
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-      backgroundColor: 'rgba(107, 99, 255, 0.5)',
-      scaleFontColor: "#FFFFFF",
-    },
-    {
-      label: 'Dataset 2',
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-      backgroundColor: 'rgba(53, 162, 235, 0.5)',
-      scaleFontColor: "#FFFFFF",
-    },
-  ],
-};
-
-
-
 const MetricsView: React.FC = () => {
-
   const navigate = useNavigate();
-  const { user, isAuthenticated, isLoading } = useAuth0();
-  const { isConnectDBOpen, closeConnectDB, openConnectDB } = useAppStore();
+  const { user, isAuthenticated } = useAuth0();
 
   useEffect(() => {
     if (!isAuthenticated) navigate('/');
-  }, [isAuthenticated, navigate])
+  }, [isAuthenticated])
 
-      if (isLoading) {
-    return <Loading />;
-  }
-    return (
+  const { metricsData } = useAppStore();
 
-      <div>
-        {/* <div>{JSON.stringify(user)}</div> */}
-        {/* <Header /> */}
-        {isConnectDBOpen && <ConnectDB closeModal={closeConnectDB} />}
-        <div className="dashboard-page">
-          <div className="dashboard-container">
-            <div className="dashboard-card">
-              <Line options={options} data={data} />
-            </div>
-            <div className="dashboard-card">
-              <Bar options={options2} data={data2} />
-            </div>
-            <div className="dashboard-card">
-              <Line options={options} data={data} />
-            </div>
-            <div className="dashboard-card">
-              <Line options={options} data={data} />
-            </div>
-            <div className="dashboard-card">
-              <Bar options={options2} data={data2} />
-            </div>
-            <div className="dashboard-card">
-              <Line options={options} data={data} />
-            </div>
-            <div className="dashboard-card">
-              <Line options={options} data={data} />
-            </div>
-            <div className="dashboard-card">
-              <Bar options={options2} data={data2} />
-            </div>
-            <div className="dashboard-card">
-              <Line options={options} data={data} />
-            </div>
-          </div>
-        </div>
-      </div>
-    )
-  } 
+  const executionTableNames: string[] = Object.keys(metricsData.executionPlans);
+  const executionTimes = Object.values(metricsData.executionPlans).map((table, i: number) => {
+    // grab the correct data and pass as props to each component
+    return <QueryTimes key={i} table={table} tableName={executionTableNames[i]} />
 
+  })
 
-export default MetricsView
+  return (
+    <>
+    {/* <h3 className='span-all'>General Metrics:</h3> */}
+      <MetricsSeparator title={'General Metrics'}/>
+      <RowsPerTable />
+      <IndexPerTable />
+      <GeneralMetrics />
+      <MetricsSeparator title={'Query Execution Time'}/>
+      {executionTimes}
+      <MetricsSeparator title={'Database Size'}/>
+      <TableSize />
+      <TableIndexSizes />
+      <ColumnIndexSizes />
+    </>
+  )
+}
+
+export default MetricsView;

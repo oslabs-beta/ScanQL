@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useEffect } from 'react';
+import logo from '../assets/logo-horizontal-v2.png';
 
 import NavBar from '../components/layout/NavBar';
 import { useAuth0 } from '@auth0/auth0-react';
@@ -14,14 +15,16 @@ const Home: React.FC = () => {
   const { isAuthenticated } = useAuth0();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (isAuthenticated) navigate('/dashboard');
-  }, [isAuthenticated, navigate])
+  // useEffect(() => {
+  //   if (isAuthenticated) navigate('/dashboard');
+  // }, [])
 
   return (
     <div>
       <NavBar />
-
+      <div className = 'home-logo-container'>
+      <img className='home-logo-nav' src={logo}></img>
+      </div>
     </div>
   )
 }
