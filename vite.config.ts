@@ -19,6 +19,11 @@ export default defineConfig({
       }
     }
   },
+  resolve: {
+    alias: {
+      '@esbuild/darwin-arm64': 'path-to-correct-entry-file', // replace with the correct path
+    },
+  },
 });
 
 
