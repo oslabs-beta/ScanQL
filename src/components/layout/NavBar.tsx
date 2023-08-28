@@ -10,6 +10,7 @@ import { GitHubLogoIcon } from '@radix-ui/react-icons';
 import { IconButton } from '@radix-ui/themes';
 
 const NavBar: React.FC = () => {
+  throw new Error('Test Error');
   const { isAuthenticated } = useAuth0();
   return (
     <div className="flex w-screen flex-col items-center justify-center md:flex-row md:justify-between px-8 py-4">

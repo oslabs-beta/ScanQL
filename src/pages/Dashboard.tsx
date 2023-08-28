@@ -10,6 +10,7 @@ import DashNav from "../components/layout/DashNav";
 import ConnectDB from "../components/layout/ConnectDB";
 import { useEffect } from "react";
 import CustomQueryView from "../components/layout/CustomQueryView";
+import ErrorBoundary from "../components/ui/ErrorBoundary";
 
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
@@ -64,7 +65,7 @@ const Dashboard: React.FC = () => {
         }
         {fetchedData && view === "metrics" && <MetricsView />}
         {fetchedData && view === "erd" && <ERDView />}
-        {fetchedData && view === "custom" && <CustomQueryView />}
+        {fetchedData && view === "custom" && <CustomQueryView/>}
         {view === 'loading' && <Loading />}
         </div>
       </div>

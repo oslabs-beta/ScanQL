@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import { Line } from 'react-chartjs-2';
 import useAppStore from '../../store/appStore';
+
 const CustomQueryView: React.FC = () => {
   const [customQuery, setCustomQuery] = useState<string>('');
   const setData = useAppStore(state => state.setCustomQueryResults);
