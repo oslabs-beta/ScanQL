@@ -8,6 +8,7 @@ import useAppStore from '../../store/appStore';
 import useFlowStore from '../../store/flowStore';
 import { SmartBezierEdge } from '@tisoap/react-flow-smart-edge'; 
 import { SmartStraightEdge } from '@tisoap/react-flow-smart-edge'; 
+import { SmartStepEdge } from '@tisoap/react-flow-smart-edge'; 
 
 import '../../../tailwind.config.js'
 
@@ -18,7 +19,8 @@ const nodeTypes = {
 
 const edgeTypes = {
   smart: SmartBezierEdge,
-  smartStraight: SmartStraightEdge
+  smartStraight: SmartStraightEdge,
+  smartStep: SmartStepEdge
 }
 
 export default function Flow(): JSX.Element {

@@ -27,12 +27,11 @@ export default function createEdges(ERDdata: any) {
                   height: 40,
                   color: '#535D71',
                 },
-                type: 'smart'
+                type: 'smartStep', 
               });
             });
         }
     }
   }
-  // console.log(initialEdges)
   return initialEdges;
 }; 
