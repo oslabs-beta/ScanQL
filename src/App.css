@@ -1,5 +1,8 @@
 
 
+
+
+
 .dashboard-button-bar {
     display: flex;
     justify-content: center;
@@ -169,11 +172,9 @@
     border-collapse: collapse;
     color: rgba(19, 5, 81, 0.6); 
     color: rgba(255, 255, 255, 0.865); 
-    
-    /* border: 2px solid rgba(255, 255, 255, 0.049); */
+
     background-image: linear-gradient(rgba(95, 34, 194, 0.145), rgba(8, 0, 151, 0.153));
-    /* background-image: radial-gradient(closest-side at 60% 55%, rgba(103, 50, 189, 0.188), rgba(105, 222, 255, 0.084)); */
-    /* background-color: rgba(80, 46, 142, 0.215); */
+
     border-radius: 20px;
     box-shadow: 0px 0px 20px .5px rgba(211, 211, 211, 0.998);
 }
