@@ -9,14 +9,13 @@ interface Table {
 
 export const TableSize: React.FC = () => {
   const { metricsData, toNumInKB } = useAppStore();
+  console.log('metrics data',metricsData)
   const tablesArray: Table[] = Object.values(metricsData.dbSizeMetrics.tableSizes);
 
   const options = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
-      legend: {
-        position: 'top' as const,
-      },
       title: {
         display: true,
         text: 'Table Size',
@@ -25,6 +24,15 @@ export const TableSize: React.FC = () => {
           size: 14
         }
       },
+      legend: {
+        position: 'bottom' as const,
+        labels:{
+          font: {
+            size: '10%', // Adjust the percentage value as needed
+          },
+        },
+      },
+      
     },
   };
     

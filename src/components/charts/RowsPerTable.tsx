@@ -1,18 +1,33 @@
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-import { Pie } from "react-chartjs-2";
-import React, { useState } from "react";
-import useAppStore from "../../store/appStore";
-import { TableInfo } from '../../store/appStore'
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { Pie } from 'react-chartjs-2';
+import React, { useState } from 'react';
+import useAppStore from '../../store/appStore';
+import { TableInfo } from '../../store/appStore';
 
-import { Dialog } from "@radix-ui/react-dialog";
+import { Dialog } from '@radix-ui/react-dialog';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-export const options = {
+
+export const RowsPerTable: React.FC = () => {
+  const { metricsData, openModal } = useAppStore();
+  const tablesArray: TableInfo[] = Object.values(metricsData.databaseInfo);
+  const rows = tablesArray.map(table => {
+    return {
+      tableName: table.tableName,
+      numberOfRows: table.numberOfRows,
+    };
+  });
+  const options = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
-        position: 'top' as const,
+        display: true,
+        position: 'bottom' as const,
+        font: {
+          size: '10%', // Adjust the percentage value as needed
+        },
       },
       title: {
         display: true,
@@ -24,49 +39,40 @@ export const options = {
       },
     },
   };
+  
 
-export const RowsPerTable: React.FC = () => {
-  const { metricsData, openModal } = useAppStore();
-  const tablesArray: TableInfo[] = Object.values(metricsData.databaseInfo);
-  const rows = tablesArray.map(table => {
-    return {
-      tableName: table.tableName,
-      numberOfRows: table.numberOfRows,
-    }
-  })
-
-    const data = {
-        labels: rows.map(table => table.tableName),
-        datasets: [
-          {
-            label: 'Rows Per Table',
-            data: rows.map(table => table.numberOfRows),
-            backgroundColor: [
-                "rgba(190, 99, 255, 0.2)",
-                "rgba(54, 162, 235, 0.2)",
-                "rgba(235, 86, 255, 0.2)",
-                "rgba(16, 39, 215, 0.2)",
-                "rgba(129, 75, 236, 0.2)",
-                "rgba(64, 118, 255, 0.2)",
-            ],
-            borderColor: [
-                "#dbdbdbdf",
-            //     "rgba(54, 162, 235, 1)",
-            //     "rgba(255, 206, 86, 1)",
-            //     "rgba(75, 192, 192, 1)",
-            //     "rgba(153, 102, 255, 1)",
-            //     "rgba(255, 159, 64, 1)",
-            ],
-            borderWidth: 1,
-          }
-        ]
-    }
-return (
-        <div onClick={openModal} className="dashboard-card small-card">
-            <Pie data={data} options={options} />
-        </div>
-    );
-}
+  const data = {
+    labels: rows.map(table => table.tableName),
+    datasets: [
+      {
+        label: 'Rows Per Table',
+        data: rows.map(table => table.numberOfRows),
+        backgroundColor: [
+          'rgba(190, 99, 255, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(235, 86, 255, 0.2)',
+          'rgba(16, 39, 215, 0.2)',
+          'rgba(129, 75, 236, 0.2)',
+          'rgba(64, 118, 255, 0.2)',
+        ],
+        borderColor: [
+          '#dbdbdbdf',
+          //     "rgba(54, 162, 235, 1)",
+          //     "rgba(255, 206, 86, 1)",
+          //     "rgba(75, 192, 192, 1)",
+          //     "rgba(153, 102, 255, 1)",
+          //     "rgba(255, 159, 64, 1)",
+        ],
+        borderWidth: 1,
+      }
+    ]
+  };
+  return (
+    <div onClick={openModal} className="dashboard-card small-card">
+      <Pie data={data} options={options} />
+    </div>
+  );
+};
 
 // To pass data from the `MetricsView` component to the `PieChart` component using TypeScript, you'll need to ensure that:
 
