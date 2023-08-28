@@ -56,7 +56,7 @@ const dbERDcontroller: schemaControllers = {
       // console.log('SCHEMA', schema.rows);
 
       // Initialize array to hold returned data
-      let erDiagram: Record<string, typeof tableObj> = {};
+      const erDiagram: Record<string, typeof tableObj> = {};
       let tableObj: Record<string, any> = {};
       // Make custom type for any on tableObj
 

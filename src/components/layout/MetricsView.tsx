@@ -21,6 +21,9 @@ import {
 } from 'chart.js';
 import { ColumnIndexSizes } from '../charts/ColumnIndexSizes';
 import { MetricsSeparator } from '../ui/MetricsSeparator';
+import { ExecTimesByOperation } from '../charts/execTimeByOperation';
+import { SlowestQueriesTop10 } from '../charts/SlowestQueriesTop10';
+import { SlowestCommonQueriesTop10 } from '../charts/SlowestCommonQueriesTop10';
 
 ChartJS.register(
   CategoryScale,
@@ -52,7 +55,7 @@ const MetricsView: React.FC = () => {
 
   return (
     <>
-    {/* <h3 className='span-all'>General Metrics:</h3> */}
+      {/* <h3 className='span-all'>General Metrics:</h3> */}
       <MetricsSeparator title={'General Metrics'}/>
       <RowsPerTable />
       <IndexPerTable />
@@ -63,6 +66,12 @@ const MetricsView: React.FC = () => {
       <TableSize />
       <TableIndexSizes />
       <ColumnIndexSizes />
+      <MetricsSeparator title={'Performance Statistices to-date'}/>
+      <ExecTimesByOperation/>
+      <SlowestQueriesTop10/>
+      <SlowestCommonQueriesTop10/>
+
+     
     </>
   )
 }

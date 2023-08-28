@@ -19,14 +19,15 @@ export const TableIndexSizes: React.FC = () => {
     responsive: true,
     plugins: {
       legend: {
+        display: false,
         position: 'top' as const,
       },
       title: {
         display: true,
-        text: 'Index Size by Table',
+        text: 'Index Size by Table (kbs)',
         color: '#17012866',
         font: {
-          size: 14
+          size: '10%'
         }
       },
     },

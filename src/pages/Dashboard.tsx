@@ -9,6 +9,7 @@ import MetricsView from "../components/layout/MetricsView";
 import DashNav from "../components/layout/DashNav";
 import ConnectDB from "../components/layout/ConnectDB";
 import { useEffect } from "react";
+import CustomQueryView from "../components/layout/CustomQueryView";
 
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
@@ -40,6 +41,12 @@ const Dashboard: React.FC = () => {
         >
           ER Diagram
         </Button>
+        <Button
+          className="rounded-lg font-normal mr-1 ml-1 bg-gray-500 bg-opacity-10 border-solid border-opacity-60 text-indigo-900 text-opacity-60"
+          onClick={() => setView("custom")}
+        >
+          Custom Query
+        </Button>
         {/* <Button className="rounded-lg font-normal mr-1 ml-1 bg-gray-500 bg-opacity-10 border-solid border-opacity-60 text-gray-700 text-opacity-60">
                     {" "}
                     Custom Queries{" "}
@@ -57,6 +64,7 @@ const Dashboard: React.FC = () => {
         }
         {fetchedData && view === "metrics" && <MetricsView />}
         {fetchedData && view === "erd" && <ERDView />}
+        {fetchedData && view === "custom" && <CustomQueryView />}
         {view === 'loading' && <Loading />}
         </div>
       </div>

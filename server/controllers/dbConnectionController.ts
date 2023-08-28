@@ -4,7 +4,7 @@ const { Pool } = pkg;
 
 type DbConnectionController = {
   connectAndInitializeDB: RequestHandler;
-  // createExtension: RequestHandler;
+  createExtension: RequestHandler;
   checkUserPermissions: RequestHandler;
 };
 
@@ -69,6 +69,25 @@ const dbConnectionController: DbConnectionController = {
   //     });
   //   }
   // },
+    // initializes pg_stat_statements if not already initialized
+  // first controller to stop response cycle and return an error if connection fails
+  createExtension: async (req, res, next) => {
+    const db = res.locals.dbConnection;
+    console.log('in the extension')
+    const queryString = 'CREATE EXTENSION IF NOT EXISTS pg_stat_statements';
+    try {
+      await db.query(queryString);
+      res.locals.result.validURI = true;
+      return next();
+    } catch (error) {
+      return next({
+        log: `ERROR caught in connectController.createExtension: ${error}`,
+        status: 400,
+        message:
+          'ERROR: error has occured in connectController.createExtension',
+      });
+    }
+  },
   checkUserPermissions: async (req, res, next) => {
     const db = res.locals.dbConnection;
     const username = req.body.username; // Assume the username is passed in the request body
