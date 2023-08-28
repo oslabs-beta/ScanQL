@@ -109,23 +109,35 @@ export const QueryTimes: React.FC<BarGraphProps> = ({ table, tableName }) => {
 
   const options = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
-      legend: {
-        position: 'top' as const,
-      },
       title: {
         display: true,
-        text: `Planning Execution Times - ${tableName}`,
+        text: `Planning vs Execution Times (ms) - ${tableName}`,
         color: '#17012866',
         font: {
-          size: 14
+          size: '15%'
         }
       },
-      
+      legend: {
+        display: true,
+        position: 'bottom' as const,
+        labels:{
+          font: {
+            size: '10%'
+          }
+        }
+      }
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+      }
     },
   };
 
   const data = {
+    innerHeight: 100,
     labels: ['Insert', 'Select', 'Update'],
     datasets: [
       {

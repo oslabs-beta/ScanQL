@@ -201,15 +201,15 @@ const genericMetricsController: GeneralMetricsController = {
 
         
         for (const key of columnDataTypes) {
-          console.log('Values:', values);
+          // console.log('Values:', values);
 
           // console.log('Foreign Keys Object:', foreignKeysObj);
           // console.log('Check Constraints obj', checkContraintObj);
           // console.log('column dataTypes', columnDataTypes);
           if (!foreignKeysObj[key.column_name] && !checkContraintObj[key.column_name] && key.datatype !== 'USER-DEFINED') {
             // const valueDataType = typeof values[key];
-            console.log('js data type',key.column_name,key.datatype);
-            console.log('datatype and column', key.datatype, key.column_name);
+            // console.log('js data type',key.column_name,key.datatype);
+            // console.log('datatype and column', key.datatype, key.column_name);
             values[key.column_name] = generateFakeData(key.datatype);
           }
         }
@@ -309,6 +309,8 @@ const genericMetricsController: GeneralMetricsController = {
       return next();
 
     }catch (error) {
+      //Rollback if an error is caught
+      await db.query('ROLLBACK');
       // console.log(insertQuery);
       // console.log('ERROR in generalMetricsController.performGenericQueries: ', error);
       return next({

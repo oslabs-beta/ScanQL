@@ -73,6 +73,7 @@ const dbConnectionController: DbConnectionController = {
   // first controller to stop response cycle and return an error if connection fails
   createExtension: async (req, res, next) => {
     const db = res.locals.dbConnection;
+    console.log('in the extension')
     const queryString = 'CREATE EXTENSION IF NOT EXISTS pg_stat_statements';
     try {
       await db.query(queryString);

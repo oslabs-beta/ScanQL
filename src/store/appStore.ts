@@ -1,3 +1,4 @@
+import { query } from 'express';
 import { type } from 'os';
 import { create } from 'zustand';
 
@@ -13,8 +14,34 @@ type DatabaseInfo = {
   [tableName: string]: TableInfo;
 };
 
+type ExecTimeByOperation = {
+  [operation: string] :  {
+    query: string;
+    operation: string;
+    median_exec_time: number;
+    mean_exec_time: number;
+    stdev_exec_time:number;
+    min_exec_time: number;
+    max_exec_time: number;
+    execution_count: number;
 
-
+  }
+}
+type SlowestTotalMedianMean = {
+  [query: string]: {
+      query:string;
+      median: number;
+      mean: number;
+  };
+};
+type SlowestCommonMedianMean = {
+  [query: string]: {
+      query:string;
+      median: number;
+      mean: number;
+      count:number;
+  };
+};
 // type executionPlans = {
 //   {}
 // }
@@ -24,6 +51,7 @@ interface AppState {
   isConnectDBOpen: boolean;
   dbName: string;
   uri: string;
+  customQueryData: any;
   isDBConnected: boolean;
   isModalOpen: boolean;
   errorMessage: string;
@@ -37,9 +65,14 @@ interface AppState {
       totalDatabaseSize: string;
       activeConnections: number;
     };
+    dbHistMetrics: {
+      slowestTotalQueries: SlowestTotalMedianMean,
+      slowestCommonQueries: SlowestCommonMedianMean,
+      execTimesByOperation: ExecTimeByOperation,
+    };
   }
 
-  view: 'metrics' | 'erd' | 'loading';
+  view: 'metrics' | 'erd' | 'custom' |'loading';
 
   theme: 'light' | 'dark';
   toggleTheme: () => void;
@@ -49,13 +82,15 @@ interface AppState {
 
   openConnectDB: () => void;
   closeConnectDB: () => void;
-  setView: (view: 'metrics' | 'erd') => void;
-
+  setView: (view: 'metrics' | 'erd' | 'custom') => void;
+  
   setDBName: (dbName: string) => void;
   setUri: (uri: string) => void;
   setIsDBConnected: (isDBConnected: boolean) => void;
   toNumInKB: (size: string) => number;
   connectToDatabase: (uri: string, dbName: string) => Promise<void>;
+  //For the custom query view 
+  setCustomQueryResults: (data: any) => void;
 }
 
 
@@ -67,6 +102,7 @@ const useAppStore = create<AppState>((set) => ({
   isModalOpen: false,
   dbName: '',
   uri: '',
+  customQueryData:{},
   isDBConnected: false,
   errorMessage: 'string',
   metricsData: {
@@ -79,6 +115,11 @@ const useAppStore = create<AppState>((set) => ({
       totalDatabaseSize: '',
       activeConnections: 0,
     },
+    dbHistMetrics: {
+      slowestTotalQueries: {},
+      slowestCommonQueries: {},
+      execTimesByOperation: {},
+    }
   },
 
   // default initialize view state to metrics
@@ -88,7 +129,7 @@ const useAppStore = create<AppState>((set) => ({
   theme: 'light',
 
   //toggle light/dark mode
-  toggleTheme: () => { set((state) => ({ theme: state.theme === 'light' ? 'dark' : 'light' })) },
+  toggleTheme: () => { set((state) => ({ theme: state.theme === 'light' ? 'dark' : 'light' })); },
 
   openConnectDB: () => set({ isConnectDBOpen: true }),
   closeConnectDB: () => set({ isConnectDBOpen: false }),
@@ -120,7 +161,7 @@ const useAppStore = create<AppState>((set) => ({
 
   connectToDatabase: async (uri, dbName) => {
     try {
-      set({ view: 'loading' })
+      set({ view: 'loading' });
       const response = await fetch('/api/pg/dbInfo', {
         method: 'POST',
         headers: {
@@ -130,20 +171,24 @@ const useAppStore = create<AppState>((set) => ({
       });
       if (response.status === 200) {
         set({ isDBConnected: true, errorMessage: '' });
-        console.log('Valid URI String')
+        console.log('Valid URI String');
 
       } else {
         set({ isDBConnected: false, errorMessage: 'Failed to connect to the database.' });
-        console.log('Invalid URI String')
+        console.log('Invalid URI String');
         return;
       }
       const data = await response.json();
-      set({ metricsData: data })
-      set({ view: 'metrics' })
+      set({ metricsData: data });
+      set({ view: 'metrics' });
+      // set({ historyData: data})
     } catch (error) {
       set({ isDBConnected: false, errorMessage: 'Error connecting to the database.' });
     }
   },
+  setCustomQueryResults: async (query) =>{
+    console.log('this is the custom query:', query)
+  }
 
   // now using authO for login
 

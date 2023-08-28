@@ -7,24 +7,28 @@ type DBHistoryMetrics = {
 //   overAllQueryAggregates: OverAllQueryAggregates;
 slowestTotalQueries: SlowestTotalMedianMean,
 slowestCommonQueries: SlowestCommonMedianMean,
-execTimesByOperation: ExecTimeByOperation[]
+execTimesByOperation: ExecTimeByOperation
 
 };
 
 type ExecTimeByOperation = {
+  [operation: string] :  {
     query: string;
     operation: string;
     median_exec_time: number;
-    avg_exec_time: number;
+    mean_exec_time: number;
     stdev_exec_time:number;
     min_exec_time: number;
     max_exec_time: number;
+    execution_count: number;
+
+  }
 }
 type SlowestTotalQueryInfo = {
     query: string;
     operation: string;
     median_exec_time: number;
-    avg_exec_time: number;
+    mean_exec_time: number;
     min_exec_time: number;
     max_exec_time: number;
 };
@@ -32,22 +36,24 @@ type SlowestCommonQueryInfo = {
     query: string;
     operation: string;
     median_exec_time: number;
-    avg_exec_time: number;
+    mean_exec_time: number;
     min_exec_time: number;
     max_exec_time: number;
+    execution_count: number;
 };
 type SlowestTotalMedianMean = {
     [query: string]: {
         query:string;
         median: number;
-        average: number;
+        mean: number;
     };
 };
 type SlowestCommonMedianMean = {
     [query: string]: {
         query:string;
         median: number;
-        average: number;
+        mean: number;
+        count: number;
     };
 };
 // type SlowestTotalQueries = {
@@ -82,18 +88,18 @@ const dBHistoryController: DBHistoryController = {
             ELSE 'OTHER'
             END AS operation,
                 PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY total_exec_time) AS median_exec_time,
-                AVG(mean_exec_time) AS avg_exec_time,
+                AVG(mean_exec_time) AS mean_exec_time,
                 STDDEV(total_exec_time) AS stdev_exec_time,
                 MIN(total_exec_time) AS min_exec_time,
                 MAX(total_exec_time) AS max_exec_time
         FROM 
             pg_stat_statements
         GROUP BY 
-            query
+            query 
         ORDER BY 
-            COUNT(*) DESC
-            LIMIT 20;   `);
-      console.log('slowestTotalQueriesString array', slowestTotalQueriesString.rows);
+          mean_exec_time DESC
+        LIMIT 10;   `);
+      // console.log('slowestTotalQueriesString array', slowestTotalQueriesString.rows);
       const slowestTotalQueriesResults: SlowestTotalQueryInfo[] = [...slowestTotalQueriesString.rows]; //copy of array
     
       const totalQueries: SlowestTotalMedianMean = {}; 
@@ -102,35 +108,37 @@ const dBHistoryController: DBHistoryController = {
           totalQueries[`${slowQuery.operation} Query ${index + 1}`] = {
             query: slowQuery.query,
             median: slowQuery.median_exec_time,
-            average: slowQuery.avg_exec_time,
+            mean: slowQuery.mean_exec_time,
           };
         }
       });
+      console.log('this is totalQueriestop10', slowestTotalQueriesString.rows)
 
       //   res.locals.totalQueries = totalQueries;
       const slowestCommonQueriesString: QueryResult = await db.query(`
-            SELECT 
-            query,
-            CASE 
-                WHEN UPPER(LEFT(TRIM(query), 6)) = 'SELECT' THEN 'SELECT'
-                WHEN UPPER(LEFT(TRIM(query), 6)) = 'UPDATE' THEN 'UPDATE'
-                WHEN UPPER(LEFT(TRIM(query), 6)) = 'INSERT' THEN 'INSERT'
-                WHEN UPPER(LEFT(TRIM(query), 6)) = 'DELETE' THEN 'DELETE'
-                ELSE 'OTHER'
+        SELECT 
+        query,
+        CASE 
+            WHEN UPPER(LEFT(TRIM(query), 6)) = 'SELECT' THEN 'SELECT'
+            WHEN UPPER(LEFT(TRIM(query), 6)) = 'UPDATE' THEN 'UPDATE'
+            WHEN UPPER(LEFT(TRIM(query), 6)) = 'INSERT' THEN 'INSERT'
+            WHEN UPPER(LEFT(TRIM(query), 6)) = 'DELETE' THEN 'DELETE'
+            ELSE 'OTHER'
             END AS operation,
-                PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY total_exec_time) AS median_exec_time,
-                AVG(mean_exec_time) AS avg_exec_time,
-                MIN(total_exec_time) AS min_exec_time,
-                MAX(total_exec_time) AS max_exec_time
-            FROM 
-                pg_stat_statements
-            GROUP BY 
-                query
-            ORDER BY 
-                avg_exec_time DESC
-            LIMIT 20;`      );
-    
-      console.log('slowestCommonQueriesString array', slowestCommonQueriesString.rows);
+            PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY total_exec_time) AS median_exec_time,
+            AVG(mean_exec_time) AS mean_exec_time,
+            MIN(total_exec_time) AS min_exec_time,
+            MAX(total_exec_time) AS max_exec_time,
+            COUNT(*) AS execution_count 
+        FROM 
+            pg_stat_statements
+        GROUP BY 
+            query
+        ORDER BY 
+            execution_count DESC
+        LIMIT 10;`      );
+        
+      // console.log('slowestCommonQueriesString array', slowestCommonQueriesString.rows);
 
       const slowestCommonQueriesResults: SlowestCommonQueryInfo[] = [...slowestCommonQueriesString.rows]; //copy of array
     
@@ -141,43 +149,77 @@ const dBHistoryController: DBHistoryController = {
           commonQueries[`${slowQuery.operation} Query ${index + 1}`] = {
             query: slowQuery.query,
             median: slowQuery.median_exec_time,
-            average: slowQuery.avg_exec_time,
+            mean: slowQuery.mean_exec_time,
+            count: slowQuery.execution_count,
           };
         }
       });
       //   res.locals.slowestCommonQueriesString = commonQueries;
       
       const overAllQueryAggregatesString: QueryResult = await db.query(`
-        SELECT 
+      WITH operations_cte AS (
+        SELECT unnest(ARRAY['SELECT', 'UPDATE', 'INSERT', 'DELETE']) AS operation
+    )
+    SELECT 
+        operations_cte.operation,
+        COALESCE(PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY total_exec_time), 0) AS median_exec_time,
+        COALESCE(AVG(mean_exec_time), 0) AS mean_exec_time,
+        COALESCE(MIN(total_exec_time), 0) AS min_exec_time,
+        COALESCE(MAX(total_exec_time), 0) AS max_exec_time,
+        COALESCE(SUM(CASE 
+                        WHEN UPPER(LEFT(TRIM(pg_stat_statements.query), 6)) = 'SELECT' THEN 1
+                        WHEN UPPER(LEFT(TRIM(pg_stat_statements.query), 6)) = 'UPDATE' THEN 1
+                        WHEN UPPER(LEFT(TRIM(pg_stat_statements.query), 6)) = 'INSERT' THEN 1
+                        WHEN UPPER(LEFT(TRIM(pg_stat_statements.query), 6)) = 'DELETE' THEN 1
+                        ELSE 0
+                    END), 0) AS execution_count
+    FROM 
+        operations_cte
+    LEFT JOIN 
+        pg_stat_statements ON operations_cte.operation = 
             CASE 
-                WHEN UPPER(LEFT(TRIM(query), 6)) = 'SELECT' THEN 'SELECT'
-                WHEN UPPER(LEFT(TRIM(query), 6)) = 'UPDATE' THEN 'UPDATE'
-                WHEN UPPER(LEFT(TRIM(query), 6)) = 'INSERT' THEN 'INSERT'
-                WHEN UPPER(LEFT(TRIM(query), 6)) = 'DELETE' THEN 'DELETE'
+                WHEN UPPER(LEFT(TRIM(pg_stat_statements.query), 6)) = 'SELECT' THEN 'SELECT'
+                WHEN UPPER(LEFT(TRIM(pg_stat_statements.query), 6)) = 'UPDATE' THEN 'UPDATE'
+                WHEN UPPER(LEFT(TRIM(pg_stat_statements.query), 6)) = 'INSERT' THEN 'INSERT'
+                WHEN UPPER(LEFT(TRIM(pg_stat_statements.query), 6)) = 'DELETE' THEN 'DELETE'
                 ELSE 'OTHER'
-            END AS operation,
-            AVG(total_exec_time) AS mean_exec_time,
-            PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY total_exec_time) AS median_exec_time,
-            STDDEV(total_exec_time) AS stdev_exec_time,
-            MIN(total_exec_time) AS min_exec_time,
-            MAX(total_exec_time) AS max_exec_time,
-            COUNT(*) AS execution_count
-        FROM 
-            pg_stat_statements
-        GROUP BY 
-            operation
-        ORDER BY 
-            mean_exec_time DESC;
+            END
+    GROUP BY 
+        operations_cte.operation
+    ORDER BY 
+        mean_exec_time DESC
+    LIMIT 10;    
         `);
+      //Create NA and  0 for no operation
+      const operationArr: [string, string, string, string] = ['INSERT', 'SELECT', 'UPDATE', 'DELETE'];
 
-      console.log('overAllQueryAggregatesString array', overAllQueryAggregatesString.rows);
+      const overAllQueryAggregates:ExecTimeByOperation = {} ;
+
+      operationArr.forEach((operation) => {
+        const row = overAllQueryAggregatesString.rows.find((row) => row.operation === operation);
+        if (row) {
+          overAllQueryAggregates[operation] = row;
+        } else {
+          overAllQueryAggregates[operation] = {
+            query:'N/A',
+            operation: operation,
+            median_exec_time: -1,
+            mean_exec_time: -1,
+            stdev_exec_time: -1,
+            min_exec_time: -1,
+            max_exec_time: -1,
+            execution_count: 0,
+          };
+        }
+      });
+      // console.log('overAllQueryAggregatesString array', overAllQueryAggregates);
       //   res.locals.overAllQueries = overAllQueryAggregatesString.rows;
 
       // // Building the result object
       const dbHistMetrics: DBHistoryMetrics = {
         slowestTotalQueries: totalQueries,
         slowestCommonQueries: commonQueries,
-        execTimesByOperation: overAllQueryAggregatesString.rows,
+        execTimesByOperation: overAllQueryAggregates,
       };
 
       res.locals.dbHistMetrics = dbHistMetrics;
