@@ -1,5 +1,5 @@
-import { query } from 'express';
-import { type } from 'os';
+// import { query } from 'express';
+// import { type } from 'os';
 import { create } from 'zustand';
 
 export type TableInfo = {
@@ -51,16 +51,30 @@ interface AppState {
   isConnectDBOpen: boolean;
   dbName: string;
   uri: string;
-  customQueryData: any;
+  queryString:string
+  customQueryData: {
+    customMetrics: object,
+    executionTimesArr: number[] ,
+    labelsArr: number[],
+    meanTime: number,
+    planningTimesArr: number[],
+    queryCount: number,
+    queryDelay: number,
+    queryString: string,
+    startUpCostsArr: number[],
+    totalCostsArr: number[],
+    totalTimesArr:number[] 
+  };
+  customQueryValid: boolean;
   isDBConnected: boolean;
   isModalOpen: boolean;
   errorMessage: string;
   metricsData: {
     databaseInfo: DatabaseInfo;
-    executionPlans: {};
+    executionPlans: object;
     dbSizeMetrics: {
-      tableSizes: {};
-      indexSizesByTable: {};
+      tableSizes: object;
+      indexSizesByTable: object;
       tableNames: string[];
       totalDatabaseSize: string;
       activeConnections: number;
@@ -87,10 +101,14 @@ interface AppState {
   setDBName: (dbName: string) => void;
   setUri: (uri: string) => void;
   setIsDBConnected: (isDBConnected: boolean) => void;
+  // change custom query state
+  setQuery: (query:string) => void;
+  setCustomQueryValid: (customQueryValid: boolean) => void;
   toNumInKB: (size: string) => number;
   connectToDatabase: (uri: string, dbName: string) => Promise<void>;
   //For the custom query view 
   setCustomQueryResults: (data: any) => void;
+  sendCustomQuery: (uri:string, query:string) => Promise<void>
 }
 
 
@@ -102,8 +120,22 @@ const useAppStore = create<AppState>((set) => ({
   isModalOpen: false,
   dbName: '',
   uri: '',
-  customQueryData:{},
+  queryString:'',
+  customQueryData:{
+    customMetrics: {},
+    executionTimesArr: [] ,
+    labelsArr: [],
+    meanTime: -1,
+    planningTimesArr: [],
+    queryCount: -1,
+    queryDelay: -1,
+    queryString: '',
+    startUpCostsArr: [],
+    totalCostsArr: [],
+    totalTimesArr:[] 
+  },
   isDBConnected: false,
+  customQueryValid: false,
   errorMessage: 'string',
   metricsData: {
     databaseInfo: {},
@@ -140,7 +172,9 @@ const useAppStore = create<AppState>((set) => ({
 
   setDBName: (dbName: string) => set({ dbName }),
   setUri: (uri: string) => set({ uri }),
+  setQuery: (queryString:string) => set({queryString}),
   setIsDBConnected: (isDBConnected) => set({ isDBConnected }),
+  
   setMetrics: (metricsData: { databaseInfo: DatabaseInfo, executionPlans: {}, dbSizeMetrics: { tableSizes: {}, indexSizesByTable: {}, tableNames: [], totalDatabaseSize: '', activeConnections: 0 } }) => set({ metricsData }),
 
   // helper function for converting string numbers with units to number in kb
@@ -159,6 +193,7 @@ const useAppStore = create<AppState>((set) => ({
     return parseInt(num);
   },
 
+  // connect to database and fetch metrics data
   connectToDatabase: async (uri, dbName) => {
     try {
       set({ view: 'loading' });
@@ -171,11 +206,11 @@ const useAppStore = create<AppState>((set) => ({
       });
       if (response.status === 200) {
         set({ isDBConnected: true, errorMessage: '' });
-        console.log('Valid URI String');
+        // console.log('Valid URI String');
 
       } else {
         set({ isDBConnected: false, errorMessage: 'Failed to connect to the database.' });
-        console.log('Invalid URI String');
+        // console.log('Invalid URI String');
         return;
       }
       const data = await response.json();
@@ -186,9 +221,46 @@ const useAppStore = create<AppState>((set) => ({
       set({ isDBConnected: false, errorMessage: 'Error connecting to the database.' });
     }
   },
-  setCustomQueryResults: async (query) =>{
-    console.log('this is the custom query:', query)
-  }
+  // set custom queryString state
+  setCustomQueryValid: (customQueryValid) => set({ customQueryValid }),
+
+  // set custom queryString results
+  setCustomQueryResults: async (queryString) =>{
+    console.log('this is the custom queryString:', queryString)
+  },
+
+  // fetch custom query results
+  sendCustomQuery: async (uri:string, queryString:string) => {
+    try {
+      console.log('this is uri',uri);
+      set({ view: 'loading' });
+      const response = await fetch('/api/pg/customQuery', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ uri, queryString}),
+      });
+      if (response.status === 200) {
+        set({ customQueryValid: true, errorMessage: '' });
+        console.log('Valid Query String', );
+
+      } else {
+        set({ customQueryValid: false, errorMessage: 'Failed to query database.' });
+        console.log('Invalid Query String');
+        return;
+      }
+      const data = await response.json();
+      console.log('metrics object is ', data);
+      set({ customQueryValid: data });
+      set({ customQueryData: data });
+      set({ view: 'custom' });
+    } catch (error) {
+      set({ customQueryValid: false, errorMessage: 'Error connecting to the database.' });
+    }
+  },
+
+  
 
   // now using authO for login
 

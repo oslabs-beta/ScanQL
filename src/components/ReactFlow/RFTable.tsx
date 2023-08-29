@@ -1,4 +1,6 @@
 import { Handle, Position } from "reactflow";
+import fk_icon from "../../assets/fk_icon.png"; 
+import pk_icon from "../../assets/pk_icon.png"; 
 
 export default function RFTable (nodeData: any) {
     const rows: JSX.Element[] = [];
@@ -14,11 +16,11 @@ export default function RFTable (nodeData: any) {
         }
           rows.push(
             <tr key={columnNames}>
+              <td>{columns[columnNames].primary_key === 'true' ? <img className = 'erd-key-icons' src = {pk_icon}></img> : null }</td>
+              <td>{columns[columnNames].foreign_key === 'true' ? <img className = "erd-key-icons"src = {fk_icon} ></img> : null}{handle}</td>
               <td>{columnNames}</td>
               <td>{columns[columnNames].data_type}</td>
               <td>{columns[columnNames].Constraints}</td>
-              <td>{columns[columnNames].primary_key}</td>
-              <td>{columns[columnNames].foreign_key}{handle}</td>
             </tr>
             
           );
@@ -28,7 +30,7 @@ export default function RFTable (nodeData: any) {
       <>
         <div>
           <div>
-            <label>
+            <label className = "text-xl  text-indigo-900 text-opacity-70">
               {nodeData.data.table[0]}
             </label>
           </div>
@@ -36,11 +38,13 @@ export default function RFTable (nodeData: any) {
             <table className ="erd-table">
               <thead>
                 <tr className = 'erd-head-row'>
+                  <th>PK</th>
+                  <th>FK</th>
                   <th>Column</th>
                   <th>Type</th>
                   <th>Constraints</th>
-                  <th>PK</th>
-                  <th>FK</th>
+                  {/* <th>PK</th>
+                  <th>FK</th> */}
                 </tr>
               </thead>
               <tbody>

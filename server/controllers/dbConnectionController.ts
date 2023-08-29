@@ -19,6 +19,7 @@ const dbConnectionController: DbConnectionController = {
     const pool = new Pool({
       connectionString: uri_string,
     });
+    console.log('this is the pool', pool);
 
     const db = {
       query: (text: string, params?: Array<string>) => {
@@ -28,7 +29,8 @@ const dbConnectionController: DbConnectionController = {
         return pool.query(`EXPLAIN (ANALYZE true, COSTS true, SETTINGS true, BUFFERS true, WAL true, SUMMARY true, FORMAT JSON) ${text}`, params);
       },
     };
-
+    await db.query('SELECT tablename FROM pg_catalog.pg_tables WHERE schemaname != \'pg_catalog\' AND schemaname != \'information_schema\';');
+    console.log('in the dbConnectionController!!!!!!!!!!!!!!!!!!!!!!')
     res.locals.dbConnection = db;
     res.locals.result = {};
 

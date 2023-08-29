@@ -1,5 +1,4 @@
-import React, {ChangeEvent } from 'react';
-import { useState } from 'react';
+import React from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
 import useAppStore from '../../store/appStore';
 import { Cross2Icon } from '@radix-ui/react-icons';
@@ -10,9 +9,9 @@ const ConnectDB: React.FC = () => {
 
   const handleClick = (): void => {
     connectToDatabase(uri, dbName);
-    setUri('');
-    setDBName('')
-  }
+    // setUri(''); // commented out to keep the uri string in the input field
+    setDBName('');
+  };
 
   return (
     <Dialog.Root open={isConnectDBOpen} >
@@ -38,30 +37,30 @@ const ConnectDB: React.FC = () => {
             />
           </fieldset>
           <div className="mt-[25px] flex justify-end">
-              <button onClick={() => {
-                handleClick();
-                closeConnectDB();
-                }} className="border-solid border-indigo-300 bg-gray-500 bg-opacity-60 text-gray-100 hover:bg-green5 focus:shadow-green7 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none focus:shadow-[0_0_0_2px] focus:outline-none"  >
+            <button onClick={() => {
+              handleClick();
+              closeConnectDB();
+            }} className="border-solid border-indigo-300 bg-gray-500 bg-opacity-60 text-gray-100 hover:bg-green5 focus:shadow-green7 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none focus:shadow-[0_0_0_2px] focus:outline-none"  >
                 Submit
-              </button>
-          </div>
-            <button
-                onClick={() => {
-                  closeConnectDB();
-                  setUri('');
-                  setDBName('');
-                }}
-                className="text-gray-100 hover:bg-violet4 focus:shadow-violet7 absolute top-[10px] right-[10px] inline-flex h-[25px] w-[25px] appearance-none items-center justify-center rounded-full focus:shadow-[0_0_0_2px] focus:outline-none"
-                aria-label="Close"
-                >
-              <Cross2Icon />
-              X
             </button>
+          </div>
+          <button
+            onClick={() => {
+              closeConnectDB();
+              // setUri(''); // commented out to keep the uri string in the input field
+              setDBName('');
+            }}
+            className="text-gray-100 hover:bg-violet4 focus:shadow-violet7 absolute top-[10px] right-[10px] inline-flex h-[25px] w-[25px] appearance-none items-center justify-center rounded-full focus:shadow-[0_0_0_2px] focus:outline-none"
+            aria-label="Close"
+          >
+            <Cross2Icon />
+              X
+          </button>
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
-  )
-}
+  );
+};
 
 
 export default ConnectDB;
