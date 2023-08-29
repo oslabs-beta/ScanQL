@@ -9,9 +9,9 @@ const ConnectDB: React.FC = () => {
 
   const handleClick = (): void => {
     connectToDatabase(uri, dbName);
-    // setUri(''); // commented out to keep the uri string in the input field
-    setDBName('');
-  };
+    // setUri('');
+    // setDBName('')
+  }
 
   return (
     <Dialog.Root open={isConnectDBOpen} >
@@ -44,16 +44,14 @@ const ConnectDB: React.FC = () => {
                 Submit
             </button>
           </div>
-          <button
-            onClick={() => {
-              closeConnectDB();
-              // setUri(''); // commented out to keep the uri string in the input field
-              setDBName('');
-            }}
-            className="text-gray-100 hover:bg-violet4 focus:shadow-violet7 absolute top-[10px] right-[10px] inline-flex h-[25px] w-[25px] appearance-none items-center justify-center rounded-full focus:shadow-[0_0_0_2px] focus:outline-none"
-            aria-label="Close"
-          >
-            <Cross2Icon />
+            <button
+                onClick={() => {
+                  closeConnectDB();
+                }}
+                className="text-gray-100 hover:bg-violet4 focus:shadow-violet7 absolute top-[10px] right-[10px] inline-flex h-[25px] w-[25px] appearance-none items-center justify-center rounded-full focus:shadow-[0_0_0_2px] focus:outline-none"
+                aria-label="Close"
+                >
+              <Cross2Icon />
               X
           </button>
         </Dialog.Content>
