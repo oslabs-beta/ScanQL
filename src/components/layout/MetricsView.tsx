@@ -40,8 +40,9 @@ ChartJS.register(
 );
 
 const MetricsView: React.FC = () => {
-    const navigate = useNavigate();
-    const { user, isAuthenticated } = useAuth0();
+  // throw new Error('Metrics view Crashed!')
+  const navigate = useNavigate();
+  const { user, isAuthenticated } = useAuth0();
 
     useEffect(() => {
         if (!isAuthenticated) navigate("/");

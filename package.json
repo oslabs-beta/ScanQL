@@ -35,6 +35,7 @@
     "react": "^18.2.0",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
+    "react-error-boundary": "^4.0.11",
     "react-router-dom": "^6.15.0",
     "reactflow": "^11.8.2",
     "zustand": "^4.4.1"
