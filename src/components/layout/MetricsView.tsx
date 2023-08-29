@@ -1,13 +1,14 @@
-import { useAuth0 } from "@auth0/auth0-react";
-import { useNavigate } from "react-router-dom";
-import { TableSize } from "../charts/TableSize";
-import { TableIndexSizes } from "../charts/TableIndexSizes";
-import { RowsPerTable } from "../charts/RowsPerTable";
-import { IndexPerTable } from "../charts/IndexPerTable";
-import { GeneralMetrics } from "../charts/GeneralMetrics";
-import { QueryTimes } from "../charts/QueryTimes";
-import { useEffect } from "react";
-import useAppStore from "../../store/appStore";
+import React from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
+import { useNavigate } from 'react-router-dom';
+import { TableSize } from '../charts/TableSize'
+import { TableIndexSizes } from '../charts/TableIndexSizes';
+import { RowsPerTable } from '../charts/RowsPerTable'
+import { IndexPerTable } from '../charts/IndexPerTable'
+import { GeneralMetrics } from '../charts/GeneralMetrics';
+import { QueryTimes } from '../charts/QueryTimes';
+import { useEffect } from 'react';
+import useAppStore from '../../store/appStore';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -68,10 +69,10 @@ const MetricsView: React.FC = () => {
         }
     );
 
-    return (
-        <>
-            {/* <h3 className='span-all'>General Metrics:</h3> */}
-            <div className="span-all2">
+  return (
+    <>
+      {/* <h3 className='span-all'>General Metrics:</h3> */}
+      <div className="span-all2">
                 <MetricsSeparator title={"General Metrics"} />
                 <Button>
                 <UpdateIcon onClick={() => {
@@ -79,21 +80,23 @@ const MetricsView: React.FC = () => {
                 }} className="text-white " width={22} height={22} />
                 </Button>
             </div>
-            <RowsPerTable />
-            <IndexPerTable />
-            <GeneralMetrics />
-            <MetricsSeparator title={"Query Execution Time"} />
-            {executionTimes}
-            <MetricsSeparator title={"Database Size"} />
-            <TableSize />
-            <TableIndexSizes />
-            <ColumnIndexSizes />
-            <MetricsSeparator title={"Performance Statistices to-date"} />
-            <ExecTimesByOperation />
-            <SlowestQueriesTop10 />
-            <SlowestCommonQueriesTop10 />
-        </>
-    );
-};
+      <RowsPerTable />
+      <IndexPerTable />
+      <GeneralMetrics />
+      <MetricsSeparator title={'Query Execution Time'}/>
+      {executionTimes}
+      <MetricsSeparator title={'Database Size'}/>
+      <TableSize />
+      <TableIndexSizes />
+      <ColumnIndexSizes />
+      <MetricsSeparator title={'Performance Statistices to-date'}/>
+      <ExecTimesByOperation/>
+      <SlowestQueriesTop10/>
+      <SlowestCommonQueriesTop10/>
+
+     
+    </>
+  )
+}
 
 export default MetricsView;

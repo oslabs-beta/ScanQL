@@ -1,5 +1,4 @@
-import React, {ChangeEvent } from 'react';
-import { useState } from 'react';
+import React from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
 import useAppStore from '../../store/appStore';
 import { Cross2Icon } from '@radix-ui/react-icons';
@@ -38,12 +37,12 @@ const ConnectDB: React.FC = () => {
             />
           </fieldset>
           <div className="mt-[25px] flex justify-end">
-              <button onClick={() => {
-                handleClick();
-                closeConnectDB();
-                }} className="border-solid border-indigo-300 bg-gray-500 bg-opacity-60 text-gray-100 hover:bg-green5 focus:shadow-green7 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none focus:shadow-[0_0_0_2px] focus:outline-none"  >
+            <button onClick={() => {
+              handleClick();
+              closeConnectDB();
+            }} className="border-solid border-indigo-300 bg-gray-500 bg-opacity-60 text-gray-100 hover:bg-green5 focus:shadow-green7 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none focus:shadow-[0_0_0_2px] focus:outline-none"  >
                 Submit
-              </button>
+            </button>
           </div>
             <button
                 onClick={() => {
@@ -54,12 +53,12 @@ const ConnectDB: React.FC = () => {
                 >
               <Cross2Icon />
               X
-            </button>
+          </button>
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
-  )
-}
+  );
+};
 
 
 export default ConnectDB;
