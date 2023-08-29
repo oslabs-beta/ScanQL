@@ -5,6 +5,7 @@ import dbERDcontroller from '../controllers/dbERDcontroller.js'
 import genericMetricsController from '../controllers/genericMetricsController.js';
 import dbOverviewController from '../controllers/dbOverviewConroller.js';
 import dBHistoryController from '../controllers/dbHistoryController.js';
+import customDBController from '../controllers/customQueryController.js';
 const pgRoute = express.Router();
 
 pgRoute.post(
@@ -18,6 +19,15 @@ pgRoute.post(
   dBHistoryController.dbPastMetrics,
   (req, res) => {
     return res.status(200).json(res.locals);
+  }
+);
+pgRoute.post(
+  '/customQuery', 
+  customDBController.customQueryMetrics,
+  //new controller
+
+  (req, res) => {
+    return res.status(200).json(res.locals.customMetrics);
   }
 );
 // ... more routes

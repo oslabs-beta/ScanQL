@@ -1,6 +1,9 @@
 import { table } from "console";
 import { Edge } from "reactflow";
+
 export default function createEdges(ERDdata: any) {
+
+
     // ERDdata is an object of tables
   const initialEdges:Edge[] =  [];
   for (const tableName in ERDdata){
@@ -20,15 +23,15 @@ export default function createEdges(ERDdata: any) {
                 },
                 markerEnd: {
                   type: 'arrowclosed',
-                  width: 20,
-                  height: 20,
+                  width: 30,
+                  height: 40,
                   color: '#535D71',
                 },
+                type: 'smartStep', 
               });
             });
         }
     }
   }
-  // console.log(initialEdges)
   return initialEdges;
-};  
+}; 

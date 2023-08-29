@@ -3,6 +3,8 @@ import { RequestHandler } from 'express';
 import { QueryResult } from 'pg';
 // QueryResult doesn't exist in pg package. May need to install another package.
 
+//PURPOSE: The purpose of this controller is mainly to provide the user a comprehensive birds-eye view of their database. For convience it is also use to supply other controllers with necessary information.
+
 type DbInfoController = {
   getDataBaseInfo: RequestHandler;
 };
@@ -46,6 +48,7 @@ const dbInfoController: DbInfoController = {
     const db = res.locals.dbConnection;
 
     try {
+      // Retrievie table names
       const tables: QueryResult = await db.query(
         'SELECT tablename FROM pg_catalog.pg_tables WHERE schemaname != \'pg_catalog\' AND schemaname != \'information_schema\';'
       );
@@ -150,7 +153,8 @@ const dbInfoController: DbInfoController = {
         //   fieldTypes[row.column_name] = row.data_type;
         // }
         // console.log('columntypes!!!!!!!!!!', columnDataTypes);
-    
+        
+        // A check constrain is a constraint on a column that requires only specific values be inserted (i.e. "Yes" or "No")
         const checkContraints = await db.query(`
         SELECT 
             conname AS constraint_name, 

@@ -23,6 +23,7 @@
     "@radix-ui/react-separator": "^1.0.3",
     "@radix-ui/react-switch": "^1.0.3",
     "@radix-ui/themes": "^1.0.0",
+    "@tisoap/react-flow-smart-edge": "^3.0.0",
     "@types/express": "^4.17.17",
     "chart.js": "^4.3.3",
     "concurrently": "^8.2.1",

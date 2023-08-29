@@ -6,7 +6,6 @@ import { Theme } from '@radix-ui/themes';
 import { Auth0Provider } from '@auth0/auth0-react';
 import  useAppStore from './store/appStore.ts';
 
-
 const theme = useAppStore.getState().theme;
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
@@ -18,10 +17,11 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     }}
   >
     <React.StrictMode>
-      <Theme appearance={theme}>
-          <App />
-      </Theme>
+      {/* <Theme appearance={theme}> */}
+        <App />
+      {/* </Theme> */}
     </React.StrictMode>
   </Auth0Provider>
 )
+
 
