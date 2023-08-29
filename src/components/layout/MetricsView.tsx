@@ -1,3 +1,4 @@
+import React from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useNavigate } from 'react-router-dom';
 import { TableSize } from '../charts/TableSize'
@@ -42,7 +43,7 @@ const MetricsView: React.FC = () => {
 
   useEffect(() => {
     if (!isAuthenticated) navigate('/');
-  }, [isAuthenticated])
+  }, [isAuthenticated, navigate]); // added navigate to array to remove warning
 
   const { metricsData } = useAppStore();
 
@@ -71,7 +72,7 @@ const MetricsView: React.FC = () => {
       <SlowestQueriesTop10/>
       <SlowestCommonQueriesTop10/>
 
-     
+
     </>
   )
 }
