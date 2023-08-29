@@ -5,7 +5,7 @@ interface ErrorBoundaryProps {
     children: any;
 }
 
-class ErrorBoundary extends React.Component<ErrorBoundaryProps> {
+class OldErrorBoundary extends React.Component<ErrorBoundaryProps> {
         state = { hasError: false }
 
     static getDerivedStateFromError(error: Error): {} {
@@ -24,4 +24,4 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps> {
     }
 }
 
-export default ErrorBoundary;
+export default OldErrorBoundary;

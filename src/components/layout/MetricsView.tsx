@@ -37,6 +37,7 @@ ChartJS.register(
 );
 
 const MetricsView: React.FC = () => {
+  throw new Error('Metrics view Crashed!')
   const navigate = useNavigate();
   const { user, isAuthenticated } = useAuth0();
 
