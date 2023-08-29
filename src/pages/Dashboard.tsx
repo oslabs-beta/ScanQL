@@ -11,7 +11,7 @@ import ConnectDB from "../components/layout/ConnectDB";
 import { useEffect } from "react";
 import CustomQueryView from "../components/layout/CustomQueryView";
 import { ErrorBoundary } from 'react-error-boundary';
-import Fallback from '../components/ui/Fallback'
+// import Fallback from '../components/ui/Fallback'
 
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
@@ -64,9 +64,9 @@ const Dashboard: React.FC = () => {
                   Connect to a Database
                 </button>
         }
-        <ErrorBoundary fallback={<div>Error in metricsView</div>}>
+        {/* <ErrorBoundary fallback={<div>Error in metricsView</div>}> */}
         {fetchedData && view === "metrics" && <MetricsView />}
-        </ErrorBoundary>
+        {/* </ErrorBoundary> */}
         {fetchedData && view === "erd" && <ERDView />}
         {fetchedData && view === "custom" && <CustomQueryView/>}
         {view === 'loading' && <Loading />}
