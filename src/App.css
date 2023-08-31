@@ -54,6 +54,23 @@
 .home-logo-nav {
     width: 50rem;
 }
+
+.home-cards-section{
+    height: 15rem; 
+    background-color: rgba(17, 17, 17, 0.058);
+}
+
+.home-gif1-section{
+    height: 25rem; 
+}
+.home-gif2-section{
+    height: 25rem; 
+    background-color: rgba(17, 17, 17, 0.058);
+}
+.home-gif3-section{
+    height: 35rem; 
+}
+
 .dash-card-titles {
     color: #17012866;
 }
@@ -241,3 +258,4 @@ td:last-child {
         filter: brightness(3) saturate(0);
     }
 }
+
