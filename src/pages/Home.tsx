@@ -30,7 +30,7 @@ const Home: React.FC = () => {
       <div className="home-gif1-section">Gif1</div>
       <div className="home-gif2-section">Gif2</div>
       <div className="home-gif3-section">Gif3</div>
-      <Footer></Footer>
+      <Footer/>
     </div>
   )
 }
