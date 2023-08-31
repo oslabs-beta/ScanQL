@@ -7,7 +7,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 
 const Login: React.FC = () => {
   const { loginWithRedirect } = useAuth0();
-  return <button className="text-indigo-800" onClick={() => loginWithRedirect()}>Log In</button>;
+  return <button className="text-indigo-900 text-opacity-80" onClick={() => loginWithRedirect()}>Log In</button>;
 }
 
 export default Login;
