@@ -11,12 +11,12 @@ import ConnectDB from "../components/layout/ConnectDB";
 import { useEffect } from "react";
 import CustomQueryView from "../components/layout/CustomQueryView";
 import { ErrorBoundary } from 'react-error-boundary';
-// import Fallback from '../components/ui/Fallback'
+import { AppFallback } from "../components/Errors/AppFallback";
 
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
   const { user, isAuthenticated, isLoading } = useAuth0();
-  const { setView, view, connectToDatabase, uri, dbName, metricsData, openConnectDB } = useAppStore();
+  const { setView, view, connectToDatabase, uri, dbName, metricsData, openConnectDB, invalidURIMessage } = useAppStore();
 
   useEffect(() => {
     if (!isAuthenticated) navigate("/");
@@ -56,19 +56,32 @@ const Dashboard: React.FC = () => {
       </div>
       <div className="dashboard-page">
         <div className="dashboard-container">
-        {!fetchedData && view !== 'loading' &&
-                  <button
-                  className="dashboard-connect-uri text-indigo-900 text-opacity-80"
-                  onClick={() => openConnectDB()}
-                  >
-                  Connect to a Database
-                </button>
+          {!fetchedData && view !== 'loading' &&
+          <div className="invalid-uri">
+          <button
+          className="dashboard-connect-uri text-indigo-900 text-opacity-80"
+          onClick={() => openConnectDB()}
+          >
+            Connect to a Database
+          </button>
+          {invalidURIMessage && <p className="text-red-800">Invalid URI</p>}
+          </div>
         }
-        {/* <ErrorBoundary fallback={<div>Error in metricsView</div>}> */}
-        {fetchedData && view === "metrics" && <MetricsView />}
-        {/* </ErrorBoundary> */}
-        {fetchedData && view === "erd" && <ERDView />}
-        {fetchedData && view === "custom" && <CustomQueryView/>}
+        {fetchedData && view === "metrics" && 
+        <ErrorBoundary FallbackComponent={AppFallback}>
+          <MetricsView />
+        </ErrorBoundary>
+        }
+        {fetchedData && view === "erd" && 
+        <ErrorBoundary FallbackComponent={AppFallback}>
+          <ERDView />
+        </ErrorBoundary>
+        }
+        {fetchedData && view === "custom" && 
+        <ErrorBoundary FallbackComponent={AppFallback}>
+          <CustomQueryView/>
+        </ErrorBoundary>
+        }
         {view === 'loading' && <Loading />}
         </div>
       </div>

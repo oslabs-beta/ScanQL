@@ -23,20 +23,20 @@ app.use('/auth', authRoute);
  
 // unknown route handler
 app.use((req: Request, res: Response) => {
-  res.status(404).send('No page found');
+  return res.status(404).send('No page found');
 });
  
 // global error handler
-app.use((err: Error, req: Request, res: Response) => {
-  const errorObject = {
-    log: 'Unknown error occured in middleware',
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+  const defaultErr = {
+    log: 'Express error handler caught unknown middleware error',
     status: 500,
     message: {
-      error: `Error occured in middleware: ${err}`
+      error: 'An error occured'
     } 
   };
-  const newErrorObj = { ...errorObject, ...err };
-  res.status(newErrorObj.status).json(newErrorObj.message);
+  const errorObj = { ...defaultErr, ...err };
+  return res.status(errorObj.status).json(errorObj.message);
 });
 
 

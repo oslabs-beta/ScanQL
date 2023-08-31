@@ -178,15 +178,22 @@
 }
 
 .dashboard-connect-uri {
-    grid-column: 1 / -1;
-    justify-self: center;
-    align-self: center;
     padding: 2rem;
     border: 2px solid rgba(255, 255, 255, 0.049);
     background-color: rgba(235, 233, 233, 0.215);
     border-radius: 20px;
     transition: transform ease-in-out 0.25s;
     box-shadow: 2px 2px 25px 0px rgba(108, 108, 108, 0.418);
+}
+
+.invalid-uri {
+    grid-column: 1 / -1;
+    justify-self: center;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
 }
 
 .erd-table {
