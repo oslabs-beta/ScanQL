@@ -5,6 +5,8 @@ import './index.css'
 import { Theme } from '@radix-ui/themes';
 import { Auth0Provider } from '@auth0/auth0-react';
 import  useAppStore from './store/appStore.ts';
+import { ErrorBoundary } from 'react-error-boundary';
+import { AppFallback } from './components/Errors/AppFallback.tsx';
 
 const theme = useAppStore.getState().theme;
 
@@ -18,7 +20,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   >
     <React.StrictMode>
       {/* <Theme appearance={theme}> */}
+      <ErrorBoundary FallbackComponent={AppFallback} >
         <App />
+      </ErrorBoundary>
       {/* </Theme> */}
     </React.StrictMode>
   </Auth0Provider>
