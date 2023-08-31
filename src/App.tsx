@@ -11,6 +11,7 @@ import { useAuth0 } from '@auth0/auth0-react'
 import Layout from "./Layout";
 import Loading from "./components/ui/Loading";
 
+
 const router = createBrowserRouter(
 
   createRoutesFromElements(
@@ -27,7 +28,7 @@ const router = createBrowserRouter(
 const App: React.FC = () => {
 
   return (
-    <RouterProvider router={router} />
+      <RouterProvider router={router} />
   )
 }
 

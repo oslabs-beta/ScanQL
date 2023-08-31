@@ -16,8 +16,8 @@ const FormField: React.FC = () => {
   };
 
   return (
-    <>
-      <Form.Root className="w-[260px]" onSubmit={handleFormSubmit}>
+    <div className='flex mt-8 pr-6'>
+      <Form.Root className="w-[260px] h-full" onSubmit={handleFormSubmit}>
         <Form.Field className="grid mb-[10px]" name="query-input">
           <div className="flex items-baseline justify-between">
             <Form.Label className="text-[15px] font-medium leading-[35px] text-white">
@@ -29,7 +29,7 @@ const FormField: React.FC = () => {
           </div>
           <Form.Control asChild>
             <textarea
-              className="box-border w-full bg-blackA5 shadow-blackA9 inline-flex appearance-none items-center justify-center rounded-[4px] p-[10px] text-[15px] leading-none text-white shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA9 resize-none"
+              className="box-border w-full bg-blackA5 h-40 shadow-blackA9 inline-flex appearance-none items-center justify-center rounded-[4px] p-[10px] text-[15px] leading-none text-white shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA9 resize-none"
               required
               id="query-string"
               value={queryString}
@@ -43,7 +43,7 @@ const FormField: React.FC = () => {
           </button>
         </Form.Submit>
       </Form.Root>
-    </>
+    </div>
   );
 };
 
