@@ -1,8 +1,4 @@
 import React, { useState } from 'react';
-
-import { Line } from 'react-chartjs-2';
-import useAppStore from '../../store/appStore';
-
 import FormField from '../ui/QueryForm';
 import { PlanningExecutionTimes } from '../customQueryCharts/PlanningExecutionTimes';
 
@@ -14,14 +10,16 @@ const CustomQueryView: React.FC = () => {
   return (
     <>
       <FormField />
-      <div className='custom-query-charts'>
+      <div className='dashboard-container custom-query-charts h-full'>
+      <div className='custom-query-cards h-72 span-all'>
+        <CustomQueryGeneralMetrics />
+      </div>
+      <div className='query-card span-all'>
         <PlanningExecutionTimes />
       </div>
-      <div className='custom-query-charts'>
+      <div className='query-card span-all'>
         <MeanPlanningExecutionTimes />
       </div>
-      <div className='custom-query-cards'>
-        <CustomQueryGeneralMetrics />
       </div>
     </>
   );

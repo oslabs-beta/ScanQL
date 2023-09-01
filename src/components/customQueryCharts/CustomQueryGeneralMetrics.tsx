@@ -22,41 +22,36 @@ export const CustomQueryGeneralMetrics: React.FC = () => {
   //   }
   // })
 
-
-
-
-
   return (
-
     <>
-      <div className="custom-query-cards">
+      <div className="custom-query-cards w-40">
         <div className="text-card-custom">
           <div className="text-sm font-semibold dash-card-titles">Type of Scan</div>
-          <p className="custom-metrics-numbers-single">{tablesObject.nodeType}</p>
+          <p className="">{tablesObject.nodeType}</p>
         </div>
       </div>
-      <div className="custom-query-cards">
+      <div className="custom-query-cards w-40">
         <div className="text-card-custom">
           <div className="text-sm font-semibold dash-card-titles">Number of Rows</div>
-          <p className="custom-metrics-numbers-double">{tablesObject.actualRows}</p>
+          <p className="">{tablesObject.actualRows}</p>
           <div className="text-sm font-semibold dash-card-titles">Number of Loops</div>
-          <p className="custom-metrics-numbers-double">{tablesObject.actualLoops}</p>
+          <p className="">{tablesObject.actualLoops}</p>
         </div>
       </div>
-      <div className="custom-query-cards">
+      <div className="custom-query-cards w-40">
         <div className="text-card-custom">
           <div className="text-sm font-semibold dash-card-titles">Shared Hit Blocks</div>
-          <p className="custom-metrics-numbers-double">{tablesObject.sharedHitBlocks}</p>
+          <p className="">{tablesObject.sharedHitBlocks}</p>
           <div className="text-sm font-semibold dash-card-titles">Shared Read Blocks</div>
-          <p className="custom-metrics-numbers-double">{tablesObject.sharedReadBlocks}</p>
+          <p className="">{tablesObject.sharedReadBlocks}</p>
         </div>
       </div>
-      <div className="custom-query-cards">
+      <div className="custom-query-cards w-40">
         <div className="text-card-custom">
           <div className="text-sm font-semibold dash-card-titles">Start Up Costs</div>
-          <p className="custom-metrics-numbers-double">{tablesObject.startUpCosts}</p>
+          <p className="">{tablesObject.startUpCosts}</p>
           <div className="text-sm font-semibold dash-card-titles">Total Costs</div>
-          <p className="custom-metrics-numbers-double">{tablesObject.totalCosts}</p>
+          <p className="">{tablesObject.totalCosts}</p>
         </div>
       </div>
     </>

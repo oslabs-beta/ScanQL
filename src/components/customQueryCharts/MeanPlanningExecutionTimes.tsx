@@ -5,20 +5,18 @@ import useAppStore from '../../store/appStore';
 export const MeanPlanningExecutionTimes: React.FC = () => {
   const { customQueryData } = useAppStore();
 
-
   const options = {
-    
     responsive: true,
-    maintainAspectRatio: false, // This will allow the chart to stretch to fill its container
-    // layout: {
-    //   padding: {
-    //     top: 0, // Adjust the padding top value to create space for the title
-    //     bottom: 0,
-    //   },
-    // },
+    maintainAspectRatio: false,
+    layout: {
+      padding: {
+        top: 0, // Adjust the padding top value to create space for the title
+        bottom: 0,
+      },
+    },
     plugins: {
       title: {
-        // position: 'top' as const, // Position title at the top
+        position: 'top' as const, // Position title at the top
         display: true,
         text: 'Mean Exec & Planning Times (Among All 10 Queries)',
         color: '#17012866',
@@ -54,18 +52,14 @@ export const MeanPlanningExecutionTimes: React.FC = () => {
     datasets: [
       {
         label: 'Mean Exec Time (ms)',
-        data: customQueryData.overallMeanTimesArr.map((el)=>{
-          return el * 1000;
+        data: customQueryData.overallMeanTimesArr.map((time)=>{
+          return time * 1000;
         }),
         backgroundColor: [
-          'rgba(190, 99, 255, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(235, 86, 255, 0.2)',
-          'rgba(16, 39, 215, 0.2)',
-          'rgba(129, 75, 236, 0.2)',
-          'rgba(64, 118, 255, 0.2)',
+          'rgba(190, 99, 255, 0.3)',
+          'rgba(54, 162, 235, 0.3)',
+          'rgba(235, 86, 255, 0.3)',
         ], 
-        // backgroundColor: 'rgba(107, 99, 255, 0.5)',
         scaleFontColor: '#FFFFFF',
       },
       // {
@@ -82,7 +76,7 @@ export const MeanPlanningExecutionTimes: React.FC = () => {
     ],
   };
   return (
-    <div className="customQueryBarChart">
+    <div className='h-full w-full'>
       <Bar data={data} options={options} />
     </div>
   );

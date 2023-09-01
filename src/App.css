@@ -138,7 +138,6 @@
     align-items: center;
     color: white;
     gap: 2em;
-    /* max-width: 30vw; */
     height: 35vh;
     border: 2px solid rgb(255, 255, 255, 0.05);
     border-radius: 20px;
@@ -151,12 +150,72 @@
     transition: all 0.2s ease-in-out;
 }
 
+.query-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    gap: 2em;
+    height: 32rem;
+    border: 2px solid rgb(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 0.6rem;
+    /* background-color: rgba(230, 228, 231, 0.351); */
+    background-color: rgba(200, 199, 217, 0.401);
+    /* purple tint 
+    /* background-image: linear-gradient(rgba(117, 82, 172, 0.04), rgba(8, 0, 151, 0.04)); */
+    box-shadow: 0px 0px 5px 0px rgba(108, 108, 108, 0.75);
+    transition: all 0.2s ease-in-out;
+}
+
+.error-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    gap: 2em;
+    height: 35vh;
+    border: 2px solid rgb(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 0.6rem;
+    /* background-color: rgba(230, 228, 231, 0.351); */
+    background-color: rgba(200, 199, 217, 0.401);
+    /* purple tint 
+    /* background-image: linear-gradient(rgba(117, 82, 172, 0.04), rgba(8, 0, 151, 0.04)); */
+    box-shadow: 0px 0px 5px 0px rgba(108, 108, 108, 0.75);
+}
+
 .text-card {
     height: 78%;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 35%;
+}
+
+.custom-query-cards {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: white;
+    /* gap: 2em; */
+    height: 80%;
+    border: 2px solid rgb(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 0.6rem;
+    background-color: rgba(200, 199, 217, 0.401);
+    box-shadow: 0px 0px 5px 0px rgba(108, 108, 108, 0.75);
+    transition: all 0.2s ease-in-out;
+}
+
+.text-card-custom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .6rem;
 }
 
 .dashboard-card.md-card {
