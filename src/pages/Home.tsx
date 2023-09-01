@@ -1,9 +1,9 @@
 import * as React from "react";
 import { useEffect } from "react";
 import logo from "../assets/logo-horizontal-v2.png";
-import screenshot1 from "../assets/screenshots/screenshot1.png";
-import screenshot2 from "../assets/screenshots/screenshot2.png";
-import screenshot3 from "../assets/screenshots/screenshot3.png";
+import screenshot1 from "../assets/screenshots/screenshot1.jpg";
+import screenshot2 from "../assets/screenshots/screenshot2.jpg";
+import screenshot3 from "../assets/screenshots/screenshot3.jpg";
 
 import { FaceIcon, ImageIcon, SunIcon, LightningBoltIcon, Crosshair2Icon} from '@radix-ui/react-icons'
 
