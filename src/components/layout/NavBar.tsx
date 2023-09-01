@@ -13,10 +13,8 @@ const NavBar: React.FC = () => {
       <div className="flex flex-col items-center md:flex-row">
         <div className="flex justify-center md:mx-0 md:mr-4 md:items-center md:justify-start gap-10">
           <Link className="text-indigo-900 text-opacity-80" to="/">Home</Link>
-          <Link className="text-indigo-900 text-opacity-80" to="/">About</Link>
-        </div>
-      </div>
-      <div className="flex items-center">
+          <Link className="text-indigo-900 text-opacity-80" to="/about">About</Link>
+
           <IconButton>
             <Link to="/">
               <GitHubLogoIcon className="w-6 h-6 text-indigo-900 text-opacity-80" />

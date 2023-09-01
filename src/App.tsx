@@ -5,6 +5,7 @@ import Dashboard from "./pages/Dashboard";
 import "./index.css";
 import "./App.css";
 import RouteError from "./components/Errors/RouteError";
+import About from "./pages/About";
 
 
 const router = createBrowserRouter(
@@ -13,6 +14,7 @@ const router = createBrowserRouter(
     <Route path="/" errorElement={<RouteError/>}>
       <Route index element={<Home />}  />
       <Route path="/dashboard" element={<Dashboard />} errorElement={<RouteError/>} />
+      <Route path="/about" element={<About />} />
       <Route path="*" element={<PageNotFound />} />
     </Route>
   )
