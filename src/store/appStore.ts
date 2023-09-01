@@ -210,6 +210,7 @@ const useAppStore = create<AppState>((set) => ({
       } else if (response.status === 400) {
         const res = await response.json();
         set({ view: 'metrics' });
+        set({ isConnectDBOpen: true });
         // add a view for invalid uri
         set({ invalidURIMessage: true})
         console.log(res.error)

@@ -40,15 +40,14 @@ ChartJS.register(
 );
 
 const MetricsView: React.FC = () => {
-  // throw new Error('Metrics view Crashed!')
   const navigate = useNavigate();
-  const { user, isAuthenticated } = useAuth0();
+  const { isAuthenticated } = useAuth0();
 
     useEffect(() => {
         if (!isAuthenticated) navigate("/");
     }, [isAuthenticated]);
 
-    const { metricsData, uri, setUri, connectToDatabase, closeConnectDB, isConnectDBOpen, dbName, setDBName } = useAppStore();
+    const { metricsData, uri, connectToDatabase, dbName } = useAppStore();
 
     const handleClick = (): void => {
         connectToDatabase(uri, dbName);
@@ -72,15 +71,19 @@ const MetricsView: React.FC = () => {
 
   return (
     <>
-      {/* <h3 className='span-all'>General Metrics:</h3> */}
       <div className="span-all2">
-                <MetricsSeparator title={"General Metrics"} />
-                <Button>
-                <UpdateIcon onClick={() => {
+        <MetricsSeparator title={"General Metrics"} />
+          <Button>
+            <UpdateIcon
+              onClick={() => {
                 handleClick();
-                }} className="text-white " width={22} height={22} />
-                </Button>
-            </div>
+              }} 
+              className="text-white " 
+              width={22} 
+              height={22}
+            />
+          </Button>
+      </div>
       <RowsPerTable />
       <IndexPerTable />
       <GeneralMetrics />
@@ -94,8 +97,6 @@ const MetricsView: React.FC = () => {
       <ExecTimesByOperation/>
       <SlowestQueriesTop10/>
       <SlowestCommonQueriesTop10/>
-
-     
     </>
   )
 }

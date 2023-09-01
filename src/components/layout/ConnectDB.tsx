@@ -5,12 +5,10 @@ import { Cross2Icon } from '@radix-ui/react-icons';
 
 const ConnectDB: React.FC = () => {
 
-  const { uri, setUri, connectToDatabase, closeConnectDB, isConnectDBOpen, dbName, setDBName } = useAppStore();
+  const { uri, setUri, connectToDatabase, closeConnectDB, isConnectDBOpen, dbName, invalidURIMessage } = useAppStore();
 
   const handleClick = (): void => {
     connectToDatabase(uri, dbName);
-    // setUri('');
-    // setDBName('')
   }
 
   return (
@@ -36,7 +34,8 @@ const ConnectDB: React.FC = () => {
               onChange={(e) => setUri(e.target.value)}
             />
           </fieldset>
-          <div className="mt-[25px] flex justify-end">
+          <div className="mt-[25px] flex justify-end items-center ">
+            {invalidURIMessage && <p className="text-red-600 mr-8 ">Invalid URI</p>}
             <button onClick={() => {
               handleClick();
               closeConnectDB();
