@@ -13,17 +13,16 @@ const About: React.FC = () => {
           <div className="border-2 border-solid border-black flex gap-32">
             <div className="flex-column items-center border-2 border-black p-6">
               <div className="w-52 h-52">
-                {/* image container*/}
                 <img
                   className="h-52 w-52 object-cover rounded-full"
                   src="src/assets/devPhotos/Kurt.jpeg"
                 />
               </div>
-              <div className="">
+              <div className="mt-2">
                 <p className="text-center">Kurt Bulau</p>
                 <p className="text-center -mt-1">Software Engineer</p>
               </div>
-              <div className="flex gap-4 justify-center">
+              <div className="flex gap-4 justify-center mt-1">
                 <a href="https://github.com/kbulau">
                   <img
                     className="h-5"
@@ -56,11 +55,11 @@ const About: React.FC = () => {
                   src="src/assets/devPhotos/Kurt.jpeg"
                 />
               </div>
-              <div className="">
+              <div className="mt-2">
                 <p className="text-center">Kurt Bulau</p>
                 <p className="text-center -mt-1">Software Engineer</p>
               </div>
-              <div className="flex gap-4 justify-center">
+              <div className="flex gap-4 justify-center mt-2">
                 <a href="https://github.com/kbulau">
                   <img
                     className="h-5"
@@ -91,11 +90,11 @@ const About: React.FC = () => {
                   src="src/assets/devPhotos/Kurt.jpeg"
                 />
               </div>
-              <div className="">
+              <div className="mt-2">
                 <p className="text-center">Kurt Bulau</p>
                 <p className="text-center -mt-1">Software Engineer</p>
               </div>
-              <div className="flex gap-4 justify-center">
+              <div className="flex gap-4 justify-center mt-2">
                 <a href="https://github.com/kbulau">
                   <img
                     className="h-5"
@@ -126,11 +125,11 @@ const About: React.FC = () => {
                   src="src/assets/devPhotos/Kurt.jpeg"
                 />
               </div>
-              <div className="">
+              <div className="mt-2">
                 <p className="text-center">Kurt Bulau</p>
                 <p className="text-center -mt-1">Software Engineer</p>
               </div>
-              <div className="flex gap-4 justify-center">
+              <div className="flex gap-4 justify-center mt-2">
                 <a href="https://github.com/kbulau">
                   <img
                     className="h-5"
@@ -161,11 +160,11 @@ const About: React.FC = () => {
                   src="src/assets/devPhotos/Kurt.jpeg"
                 />
               </div>
-              <div className="">
+              <div className="mt-2">
                 <p className="text-center">Kurt Bulau</p>
                 <p className="text-center -mt-1">Software Engineer</p>
               </div>
-              <div className="flex gap-4 justify-center">
+              <div className="flex gap-4 justify-center mt-2">
                 <a href="https://github.com/kbulau">
                   <img
                     className="h-5"
