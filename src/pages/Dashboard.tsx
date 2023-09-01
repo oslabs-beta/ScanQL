@@ -24,7 +24,7 @@ const Dashboard: React.FC = () => {
   const fetchedData = Object.keys(metricsData.databaseInfo).length !== 0 ? true : false;
 
   return (
-    <div className="h-screen">
+    <div className = "h-screen">
       <DashNav />
       <ConnectDB />
       <div className="dashboard-button-bar">
