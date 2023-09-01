@@ -10,11 +10,11 @@ const NavBar: React.FC = () => {
 
   return (
     <div className="flex w-screen flex-col items-center justify-center md:flex-row md:justify-between px-8 py-4">
-      <div className="flex flex-col items-center md:flex-row">
-        <div className="flex justify-center md:mx-0 md:mr-4 md:items-center md:justify-start gap-10">
+      <div className="flex flex-col items-center md:flex-row gap-10">
           <Link className="text-indigo-900 text-opacity-80" to="/">Home</Link>
           <Link className="text-indigo-900 text-opacity-80" to="/about">About</Link>
-
+        </div>
+        <div className="flex justify-center md:mx-0 md:mr-4 md:items-center md:justify-start gap-6">
           <IconButton>
             <Link to="/">
               <GitHubLogoIcon className="w-6 h-6 text-indigo-900 text-opacity-80" />
