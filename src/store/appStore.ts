@@ -51,34 +51,6 @@ type SlowestCommonMedianMean = {
     count: number;
   };
 };
-// type executionPlans = {
-//   {}
-// }
-/*
-        labelsArr: labelsArr,
-        nodeType: delayedTasks[0]['nodeType'],
-                sharedHitBlocks: delayedTasks[0]['sharedHitBlocks'],
-        sharedReadBlocks: delayedTasks[0]['sharedHitBlocks'],
-        cacheSize: delayedTasks[0]['cacheSize'],
-        workingMem: delayedTasks[0]['workingMem'],
-        actualRows: delayedTasks[0]['actualRows'],
-        actualLoops: delayedTasks[0]['actualLoops'],
-        totalCosts: delayedTasks[0]['totalCosts'],
-        startUpCosts: delayedTasks[0]['startUpCosts'],
-        planningTimesArr: planningTimesArr,
-        executionTimesArr: executionTimesArr,
-        totalTimesArr: totalTimesArr,
-        totalCostsArr: totalCostsArr,
-        startupCostsArr: startupCostsArr,
-        actualLoopsArr: actualLoopsArr,
-        actualRowsArr: actualRowsArr,
-        overallMeanTimesLabels: overallMeanTimesLabels,
-        overallMeanTimesArr: overallMeanTimesArr,
-        queryString: queryString,
-        customMetrics: delayedTasks,
-        queryDelay: delayTimeDef,
-        queryCount: queryCountDef
-*/
 
 interface AppState {
   isConnectDBOpen: boolean;
@@ -110,6 +82,7 @@ interface AppState {
   isDBConnected: boolean;
   isModalOpen: boolean;
   errorMessage: string;
+  invalidURIMessage: boolean;
   metricsData: {
     databaseInfo: DatabaseInfo;
     executionPlans: object;
@@ -137,8 +110,8 @@ interface AppState {
 
   openConnectDB: () => void;
   closeConnectDB: () => void;
-  setView: (view: 'metrics' | 'erd' | 'custom') => void;
-
+  setView: (view: 'metrics' | 'erd' | 'custom' | 'loading') => void;
+  
   setDBName: (dbName: string) => void;
   setUri: (uri: string) => void;
   setIsDBConnected: (isDBConnected: boolean) => void;
@@ -184,8 +157,9 @@ const useAppStore = create<AppState>((set) => ({
     queryCount: -1,
   },
   isDBConnected: false,
+  invalidURIMessage: false,
   customQueryValid: false,
-  errorMessage: 'string',
+  errorMessage: '',
   metricsData: {
     databaseInfo: {},
     executionPlans: {},
@@ -255,17 +229,19 @@ const useAppStore = create<AppState>((set) => ({
       });
       if (response.status === 200) {
         set({ isDBConnected: true, errorMessage: '' });
-        // console.log('Valid URI String');
-
+        const data = await response.json();
+        set({ metricsData: data });
+        set({ view: 'metrics' });
+      } else if (response.status === 400) {
+        const res = await response.json();
+        set({ view: 'metrics' });
+        // add a view for invalid uri
+        set({ invalidURIMessage: true})
+        console.log(res.error)
+        set({ isDBConnected: false, errorMessage: 'Failed to connect to the database.' });
       } else {
         set({ isDBConnected: false, errorMessage: 'Failed to connect to the database.' });
-        // console.log('Invalid URI String');
-        return;
       }
-      const data = await response.json();
-      set({ metricsData: data });
-      set({ view: 'metrics' });
-      // set({ historyData: data})
     } catch (error) {
       set({ isDBConnected: false, errorMessage: 'Error connecting to the database.' });
     }

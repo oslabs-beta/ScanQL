@@ -9,6 +9,7 @@ import Loading from '../components/ui/Loading';
 
 import MetricsView from '../components/layout/MetricsView';
 import { Container } from '@radix-ui/themes';
+import Footer from '../components/layout/Footer';
 
 
 const Home: React.FC = () => {
@@ -25,6 +26,11 @@ const Home: React.FC = () => {
       <div className = 'home-logo-container'>
       <img className='home-logo-nav' src={logo}></img>
       </div>
+      <div className="home-cards-section">Cards</div>
+      <div className="home-gif1-section">Gif1</div>
+      <div className="home-gif2-section">Gif2</div>
+      <div className="home-gif3-section">Gif3</div>
+      <Footer/>
     </div>
   )
 }
