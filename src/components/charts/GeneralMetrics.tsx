@@ -1,6 +1,6 @@
-import React from "react";
-import useAppStore from "../../store/appStore";
-import { TableInfo } from '../../store/appStore'
+import React from 'react';
+import useAppStore from '../../store/appStore';
+import { TableInfo } from '../../store/appStore';
 
 
 export const GeneralMetrics: React.FC = () => {
@@ -11,8 +11,8 @@ export const GeneralMetrics: React.FC = () => {
       tableName: table.tableName,
       numberOfForeignKeys: table.numberOfForeignKeys,
       numberOfFields: table.numberOfFields,
-    }
-  })
+    };
+  });
   // total Foreign Keys
   const totalForeignKeys = rows.reduce((sum, table) => sum + table.numberOfForeignKeys, 0);
 
@@ -31,15 +31,15 @@ export const GeneralMetrics: React.FC = () => {
   // console.log(`Total foreign keys: ${totalNumberOfFields}`)
   // console.log(`Average number of foreign keys: ${averageNumberOfFields}`)
 
-    // total Database Size
-    const databaseSizeTotal = toNumInKB(metricsData.dbSizeMetrics.totalDatabaseSize);
-    console.log('databaseSizeTotal', databaseSizeTotal)
+  // total Database Size
+  const databaseSizeTotal = toNumInKB(metricsData.dbSizeMetrics.totalDatabaseSize);
+  // console.log('databaseSizeTotal', databaseSizeTotal)
   
-    // Active Connections
-    const activeConnections = metricsData.dbSizeMetrics.activeConnections;
-    console.log('activeConnections', activeConnections)
+  // Active Connections
+  const activeConnections = metricsData.dbSizeMetrics.activeConnections;
+  // console.log('activeConnections', activeConnections)
   
-    console.log('metricsData', metricsData);
+  // console.log('metricsData', metricsData);
 
 
   return (
@@ -49,7 +49,7 @@ export const GeneralMetrics: React.FC = () => {
         <div className="text-card">
           <div className="text-sm font-semibold dash-card-titles">Total Database Size (kb)</div>
           <p className= "general-metrics-numbers">{databaseSizeTotal}</p>
-          </div>
+        </div>
       </div>
       
       <div className="dashboard-card">
@@ -72,4 +72,4 @@ export const GeneralMetrics: React.FC = () => {
       </div>
     </>
   );
-}
+};

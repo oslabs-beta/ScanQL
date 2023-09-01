@@ -112,7 +112,7 @@ const dBHistoryController: DBHistoryController = {
           };
         }
       });
-      console.log('this is totalQueriestop10', slowestTotalQueriesString.rows)
+      // console.log('this is totalQueriestop10', slowestTotalQueriesString.rows)
 
       //   res.locals.totalQueries = totalQueries;
       const slowestCommonQueriesString: QueryResult = await db.query(`
