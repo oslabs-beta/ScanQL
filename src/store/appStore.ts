@@ -9,18 +9,27 @@ export type TableInfo = {
   numberOfFields: number;
   numberOfForeignKeys: number;
 };
+export type CustomTableInfo = {
+  nodeType: string;
+  actualRows: number;
+  actualLoops: number;
+  sharedHitBlocks: number;
+  sharedReadBlocks: number;
+  totalCosts: number;
+  startUpCosts: number;
+};
 
 type DatabaseInfo = {
   [tableName: string]: TableInfo;
 };
 
 type ExecTimeByOperation = {
-  [operation: string] :  {
+  [operation: string]: {
     query: string;
     operation: string;
     median_exec_time: number;
     mean_exec_time: number;
-    stdev_exec_time:number;
+    stdev_exec_time: number;
     min_exec_time: number;
     max_exec_time: number;
     execution_count: number;
@@ -29,41 +38,73 @@ type ExecTimeByOperation = {
 }
 type SlowestTotalMedianMean = {
   [query: string]: {
-      query:string;
-      median: number;
-      mean: number;
+    query: string;
+    median: number;
+    mean: number;
   };
 };
 type SlowestCommonMedianMean = {
   [query: string]: {
-      query:string;
-      median: number;
-      mean: number;
-      count:number;
+    query: string;
+    median: number;
+    mean: number;
+    count: number;
   };
 };
 // type executionPlans = {
 //   {}
 // }
-
+/*
+        labelsArr: labelsArr,
+        nodeType: delayedTasks[0]['nodeType'],
+                sharedHitBlocks: delayedTasks[0]['sharedHitBlocks'],
+        sharedReadBlocks: delayedTasks[0]['sharedHitBlocks'],
+        cacheSize: delayedTasks[0]['cacheSize'],
+        workingMem: delayedTasks[0]['workingMem'],
+        actualRows: delayedTasks[0]['actualRows'],
+        actualLoops: delayedTasks[0]['actualLoops'],
+        totalCosts: delayedTasks[0]['totalCosts'],
+        startUpCosts: delayedTasks[0]['startUpCosts'],
+        planningTimesArr: planningTimesArr,
+        executionTimesArr: executionTimesArr,
+        totalTimesArr: totalTimesArr,
+        totalCostsArr: totalCostsArr,
+        startupCostsArr: startupCostsArr,
+        actualLoopsArr: actualLoopsArr,
+        actualRowsArr: actualRowsArr,
+        overallMeanTimesLabels: overallMeanTimesLabels,
+        overallMeanTimesArr: overallMeanTimesArr,
+        queryString: queryString,
+        customMetrics: delayedTasks,
+        queryDelay: delayTimeDef,
+        queryCount: queryCountDef
+*/
 
 interface AppState {
   isConnectDBOpen: boolean;
   dbName: string;
   uri: string;
-  queryString:string
+  queryString: string
   customQueryData: {
-    customMetrics: object,
-    executionTimesArr: number[] ,
+    nodeType: string,
+    sharedHitBlocks: number,
+    sharedReadBlocks: number,
+    cacheSize: number,
+    workingMem: number,
+    actualRows: number,
+    actualLoops: number,
+    totalCosts: number,
+    startUpCosts: number,
     labelsArr: number[],
-    meanTime: number,
     planningTimesArr: number[],
-    queryCount: number,
-    queryDelay: number,
+    executionTimesArr: number[],
+    totalTimesArr: number[],
+    overallMeanTimesLabels: string[],
+    overallMeanTimesArr: number[],
     queryString: string,
-    startUpCostsArr: number[],
-    totalCostsArr: number[],
-    totalTimesArr:number[] 
+    customMetrics: object,
+    queryDelay: number,
+    queryCount: number,
   };
   customQueryValid: boolean;
   isDBConnected: boolean;
@@ -86,7 +127,7 @@ interface AppState {
     };
   }
 
-  view: 'metrics' | 'erd' | 'custom' |'loading';
+  view: 'metrics' | 'erd' | 'custom' | 'loading';
 
   theme: 'light' | 'dark';
   toggleTheme: () => void;
@@ -97,18 +138,18 @@ interface AppState {
   openConnectDB: () => void;
   closeConnectDB: () => void;
   setView: (view: 'metrics' | 'erd' | 'custom') => void;
-  
+
   setDBName: (dbName: string) => void;
   setUri: (uri: string) => void;
   setIsDBConnected: (isDBConnected: boolean) => void;
   // change custom query state
-  setQuery: (query:string) => void;
+  setQuery: (query: string) => void;
   setCustomQueryValid: (customQueryValid: boolean) => void;
   toNumInKB: (size: string) => number;
   connectToDatabase: (uri: string, dbName: string) => Promise<void>;
   //For the custom query view 
   setCustomQueryResults: (data: any) => void;
-  sendCustomQuery: (uri:string, query:string) => Promise<void>
+  sendCustomQuery: (uri: string, query: string) => Promise<void>
 }
 
 
@@ -120,19 +161,27 @@ const useAppStore = create<AppState>((set) => ({
   isModalOpen: false,
   dbName: '',
   uri: '',
-  queryString:'',
-  customQueryData:{
-    customMetrics: {},
-    executionTimesArr: [] ,
+  queryString: '',
+  customQueryData: {
+    nodeType: '',
+    sharedHitBlocks: -1,
+    sharedReadBlocks: -1,
+    cacheSize: -1,
+    workingMem: -1,
+    actualRows: -1,
+    actualLoops: -1,
+    totalCosts: -1,
+    startUpCosts: -1,
     labelsArr: [],
-    meanTime: -1,
     planningTimesArr: [],
-    queryCount: -1,
-    queryDelay: -1,
+    executionTimesArr: [],
+    totalTimesArr: [],
+    overallMeanTimesLabels: [],
+    overallMeanTimesArr: [],
     queryString: '',
-    startUpCostsArr: [],
-    totalCostsArr: [],
-    totalTimesArr:[] 
+    customMetrics: {},
+    queryDelay: -1,
+    queryCount: -1,
   },
   isDBConnected: false,
   customQueryValid: false,
@@ -166,20 +215,20 @@ const useAppStore = create<AppState>((set) => ({
   openConnectDB: () => set({ isConnectDBOpen: true }),
   closeConnectDB: () => set({ isConnectDBOpen: false }),
   setView: (view) => set({ view }), // method to set viewState
-  
+
   openModal: () => set({ isModalOpen: true }),
   closeModal: () => set({ isModalOpen: false }),
 
   setDBName: (dbName: string) => set({ dbName }),
   setUri: (uri: string) => set({ uri }),
-  setQuery: (queryString:string) => set({queryString}),
+  setQuery: (queryString: string) => set({ queryString }),
   setIsDBConnected: (isDBConnected) => set({ isDBConnected }),
-  
+
   setMetrics: (metricsData: { databaseInfo: DatabaseInfo, executionPlans: {}, dbSizeMetrics: { tableSizes: {}, indexSizesByTable: {}, tableNames: [], totalDatabaseSize: '', activeConnections: 0 } }) => set({ metricsData }),
 
   // helper function for converting string numbers with units to number in kb
   // only converts to kb. could be refactored to loop through all the size units and find the one that is the most common, than proivde different scenarios for converting to each unit (kb, mb, gb); use a cache to store quantities of found unit tied to the unit as the key. 
-  toNumInKB: (size: string): number => { 
+  toNumInKB: (size: string): number => {
     let num = '';
     for (const char of size) {
       if (/[0-9]/.test(char)) num += char;
@@ -225,25 +274,25 @@ const useAppStore = create<AppState>((set) => ({
   setCustomQueryValid: (customQueryValid) => set({ customQueryValid }),
 
   // set custom queryString results
-  setCustomQueryResults: async (queryString) =>{
+  setCustomQueryResults: async (queryString) => {
     console.log('this is the custom queryString:', queryString)
   },
 
   // fetch custom query results
-  sendCustomQuery: async (uri:string, queryString:string) => {
+  sendCustomQuery: async (uri: string, queryString: string) => {
     try {
-      console.log('this is uri',uri);
+      console.log('this is uri', uri);
       set({ view: 'loading' });
       const response = await fetch('/api/pg/customQuery', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ uri, queryString}),
+        body: JSON.stringify({ uri, queryString }),
       });
       if (response.status === 200) {
         set({ customQueryValid: true, errorMessage: '' });
-        console.log('Valid Query String', );
+        console.log('Valid Query String',);
 
       } else {
         set({ customQueryValid: false, errorMessage: 'Failed to query database.' });
@@ -260,7 +309,7 @@ const useAppStore = create<AppState>((set) => ({
     }
   },
 
-  
+
 
   // now using authO for login
 

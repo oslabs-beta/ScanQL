@@ -4,7 +4,7 @@ import { TableInfo } from '../../store/appStore';
 import { Line } from 'react-chartjs-2';
 
 
-export const LineChart: React.FC = () => {
+export const PlanningExecutionTimes: React.FC = () => {
   const { customQueryData } = useAppStore();
   const labelsArr: number[] = customQueryData.labelsArr;
   const executionTimesArr: number[] = customQueryData.executionTimesArr;
@@ -21,8 +21,8 @@ export const LineChart: React.FC = () => {
         text: 'Planning v. Execution Time for All 10 Query runs',
         color: '#17012866',
       },
-      
-      
+
+
     }
   };
 
@@ -31,11 +31,11 @@ export const LineChart: React.FC = () => {
 
     datasets: [
       {
-        label: 'Executiion Time',
+        label: 'Execution Time',
         data: executionTimesArr,
         backgroundColor: 'rgba(107, 99, 255, 0.5)',
         scaleFontColor: '#FFFFFF',
-      },        
+      },
       {
         label: 'Planning Time',
         data: planningTimesArr,
@@ -53,8 +53,8 @@ export const LineChart: React.FC = () => {
 
   return (
     <>
-      <Line data ={data} options = {options}/>
+      <Line data={data} options={options} />
     </>
-  
+
   );
 };

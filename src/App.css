@@ -26,6 +26,20 @@
     font-size: 60px;
 }
 
+.custom-metrics-numbers-single {
+    background: -webkit-linear-gradient(#726dad, #67077d41);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 50px;
+}
+
+.custom-metrics-numbers-double {
+    background: -webkit-linear-gradient(#726dad, #67077d41);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 25px;
+}
+
 /* .dashboard-container {
     margin-top: 0rem;
     display: flex;
@@ -54,6 +68,7 @@
 .home-logo-nav {
     width: 50rem;
 }
+
 .dash-card-titles {
     color: #17012866;
 }
@@ -100,6 +115,34 @@
     gap: 35%;
 }
 
+.custom-query-cards {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    gap: 2em;
+    /* max-width: 30vw; */
+    height: 35vh;
+    border: 2px solid rgb(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 0.6rem;
+    /* background-color: rgba(230, 228, 231, 0.351); */
+    background-color: rgba(200, 199, 217, 0.401);
+    /* purple tint 
+    /* background-image: linear-gradient(rgba(117, 82, 172, 0.04), rgba(8, 0, 151, 0.04)); */
+    box-shadow: 0px 0px 5px 0px rgba(108, 108, 108, 0.75);
+    transition: all 0.2s ease-in-out;
+}
+
+.text-card-custom {
+    height: 78%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 15%;
+}
+
 .dashboard-card.md-card {
     grid-column: span 2;
 }
@@ -125,10 +168,8 @@
 
 .dashboard-card:hover {
     /* background-color: rgba(200, 199, 217, 0.401); */
-    background-image: linear-gradient(
-        rgba(208, 200, 240, 0.389),
-        rgba(86, 86, 86, 0.039)
-    );
+    background-image: linear-gradient(rgba(208, 200, 240, 0.389),
+            rgba(86, 86, 86, 0.039));
     box-shadow: 2px 2px 10px 0px rgba(108, 108, 108, 0.75);
     transform: scale(1.002);
 }
@@ -175,10 +216,8 @@
 .erd-table {
     color: rgba(255, 255, 255, 0.865);
 
-    background-image: linear-gradient(
-        rgba(95, 34, 194, 0.145),
-        rgba(8, 0, 151, 0.153)
-    );
+    background-image: linear-gradient(rgba(95, 34, 194, 0.145),
+            rgba(8, 0, 151, 0.153));
     border-radius: 20px;
     box-shadow: 0px 0px 20px 0.5px rgba(211, 211, 211, 0.998);
 }
@@ -200,10 +239,8 @@ tbody {
 
 th {
     color: rgb(255, 248, 248);
-    background-image: linear-gradient(
-        rgba(0, 0, 168, 0.021),
-        rgba(0, 0, 0, 0.091)
-    );
+    background-image: linear-gradient(rgba(0, 0, 168, 0.021),
+            rgba(0, 0, 0, 0.091));
 }
 
 tr:last-child td {
@@ -236,6 +273,7 @@ td:last-child {
 }
 
 @keyframes logo-nav-loader {
+
     /* 0%, 100%  { filter: blur(0px) brightness(1) hue-rotate(0deg) saturate(1); } */
     50% {
         filter: brightness(3) saturate(0);
