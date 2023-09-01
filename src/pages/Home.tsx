@@ -2,8 +2,10 @@ import * as React from "react";
 import { useEffect } from "react";
 import logo from "../assets/logo-horizontal-v2.png";
 import screenshot1 from "../assets/screenshots/screenshot1.png";
-import screenshot2 from "../assets/screenshots/screenshot1.png";
-import screenshot3 from "../assets/screenshots/screenshot1.png";
+import screenshot2 from "../assets/screenshots/screenshot2.png";
+import screenshot3 from "../assets/screenshots/screenshot3.png";
+
+import { FaceIcon, ImageIcon, SunIcon, LightningBoltIcon, Crosshair2Icon} from '@radix-ui/react-icons'
 
 import NavBar from "../components/layout/NavBar";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -24,7 +26,7 @@ const Home: React.FC = () => {
 
     return (
         <div>
-            <div className="home-top-section">
+            <div>
                 <NavBar />
                 <div className="home-logo-container">
                     <img className="home-logo-nav" src={logo}></img>
@@ -40,7 +42,8 @@ const Home: React.FC = () => {
                 </div>
                 <div className="home-cards-section">
                     <div className="home-card">
-                        <h3 className="text-white text-opacity-80 font-semibold mt-5 text-xl">
+                        <LightningBoltIcon height={30} width={30} className="text-white mt-4"></LightningBoltIcon>
+                        <h3 className="text-white text-opacity-80 font-semibold mt-3 text-xl">
                             Speed
                         </h3>
                         <p className="mt-3 text-white text-sm">
@@ -50,6 +53,7 @@ const Home: React.FC = () => {
                         </p>
                     </div>
                     <div className="home-card">
+                    <Crosshair2Icon height={30} width={30} className="text-white mt-4"></Crosshair2Icon>
                         <h3 className="text-white text-opacity-80 font-semibold mt-5 text-xl">
                             Accuracy
                         </h3>
@@ -60,6 +64,7 @@ const Home: React.FC = () => {
                         </p>
                     </div>
                     <div className="home-card">
+                    <ImageIcon height={30} width={30} className="text-white mt-4"></ImageIcon>
                         <h3 className="text-white text-opacity-80 font-semibold mt-5 text-xl">
                             Flexibility
                         </h3>
@@ -70,10 +75,10 @@ const Home: React.FC = () => {
                         </p>
                     </div>
                 </div>
-                <div className="home-gif1-section">
+                <div className="home-section1">
                     <div className="home-panel">
                         <h2 className="mt-10 font-semibold text-3xl text-white text-opacity-80">
-                            Feature 1
+                            Database Metrics
                         </h2>
                         <p className="mt-10 text-white text-opacity-70">
                             Lorem ipsum dolor sit amet, consectetur adipiscing
@@ -85,13 +90,13 @@ const Home: React.FC = () => {
                         <img className="home-demo-img" src={screenshot1}></img>
                     </div>
                 </div>
-                <div className="home-gif2-section">
+                <div className="home-section2">
                     <div className="home-panel-img">
-                        <img className="home-demo-img" src={screenshot1}></img>
+                        <img className="home-demo-img" src={screenshot2}></img>
                     </div>
                     <div className="home-panel">
                         <h2 className="mt-10 font-semibold text-3xl text-white text-opacity-80">
-                            Feature 2
+                            Entity Relationship Diagrams
                         </h2>
                         <p className="mt-10 text-white text-opacity-70">
                             Lorem ipsum dolor sit amet, consectetur adipiscing
@@ -101,10 +106,10 @@ const Home: React.FC = () => {
                     </div>
                 </div>
             </div>
-            <div className="home-gif3-section">
+            <div className="home-section1">
             <div className="home-panel">
                         <h2 className="mt-10 font-semibold text-3xl text-white text-opacity-80">
-                            Feature 1
+                            Custom Queries
                         </h2>
                         <p className="mt-10 text-white text-opacity-70">
                             Lorem ipsum dolor sit amet, consectetur adipiscing
@@ -113,10 +118,10 @@ const Home: React.FC = () => {
                         </p>
                     </div>
                     <div className="home-panel-img">
-                        <img className="home-demo-img" src={screenshot1}></img>
+                        <img className="home-demo-img" src={screenshot3}></img>
                     </div>
                 </div>
-            <Footer></Footer>
+            <Footer/>
         </div>
     );
 };

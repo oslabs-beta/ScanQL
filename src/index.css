@@ -11,9 +11,8 @@
 
 
 body{
-    height: 100%;
-    width: 100%; 
     position: relative;
+    background-attachment: fixed;
     background-color: #f4f2f2;
     background-image: radial-gradient(
         farthest-side at bottom left,
@@ -47,8 +46,8 @@ body{
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            /* width: 100%;
+            height: 100%; 
             z-index: -1;
             background: radial-gradient(
                 farthest-side at bottom left,
@@ -59,13 +58,13 @@ body{
                 animation: fadeInOut 5s ease infinite;
             } 
             
-            body:after {
+            /* body:after {
                 content: "";
                 position: absolute;
                 top: 0;
                 left: 0;
-                width: 100%;
-                height: 100%;
+                /* width: 100%;
+                height: 100%; */
                 z-index: -1;
                 background: radial-gradient(
                     farthest-corner at bottom right,
@@ -74,8 +73,10 @@ body{
                     );
                     opacity: 0;
                     animation: fadeInOut 5s ease infinite;
-                } 
-                
+                }  
+                 
+
+
                 @keyframes fadeInOut {
                     
                     0%,

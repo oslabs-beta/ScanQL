@@ -2,10 +2,10 @@ import React from 'react'
 
 const Footer: React.FC = () => {
   return (
-    <div className="home-gif2-section px-60 h-80">
+    <div className="home-footer-section px-60 h-80">
       <div className="flex justify-evenly flex-end content-end pt-16">
         <div className="">
-          <h3 className="text-xl">Community</h3>
+          <h3 className="text-xl text-indigo-900 text-opacity-80">Community</h3>
           <ul>
             <li className="pt-2">
               <a href="" className="text-slate-300 text-s">
@@ -25,7 +25,7 @@ const Footer: React.FC = () => {
           </ul>
         </div>
         <div className="">
-          <h3 className="text-xl">Navigation</h3>
+          <h3 className="text-xl text-indigo-900 text-opacity-80">Navigation</h3>
           <ul>
             <li className="pt-2">
               <a href="" className="text-slate-300 text-s">
