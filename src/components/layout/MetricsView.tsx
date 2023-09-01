@@ -43,16 +43,16 @@ const MetricsView: React.FC = () => {
 
   useEffect(() => {
     if (!isAuthenticated) navigate('/');
-  }, [isAuthenticated, navigate]); // added navigate to array to remove warning
+  }, [isAuthenticated, navigate]); // added navigate to dependency array to remove warning
 
   const { metricsData } = useAppStore();
 
   const executionTableNames: string[] = Object.keys(metricsData.executionPlans);
   const executionTimes = Object.values(metricsData.executionPlans).map((table, i: number) => {
     // grab the correct data and pass as props to each component
-    return <QueryTimes key={i} table={table} tableName={executionTableNames[i]} />
+    return <QueryTimes key={i} table={table} tableName={executionTableNames[i]} />;
 
-  })
+  });
 
   return (
     <>

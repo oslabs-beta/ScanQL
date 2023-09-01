@@ -17,7 +17,7 @@ const Dashboard: React.FC = () => {
   const { setView, view, connectToDatabase, uri, dbName, metricsData, openConnectDB } = useAppStore();
 
   useEffect(() => {
-    if (!isAuthenticated) navigate("/");
+    if (!isAuthenticated) navigate('/');
   }, []);
 
   const fetchedData = Object.keys(metricsData.databaseInfo).length !== 0 ? true : false;

@@ -5,7 +5,7 @@ import logo from '../../assets/logo-horizontal-v2.png';
 
 import DropdownMenuDemo from '../ui/DropdownMenu';
 
-import { HomeIcon, MoonIcon, SunIcon } from '@radix-ui/react-icons';
+import { MoonIcon, SunIcon } from '@radix-ui/react-icons';
 // import { IconButton } from '@radix-ui/react-button';
 
 import { Button, IconButton } from '@radix-ui/themes';
@@ -39,8 +39,8 @@ const DashNav: React.FC = () => {
         <DropdownMenuDemo />
       </div>
     </div>
-  )
-}
+  );
+};
 
 //optional bottom border styling: 
 //border-b border-violet-900 border-opacity-10

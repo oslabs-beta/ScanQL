@@ -28,7 +28,7 @@ type mainArray = {
 
 export const SlowestCommonQueriesTop10: React.FC = () => {
   const { metricsData } = useAppStore();
-  console.log(metricsData);
+  // console.log(metricsData);
   // const queryObject: mainArray = metricsData.dbHistMetrics.slowestCommonQueries;
 
   //CREATING the object for MinMax 
@@ -39,7 +39,7 @@ export const SlowestCommonQueriesTop10: React.FC = () => {
   const meanArr : number[] = [];
   const medianArr : number[] = [];
   const countArr : number[] = [];
-  console.log('this is the common top 10', metricsData.dbHistMetrics.slowestCommonQueries);
+  // console.log('this is the common top 10', metricsData.dbHistMetrics.slowestCommonQueries);
   let count = 0;
   for (const query in metricsData.dbHistMetrics.slowestCommonQueries) {
     if (count >= 10) break; // Limit to top 10
@@ -50,7 +50,7 @@ export const SlowestCommonQueriesTop10: React.FC = () => {
     countArr.push(metricsData.dbHistMetrics.slowestCommonQueries[query].count);
     count++;
   }
-  console.log('labelsarr, means arr, medianarr', shortLabelsArr, meanArr, medianArr);
+  // console.log('labelsarr, means arr, medianarr', shortLabelsArr, meanArr, medianArr);
   const options = {
     indexAxis: 'y',
     responsive: true,
