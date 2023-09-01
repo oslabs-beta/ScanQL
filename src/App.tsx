@@ -6,6 +6,7 @@ import Login from "./components/ui/LoginButton";
 import "./index.css";
 import "./App.css";
 import RouteError from "./components/Errors/RouteError";
+import About from "./pages/About";
 
 
 const router = createBrowserRouter(
@@ -16,6 +17,7 @@ const router = createBrowserRouter(
       {/* <Route index element={<Loading />} /> */}
       <Route path="/dashboard" element={<Dashboard />} errorElement={<RouteError/>} />
       <Route path="/login" element={<Login />} />
+      <Route path="/about" element={<About />} />
       <Route path="*" element={<PageNotFound />} />
     </Route>
   )
