@@ -25,7 +25,7 @@ const Dashboard: React.FC = () => {
   const fetchedData = Object.keys(metricsData.databaseInfo).length !== 0 ? true : false;
 
   return (
-    <div>
+    <div className="h-screen">
       {/* <div>{JSON.stringify(user)}</div> */}
       <DashNav />
       {/* {isConnectDBOpen && <ConnectDB />} */}
