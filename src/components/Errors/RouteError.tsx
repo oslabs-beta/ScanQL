@@ -8,10 +8,15 @@ const RouteError: React.FC = () => {
     const { resetBoundary } = useErrorBoundary();
     console.error(error)
   return (
-    <div className="flex flex-col mt-20 items-center gap-4">
+    <div className="h-screen">
+      <div className="mt-20 error-box">
         <p>Something went wrong! Please try again</p>
-        <pre>Error: {error.message}</pre>
-        <button className="bg-slate-400 p-4 bord" onClick={resetBoundary}>Try again</button>
+        <p>Error: {error.message}</p>
+        <button 
+          className="rounded-lg font-normal mr-1  ml-1 bg-gray-500 bg-opacity-10 text-indigo-900 text-opacity-60"
+          onClick={resetBoundary}>Try again
+        </button>
+      </div>
     </div>
   )
 }

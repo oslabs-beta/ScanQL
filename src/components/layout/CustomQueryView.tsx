@@ -1,8 +1,4 @@
 import React, { useState } from 'react';
-
-import { Line } from 'react-chartjs-2';
-import useAppStore from '../../store/appStore';
-
 import FormField from '../ui/QueryForm';
 import { PlanningExecutionTimes } from '../customQueryCharts/PlanningExecutionTimes';
 

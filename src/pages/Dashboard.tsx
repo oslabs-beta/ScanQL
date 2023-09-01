@@ -1,4 +1,3 @@
-import { Routes, Route } from "react-router-dom";
 import useAppStore from "../store/appStore";
 import { useAuth0 } from "@auth0/auth0-react";
 import Loading from "../components/ui/Loading";
@@ -15,8 +14,8 @@ import { AppFallback } from "../components/Errors/AppFallback";
 
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
-  const { user, isAuthenticated, isLoading } = useAuth0();
-  const { setView, view, connectToDatabase, uri, dbName, metricsData, openConnectDB, invalidURIMessage } = useAppStore();
+  const { isAuthenticated } = useAuth0();
+  const { setView, view, metricsData, openConnectDB } = useAppStore();
 
   useEffect(() => {
     if (!isAuthenticated) navigate("/");
@@ -26,13 +25,11 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className="h-screen">
-      {/* <div>{JSON.stringify(user)}</div> */}
       <DashNav />
-      {/* {isConnectDBOpen && <ConnectDB />} */}
       <ConnectDB />
       <div className="dashboard-button-bar">
         <Button
-          className="rounded-lg font-normal mr-1  ml-1 bg-gray-500 bg-opacity-10 border-solid border-opacity-60 border-white text-indigo-900 text-opacity-60"
+          className="rounded-lg font-normal mr-1  ml-1 bg-gray-500 bg-opacity-10 text-indigo-900 text-opacity-60"
           onClick={() => setView("metrics")}
         >
           Metrics
@@ -49,10 +46,6 @@ const Dashboard: React.FC = () => {
         >
           Custom Query
         </Button>
-        {/* <Button className="rounded-lg font-normal mr-1 ml-1 bg-gray-500 bg-opacity-10 border-solid border-opacity-60 text-gray-700 text-opacity-60">
-                    {" "}
-                    Custom Queries{" "}
-                </Button> */}
       </div>
       <div className="dashboard-page">
         <div className="dashboard-container">
@@ -64,7 +57,6 @@ const Dashboard: React.FC = () => {
           >
             Connect to a Database
           </button>
-          {invalidURIMessage && <p className="text-red-800">Invalid URI</p>}
           </div>
         }
         {fetchedData && view === "metrics" && 
