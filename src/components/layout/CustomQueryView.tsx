@@ -10,8 +10,8 @@ const CustomQueryView: React.FC = () => {
   return (
     <>
       <FormField />
-      <div className='dashboard-container custom-query-charts h-full'>
-      <div className='custom-query-cards h-72 span-all'>
+      <div className='custom-query-container custom-query-charts h-full'>
+      <div className='custom-query-card-box h-32 span-all'>
         <CustomQueryGeneralMetrics />
       </div>
       <div className='query-card span-all'>

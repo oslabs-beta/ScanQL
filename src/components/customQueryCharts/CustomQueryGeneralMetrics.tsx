@@ -26,31 +26,31 @@ export const CustomQueryGeneralMetrics: React.FC = () => {
     <>
       <div className="custom-query-cards w-40">
         <div className="text-card-custom">
-          <div className="text-sm font-semibold dash-card-titles">Type of Scan</div>
+          <div className="text-xs font-semibold dash-card-titles">Type of Scan</div>
           <p className="">{tablesObject.nodeType}</p>
         </div>
       </div>
       <div className="custom-query-cards w-40">
         <div className="text-card-custom">
-          <div className="text-sm font-semibold dash-card-titles">Number of Rows</div>
+          <div className="text-xs font-semibold dash-card-titles">Number of Rows</div>
           <p className="">{tablesObject.actualRows}</p>
-          <div className="text-sm font-semibold dash-card-titles">Number of Loops</div>
+          <div className="text-xs font-semibold dash-card-titles">Number of Loops</div>
           <p className="">{tablesObject.actualLoops}</p>
         </div>
       </div>
       <div className="custom-query-cards w-40">
         <div className="text-card-custom">
-          <div className="text-sm font-semibold dash-card-titles">Shared Hit Blocks</div>
+          <div className="text-xs font-semibold dash-card-titles">Shared Hit Blocks</div>
           <p className="">{tablesObject.sharedHitBlocks}</p>
-          <div className="text-sm font-semibold dash-card-titles">Shared Read Blocks</div>
+          <div className="text-xs font-semibold dash-card-titles">Shared Read Blocks</div>
           <p className="">{tablesObject.sharedReadBlocks}</p>
         </div>
       </div>
       <div className="custom-query-cards w-40">
         <div className="text-card-custom">
-          <div className="text-sm font-semibold dash-card-titles">Start Up Costs</div>
+          <div className="text-xs font-semibold dash-card-titles">Start Up Costs</div>
           <p className="">{tablesObject.startUpCosts}</p>
-          <div className="text-sm font-semibold dash-card-titles">Total Costs</div>
+          <div className="text-xs font-semibold dash-card-titles">Total Costs</div>
           <p className="">{tablesObject.totalCosts}</p>
         </div>
       </div>
