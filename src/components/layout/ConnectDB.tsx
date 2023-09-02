@@ -35,11 +35,11 @@ const ConnectDB: React.FC = () => {
             />
           </fieldset>
           <div className="mt-[25px] flex justify-end items-center ">
-            {invalidURIMessage && <p className="text-red-600 mr-8 ">Invalid URI</p>}
+            {invalidURIMessage && <p className="text-red-200 mr-8 ">Invalid URI</p>}
             <button onClick={() => {
               handleClick();
               closeConnectDB();
-            }} className="border-solid border-indigo-300 bg-gray-500 bg-opacity-60 text-gray-100 hover:bg-green5 focus:shadow-green7 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none focus:shadow-[0_0_0_2px] focus:outline-none"  >
+            }} className="border-solid border-indigo-300 bg-gray-100 bg-opacity-60 text-indigo-900 text-opacity-80 hover:bg-green5 focus:shadow-green7 inline-flex h-[35px] items-center justify-center rounded-[4px] px-[15px] font-medium leading-none focus:shadow-[0_0_0_2px] focus:outline-none"  >
                 Submit
             </button>
           </div>

@@ -46,7 +46,7 @@
 
 .home-cards-section {
     height: 18rem;
-    background-color: rgba(252, 252, 252, 0.058);
+    /* background-color: rgba(252, 252, 252, 0.058); */
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -100,7 +100,7 @@
 
 .home-section2 {
     height: 25rem;
-    background-color: rgba(206, 206, 206, 0.16);
+    /* background-color: rgba(206, 206, 206, 0.16); */
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -109,7 +109,7 @@
 
 .home-team-section {
     height: 25rem;
-    background-color: rgba(206, 206, 206, 0.16);
+    /* background-color: rgba(206, 206, 206, 0.16); */
     /* display: flex;
     flex-direction: row;
     justify-content: center; */

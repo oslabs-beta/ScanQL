@@ -36,15 +36,15 @@ const Home: React.FC = () => {
                     </p>
                     <Button
                         onClick={() => loginWithRedirect()}
-                        className="mt-10 border border-indigo-900 border border-opacity-30 bg-indigo-900 bg-opacity-50 text-gray-200 rounded-lg font-montserrat"
+                        className="mt-10 border border-indigo-900 border border-opacity-30 bg-indigo-900 bg-opacity-50 text-gray-100 rounded-lg font-montserrat"
                     >
                         Get Started
                     </Button>
                 </div>
                 <div className="home-cards-section">
                     <div className="home-card">
-                        <LightningBoltIcon height={30} width={30} className="text-white mt-4"></LightningBoltIcon>
-                        <h3 className="text-white text-opacity-80 font-semibold mt-3 text-xl font-montserrat">
+                        <LightningBoltIcon height={30} width={30} className="text-indigo-900 text-opacity-60 mt-4 "></LightningBoltIcon>
+                        <h3 className="text-white font-semibold mt-3 text-xl font-montserrat">
                             Motivation (Our Why)
                         </h3>
                         <p className="mt-3 text-white text-sm">
@@ -52,22 +52,22 @@ const Home: React.FC = () => {
                         </p>
                     </div>
                     <div className="home-card">
-                    <Crosshair2Icon height={30} width={30} className="text-white mt-4"></Crosshair2Icon>
-                        <h3 className="text-white text-opacity-80 font-semibold mt-5 text-xl font-montserrat">
+                    <Crosshair2Icon height={30} width={30} className="text-indigo-900 text-opacity-60 mt-4"></Crosshair2Icon>
+                        <h3 className="text-white  font-semibold mt-5 text-xl font-montserrat">
                             Benefits & Value
                         </h3>
                         <p className="mt-3 text-white text-sm">
                             Lorem ipsum dolor sit amet, consectetur adipiscing
                             elit, sed do eiusmod tempor incididunt ut labore et
-                            dolore magna aliqua.{" "}
+                            dolore magna aliqua.
                         </p>
                     </div>
                     <div className="home-card">
-                    <ImageIcon height={30} width={30} className="text-white mt-4"></ImageIcon>
-                        <h3 className="text-white text-opacity-80 font-semibold mt-5 text-xl font-montserrat">
+                    <ImageIcon height={30} width={30} className="text-indigo-900 text-opacity-60 mt-4"></ImageIcon>
+                        <h3 className="text-white font-semibold mt-5 text-xl font-montserrat">
                             Continued Commitment
                         </h3>
-                        <p className="mt-3 text-sm text-white text-opacity-80">
+                        <p className="mt-3 text-sm text-white">
                             Lorem ipsum dolor sit amet, consectetur adipiscing
                             elit, sed do eiusmod tempor incididunt ut labore et
                             dolore magna aliqua.{" "}
@@ -76,10 +76,10 @@ const Home: React.FC = () => {
                 </div>
                 <div className="home-section1">
                     <div className="home-panel">
-                        <h2 className="mt-10 font-semibold text-3xl text-white text-opacity-80 font-montserrat">
+                        <h2 className="mt-10 font-semibold text-3xl text-white  font-montserrat">
                             Database Overview
                         </h2>
-                        <p className="mt-10 text-white text-opacity-70">
+                        <p className="mt-10 text-white">
                             Lorem ipsum dolor sit amet, consectetur adipiscing
                             elit, sed do eiusmod tempor incididunt ut labore et
                             dolore magna aliqua.
@@ -94,10 +94,10 @@ const Home: React.FC = () => {
                         <img className="home-demo-img" src={screenshot2}></img>
                     </div>
                     <div className="home-panel">
-                        <h2 className="mt-10 font-semibold text-3xl text-white text-opacity-80 font-montserrat">
+                        <h2 className="mt-10 font-semibold text-3xl text-white font-montserrat">
                             Entity Relationship Diagrams
                         </h2>
-                        <p className="mt-10 text-white text-opacity-70">
+                        <p className="mt-10 text-white">
                             Lorem ipsum dolor sit amet, consectetur adipiscing
                             elit, sed do eiusmod tempor incididunt ut labore et
                             dolore magna aliqua.
@@ -108,11 +108,12 @@ const Home: React.FC = () => {
             <div className="home-section1">
             <div className="home-panel">
                 <div>
-                        <h2 className="mt-10 font-semibold text-3xl text-white text-opacity-80 font-montserrat">
+                     
+                </div>
+                        <h2 className="mt-5 mb-10 font-semibold text-3xl text-white text-opacity-80 font-montserrat">
                             Custom Queries
                         </h2>
-                </div>
-                        <p className="mt-10 text-white text-opacity-70">
+                        <p className="mt-10 text-white ">
                             Lorem ipsum dolor sit amet, consectetur adipiscing
                             elit, sed do eiusmod tempor incididunt ut labore et
                             dolore magna aliqua.
@@ -124,7 +125,7 @@ const Home: React.FC = () => {
                 </div>
             <div className="home-team-section">
                 <div className="home-team-title">
-                        <h2 className="mt-10 font-semibold text-3xl text-white text-opacity-80 font-montserrat">
+                        <h2 className="mt-10 font-semibold text-3xl text-white font-montserrat">
                             Meet the Team
                         </h2>
                 </div>
