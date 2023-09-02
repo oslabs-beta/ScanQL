@@ -4,7 +4,7 @@ import useAppStore from '../../store/appStore';
 
 export const ColumnIndexSizes: React.FC = () => {
   const { metricsData, toNumInKB } = useAppStore();
-  const indexesArray: {}[] = Object.values(metricsData.dbSizeMetrics.indexSizesByTable);
+  const indexesArray: {}[] = Object.values( metricsData.dbSizeMetrics.indexSizesByTable);
   console.log(indexesArray);
   const labelsArray: string[] = [];
   const indexData: number[] = [];
@@ -13,7 +13,7 @@ export const ColumnIndexSizes: React.FC = () => {
   // create an array of
   indexesArray.forEach((table): void => {
     for (const name in table) {
-      labelsArray.push(name);
+      labelsArray.push(name.slice(0, -2));
       indexData.push(toNumInKB(table[name]));
     }
   });

@@ -50,7 +50,17 @@ export const SlowestCommonQueriesTop10: React.FC = () => {
     countArr.push(metricsData.dbHistMetrics.slowestCommonQueries[query].count);
     count++;
   }
-  console.log('labelsarr, means arr, medianarr', shortLabelsArr, meanArr, medianArr);
+  //tooltip function
+  const footer = (tooltipItems) => {
+    let sum = 0;
+  
+    tooltipItems.forEach(function(tooltipItem) {
+      sum+=1
+      // sum += tooltipItem.parsed.y;
+    });
+    return 'Sum: ' + sum;
+  };
+  // console.log('labelsarr, means arr, medianarr', shortLabelsArr, meanArr, medianArr);
   const options = {
     indexAxis: 'y',
     responsive: true,
@@ -62,45 +72,60 @@ export const SlowestCommonQueriesTop10: React.FC = () => {
     //   },
     // },
     plugins: {
-      title: {
-        // position: 'top' as const, // Position title at the top
-        display: true,
-        text: 'Top 10 Slowest Common Executed Queries Ordered By Exec. Count',
-        color: '#17012866',
-        font: {
-          size: '15%'
+      tooltip: {
+        backgroundColor: 'rgb(255, 0, 200)',
+        titleColor:'rgb(0,0,255)',
+        callbacks:{
+          afterLabel: function(context) {
+            // Assuming that execution count is stored in an array named countArr
+            const execCount = countArr[context.dataIndex];
+            return 'Exec Count: ' + execCount;
+          }
         },
-        
+      }
+        // callbacks: {
+        //     labelColor: function(context) {
+        //         return {
+        //             borderColor: 'rgb(0, 0, 255)',
+        //             backgroundColor: 'rgb(255, 0, 0)',
+        //             borderWidth: 2,
+        //             borderDash: [2, 2],
+        //             borderRadius: 2,
+        //         };
+        //     },
+        //     labelTextColor: function(context) {
+        //         return '#543453';
+        //     }
+        //   }
+        // }
       },
-      legend: {
-        display: true,
-        position: 'bottom' as const,
-        labels:{
-          font: {
-            size: '10%', // Adjust the percentage value as needed
-          },
-        },
-      },
-    },
+      // title: {
+      //   // position: 'top' as const, // Position title at the top
+      //   display: true,
+      //   text: 'Top 10 Slowest Common Executed Queries Ordered By Exec. Count',
+      //   color: '#17012866',
+      //   font: {
+      //     size: '15%'
+      //   }, 
+      // },
+      // legend: {
+      //   display: true,
+      //   position: 'bottom' as const,
+      //   labels:{
+      //     font: {
+      //       size: '10%', // Adjust the percentage value as needed
+      //     },
+      //   },
+      // },
+      
+    // },
     scales: {
       y: {
         beginAtZero: true,
       }
     },
-    tooltips: {
-      enabled:true,
-      callbacks: {
-        title: function(tooltipItems, data) {
-        // tooltipItems is an array of tooltip items for the current hover
-        // Use the first tooltip item to get the index of the hovered bar
-          const index = tooltipItems[0].index;
-          return longLabelsArr[index];  // Use the long label for the tooltip
-        }
 
-        // Return the full label string for the hovered bar
-
-      }
-    }
+    
   };
   const data = {
     labels: shortLabelsArr,
@@ -108,7 +133,7 @@ export const SlowestCommonQueriesTop10: React.FC = () => {
       {
         label: 'Mean Exec Time (ms)',
         data: meanArr,
-        backgroundColor: 'rgba(107, 99, 255, 0.5)',
+        backgroundColor: 'rgba(53, 162, 235, 0.5)',
         scaleFontColor: '#FFFFFF',
       },
       // {
