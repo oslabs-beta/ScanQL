@@ -18,7 +18,7 @@ export const TableSize: React.FC = () => {
     plugins: {
       title: {
         display: true,
-        text: 'Table Size',
+        text: 'Table Sizes (kbs) ',
         color: '#17012866',
         font: {
           size: 14
@@ -54,8 +54,10 @@ export const TableSize: React.FC = () => {
     ],
   };
   return (
+    <div className="grid-span1">
     <div className="dashboard-card md-card">
       <Bar data={data} options={options} />
+    </div>
     </div>
   );
 }

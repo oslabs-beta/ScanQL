@@ -22,17 +22,15 @@
     background: -webkit-linear-gradient(#726dad, #67077d41);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    font-size: 25px;
+    font-size: 20px;
 }
 
 .custom-metrics-numbers-double {
     background: -webkit-linear-gradient(#726dad, #67077d41);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    font-size: 25px;
+    font-size: 30px;
 }
-
-
 
 .home-logo-container {
     display: flex;
@@ -41,7 +39,6 @@
     align-items: center;
     justify-content: center;
 }
-
 
 .home-logo-nav {
     width: 50rem;
@@ -55,6 +52,7 @@
     justify-content: center;
     align-items: center;
 }
+
 .home-card {
     height: 14rem;
     width: 21rem;
@@ -63,7 +61,7 @@
     padding-right: 15px;
     border: 1px solid;
     border-color: rgba(255, 255, 255, 0.226);
-    background-color: rgba(206, 206, 206, 0.16);
+    background-color: rgba(206, 206, 206, 0.23);
     box-shadow: 0px 0px 5px 0px rgba(108, 108, 108, 0.214);
     border-radius: 20px;
     text-align: center;
@@ -81,7 +79,6 @@
 }
 
 .home-panel {
-    /* border: 1px solid rgba(255, 255, 255, 0.313); */
     border-radius: 20px;
     padding: 40px;
     height: 20rem;
@@ -91,7 +88,6 @@
 }
 
 .home-panel-img {
-    /* border: 1px solid rgba(255, 255, 255, 0.313); */
     border-radius: 20px;
     height: 20rem;
     width: 30rem;
@@ -110,9 +106,52 @@
     justify-content: center;
 }
 
-.home-footer-section {
+
+.home-team-section {
     height: 25rem;
     background-color: rgba(206, 206, 206, 0.16);
+    /* display: flex;
+    flex-direction: row;
+    justify-content: center; */
+}
+
+.home-team-title{
+    display: flex; 
+    flex-direction: row;
+    justify-content: center;
+}
+
+.home-team-card-section{
+    display: flex;
+    flex-direction: row;
+    justify-content: center; 
+}
+
+.home-team-card{
+    height: 14rem;
+    width: 15rem;
+    margin: 30px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border: 1px solid;
+    border-color: rgba(255, 255, 255, 0.226);
+    background-color: rgba(206, 206, 206, 0.23);
+    box-shadow: 0px 0px 5px 0px rgba(108, 108, 108, 0.214);
+    border-radius: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* .team-headshot-img{
+    border-radius: 50%;
+    width: 5rem;
+} */
+
+.home-footer-section {
+    height: 25rem;
+    /* background-color: rgba(206, 206, 206, 0.16); */
 }
 
 .dash-card-titles {
@@ -152,6 +191,32 @@
     transition: all 0.2s ease-in-out;
 }
 
+.grid-span1{
+    grid-column: span 0.5;
+}
+.dashboard-card-dbsize {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    gap: 2em;
+    height: 35vh;
+    border: 2px solid rgb(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 0.6rem;
+    /* background-color: rgba(230, 228, 231, 0.351); */
+    background-color: rgba(200, 199, 217, 0.401);
+    /* purple tint 
+    /* background-image: linear-gradient(rgba(117, 82, 172, 0.04), rgba(8, 0, 151, 0.04)); */
+    box-shadow: 0px 0px 5px 0px rgba(108, 108, 108, 0.75);
+    transition: all 0.2s ease-in-out;
+}
+
+.small-card-35 {
+    height: 35vh;
+}
+
 .query-card {
     display: flex;
     flex-direction: column;
@@ -186,6 +251,7 @@
     background-color: rgba(200, 199, 217, 0.401);
     /* purple tint 
     /* background-image: linear-gradient(rgba(117, 82, 172, 0.04), rgba(8, 0, 151, 0.04)); */
+
     box-shadow: 0px 0px 5px 0px rgba(108, 108, 108, 0.75);
 }
 
@@ -197,27 +263,60 @@
     gap: 35%;
 }
 
-.custom-query-cards {
+.text-card-dbsize {
+    height: 78%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 35%;
+}
+
+
+.custom-query-container {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    row-gap: 1.5rem;
+    column-gap: 1.5rem;
+    padding-top:2rem;
+    padding-bottom:2rem;
+    padding-right: 3rem;
+    padding-left: 3rem;
+    height: 76vh;
+    overflow-y: auto;
+    width: 100%;
+    border: 2px solid rgb(255, 255, 255, 0.05);
+    background-color: rgba(241, 241, 241, 0.131);
+    border-radius: 20px;
+}
+
+.custom-query-card-box {
     grid-column: 1 / -1;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    color: white;
-    /* gap: 2em; */
-    height: 80%;
-    border: 2px solid rgb(255, 255, 255, 0.05);
+    height: 95%;
     border-radius: 20px;
     padding: 0.6rem;
+    border: 2px solid rgb(255, 255, 255, 0.05); 
     background-color: rgba(200, 199, 217, 0.401);
     box-shadow: 0px 0px 5px 0px rgba(108, 108, 108, 0.75);
-    transition: all 0.2s ease-in-out;
+}
+
+.custom-query-cards {
+    color: white;
+    height: 95%;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 20px;
+    padding: 0.6rem;
+    background-image: linear-gradient(rgba(117, 82, 172, 0.060), rgba(124, 98, 156, 0.100));
+    box-shadow: 0px 0px 5px 0px rgba(108, 108, 108, 0.75);
 }
 
 .text-card-custom {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: .6rem;
+    /* gap: .6rem; */
 }
 
 .dashboard-card.md-card {
@@ -228,8 +327,32 @@
     max-width: 99%;
 }
 
+.small-card {
+    height: 48%;
+}
+
 .span-all {
     grid-column: 1 / -1;
+}
+.grid-span3 {
+    grid-column: span 3;
+    border: 2px solid rgb(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 0.6rem;
+    /* background-color: rgba(230, 228, 231, 0.351); */
+    background-color: rgba(200, 199, 217, 0.401);
+    box-shadow: 0px 0px 5px 0px rgba(108, 108, 108, 0.75);
+    transition: all 0.2s ease-in-out;
+}
+
+.grid-span3:hover {
+    /* background-color: rgba(200, 199, 217, 0.401); */
+    background-image: linear-gradient(
+        rgba(208, 200, 240, 0.389),
+        rgba(86, 86, 86, 0.039)
+    );
+    box-shadow: 2px 2px 10px 0px rgba(108, 108, 108, 0.75);
+    transform: scale(1.002);
 }
 
 .custom-query-charts {

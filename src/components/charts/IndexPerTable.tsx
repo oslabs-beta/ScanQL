@@ -1,4 +1,5 @@
 import { Doughnut } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import React from 'react';
 import useAppStore from '../../store/appStore';
@@ -17,7 +18,11 @@ export const IndexPerTable: React.FC = () => {
       numberOfIndexes: table.numberOfIndexes,
     };
   });
+  // Sort the indexData array based on the numberOfIndexes in descending order
+  indexData.sort((a, b) => b.numberOfIndexes - a.numberOfIndexes);
+  
   const options = {
+    indexAxis: 'y',
     responsive: true,
     maintainAspectRatio: false, // This will allow the chart to stretch to fill its container
     layout: {
@@ -52,14 +57,16 @@ export const IndexPerTable: React.FC = () => {
       {
         label: 'Indexes Per Table',
         data: indexData.map(table => table.numberOfIndexes),
-        backgroundColor: [
-          'rgba(190, 99, 255, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(235, 86, 255, 0.2)',
-          'rgba(16, 39, 215, 0.2)',
-          'rgba(129, 75, 236, 0.2)',
-          'rgba(64, 118, 255, 0.2)',
-        ],
+        backgroundColor: 'rgba(53, 162, 235, 0.5)',
+        scaleFontColor: '#FFFFFF',
+        // backgroundColor: [
+        //   'rgba(190, 99, 255, 0.2)',
+        //   'rgba(54, 162, 235, 0.2)',
+        //   'rgba(235, 86, 255, 0.2)',
+        //   'rgba(16, 39, 215, 0.2)',
+        //   'rgba(129, 75, 236, 0.2)',
+        //   'rgba(64, 118, 255, 0.2)',
+        // ],
         borderColor: [
           '#dbdbdbdf',
           //     "rgba(54, 162, 235, 1)",
@@ -74,8 +81,8 @@ export const IndexPerTable: React.FC = () => {
   };
   //   console.log(`in doughnut chart component: ${indexData[0]}`)
   return (
-    <div className="dashboard-card small-card">
-      <Doughnut data={data} options={options} />
+    <div className="grid-span3">
+      <Bar data={data} options={options} />
     </div>
   );
 };
