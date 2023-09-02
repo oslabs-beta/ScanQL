@@ -80,9 +80,7 @@ const Home: React.FC = () => {
                             Database Overview
                         </h2>
                         <p className="mt-10 text-white">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit, sed do eiusmod tempor incididunt ut labore et
-                            dolore magna aliqua.
+                            View in-depth metrics across your database on a sleek dashboard, providing a bird's eye view of your database performance.
                         </p>
                     </div>
                     <div className="home-panel-img">
@@ -98,9 +96,7 @@ const Home: React.FC = () => {
                             Entity Relationship Diagrams
                         </h2>
                         <p className="mt-10 text-white">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit, sed do eiusmod tempor incididunt ut labore et
-                            dolore magna aliqua.
+                            Visualize your database tables like never before with a beautifully designed and responsive GUI. 
                         </p>
                     </div>
                 </div>

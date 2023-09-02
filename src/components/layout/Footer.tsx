@@ -10,17 +10,17 @@ const Footer: React.FC = () => {
           </h3>
           <ul>
             <li className="pt-2">
-              <a href="" className="text-slate-300 text-s">
+              <a href="" className="text-gray-200 text-s">
                 Home
               </a>
             </li>
             <li className="pt-2">
-              <a href="" className="text-slate-300 text-s">
+              <a href="" className="text-gray-200 text-s">
                 About Us
               </a>
             </li>
             <li className="pt-2">
-              <a href="" className="text-slate-300 text-s">
+              <a href="" className="text-gray-200 text-s">
                 App
               </a>
             </li>
@@ -36,17 +36,17 @@ const Footer: React.FC = () => {
           <h3 className="text-xl text-indigo-900 text-opacity-80">Community</h3>
           <ul>
             <li className="pt-2">
-              <a href="" className="text-slate-300 text-s">
+              <a href="" className="text-gray-200 text-s">
                 GitHub
               </a>
             </li>
             <li className="pt-2">
-              <a href="" className="text-slate-300 text-s mt-">
+              <a href="" className="text-gray-200 text-s mt-">
                 Linkedin
               </a>
             </li>
             <li className="pt-2">
-              <a href="" className="text-slate-300 text-s">
+              <a href="" className="text-gray-200 text-s">
                 Medium
               </a>
             </li>
