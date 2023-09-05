@@ -32,9 +32,6 @@ const FormField: React.FC = () => {
 
           <h2 className="text-sm mb-5">Enter the query you would like to test:</h2>
             </Form.Label>
-            <Form.Message className="text-[13px] text-white opacity-[0.8]" match="valueMissing">
-          Please provide a valid query to test
-            </Form.Message>
           </div>
           <Form.Control asChild>
             <textarea
@@ -45,6 +42,9 @@ const FormField: React.FC = () => {
               onChange={(e) => setQuery(e.target.value)}
             />
           </Form.Control>
+            <Form.Message className="text-[13px] text-center text-indigo-900 mt-5 opacity-[0.8]" match="valueMissing">
+          Please provide a valid query to test
+            </Form.Message>
         </Form.Field>
         <Form.Submit asChild>
           <button className="box-border w-full rounded-lg font-normal mr-1 ml-1 bg-indigo-900 bg-opacity-20 text-gray-100  shadow-blackA7 hover:bg-indigo-900 hover:bg-opacity-30 inline-flex h-[35px] items-center justify-center px-[15px] leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[10px]">
