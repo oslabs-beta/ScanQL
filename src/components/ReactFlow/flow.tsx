@@ -1,5 +1,5 @@
-import ReactFlow, { Background, Controls, MiniMap } from 'reactflow';
-import React, { useEffect } from 'react';
+import ReactFlow, { Background, Controls } from 'reactflow';
+import { useEffect } from 'react';
 import 'reactflow/dist/base.css';
 import createNodes from './createNodes';
 import createEdges from './createEdges';
