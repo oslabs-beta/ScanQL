@@ -25,6 +25,43 @@ type mainArray = {
   [queryName:string]:SlowQueryObj
 }
 
+const splitBySpaces: Array = (inputStr: string, spaceCount: number) => {
+  let chunks = [];
+  let parts = inputStr.split(' ');
+
+  while (parts.length) {
+    chunks.push(parts.splice(0, spaceCount).join(' '));
+  }
+
+  return chunks;
+};
+
+const splitByLength: Array = (inputStr:string, minLength:number, maxLength:number) => {
+  const parts = inputStr.split(' ');
+  let chunks = [];
+  let chunk = "";
+
+  for (let part of parts) {
+    // If the current chunk plus the next word is within the limit, add the word to the chunk.
+    if (chunk.length + part.length <= maxLength) {
+      chunk += (chunk ? " " : "") + part;
+    } else {
+      // If it exceeds, push the current chunk to the chunks array and reset the chunk.
+      chunks.push(chunk);
+      chunk = part;
+    }
+  }
+
+  // Ensure that the last chunk doesn't fall below the minimum length.
+  // If it does, merge it with the previous chunk.
+  if (chunks.length && (chunks[chunks.length - 1].length + chunk.length) < minLength) {
+    chunks[chunks.length - 1] += " " + chunk;
+  } else {
+    chunks.push(chunk);
+  }
+
+  return chunks.filter(chunk => chunk.length >= minLength);
+};
 
 export const SlowestQueriesTop10: React.FC = () => {
   const { metricsData } = useAppStore();
@@ -80,33 +117,46 @@ export const SlowestQueriesTop10: React.FC = () => {
           },
         },
       },
+      tooltip: {
+        padding: {
+          left: 3,
+          right: 3,
+          top: 2,
+          bottom: 2
+        },
+        bodyFont: {
+          size: 7 // adjust as needed
+        },
+        titleFont: {
+          size: 10 // adjust as needed
+        },
+        callbacks:{
+          afterLabel: function(context) {
+         
+
+            let queryString = longLabelsArr[context.dataIndex];
+            let wrappedStringArray = splitByLength(queryString, 25,40);
+          
+            return [
+              'Query:  ', ...wrappedStringArray
+            ];
+          },
+        },
+      },
     },
     scales: {
       y: {
         beginAtZero: true,
       }
     },
-    tooltips: {
-      enabled:true,
-      callbacks: {
-        title: function(tooltipItems, data) {
-        // tooltipItems is an array of tooltip items for the current hover
-        // Use the first tooltip item to get the index of the hovered bar
-          const index = tooltipItems[0].index;
-          return longLabelsArr[index];  // Use the long label for the tooltip
-        }
-
-        // Return the full label string for the hovered bar
-
-      }
-    }
   };
+
   const data = {
     labels: shortLabelsArr,
     datasets: [
       {
         label: 'Mean Exec Time (ms)',
-        data: meanArr,
+        data: meanArr.map((el)=> {return (el * 1000);}),
         backgroundColor: 'rgba(107, 99, 255, 0.5)',
         scaleFontColor: '#FFFFFF',
       },

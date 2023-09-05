@@ -18,8 +18,8 @@ export const GeneralMetrics: React.FC = () => {
   const totalForeignKeys = rows.reduce((sum, table) => sum + table.numberOfForeignKeys, 0);
   const totalPrimaryKeys = rows.reduce((sum, table) => sum + table.numberOfPrimaryKeys, 0);
   // average Foreign Keys per table
-  const averageForeignKeys = totalForeignKeys / rows.length;
-  const averagePrimaryKeys = totalPrimaryKeys / rows.length;
+  const averageForeignKeys = (totalForeignKeys / rows.length).toFixed(2);
+  const averagePrimaryKeys = (totalPrimaryKeys / rows.length).toFixed(2);
   // console.log(`Total foreign keys: ${totalForeignKeys}`)
   // console.log(`Average number of foreign keys: ${averageForeignKeys}`)
 
