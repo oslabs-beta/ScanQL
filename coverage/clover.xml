@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1693698044924" clover="3.2.0">
-  <project timestamp="1693698044924" name="All files">
+<coverage generated="1693699017382" clover="3.2.0">
+  <project timestamp="1693699017383" name="All files">
     <metrics statements="2852" coveredstatements="1724" conditionals="46" coveredconditionals="38" methods="79" coveredmethods="29" elements="2977" coveredelements="1791" complexity="0" loc="2852" ncloc="2852" packages="11" files="39" classes="39"/>
     <package name="ScanQL">
       <metrics statements="77" coveredstatements="77" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>

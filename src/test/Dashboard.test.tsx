@@ -23,9 +23,10 @@ describe('#Dashboard', () => {
     it('should have a connect to database button', () => {
         const connectDbBtn = screen.getByRole('button', { name: /Connect to a Database/i })
         expect(connectDbBtn).toHaveTextContent('Connect to a Database')
+        expect(connectDbBtn).toBeInTheDocument();
     })
 
-    it('should not have a connect to db modal', () => {
+    it('should not have a connect to db modal before clicking connect to database button', () => {
         const connectModal = screen.queryByRole('dialog', {  name: /connect to database/i}); 
         expect(connectModal).not.toBeInTheDocument(); 
     })
