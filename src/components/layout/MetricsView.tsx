@@ -27,6 +27,7 @@ import { SlowestQueriesTop10 } from "../charts/SlowestQueriesTop10";
 import { SlowestCommonQueriesTop10 } from "../charts/SlowestCommonQueriesTop10";
 import { UpdateIcon } from "@radix-ui/react-icons";
 import { Button } from "@radix-ui/themes";
+import { DBSizeCards } from '../charts/DbSizeCards';
 
 ChartJS.register(
     CategoryScale,
@@ -72,31 +73,32 @@ const MetricsView: React.FC = () => {
   return (
     <>
       <div className="span-all2">
-        <MetricsSeparator title={"General Metrics"} />
+        <MetricsSeparator title={"Database Overview"} />
           <Button>
             <UpdateIcon
               onClick={() => {
                 handleClick();
               }} 
               className="text-white " 
-              width={22} 
-              height={22}
+              width={25} 
+              height={25}
             />
           </Button>
       </div>
+      <GeneralMetrics />
       <RowsPerTable />
       <IndexPerTable />
-      <GeneralMetrics />
-      <MetricsSeparator title={'Query Execution Time'}/>
-      {executionTimes}
       <MetricsSeparator title={'Database Size'}/>
       <TableSize />
       <TableIndexSizes />
       <ColumnIndexSizes />
-      <MetricsSeparator title={'Performance Statistices to-date'}/>
+      <DBSizeCards/>
+      <MetricsSeparator title={'Past Query Performance'}/>
       <ExecTimesByOperation/>
       <SlowestQueriesTop10/>
       <SlowestCommonQueriesTop10/>
+      <MetricsSeparator title={'Query Execution Time'}/>
+      {executionTimes}
     </>
   )
 }

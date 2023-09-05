@@ -183,6 +183,7 @@ const dbInfoController: DbInfoController = {
           numberOfIndexes: parseInt(numberOfIndexes.rows[0].count, 10),
           numberOfFields: parseInt(numberOfFields.rows[0].count, 10),
           numberOfForeignKeys: foreignKeys.rowCount,
+          numberOfPrimaryKeys: primaryKeys.rowCount,
           checkConstraints: checkContraintObj,
           foreignKeysObj: foreignKeyObject || {},
           primaryKeysObj: primaryKeyObject || {},

@@ -17,6 +17,7 @@ export const TableIndexSizes: React.FC = () => {
 
   const options = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         display: false,
@@ -27,7 +28,7 @@ export const TableIndexSizes: React.FC = () => {
         text: 'Index Size by Table (kbs)',
         color: '#17012866',
         font: {
-          size: '10%'
+          size: '14'
         }
       },
     },
@@ -37,7 +38,7 @@ export const TableIndexSizes: React.FC = () => {
     labels: metricsData.dbSizeMetrics.tableNames,
     datasets: [
       {
-        label: 'Total Index Size (kb)',
+        label: 'Total Index Size (kbs)',
         data: indexSizeByTableArray,
         backgroundColor: 'rgba(107, 99, 255, 0.5)',
         scaleFontColor: '#FFFFFF',

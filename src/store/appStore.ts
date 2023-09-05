@@ -8,6 +8,12 @@ export type TableInfo = {
   numberOfIndexes: number;
   numberOfFields: number;
   numberOfForeignKeys: number;
+  numberOfPrimaryKeys:number;
+  checkConstraints: object;
+  foreignKeysObj: object;
+  primaryKeysObj: object;
+  sampleData: object;
+  columnDataTypes: string[];
 };
 export type CustomTableInfo = {
   nodeType: string;

@@ -16,12 +16,12 @@ body{
     background-color: #f4f2f2;
     background-image: radial-gradient(
         farthest-side at bottom left,
-        rgba(54, 6, 71, 0.425),
+        rgba(54, 6, 71, 0.451),
         transparent
         ),
         radial-gradient(
             farthest-corner at bottom right,
-            rgba(25, 14, 95, 0.395),
+            rgba(25, 14, 95, 0.451),
             transparent 
             ); 
             animation: gradient 15s ease infinite;
@@ -123,3 +123,7 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
+
+
+
+

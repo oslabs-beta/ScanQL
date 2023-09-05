@@ -68,7 +68,7 @@ export const RowsPerTable: React.FC = () => {
     ]
   };
   return (
-    <div onClick={openModal} className="dashboard-card small-card">
+    <div onClick={openModal} className="dashboard-card">
       <Pie data={data} options={options} />
     </div>
   );

@@ -29,19 +29,19 @@ const Dashboard: React.FC = () => {
       <ConnectDB />
       <div className="dashboard-button-bar">
         <Button
-          className="rounded-lg font-normal mr-1  ml-1 bg-gray-500 bg-opacity-10 text-indigo-900 text-opacity-60"
+          className="rounded-lg font-normal mr-1  ml-1 bg-gray-500 bg-opacity-10 text-indigo-900 text-opacity-60 font-montserrat"
           onClick={() => setView("metrics")}
         >
           Metrics
         </Button>
         <Button
-          className="rounded-lg font-normal mr-1 ml-1 bg-gray-500 bg-opacity-10 border-solid border-opacity-60 text-indigo-900 text-opacity-60"
+          className="rounded-lg font-normal mr-1 ml-1 bg-gray-500 bg-opacity-10 border-solid border-opacity-60 text-indigo-900 text-opacity-60 font-montserrat"
           onClick={() => setView("erd")}
         >
           ER Diagram
         </Button>
         <Button
-          className="rounded-lg font-normal mr-1 ml-1 bg-gray-500 bg-opacity-10 border-solid border-opacity-60 text-indigo-900 text-opacity-60"
+          className="rounded-lg font-normal mr-1 ml-1 bg-gray-500 bg-opacity-10 border-solid border-opacity-60 text-indigo-900 text-opacity-60 font-montserrat"
           onClick={() => setView("custom")}
         >
           Custom Query
