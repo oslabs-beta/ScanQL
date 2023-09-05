@@ -4,16 +4,16 @@ import { GitHubLogoIcon, LinkedInLogoIcon} from '@radix-ui/react-icons'
 
 const About: React.FC = () => {
   return (
-    <div>
+    <div className = "">
       <NavBar />
-      <div className="mt-20">
+      <div className="mt-20 flex flex-col items-center">
         <header>
-          <p className="text-center -mb-10 text-indigo-900 text-opacity-70 text-4xl font-montserrat">
+          <p className="text-center mb-5 text-indigo-900 text-opacity-70 text-4xl font-montserrat">
             Meet The Current Team
           </p>
         </header>
         <div className="aboutus-container px-80 mt-20">
-          <div className="border-2 border-solid rounded-[20px] border-white border-opacity-40 flex gap-32">
+          <div className="border border-solid rounded-[20px] border-white border-opacity-40 flex gap-32">
             <div className="flex-column items-center  p-6">
               <div className="w-52 h-52">
                 <img
@@ -57,7 +57,7 @@ const About: React.FC = () => {
           </div>
         </div>
         <div className="aboutus-container px-80 mt-20">
-          <div className="border-2 border-solid rounded-[20px] border-white border-opacity-40 flex gap-32">
+          <div className="border border-solid rounded-[20px] border-white border-opacity-40 flex gap-32">
             <div className="flex-column items-center  p-6">
               <div className="w-52 h-52">
                 <img
@@ -101,7 +101,7 @@ const About: React.FC = () => {
           </div>
         </div>
         <div className="aboutus-container px-80 mt-20">
-          <div className="border-2 border-solid rounded-[20px] border-white border-opacity-40 flex gap-32">
+          <div className="border border-solid rounded-[20px] border-white border-opacity-40 flex gap-32">
             <div className="flex-column items-center  p-6">
               <div className="w-52 h-52">
                 <img
@@ -145,7 +145,7 @@ const About: React.FC = () => {
           </div>
         </div>
         <div className="aboutus-container px-80 mt-20">
-          <div className="border-2 border-solid rounded-[20px] border-white border-opacity-40 flex gap-32">
+          <div className="border border-solid rounded-[20px] border-white border-opacity-40 flex gap-32">
             <div className="flex-column items-center  p-6">
               <div className="w-52 h-52">
                 <img
@@ -189,7 +189,7 @@ const About: React.FC = () => {
           </div>
         </div>
         <div className="aboutus-container px-80 mt-20">
-          <div className="border-2 border-solid rounded-[20px] border-white border-opacity-40 flex gap-32">
+          <div className="border border-solid rounded-[20px] border-white border-opacity-40 flex gap-32">
             <div className="flex-column items-center  p-6">
               <div className="w-52 h-52">
                 <img
@@ -232,11 +232,11 @@ const About: React.FC = () => {
             </div>
           </div>
         </div>
-        <div className="contributors-container mt-20">
-          <p className="text-center ">Previous Contributors</p>
+        <div className="contributors-container mt-20 border w-[80vw] border-white border-opacity-10 rounded-[20px] pt-5 bg-white bg-opacity-10">
+          <p className="text-center font-montserrat text-indigo-900 text-xl mt-2">Previous Contributors</p>
           <div className="grid grid-cols-5 mx-40 my-10">
             <div className="flex gap-2 m-2">
-              <p>Kurt Bulau</p>
+              <p className ="text-indigo-900 ">Kurt Bulau</p>
               <div className="flex gap-2 justify">
                 <a href="https://github.com/kbulau">
                   <img
@@ -253,7 +253,7 @@ const About: React.FC = () => {
               </div>
             </div>
             <div className="flex gap-2 m-2">
-              <p>Kurt Bulau</p>
+              <p className= "text-indigo-900" >Kurt Bulau</p>
               <div className="flex gap-2 justify">
                 <a href="https://github.com/kbulau">
                   <img
@@ -270,7 +270,7 @@ const About: React.FC = () => {
               </div>
             </div>
             <div className="flex gap-2 m-2">
-              <p>Kurt Bulau</p>
+              <p className= "text-indigo-900">Kurt Bulau</p>
               <div className="flex gap-2 justify">
                 <a href="https://github.com/kbulau">
                   <img
@@ -287,7 +287,7 @@ const About: React.FC = () => {
               </div>
             </div>
             <div className="flex gap-2 m-2">
-              <p>Kurt Bulau</p>
+              <p className= "text-indigo-900">Kurt Bulau</p>
               <div className="flex gap-2 justify">
                 <a href="https://github.com/kbulau">
                   <img
@@ -304,7 +304,7 @@ const About: React.FC = () => {
               </div>
             </div>
             <div className="flex gap-2 m-2">
-              <p>Kurt Bulau</p>
+              <p className= "text-indigo-900">Kurt Bulau</p>
               <div className="flex gap-2 justify">
                 <a href="https://github.com/kbulau">
                   <img
