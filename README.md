@@ -1,6 +1,6 @@
 # ScanQL
 
-ScanQL is a cutting-edge application tool designed to empower developers by optimizing databases and queries. With ScanQL, get insights into the intricacies of your database and enhance its efficiency.
+ScanQL is an elegant application and effective tool designed to empower developers aiming for database and query optimization, to ensure their operations run smoothly and efficiently. Beyond optimization, ScanQL offers a holistic view of your database, empowering them to understand the intricate details and interrelations with their database.
 
 ## 🚀 Features
 
@@ -20,7 +20,7 @@ ScanQL is a cutting-edge application tool designed to empower developers by opti
 
 ## 🔍 How ScanQL Works
 
-+ Visualizing the Database: Simply connect to your database by submitting your URI connection string for your Postgres database, and our tool will automatically map out its structure, providing a visual representation of tables, relations, and more.
++ Visualizing the Database: Simply connect to your database by submitting your URI connection string for your Postgres database, and our tool will automatically provide you with an overciew of the composition of your database, a detailed analysis of its size through various metrics, past performance analysis of quiries run on your database (Note: limited for unpaid versions of postgres databases), and also map out the database structure in the ERD tab, providing a visual representation of tables, relations, and more.
 
 + Performing Query Tests: ScanQL will run a series of generic SELECT and UPDATE queries on each table in your database to determine planning and execution times. This provides a baseline understanding of how optimized your current setup is.
 
