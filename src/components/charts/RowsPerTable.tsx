@@ -1,16 +1,15 @@
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
-import React, { useState } from 'react';
+import React from 'react';
 import useAppStore from '../../store/appStore';
 import { TableInfo } from '../../store/appStore';
 
-import { Dialog } from '@radix-ui/react-dialog';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 
 export const RowsPerTable: React.FC = () => {
-  const { metricsData, openModal } = useAppStore();
+  const { metricsData, openModal, theme } = useAppStore();
   const tablesArray: TableInfo[] = Object.values(metricsData.databaseInfo);
   const rows = tablesArray.map(table => {
     return {
@@ -24,15 +23,17 @@ export const RowsPerTable: React.FC = () => {
     plugins: {
       legend: {
         display: true,
-        position: 'bottom' as const,
-        font: {
-          size: '10%', // Adjust the percentage value as needed
-        },
+        position: 'left' as const,
+        labels: {
+          font: {
+            size: 11
+          },
+        }
       },
       title: {
         display: true,
         text: 'Rows Per Table',
-        color: '#17012866',
+        color: theme === "light" ? '#17012866' : '#ffffffac',
         font: {
           size: 14
         }
@@ -68,7 +69,7 @@ export const RowsPerTable: React.FC = () => {
     ]
   };
   return (
-    <div onClick={openModal} className="dashboard-card">
+    <div onClick={openModal} className="dashboard-card md-card dashboard-card-dark">
       <Pie data={data} options={options} />
     </div>
   );

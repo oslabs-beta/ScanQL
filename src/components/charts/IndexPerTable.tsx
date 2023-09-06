@@ -1,6 +1,5 @@
-import { Doughnut } from 'react-chartjs-2';
 import { Bar } from 'react-chartjs-2';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend, ChartOptions } from 'chart.js';
 import React from 'react';
 import useAppStore from '../../store/appStore';
 import { TableInfo } from '../../store/appStore';
@@ -10,7 +9,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 
 export const IndexPerTable: React.FC = () => {
-  const { metricsData } = useAppStore();
+  const { metricsData, theme } = useAppStore();
   const tablesArray: TableInfo[] = Object.values(metricsData.databaseInfo);
   const indexData = tablesArray.map(table => {
     return {
@@ -21,30 +20,28 @@ export const IndexPerTable: React.FC = () => {
   // Sort the indexData array based on the numberOfIndexes in descending order
   indexData.sort((a, b) => b.numberOfIndexes - a.numberOfIndexes);
   
-  const options = {
-    indexAxis: 'y',
+  const options: ChartOptions = {
+    indexAxis: "y",
     responsive: true,
-    maintainAspectRatio: false, // This will allow the chart to stretch to fill its container
+    maintainAspectRatio: false,
     layout: {
       padding: 0
     },
     plugins: {
-      
-      // cutout: '100%', // Adjust this value to change the thickness of the doughnut ring
       title: {
         display: true,
         text: 'Indexes Per Table',
-        color: '#17012866',
+        color: theme === "light" ? '#17012866' : '#ffffffac',
         font: {
-          size: 14 // Use absolute value for font size
+          size: 14
         }
       },
       legend: {
-        display:false,
+        display: true,
         position: 'bottom' as const,
         labels:{
           font: {
-            size: '5%', // Adjust the percentage value as needed
+            size: 12
           },
         },
       },
@@ -55,7 +52,7 @@ export const IndexPerTable: React.FC = () => {
     labels: indexData.map(table => table.tableName),
     datasets: [
       {
-        label: 'Indexes Per Table',
+        label: 'Number of Indexes',
         data: indexData.map(table => table.numberOfIndexes),
         backgroundColor: 'rgba(53, 162, 235, 0.5)',
         scaleFontColor: '#FFFFFF',
@@ -79,9 +76,8 @@ export const IndexPerTable: React.FC = () => {
       }
     ]
   };
-  //   console.log(`in doughnut chart component: ${indexData[0]}`)
   return (
-    <div className="grid-span3">
+    <div className="dashboard-card md-card">
       <Bar data={data} options={options} />
     </div>
   );

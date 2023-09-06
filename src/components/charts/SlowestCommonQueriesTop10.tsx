@@ -1,5 +1,4 @@
-import { Bar, HorizontalBar } from 'react-chartjs-2';
-// import { HorizontalBar } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 import useAppStore from '../../store/appStore';
 
 // type ExecTimeByOperation = {
@@ -15,26 +14,26 @@ import useAppStore from '../../store/appStore';
 //   }
 // }
 
-interface SlowQueryObj {
-  query:string;
-  median: number;
-  mean: number;
-}
+// interface SlowQueryObj {
+//   query:string;
+//   median: number;
+//   mean: number;
+// }
 
-type mainArray = {
-  [queryName:string]:SlowQueryObj
-}
-const splitBySpaces: string[] = (inputStr: string, spaceCount: number) => {
-  let chunks = [];
-  let parts = inputStr.split(' ');
+// type mainArray = {
+//   [queryName:string]:SlowQueryObj
+// }
+// const splitBySpaces: string[] = (inputStr: string, spaceCount: number) => {
+//   let chunks = [];
+//   let parts = inputStr.split(' ');
 
-  while (parts.length) {
-    chunks.push(parts.splice(0, spaceCount).join(' '));
-  }
+//   while (parts.length) {
+//     chunks.push(parts.splice(0, spaceCount).join(' '));
+//   }
 
-  return chunks;
-};
-const splitByLength: Array = (inputStr:string, minLength:number, maxLength:number) => {
+//   return chunks;
+// };
+const splitByLength: any = (inputStr:string, minLength:number, maxLength:number) => {
   const parts = inputStr.split(' ');
   let chunks = [];
   let chunk = "";
@@ -63,12 +62,8 @@ const splitByLength: Array = (inputStr:string, minLength:number, maxLength:numbe
 
 
 export const SlowestCommonQueriesTop10: React.FC = () => {
-  const { metricsData } = useAppStore();
+  const { metricsData, theme } = useAppStore();
   console.log(metricsData);
-  // const queryObject: mainArray = metricsData.dbHistMetrics.slowestCommonQueries;
-
-  //CREATING the object for MinMax 
-  // const m; 
 
   const shortLabelsArr : string[] = [];
   const longLabelsArr : string[] = [];
@@ -76,7 +71,6 @@ export const SlowestCommonQueriesTop10: React.FC = () => {
   const medianArr : number[] = [];
   const countArr : number[] = [];
 
-  console.log('this is the common top 10', metricsData.dbHistMetrics.slowestCommonQueries);
   let count = 0;
   for (const query in metricsData.dbHistMetrics.slowestCommonQueries) {
     if (count >= 10) break; // Limit to top 10
@@ -88,20 +82,19 @@ export const SlowestCommonQueriesTop10: React.FC = () => {
     count++;
   }
   //tooltip function
-  const footer = (tooltipItems) => {
-    let sum = 0;
+  // const footer = (tooltipItems) => {
+  //   let sum = 0;
   
-    tooltipItems.forEach(function(tooltipItem) {
-      sum += 1;
-      // sum += tooltipItem.parsed.y;
-    });
-    return 'Sum: ' + sum;
-  };
-  // console.log('labelsarr, means arr, medianarr', shortLabelsArr, meanArr, medianArr);
-  const options = {
+  //   tooltipItems.forEach(function(tooltipItem) {
+  //     sum += 1;
+  //     // sum += tooltipItem.parsed.y;
+  //   });
+  //   return 'Sum: ' + sum;
+  // };
+  const options: any = {
     indexAxis: 'y',
     responsive: true,
-    maintainAspectRatio: false, // This will allow the chart to stretch to fill its container
+    maintainAspectRatio: false,
   
     plugins: {
       tooltip: {
@@ -122,7 +115,7 @@ export const SlowestCommonQueriesTop10: React.FC = () => {
         },
         // displayColors: false,
         callbacks:{
-          afterLabel: function(context) {
+          afterLabel: function(context: any) {
             // Assuming that execution count is stored in an array
             const execCount = countArr[context.dataIndex];
             let queryString = longLabelsArr[context.dataIndex];
@@ -139,9 +132,9 @@ export const SlowestCommonQueriesTop10: React.FC = () => {
       // position: 'top' as const, // Position title at the top
         display: true,
         text: 'Top 10 Slowest Common Executed Queries Ordered By Exec. Count',
-        color: '#17012866',
+        color: theme === "light" ? '#17012866' : '#ffffffac',
         font: {
-          size: '15%'
+          size: 14
         }, 
       },
       legend: {
@@ -149,7 +142,7 @@ export const SlowestCommonQueriesTop10: React.FC = () => {
         position: 'bottom' as const,
         labels:{
           font: {
-            size: '10%', // Adjust the percentage value as needed
+            size: 12
           },
         },
       },
@@ -180,7 +173,7 @@ export const SlowestCommonQueriesTop10: React.FC = () => {
     ],
   };
   return (
-    <div className="dashboard-card md-card">
+    <div className="dashboard-card md-card dashboard-card-dark">
       <Bar data={data} options={options} />
     </div>
   );

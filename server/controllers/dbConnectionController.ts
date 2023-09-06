@@ -19,7 +19,6 @@ const dbConnectionController: DbConnectionController = {
     const pool = new Pool({
       connectionString: uri_string,
     });
-    // console.log('this is the pool', pool);
 
     const db = {
       query: (text: string, params?: Array<string>) => {
@@ -41,7 +40,6 @@ const dbConnectionController: DbConnectionController = {
         }
       });
     }
-    console.log('in the dbConnectionController!!!!!!!!!!!!!!!!!!!!!!')
     res.locals.dbConnection = db;
     res.locals.result = {};
 
@@ -84,9 +82,8 @@ const dbConnectionController: DbConnectionController = {
   // },
     // initializes pg_stat_statements if not already initialized
   // first controller to stop response cycle and return an error if connection fails
-  createExtension: async (req, res, next) => {
+  createExtension: async (_req, res, next) => {
     const db = res.locals.dbConnection;
-    console.log('in the extension')
     const queryString = 'CREATE EXTENSION IF NOT EXISTS pg_stat_statements';
     try {
       await db.query(queryString);
@@ -122,7 +119,6 @@ const dbConnectionController: DbConnectionController = {
       const permissions = await db.query(permissionsQuery, [username]);//the permissions of that user
       const userPermissions = permissions.rows
       res.locals.userPermissions = userPermissions
-      // console.log(userPermissions) //just to see what we recieve
       if (canConnect) {
         return next(); // User has CONNECT privilege, so continue to the next middleware
       } else {

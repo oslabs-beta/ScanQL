@@ -27,7 +27,7 @@ export const GeneralMetrics: React.FC = () => {
 
   const totalNumberOfFields = rows.reduce((sum, table) => sum + table.numberOfFields, 0);
   
-  const averageNumberOfFields = totalNumberOfFields / rows.length;
+  // const averageNumberOfFields = totalNumberOfFields / rows.length;
 
   // console.log(`Total foreign keys: ${totalNumberOfFields}`)
   // console.log(`Average number of foreign keys: ${averageNumberOfFields}`)
@@ -43,11 +43,11 @@ export const GeneralMetrics: React.FC = () => {
     console.log('metricsData', metricsData);
   
   
-  const tableTags: element[] = tablesArray.map(table => {
-    return( 
-      <p className= "general-metrics-numbers"> {`${table.tableName}: ${table.numberOfFields}`}</p>
-    )
-  })
+  // const tableTags: element[] = tablesArray.map(table => {
+  //   return( 
+  //     <p className= "general-metrics-numbers"> {`${table.tableName}: ${table.numberOfFields}`}</p>
+  //   )
+  // })
 
   
 
@@ -55,13 +55,13 @@ export const GeneralMetrics: React.FC = () => {
 
     <>
       <div className="flex flex-col small-card-35 justify-between">
-        <div className="dashboard-card small-card">
+        <div className="dashboard-card small-card dashboard-card-dark">
           <div className="text-card-custom">
             <div className="text-sm font-semibold dash-card-titles">Total Number Of Tables</div>
             <p className="general-metrics-numbers">{tablesArray.length}</p>
           </div>
         </div>
-        <div className="dashboard-card small-card">
+        <div className="dashboard-card small-card dashboard-card-dark">
           <div className="text-card-custom">
             <div className="text-sm font-semibold dash-card-titles">Total Number Of Fields</div>
             <p className="general-metrics-numbers">{totalNumberOfFields}</p>
@@ -69,13 +69,13 @@ export const GeneralMetrics: React.FC = () => {
         </div>
       </div>
       <div className="flex flex-col small-card-35 justify-between">
-      <div className="dashboard-card small-card">
+      <div className="dashboard-card small-card dashboard-card-dark">
         <div className="text-card-custom">
           <div className="text-sm font-semibold dash-card-titles"> Avg. Primary Keys Per Table</div>
           <p className="general-metrics-numbers">{averagePrimaryKeys}</p>
         </div>
       </div>
-      <div className="dashboard-card small-card h-2/4">
+      <div className="dashboard-card small-card h-2/4 dashboard-card-dark">
         <div className="text-card-custom">
         <div className="text-sm font-semibold dash-card-titles">Avg. Foreign Keys Per Table</div>
           <p className="general-metrics-numbers">{averageForeignKeys}</p>

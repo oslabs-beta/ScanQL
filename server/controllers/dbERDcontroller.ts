@@ -1,5 +1,4 @@
-import { Request, Response, NextFunction, RequestHandler } from 'express';
-import { Pool } from 'pg';
+import { RequestHandler } from 'express';
 // import dotenv from 'dotenv';
 // import db from '../models/userModel';
 // import { table } from 'console';
@@ -11,8 +10,7 @@ interface schemaControllers {
 }
 //
 const dbERDcontroller: schemaControllers = {
-  getSchemaPostgreSQL: async (req, res, next) => {
-    console.log('in the ERD controller')
+  getSchemaPostgreSQL: async (_req, res, next) => {
     try {
       const pg = res.locals.dbConnection;
       // Get all relationships between all tables
@@ -54,7 +52,6 @@ const dbERDcontroller: schemaControllers = {
 
       ORDER BY table_name, ordinal_position;`;
       const schema = await pg.query(query, [currentSchema]);
-      // console.log('SCHEMA', schema.rows);
 
       // Initialize array to hold returned data
       const erDiagram: Record<string, typeof tableObj> = {};
