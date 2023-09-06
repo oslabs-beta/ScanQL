@@ -10,6 +10,7 @@
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
+    "build:server": "tsc -p tsconfig.node.json",
     "start": "nodemon --watch './**/*.ts' --exec ts-node-esm ./server/server.ts",
     "test": "vitest --coverage",
     "cypress:open": "cypress open"
