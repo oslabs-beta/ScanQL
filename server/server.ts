@@ -18,12 +18,12 @@ app.use(express.urlencoded({extended: false}));
 app.use('/api/pg', pgRoute);
  
 // unknown route handler
-app.use((req: Request, res: Response) => {
+app.use((_req: Request, res: Response) => {
   return res.status(404).send('No page found');
 });
  
 // global error handler
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
   const defaultErr = {
     log: 'Express error handler caught unknown middleware error',
     status: 500,

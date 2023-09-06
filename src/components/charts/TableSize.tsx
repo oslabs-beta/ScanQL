@@ -1,5 +1,6 @@
 import { Bar } from 'react-chartjs-2';
 import useAppStore from '../../store/appStore';
+import { ChartOptions } from 'chart.js';
 
 interface Table {
   diskSize: string;
@@ -12,7 +13,7 @@ export const TableSize: React.FC = () => {
   console.log('metrics data',metricsData)
   const tablesArray: Table[] = Object.values(metricsData.dbSizeMetrics.tableSizes);
 
-  const options = {
+  const options: ChartOptions = {
     indexAxis: 'y',
     responsive: true,
     maintainAspectRatio: false,

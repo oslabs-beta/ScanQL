@@ -1,6 +1,5 @@
 import React from 'react';
 import * as Separator from '@radix-ui/react-separator';
-import useAppStore from '../../store/appStore';
 
 interface MetricsSeparatorProps {
   title: string;

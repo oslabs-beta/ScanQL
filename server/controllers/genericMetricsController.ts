@@ -1,6 +1,7 @@
-import { RequestHandler, query } from 'express';
+import { RequestHandler } from 'express';
 // import { explainQuery } from '../helpers/explainQuery';
-import { PoolClient, QueryResult } from 'pg';
+import { QueryResult } from 'pg';
+// import { faker } from '@faker-js/faker';
 
 type GeneralMetricsController = {
   performGenericQueries: RequestHandler;
@@ -20,30 +21,30 @@ type ExecutionPlans = {
   [tableName: string]: TableResults;
 };
 ///Using for helper functions on delete 
-interface ForeignKey {
-  column: string;
-  referencedTable: string;
-  referencedColumn: string;
-}
-type ForeignKeyInfo = { [columName: string]: ForeignKey }
-type PrimaryKeyInfo = {
-  [columnName: string]: { datatype: string, isAutoIncrementing: boolean };
-};
-interface TableInfo {
-  tableName: string;
-  numberOfRows: number;
-  numberOfIndexes: number;
-  numberOfFields: number;
-  numberOfForeignKeys: number;
-  foreignKeysObj: ForeignKeyInfo
-  primaryKeysObj: PrimaryKeyInfo
-}
-interface DBinfo {
-  [tableName: string]: TableInfo;
-}
+// interface ForeignKey {
+//   column: string;
+//   referencedTable: string;
+//   referencedColumn: string;
+// }
+// type ForeignKeyInfo = { [columName: string]: ForeignKey }
+// type PrimaryKeyInfo = {
+//   [columnName: string]: { datatype: string, isAutoIncrementing: boolean };
+// };
+// interface TableInfo {
+//   tableName: string;
+//   numberOfRows: number;
+//   numberOfIndexes: number;
+//   numberOfFields: number;
+//   numberOfForeignKeys: number;
+//   foreignKeysObj: ForeignKeyInfo
+//   primaryKeysObj: PrimaryKeyInfo
+// }
+// interface DBinfo {
+//   [tableName: string]: TableInfo;
+// }
 
 const dbGenericQueryTesting: GeneralMetricsController = {
-  performGenericQueries: async (req, res, next) => {
+  performGenericQueries: async (_req, res, next) => {
     const db = res.locals.dbConnection;
 
     const tableNames = res.locals.tableNames;
@@ -61,10 +62,10 @@ const dbGenericQueryTesting: GeneralMetricsController = {
         // executionPlans[tableName].INSERT ={query: 'not applicable yet'};
         const tableInfo = dbInfo[tableName];
         const primaryKeysObject = tableInfo.primaryKeysObj;
-        const checkContraintObj = tableInfo.checkConstraints;
+        // const checkContraintObj = tableInfo.checkConstraints;
         const foreignKeysObj = tableInfo.foreignKeysObj;
         const sampleData = tableInfo.sampleData;
-        const columnDataTypes = tableInfo.columnDataTypes;
+        // const columnDataTypes = tableInfo.columnDataTypes;
         const pkArray = [...Object.keys(primaryKeysObject)];
         const sampleValuesArr = Object.values(sampleData);
         const sampleColumnsArr = Object.keys(sampleData);

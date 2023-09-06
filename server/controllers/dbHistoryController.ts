@@ -1,4 +1,4 @@
-import { RequestHandler, query } from 'express';
+import { RequestHandler } from 'express';
 import { QueryResult } from 'pg';
 
 type DBHistoryMetrics = {
@@ -73,7 +73,7 @@ type DBHistoryController = {
 };
 
 const dBHistoryController: DBHistoryController = {
-  dbPastMetrics: async (req, res, next) => {
+  dbPastMetrics: async (_req, res, next) => {
     try {
       const db = res.locals.dbConnection;
             

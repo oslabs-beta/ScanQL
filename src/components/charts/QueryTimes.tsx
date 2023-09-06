@@ -63,7 +63,7 @@ const {theme} = useAppStore();
         },
         // displayColors: false,
         callbacks:{
-          afterLabel: function(context) {
+          afterLabel: function(context: any) {
             // Assuming that execution count is stored in an array
             const queryString = context.dataIndex === 0? "Select Query: `EXPLAIN SELECT * FROM ${tableInfo.tableName} WHERE '${sampleColumnsArr[sampleColumnsArr.length - 1]}' = $1`" : "Update Query: `EXPLAIN UPDATE ${tableInfo.tableName} SET ${updateColumn} = $1 WHERE ${pkArray[pkArray.length - 1]} = $2`" 
 

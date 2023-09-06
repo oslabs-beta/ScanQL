@@ -1,11 +1,12 @@
-import { Bar } from 'react-chartjs-2';
 import useAppStore from '../../store/appStore';
-
+import { Bar } from 'react-chartjs-2';
+import { IndexItem } from '../../Types';
+import { ChartOptions } from 'chart.js';
 
 export const TableIndexSizes: React.FC = () => {
   const { metricsData, toNumInKB, theme } = useAppStore();
   const indexesArray: {}[] = Object.values(metricsData.dbSizeMetrics.indexSizesByTable);
-  const indexSizeByTableArray: number[] = indexesArray.map(table => {
+  const indexSizeByTableArray: number[] = indexesArray.map((table: IndexItem)  => {
     let total = 0;
 
     for (const key in table) {
@@ -14,7 +15,7 @@ export const TableIndexSizes: React.FC = () => {
     return total;
   });
 
-  const options = {
+  const options: ChartOptions = {
     indexAxis: 'y',
     responsive: true,
     maintainAspectRatio: false,

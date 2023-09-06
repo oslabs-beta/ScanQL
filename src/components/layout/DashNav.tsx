@@ -1,24 +1,20 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import logo from "../../assets/logo-horizontal-v2.png";
 import logodark from "../../assets/logo-horizontal-v2-darkmode.png";
 
 import DropdownMenuDemo from "../ui/DropdownMenu";
 
-import { HomeIcon, MoonIcon, SunIcon } from "@radix-ui/react-icons";
 // import { IconButton } from '@radix-ui/react-button';
 
-import { Button, IconButton } from '@radix-ui/themes';
 import HelpModal from '../ui/HelpModal';
 
 // import { Flex } from '@radix-ui/themes';
-import { Switch } from "@radix-ui/react-switch";
 
 import useAppStore from "../../store/appStore";
 import DarkModeToggle from "../ui/DarkModeToggle";
 
 const DashNav: React.FC = () => {
-    const { setView, theme, toggleTheme } = useAppStore();
+    const { theme, } = useAppStore();
 
     return (
         <div className="flex w-screen flex-col items-center justify-center md:flex-row md:justify-between px-8 py-6 mb-8">

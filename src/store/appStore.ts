@@ -104,6 +104,7 @@ interface AppState {
       slowestCommonQueries: SlowestCommonMedianMean,
       execTimesByOperation: ExecTimeByOperation,
     };
+    erDiagram:any
   }
 
   view: 'metrics' | 'erd' | 'custom' | 'loading';
@@ -181,7 +182,8 @@ const useAppStore = create<AppState>((set) => ({
       slowestTotalQueries: {},
       slowestCommonQueries: {},
       execTimesByOperation: {},
-    }
+    },
+    erDiagram: {}
   },
 
   // default initialize view state to metrics
@@ -206,7 +208,7 @@ const useAppStore = create<AppState>((set) => ({
   setQuery: (queryString: string) => set({ queryString }),
   setIsDBConnected: (isDBConnected) => set({ isDBConnected }),
 
-  setMetrics: (metricsData: { databaseInfo: DatabaseInfo, executionPlans: {}, dbSizeMetrics: { tableSizes: {}, indexSizesByTable: {}, tableNames: [], totalDatabaseSize: '', activeConnections: 0 } }) => set({ metricsData }),
+  setMetrics: (metricsData: { databaseInfo: DatabaseInfo, executionPlans: {}, dbSizeMetrics: { tableSizes: {}, indexSizesByTable: {}, tableNames: [], totalDatabaseSize: '', activeConnections: 0 }, dbHistMetrics: {slowestTotalQueries: {},slowestCommonQueries: {}, execTimesByOperation: {}}, erDiagram: {} }) => set({ metricsData }),
 
   // helper function for converting string numbers with units to number in kb
   // only converts to kb. could be refactored to loop through all the size units and find the one that is the most common, than proivde different scenarios for converting to each unit (kb, mb, gb); use a cache to store quantities of found unit tied to the unit as the key. 

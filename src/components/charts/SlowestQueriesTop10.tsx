@@ -14,28 +14,28 @@ import useAppStore from '../../store/appStore';
 //   }
 // }
 
-interface SlowQueryObj {
-  query:string;
-  median: number;
-  mean: number;
-}
+// interface SlowQueryObj {
+//   query:string;
+//   median: number;
+//   mean: number;
+// }
 
-type mainArray = {
-  [queryName:string]:SlowQueryObj
-}
+// type mainArray = {
+//   [queryName:string]:SlowQueryObj
+// }
 
-const splitBySpaces: Array = (inputStr: string, spaceCount: number) => {
-  let chunks = [];
-  let parts = inputStr.split(' ');
+// const splitBySpaces: any = (inputStr: string, spaceCount: number) => {
+//   let chunks = [];
+//   let parts = inputStr.split(' ');
 
-  while (parts.length) {
-    chunks.push(parts.splice(0, spaceCount).join(' '));
-  }
+//   while (parts.length) {
+//     chunks.push(parts.splice(0, spaceCount).join(' '));
+//   }
 
-  return chunks;
-};
+//   return chunks;
+// };
 
-const splitByLength: Array = (inputStr:string, minLength:number, maxLength:number) => {
+const splitByLength: any = (inputStr:string, minLength:number, maxLength:number) => {
   const parts = inputStr.split(' ');
   let chunks = [];
   let chunk = "";
@@ -80,7 +80,7 @@ export const SlowestQueriesTop10: React.FC = () => {
     count++;
   }
 
-  const options = {
+  const options: any = {
     indexAxis: 'y',
     responsive: true,
     maintainAspectRatio: false,
@@ -124,7 +124,7 @@ export const SlowestQueriesTop10: React.FC = () => {
           size: 10
         },
         callbacks:{
-          afterLabel: function(context) {
+          afterLabel: function(context: any) {
          
 
             let queryString = longLabelsArr[context.dataIndex];

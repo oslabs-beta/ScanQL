@@ -5,26 +5,25 @@ import logodark from "../assets/logo-horizontal-v2-darkmode.png";
 import screenshot1 from "../assets/screenshots/screenshot1.jpg";
 import screenshot2 from "../assets/screenshots/screenshot2.jpg";
 import screenshot3 from "../assets/screenshots/screenshot3.jpg";
-import headshotkim from "../assets/team_headshots/other_dkim.jpg";
+// import headshotkim from "../assets/team_headshots/other_dkim.jpg";
 
 import {
-    FaceIcon,
+    // FaceIcon,
     ImageIcon,
-    SunIcon,
+    // SunIcon,
     LightningBoltIcon,
     Crosshair2Icon,
-    GitHubLogoIcon,
-    LinkedInLogoIcon,
+    // GitHubLogoIcon,
+    // LinkedInLogoIcon,
 } from "@radix-ui/react-icons";
 
 import NavBar from "../components/layout/NavBar";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
-import Loading from "../components/ui/Loading";
+// import Loading from "../components/ui/Loading";
 import useAppStore from "../store/appStore";
 
-import MetricsView from "../components/layout/MetricsView";
-import { Button, Container } from "@radix-ui/themes";
+import { Button } from "@radix-ui/themes";
 import Footer from "../components/layout/Footer";
 
 const Home: React.FC = () => {

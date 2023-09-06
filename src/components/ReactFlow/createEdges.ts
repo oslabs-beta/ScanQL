@@ -1,6 +1,4 @@
-import { table } from "console";
-import { Edge } from "reactflow";
-
+import { Edge } from "../../Types";
 export default function createEdges(ERDdata: any) {
 
 
