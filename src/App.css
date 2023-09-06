@@ -1,3 +1,6 @@
+@import '@radix-ui/colors/black-alpha.css';
+
+
 .dashboard-button-bar {
     display: flex;
     justify-content: center;
@@ -10,6 +13,51 @@
     justify-content: center;
     align-items: center;
 }
+
+
+.dark-mode-toggle {
+    all: unset;
+    width: 45px;
+    height: 30px;
+    background-color: var(--black-a8);
+    border-radius: 9999px;
+    position: relative;
+    box-shadow: 0 2px 10px var(--black-a7);
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  }
+  .dark-mode-toggle:focus {
+    box-shadow: 0 0 0 2px black;
+  }
+  .dark-mode-toggle [data-state='checked'] {
+    background-color: rgba(255, 255, 255, 0.629);
+  }
+
+  .toggle-sun{
+    position: absolute;
+    left: 4px;
+    top: 8px;
+  }
+  .toggle-moon{
+    position: absolute;
+    right: 3px;
+    top: 8px;
+
+  }
+  
+  .SwitchThumb {
+    display: block;
+    width: 21px;
+    height: 21px;
+    background-color: rgba(237, 237, 237, 0.421);
+    border-radius: 9999px;
+    box-shadow: 0 2px 2px var(--black-a7);
+    transition: transform 100ms;
+    transform: translateX(5px);
+    will-change: transform;
+  }
+  .SwitchThumb[data-state='checked'] {
+    transform: translateX(19px);
+  }
 
 .general-metrics-numbers {
     background: -webkit-linear-gradient(#726dad, #67077d41);
@@ -142,6 +190,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.home-team-card.dark{
+    color:white;
 }
 
 /* .team-headshot-img{

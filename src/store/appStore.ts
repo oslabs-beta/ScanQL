@@ -192,6 +192,7 @@ const useAppStore = create<AppState>((set) => ({
   //toggle light/dark mode
   toggleTheme: () => { set((state) => ({ theme: state.theme === 'light' ? 'dark' : 'light' })); },
 
+
   openConnectDB: () => set({ isConnectDBOpen: true }),
   closeConnectDB: () => set({ isConnectDBOpen: false }),
   setView: (view) => set({ view }), // method to set viewState

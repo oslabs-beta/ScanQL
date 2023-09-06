@@ -1,5 +1,5 @@
 import { Bar } from 'react-chartjs-2';
-import { faker } from '@faker-js/faker';
+// import { faker } from '@faker-js/faker';
 
 // export const options = {
 //   responsive: true,

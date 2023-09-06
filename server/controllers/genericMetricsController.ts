@@ -1,7 +1,7 @@
 import { RequestHandler, query } from 'express';
 // import { explainQuery } from '../helpers/explainQuery';
 import { PoolClient, QueryResult } from 'pg';
-import { faker } from '@faker-js/faker';
+// import { faker } from '@faker-js/faker';
 import { type } from 'os';
 
 
@@ -46,25 +46,25 @@ interface DBinfo {
 }
 ///////////////////
 //Helper functions
-function generateFakeData(dataType: string): any {
-  switch (dataType) {
-  case 'string':
-    return faker.lorem.word(35);
-  case 'number':
-    return faker.number.bigInt();
-  case 'date':
-    return faker.date.past();
-  case 'boolean':
-    return faker.datatype.boolean();
-  case 'timestamp without time zone':
-    // You can use 'toISOString()' and then strip off the 'Z' (indicating UTC time).
-    // This will provide a date-time string in the format '2023-08-10T14:30:00'.
-    // If you want it without the 'T', you can replace it with a space.
-    return faker.date.recent().toISOString().replace('Z', '').replace('T', ' ');
-  default:
-    return faker.lorem.word();
-  }
-}
+// function generateFakeData(dataType: string): any {
+//   switch (dataType) {
+//   case 'string':
+//     return faker.lorem.word(35);
+//   case 'number':
+//     return faker.number.bigInt();
+//   case 'date':
+//     return faker.date.past();
+//   case 'boolean':
+//     return faker.datatype.boolean();
+//   case 'timestamp without time zone':
+//     // You can use 'toISOString()' and then strip off the 'Z' (indicating UTC time).
+//     // This will provide a date-time string in the format '2023-08-10T14:30:00'.
+//     // If you want it without the 'T', you can replace it with a space.
+//     return faker.date.recent().toISOString().replace('Z', '').replace('T', ' ');
+//   default:
+//     return faker.lorem.word();
+//   }
+// }
 
 
 //function for finding 
