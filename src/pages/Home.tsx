@@ -30,10 +30,13 @@ const Home: React.FC = () => {
     const { isAuthenticated, loginWithRedirect } = useAuth0();
     const navigate = useNavigate();
     const { theme } = useAppStore();
-
+    
     useEffect(() => {
-        if (isAuthenticated) navigate('/dashboard');
-    }, [])
+        console.log(isAuthenticated)
+        if (isAuthenticated) {
+            navigate('/dashboard');
+        }
+    }, [isAuthenticated])
 
     return (
         <div>
