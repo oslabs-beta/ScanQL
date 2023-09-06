@@ -1,6 +1,7 @@
 import useAppStore from '../../store/appStore';
 import { Bar } from 'react-chartjs-2';
 import { IndexItem } from '../../Types';
+import { ChartOptions } from 'chart.js';
 
 export const TableIndexSizes: React.FC = () => {
   const { metricsData, toNumInKB, theme } = useAppStore();
@@ -14,7 +15,7 @@ export const TableIndexSizes: React.FC = () => {
     return total;
   });
 
-  const options = {
+  const options: ChartOptions = {
     indexAxis: 'y',
     responsive: true,
     maintainAspectRatio: false,

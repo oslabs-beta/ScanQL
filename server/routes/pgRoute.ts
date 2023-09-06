@@ -24,13 +24,9 @@ pgRoute.post(
 pgRoute.post(
   '/customQuery', 
   customDBController.customQueryMetrics,
-<<<<<<< HEAD
   //new controller
 
   (_req, res) => {
-=======
-  (req, res) => {
->>>>>>> dev
     return res.status(200).json(res.locals.customMetrics);
   }
 );

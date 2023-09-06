@@ -18,7 +18,7 @@ export const ColumnIndexSizes: React.FC = () => {
     }
   });
 
-  const options = {
+  const options: any = {
     indexAxis: 'y',
     responsive: true,
     maintainAspectRatio: false,
@@ -36,11 +36,7 @@ export const ColumnIndexSizes: React.FC = () => {
         text: 'Index Size by Column',
         color: theme === "light" ? '#17012866' : '#ffffffac',
         font: {
-<<<<<<< HEAD
-          size: 10
-=======
           size: 14
->>>>>>> dev
         },
         padding: {
           top: 10,
@@ -52,11 +48,7 @@ export const ColumnIndexSizes: React.FC = () => {
         position: 'bottom' as const,
         labels: {
           font: {
-<<<<<<< HEAD
-            size: 10,
-=======
             size: 12,
->>>>>>> dev
           },
           boxWidth: 10,
           padding: 10
@@ -71,18 +63,15 @@ export const ColumnIndexSizes: React.FC = () => {
           autoSkip: false
         }
       },
-<<<<<<< HEAD
-      x: {
-        ticks: {
-          maxRotation: 90, // Set the maximum rotation angle to 90
-          minRotation: 90,  // Set the minimum rotation angle to 90
-          font: {
-            size: 10
-          },
-        }
-      }
-=======
->>>>>>> dev
+      // x: {
+      //   ticks: {
+      //     maxRotation: 90, // Set the maximum rotation angle to 90
+      //     minRotation: 90,  // Set the minimum rotation angle to 90
+      //     font: {
+      //       size: 10
+      //     },
+      //   }
+      // }
     }
   };
     

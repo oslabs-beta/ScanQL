@@ -10,12 +10,7 @@ interface schemaControllers {
 }
 //
 const dbERDcontroller: schemaControllers = {
-<<<<<<< HEAD
   getSchemaPostgreSQL: async (_req, res, next) => {
-    console.log('in the ERD controller')
-=======
-  getSchemaPostgreSQL: async (req, res, next) => {
->>>>>>> dev
     try {
       const pg = res.locals.dbConnection;
       // Get all relationships between all tables

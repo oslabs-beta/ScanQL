@@ -41,11 +41,7 @@ export const IndexPerTable: React.FC = () => {
         position: 'bottom' as const,
         labels:{
           font: {
-<<<<<<< HEAD
-            size: 5, // Adjust the percentage value as needed
-=======
             size: 12
->>>>>>> dev
           },
         },
       },

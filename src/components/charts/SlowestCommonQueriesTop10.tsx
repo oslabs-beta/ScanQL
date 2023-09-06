@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-import { Bar} from 'react-chartjs-2';
-// import { HorizontalBar } from 'react-chartjs-2';
-=======
 import { Bar } from 'react-chartjs-2';
->>>>>>> dev
 import useAppStore from '../../store/appStore';
 
 // type ExecTimeByOperation = {
@@ -90,24 +85,13 @@ export const SlowestCommonQueriesTop10: React.FC = () => {
   // const footer = (tooltipItems) => {
   //   let sum = 0;
   
-<<<<<<< HEAD
   //   tooltipItems.forEach(function(tooltipItem) {
   //     sum += 1;
   //     // sum += tooltipItem.parsed.y;
   //   });
   //   return 'Sum: ' + sum;
   // };
-  // console.log('labelsarr, means arr, medianarr', shortLabelsArr, meanArr, medianArr);
   const options: any = {
-=======
-    tooltipItems.forEach(function(tooltipItem) {
-      sum += 1;
-      // sum += tooltipItem.parsed.y;
-    });
-    return 'Sum: ' + sum;
-  };
-  const options = {
->>>>>>> dev
     indexAxis: 'y',
     responsive: true,
     maintainAspectRatio: false,
@@ -150,11 +134,7 @@ export const SlowestCommonQueriesTop10: React.FC = () => {
         text: 'Top 10 Slowest Common Executed Queries Ordered By Exec. Count',
         color: theme === "light" ? '#17012866' : '#ffffffac',
         font: {
-<<<<<<< HEAD
-          size: 15
-=======
           size: 14
->>>>>>> dev
         }, 
       },
       legend: {
@@ -162,11 +142,7 @@ export const SlowestCommonQueriesTop10: React.FC = () => {
         position: 'bottom' as const,
         labels:{
           font: {
-<<<<<<< HEAD
-            size: 10, // Adjust the percentage value as needed
-=======
             size: 12
->>>>>>> dev
           },
         },
       },

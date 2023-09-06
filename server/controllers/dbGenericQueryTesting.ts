@@ -1,6 +1,6 @@
 import { RequestHandler, query } from 'express';
 // import { explainQuery } from '../helpers/explainQuery';
-import { PoolClient, QueryResult } from 'pg';
+import { QueryResult } from 'pg';
 
 type GeneralMetricsController = {
     performGenericQueries: RequestHandler;
@@ -20,27 +20,27 @@ type ExecutionPlans = {
     [tablename: string]: TableResults;
 };
 ///Using for helper functions on delete 
-interface ForeignKey {
-  column: string;
-  referencedTable: string;
-  referencedColumn: string;
-}
-type ForeignKeyInfo = {[columName: string]: ForeignKey}
-type PrimaryKeyInfo = {
-  [columnName: string]: {datatype: string, isAutoIncrementing: boolean};
-};
-interface TableInfo {
-  tableName: string;
-  numberOfRows: number;
-  numberOfIndexes: number;
-  numberOfFields: number;
-  numberOfForeignKeys: number;
-  foreignKeysObj: ForeignKeyInfo
-  primaryKeysObj: PrimaryKeyInfo 
-}
-interface DBinfo {
-  [tablename: string]: TableInfo;
-}
+// interface ForeignKey {
+//   column: string;
+//   referencedTable: string;
+//   referencedColumn: string;
+// }
+// type ForeignKeyInfo = {[columName: string]: ForeignKey}
+// type PrimaryKeyInfo = {
+//   [columnName: string]: {datatype: string, isAutoIncrementing: boolean};
+// };
+// interface TableInfo {
+//   tableName: string;
+//   numberOfRows: number;
+//   numberOfIndexes: number;
+//   numberOfFields: number;
+//   numberOfForeignKeys: number;
+//   foreignKeysObj: ForeignKeyInfo
+//   primaryKeysObj: PrimaryKeyInfo 
+// }
+// interface DBinfo {
+//   [tablename: string]: TableInfo;
+// }
 
 const dbGenericQueryTesting: GeneralMetricsController = {
   performGenericQueries: async (req, res, next) => {
@@ -73,7 +73,7 @@ const dbGenericQueryTesting: GeneralMetricsController = {
           }
         }
         const updateQuery = `UPDATE ${updateValue} SET ${updateColumn} = $1 WHERE ${updateColumn} = ${sampleData[updateColumn]}`;
-        const updatePlan = await db.query(`EXPLAIN (ANALYZE true, COSTS true, SETTINGS true, BUFFERS true, WAL true, SUMMARY true,FORMAT JSON) ${updateQuery}`, [updateValue, unchangedSample[pkArray[pkArray.length - 1]]]);
+        const updatePlan = await db.query(`EXPLAIN (ANALYZE true, COSTS true, SETTINGS true, BUFFERS true, WAL true, SUMMARY true,FORMAT JSON) ${updateQuery}`, [updateValue, /* unchangedSample[pkArray[pkArray.length - 1]]*/]);
         executionPlans[tableName].UPDATE = { query: updateQuery, plan: updatePlan };
         //done with update
       }  

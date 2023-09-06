@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-import { Bar} from 'react-chartjs-2';
-// import { HorizontalBar } from 'react-chartjs-2';
-=======
 import { Bar } from 'react-chartjs-2';
->>>>>>> dev
 import useAppStore from '../../store/appStore';
 
 // type ExecTimeByOperation = {
@@ -84,13 +79,8 @@ export const SlowestQueriesTop10: React.FC = () => {
   
     count++;
   }
-<<<<<<< HEAD
-  // console.log('labelsarr, means arr, medianarr', shortLabelsArr, meanArr, medianArr);
-  const options: any = {
-=======
 
-  const options = {
->>>>>>> dev
+  const options: any = {
     indexAxis: 'y',
     responsive: true,
     maintainAspectRatio: false,
@@ -107,11 +97,7 @@ export const SlowestQueriesTop10: React.FC = () => {
         text: 'Top 10 Slowest Previously Executed Queries',
         color: theme === "light" ? '#17012866' : '#ffffffac',
         font: {
-<<<<<<< HEAD
-          size: 15
-=======
           size: 14
->>>>>>> dev
         },
         
       },
@@ -120,11 +106,7 @@ export const SlowestQueriesTop10: React.FC = () => {
         position: 'bottom' as const,
         labels:{
           font: {
-<<<<<<< HEAD
-            size: 10, // Adjust the percentage value as needed
-=======
             size: 12,
->>>>>>> dev
           },
         },
       },

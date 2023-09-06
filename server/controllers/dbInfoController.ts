@@ -42,12 +42,8 @@ interface CheckConstraintMap {
   
 
 const dbInfoController: DbInfoController = {
-<<<<<<< HEAD
   getDataBaseInfo: async (_req, res, next): Promise<void> => {
     // console.log('made it in dbinfo');
-=======
-  getDataBaseInfo: async (req, res, next): Promise<void> => {
->>>>>>> dev
     // pulling database connection from res locals
     const db = res.locals.dbConnection;
 

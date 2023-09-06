@@ -1,11 +1,7 @@
 import { RequestHandler } from 'express';
 // import { explainQuery } from '../helpers/explainQuery';
-<<<<<<< HEAD
 import { QueryResult } from 'pg';
 // import { faker } from '@faker-js/faker';
-=======
-import { PoolClient, QueryResult } from 'pg';
->>>>>>> dev
 
 type GeneralMetricsController = {
   performGenericQueries: RequestHandler;
@@ -48,12 +44,7 @@ type ExecutionPlans = {
 // }
 
 const dbGenericQueryTesting: GeneralMetricsController = {
-<<<<<<< HEAD
   performGenericQueries: async (_req, res, next) => {
-    console.log('in the genericMetricsController');
-=======
-  performGenericQueries: async (req, res, next) => {
->>>>>>> dev
     const db = res.locals.dbConnection;
 
     const tableNames = res.locals.tableNames;
