@@ -1,4 +1,4 @@
-import { Edge } from "../../types";
+import { Edge } from "../../Types";
 export default function createEdges(ERDdata: any) {
 
 

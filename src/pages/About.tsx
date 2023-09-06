@@ -1,14 +1,14 @@
 import Footer from "../components/layout/Footer"
 import NavBar from "../components/layout/NavBar"
 import { GitHubLogoIcon, LinkedInLogoIcon} from '@radix-ui/react-icons'
-import logo from "../assets/logo-horizontal-v2.png";
-import logodark from "../assets/logo-horizontal-v2-darkmode.png";
+// import logo from "../assets/logo-horizontal-v2.png";
+// import logodark from "../assets/logo-horizontal-v2-darkmode.png";
 import headshotkim from "../assets/team_headshots/other_dkim.jpg"
 import dmurcia from "../assets/team_headshots/dmurcia_headshot.jpg"
 import sheck from "../assets/team_headshots/sheck_headshot.jpg"
 import dkim from "../assets/team_headshots/dkim_headshot.jpg"
 import ytalab from "../assets/team_headshots/ytalab_headshot.jpg"
-import TechStackBar from "../components/ui/TechStackBar";
+// import TechStackBar from "../components/ui/TechStackBar";
 
 const About: React.FC = () => {
   return (

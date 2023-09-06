@@ -1,6 +1,6 @@
 import { Bar } from 'react-chartjs-2';
 import useAppStore from '../../store/appStore';
-import { IndexItem } from '../../types';
+import { IndexItem } from '../../Types';
 
 export const ColumnIndexSizes: React.FC = () => {
   const { metricsData, toNumInKB, theme } = useAppStore();

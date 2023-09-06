@@ -1,6 +1,6 @@
 import useAppStore from '../../store/appStore';
 import { Bar } from 'react-chartjs-2';
-import { IndexItem } from '../../types';
+import { IndexItem } from '../../Types';
 
 export const TableIndexSizes: React.FC = () => {
   const { metricsData, toNumInKB, theme } = useAppStore();
