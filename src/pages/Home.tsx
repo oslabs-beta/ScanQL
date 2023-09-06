@@ -1,16 +1,27 @@
 import * as React from "react";
 import { useEffect } from "react";
 import logo from "../assets/logo-horizontal-v2.png";
+import logodark from "../assets/logo-horizontal-v2-darkmode.png";
 import screenshot1 from "../assets/screenshots/screenshot1.jpg";
 import screenshot2 from "../assets/screenshots/screenshot2.jpg";
 import screenshot3 from "../assets/screenshots/screenshot3.jpg";
-import headshotkim from "../assets/team_headshots/other_dkim.jpg"
+import headshotkim from "../assets/team_headshots/other_dkim.jpg";
 
-import { ImageIcon, LightningBoltIcon, Crosshair2Icon, GitHubLogoIcon, LinkedInLogoIcon } from '@radix-ui/react-icons'
+import {
+    FaceIcon,
+    ImageIcon,
+    SunIcon,
+    LightningBoltIcon,
+    Crosshair2Icon,
+    GitHubLogoIcon,
+    LinkedInLogoIcon,
+} from "@radix-ui/react-icons";
 
 import NavBar from "../components/layout/NavBar";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
+import Loading from "../components/ui/Loading";
+import useAppStore from "../store/appStore";
 
 import { Button } from "@radix-ui/themes";
 import Footer from "../components/layout/Footer";
@@ -18,6 +29,7 @@ import Footer from "../components/layout/Footer";
 const Home: React.FC = () => {
     const { isAuthenticated, loginWithRedirect } = useAuth0();
     const navigate = useNavigate();
+    const { theme } = useAppStore();
 
     useEffect(() => {
         if (isAuthenticated) navigate('/dashboard');
@@ -28,8 +40,13 @@ const Home: React.FC = () => {
             <div>
                 <NavBar />
                 <div className="home-logo-container">
-                    <img className="home-logo-nav" src={logo}></img>
-                    <p className="home-description-text text-2xl ml-7 text-indigo-900 text-opacity-70 font-montserrat">
+                    {theme === "light" ? (
+                        <img className="home-logo-nav" src={logo}></img>
+                    ) : (
+                        <img className="home-logo-nav" src={logodark}></img>
+                    )}
+
+                    <p className="home-description-text text-2xl ml-7 text-indigo-900 text-opacity-70 font-montserrat text-dark-mode-2">
                         Elegant data visualization for PostgresQL
                     </p>
                     <Button
@@ -41,7 +58,11 @@ const Home: React.FC = () => {
                 </div>
                 <div className="home-cards-section">
                     <div className="home-card">
-                        <LightningBoltIcon height={30} width={30} className="text-indigo-900 text-opacity-60 mt-4 "></LightningBoltIcon>
+                        <LightningBoltIcon
+                            height={30}
+                            width={30}
+                            className="text-indigo-900 text-opacity-60 mt-4 text-dark-mode"
+                        ></LightningBoltIcon>
                         <h3 className="text-white font-semibold mt-3 text-xl font-montserrat">
                             Motivation (Our Why)
                         </h3>
@@ -50,7 +71,11 @@ const Home: React.FC = () => {
                         </p>
                     </div>
                     <div className="home-card">
-                        <Crosshair2Icon height={30} width={30} className="text-indigo-900 text-opacity-60 mt-4"></Crosshair2Icon>
+                        <Crosshair2Icon
+                            height={30}
+                            width={30}
+                            className="text-indigo-900 text-opacity-60 mt-4 text-dark-mode"
+                        ></Crosshair2Icon>
                         <h3 className="text-white  font-semibold mt-5 text-xl font-montserrat">
                             Benefits & Value
                         </h3>
@@ -61,7 +86,11 @@ const Home: React.FC = () => {
                         </p>
                     </div>
                     <div className="home-card">
-                        <ImageIcon height={30} width={30} className="text-indigo-900 text-opacity-60 mt-4"></ImageIcon>
+                        <ImageIcon
+                            height={30}
+                            width={30}
+                            className="text-indigo-900 text-opacity-60 mt-4 text-dark-mode"
+                        ></ImageIcon>
                         <h3 className="text-white font-semibold mt-5 text-xl font-montserrat">
                             Continued Commitment
                         </h3>
@@ -78,7 +107,9 @@ const Home: React.FC = () => {
                             Database Overview
                         </h2>
                         <p className="mt-10 text-white">
-                            View in-depth metrics across your database on a sleek dashboard, providing a bird's eye view of your database performance.
+                            View in-depth metrics across your database on a
+                            sleek dashboard, providing a bird's eye view of your
+                            database performance.
                         </p>
                     </div>
                     <div className="home-panel-img">
@@ -94,89 +125,29 @@ const Home: React.FC = () => {
                             Entity Relationship Diagrams
                         </h2>
                         <p className="mt-10 text-white">
-                            Visualize your database tables like never before with a beautifully designed and responsive GUI.
+                            Visualize your database tables like never before
+                            with a beautifully designed and responsive GUI.
                         </p>
                     </div>
                 </div>
             </div>
             <div className="home-section1">
                 <div className="home-panel">
-                    <div>
-
-                    </div>
-                    <h2 className="mt-5 mb-10 font-semibold text-3xl text-white text-opacity-80 font-montserrat">
+                    <div></div>
+                    <h2 className="mt-5 mb-10 font-semibold text-3xl text-white  font-montserrat ">
                         Custom Queries
                     </h2>
                     <p className="mt-10 text-white ">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing
-                        elit, sed do eiusmod tempor incididunt ut labore et
-                        dolore magna aliqua.
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore
+                        magna aliqua.
                     </p>
                 </div>
                 <div className="home-panel-img">
                     <img className="home-demo-img" src={screenshot3}></img>
                 </div>
             </div>
-            <div className="home-team-section">
-                <div className="home-team-title">
-                    <h2 className="mt-10 font-semibold text-3xl text-white font-montserrat">
-                        Meet the Team
-                    </h2>
-                </div>
-                <div className="home-team-card-section">
-                    <div className="home-team-card">
-                        <img className="mt-5 rounded-full w-24" src={headshotkim}></img>
-                        <h3 className="text-indigo-900 text-opacity-70   mt-4 text-large font-montserrat">
-                            Kurt Bulau
-                        </h3>
-                        <div className="flex flex-row mt-2">
-                            <LinkedInLogoIcon width={20} height={20} className="text-indigo-900 text-opacity-70 mr-3"></LinkedInLogoIcon>
-                            <GitHubLogoIcon width={20} height={20} className="text-indigo-900 text-opacity-70"></GitHubLogoIcon>
-                        </div>
-                    </div>
-                    <div className="home-team-card">
-                        <img className="mt-5 rounded-full w-24" src={headshotkim}></img>
-                        <h3 className="text-indigo-900 text-opacity-70  mt-4 text-large font-montserrat">
-                            Sam Heck
-                        </h3>
-                        <div className="flex flex-row mt-2">
-                            <LinkedInLogoIcon width={20} height={20} className="text-indigo-900 text-opacity-70 mr-3"></LinkedInLogoIcon>
-                            <GitHubLogoIcon width={20} height={20} className="text-indigo-900 text-opacity-70"></GitHubLogoIcon>
-                        </div>
-                    </div>
-                    <div className="home-team-card">
-                        <img className="mt-5 rounded-full w-24" src={headshotkim}></img>
-                        <h3 className="text-indigo-900 text-opacity-70   mt-4 text-large font-montserrat">
-                            Daniel Kim
-                        </h3>
-                        <div className="flex flex-row mt-2">
-                            <LinkedInLogoIcon width={20} height={20} className="text-indigo-900 text-opacity-70 mr-3"></LinkedInLogoIcon>
-                            <GitHubLogoIcon width={20} height={20} className="text-indigo-900 text-opacity-70"></GitHubLogoIcon>
-                        </div>
-                    </div>
-                    <div className="home-team-card">
-                        <img className="mt-5 rounded-full w-24" src={headshotkim}></img>
-                        <h3 className="text-indigo-900 text-opacity-70   mt-4 text-large font-montserrat">
-                            Danny Murcia
-                        </h3>
-                        <div className="flex flex-row mt-2">
-                            <LinkedInLogoIcon width={20} height={20} className="text-indigo-900 text-opacity-70  mr-3"></LinkedInLogoIcon>
-                            <GitHubLogoIcon width={20} height={20} className="text-indigo-900 text-opacity-70 "></GitHubLogoIcon>
-                        </div>
 
-                    </div>
-                    <div className="home-team-card">
-                        <img className="mt-5 rounded-full w-24" src={headshotkim}></img>
-                        <h3 className="text-indigo-900 text-opacity-70  mt-4 text-large font-montserrat">
-                            Yahya Talab
-                        </h3>
-                        <div className="flex flex-row mt-2">
-                            <LinkedInLogoIcon width={20} height={20} className="text-indigo-900 text-opacity-70 mr-3"></LinkedInLogoIcon>
-                            <GitHubLogoIcon width={20} height={20} className="text-indigo-900 text-opacity-70"></GitHubLogoIcon>
-                        </div>
-                    </div>
-                </div>
-            </div>
             <Footer />
         </div>
     );

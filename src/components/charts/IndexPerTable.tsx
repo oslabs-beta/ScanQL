@@ -9,7 +9,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 
 export const IndexPerTable: React.FC = () => {
-  const { metricsData } = useAppStore();
+  const { metricsData, theme } = useAppStore();
   const tablesArray: TableInfo[] = Object.values(metricsData.databaseInfo);
   const indexData = tablesArray.map(table => {
     return {
@@ -33,7 +33,7 @@ export const IndexPerTable: React.FC = () => {
       title: {
         display: true,
         text: 'Indexes Per Table',
-        color: '#17012866',
+        color: theme === "light" ? '#17012866' : '#ffffffac',
         font: {
           size: 14 // Use absolute value for font size
         }
@@ -80,7 +80,7 @@ export const IndexPerTable: React.FC = () => {
   };
   //   console.log(`in doughnut chart component: ${indexData[0]}`)
   return (
-    <div className="grid-span3">
+    <div className="grid-span3 dashboard-card">
       <Bar data={data} options={options} />
     </div>
   );

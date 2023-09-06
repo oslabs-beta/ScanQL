@@ -3,7 +3,7 @@ import useAppStore from '../../store/appStore';
 
 
 export const MeanPlanningExecutionTimes: React.FC = () => {
-  const { customQueryData } = useAppStore();
+  const { customQueryData, theme } = useAppStore();
 
   const options = {
     responsive: true,
@@ -19,26 +19,35 @@ export const MeanPlanningExecutionTimes: React.FC = () => {
         position: 'top' as const, // Position title at the top
         display: true,
         text: 'Mean Exec & Planning Times (Among All 10 Queries)',
-        color: '#17012866',
+        color: theme === "light" ? '#17012866' : '#ffffffac',
         font: {
           size: 10
         },
         
       },
-      legend: {
-        display: true,
-        position: 'bottom' as const,
-        labels:{
-          font: {
-            size: 10, // Adjust the percentage value as needed
-          },
-        },
-      },
+    //   legend: {
+    //     display: true,
+    //     position: 'bottom' as const,
+    //     labels:{
+    //       font: {
+    //         size: '10%', // Adjust the percentage value as needed
+    //       },
+    //     },
+    //   },
     },
     scales: {
       y: {
         beginAtZero: true,
+        grid: {
+            color: theme === "light" ? '#17012813' : '#ffffff1a'
+        }
+      },
+      x: {
+        grid: {
+            color: theme === "light" ? '#17012813' : '#ffffff1a'
+        }
       }
+   
     }
   };
   // const errorBarsData = tablesArray.map(object => ({
@@ -56,9 +65,9 @@ export const MeanPlanningExecutionTimes: React.FC = () => {
           return time * 1000;
         }),
         backgroundColor: [
-          'rgba(190, 99, 255, 0.3)',
-          'rgba(54, 162, 235, 0.3)',
-          'rgba(235, 86, 255, 0.3)',
+          theme === 'light'? 'rgba(190, 99, 255, 0.3)' : 'rgba(190, 99, 255, 0.5)',
+          theme === 'light' ? 'rgba(54, 162, 235, 0.3)' : 'rgba(54, 163, 235, 0.5) ',
+          theme === 'light' ? 'rgba(235, 86, 255, 0.3)' : 'rgba(235, 86, 255, 0.5)',
         ], 
         scaleFontColor: '#FFFFFF',
       },
@@ -76,7 +85,7 @@ export const MeanPlanningExecutionTimes: React.FC = () => {
     ],
   };
   return (
-    <div className='h-full w-full'>
+    <div className='h-full w-full '>
       <Bar data={data} options={options} />
     </div>
   );

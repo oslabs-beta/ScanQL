@@ -9,7 +9,7 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 
 export const RowsPerTable: React.FC = () => {
-  const { metricsData, openModal } = useAppStore();
+  const { metricsData, openModal, theme } = useAppStore();
   const tablesArray: TableInfo[] = Object.values(metricsData.databaseInfo);
   const rows = tablesArray.map(table => {
     return {
@@ -31,7 +31,7 @@ export const RowsPerTable: React.FC = () => {
       title: {
         display: true,
         text: 'Rows Per Table',
-        color: '#17012866',
+        color: theme === "light" ? '#17012866' : '#ffffffac',
         font: {
           size: 14
         }
@@ -67,7 +67,7 @@ export const RowsPerTable: React.FC = () => {
     ]
   };
   return (
-    <div onClick={openModal} className="dashboard-card">
+    <div onClick={openModal} className="dashboard-card dashboard-card-dark">
       <Pie data={data} options={options} />
     </div>
   );

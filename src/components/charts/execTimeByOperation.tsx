@@ -28,7 +28,7 @@ interface Table {
 
 
 export const ExecTimesByOperation: React.FC = () => {
-  const { metricsData } = useAppStore();
+  const { metricsData, theme } = useAppStore();
   console.log(metricsData);
   const tablesArray: Table[] = Object.values(metricsData.dbHistMetrics.execTimesByOperation);
 
@@ -51,7 +51,7 @@ export const ExecTimesByOperation: React.FC = () => {
         // position: 'top' as const, // Position title at the top
         display: true,
         text: 'Mean/Median Exec Times by Operations (All Queries)',
-        color: '#17012866',
+        color: theme === "light" ? '#17012866' : '#ffffffac',
         font: {
           size: 10
         },
@@ -108,7 +108,7 @@ export const ExecTimesByOperation: React.FC = () => {
     ],
   };
   return (
-    <div className="dashboard-card md-card">
+    <div className="dashboard-card md-card dashboard-card-dark">
       <Bar data={data} options={options} />
     </div>
   );

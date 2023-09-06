@@ -86,6 +86,8 @@ export const QueryTimes: React.FC<BarGraphProps> = ({ table, tableName }) => {
   // const insertExecutionTime = table.INSERT.plan.rows[0]['QUERY PLAN'][0]['Execution Time'];
   // const insertPlanningTime = table.INSERT.plan.rows[0]['QUERY PLAN'][0]['Planning Time'];
 
+const {theme} = useAppStore();
+
   const executionTimes = [
     // table.INSERT.plan.rows[0]['QUERY PLAN'][0]['Execution Time'] * 1000,
     table.SELECT.plan.rows[0]['QUERY PLAN'][0]['Execution Time'] * 1000,
@@ -113,7 +115,7 @@ export const QueryTimes: React.FC<BarGraphProps> = ({ table, tableName }) => {
       title: {
         display: true,
         text: `Planning vs Execution Times (ms) - ${tableName}`,
-        color: '#17012866',
+        color: theme === "light" ? '#17012866' : '#ffffffac',
         font: {
           size: 15
         }
@@ -189,7 +191,7 @@ export const QueryTimes: React.FC<BarGraphProps> = ({ table, tableName }) => {
     ],
   };
   return (
-    <div className="dashboard-card md-card">
+    <div className="dashboard-card md-card dashboard-card-dark">
       <Bar data={data} options={options} />
     </div>
   );
