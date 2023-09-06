@@ -3,118 +3,106 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-    background: #0f0f0f;
-}
 
-
-/* :root {
-    --background-color-dark: #0d0d0d;
-}
-
-@media (prefers-color-scheme: dark) {
-    body {
-        background-color: var(--background-color-dark);
-    }
-} */
-
-/* @media (prefers-color-scheme: dark) {
-    :root {
-      --foreground-rgb: 255, 255, 255;
-      --background-start-rgb: 40, 10, 70;
-      --background-end-rgb: 0, 0, 0;
-    }
-  } */
-
-/* :root {
-    --background-dark: #0d0d0d;
-    --background-light: #f0f0f0;
-} */
-
-
-body {
-    margin: 0;
-    overflow: hidden;
-    background: #0d0d0d;
+ :root {
+    --background-color-dark: #161616;
+    --background-color-light: #f3f2f2;
 }
 
 
 body{
-    height: 100vh;
-    width: 100vw; 
     position: relative;
-    background: radial-gradient(
+    background-attachment: fixed;
+    background-color: #f4f2f2;
+    background-image: radial-gradient(
         farthest-side at bottom left,
-        rgba(54, 6, 71, 0.425),
+        rgba(54, 6, 71, 0.451),
         transparent
-    ),
-    radial-gradient(
-        farthest-corner at bottom right,
-        rgba(25, 14, 95, 0.395),
-        transparent 
-    );
-    animation: gradient 15s ease infinite;
-}
-
-
-body:before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    background: radial-gradient(
-            farthest-side at bottom left,
-            rgba(54, 6, 71, 0.425),
-            transparent
-        );
-    opacity: 0;
-    animation: fadeInOut 5s ease infinite;
-} 
-
-body:after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    background: radial-gradient(
+        ),
+        radial-gradient(
             farthest-corner at bottom right,
-            rgba(25, 14, 95, 0.395),
+            rgba(25, 14, 95, 0.451),
             transparent 
-        );
-    opacity: 0;
-    animation: fadeInOut 5s ease infinite 7.5s;
-} 
+            ); 
+            animation: gradient 15s ease infinite;
+        }
 
-@keyframes fadeInOut {
+        /* @media (prefers-color-scheme: dark) {
+            body {
+                background-color: var(--background-color-dark);
+                
+            }
+        } 
+        
+        @media (prefers-color-scheme: light) {
+            body {
+                background-color: var(--background-color-light);
+            }
+        }  */
+        
+        
+        body:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            /* width: 100%;
+            height: 100%; 
+            z-index: -1;
+            background: radial-gradient(
+                farthest-side at bottom left,
+                rgba(54, 6, 71, 0.425),
+                transparent
+                );
+                opacity: 0;
+                animation: fadeInOut 5s ease infinite;
+            } 
+            
+            /* body:after {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                /* width: 100%;
+                height: 100%; */
+                z-index: -1;
+                background: radial-gradient(
+                    farthest-corner at bottom right,
+                    rgba(25, 14, 95, 0.395),
+                    transparent 
+                    );
+                    opacity: 0;
+                    animation: fadeInOut 5s ease infinite;
+                }  
+                 
 
-    0%,
-    100% {
-        opacity: 0;
-    }
 
-    50% {
-        opacity: 1;
-    }
-}
+                @keyframes fadeInOut {
+                    
+                    0%,
+                    100% {
+                        opacity: 0;
+                    }
+                    
+                    50% {
+                        opacity: .2;
+                    }
+                }
+                
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+                a {
+                    font-weight: 500;
+                    color: #646cff;
+                    text-decoration: inherit;
+                }
+                a:hover {
+                    color: #535bf2;
+                }
+                
+                h1 {
+                    font-size: 3.2em;
+                    line-height: 1.1;
 }
 
 button {
@@ -135,3 +123,7 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
+
+
+
+

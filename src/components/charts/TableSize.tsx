@@ -9,22 +9,30 @@ interface Table {
 
 export const TableSize: React.FC = () => {
   const { metricsData, toNumInKB } = useAppStore();
+  console.log('metrics data',metricsData)
   const tablesArray: Table[] = Object.values(metricsData.dbSizeMetrics.tableSizes);
 
   const options = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
-      legend: {
-        position: 'top' as const,
-      },
       title: {
         display: true,
-        text: 'Table Size',
+        text: 'Table Sizes (kbs) ',
         color: '#17012866',
         font: {
           size: 14
         }
       },
+      legend: {
+        position: 'bottom' as const,
+        labels:{
+          font: {
+            size: '10%', // Adjust the percentage value as needed
+          },
+        },
+      },
+      
     },
   };
     
@@ -46,8 +54,10 @@ export const TableSize: React.FC = () => {
     ],
   };
   return (
+    <div className="grid-span1">
     <div className="dashboard-card md-card">
       <Bar data={data} options={options} />
+    </div>
     </div>
   );
 }

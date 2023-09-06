@@ -13,20 +13,22 @@ export const TableIndexSizes: React.FC = () => {
       total += toNumInKB(table[key]);
     }
     return total;
-  })
+  });
 
   const options = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
+        display: false,
         position: 'top' as const,
       },
       title: {
         display: true,
-        text: 'Index Size by Table',
+        text: 'Index Size by Table (kbs)',
         color: '#17012866',
         font: {
-          size: 14
+          size: '14'
         }
       },
     },
@@ -35,17 +37,17 @@ export const TableIndexSizes: React.FC = () => {
   const data = {
     labels: metricsData.dbSizeMetrics.tableNames,
     datasets: [
-          {
-            label: 'Total Index Size (kb)',
-            data: indexSizeByTableArray,
-            backgroundColor: 'rgba(107, 99, 255, 0.5)',
-            scaleFontColor: "#FFFFFF",
-          },
-        ]
+      {
+        label: 'Total Index Size (kbs)',
+        data: indexSizeByTableArray,
+        backgroundColor: 'rgba(107, 99, 255, 0.5)',
+        scaleFontColor: '#FFFFFF',
+      },
+    ]
   };
   return (
     <div className="dashboard-card md-card">
       <Bar data={data} options={options} />
     </div>
   );
-}
+};

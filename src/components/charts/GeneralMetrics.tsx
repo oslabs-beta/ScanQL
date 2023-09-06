@@ -11,14 +11,15 @@ export const GeneralMetrics: React.FC = () => {
       tableName: table.tableName,
       numberOfForeignKeys: table.numberOfForeignKeys,
       numberOfFields: table.numberOfFields,
+      numberOfPrimaryKeys:table.numberOfPrimaryKeys
     }
   })
   // total Foreign Keys
   const totalForeignKeys = rows.reduce((sum, table) => sum + table.numberOfForeignKeys, 0);
-
+  const totalPrimaryKeys = rows.reduce((sum, table) => sum + table.numberOfPrimaryKeys, 0);
   // average Foreign Keys per table
-  const averageForeignKeys = totalForeignKeys / rows.length;
-
+  const averageForeignKeys = (totalForeignKeys / rows.length).toFixed(2);
+  const averagePrimaryKeys = (totalPrimaryKeys / rows.length).toFixed(2);
   // console.log(`Total foreign keys: ${totalForeignKeys}`)
   // console.log(`Average number of foreign keys: ${averageForeignKeys}`)
 
@@ -40,36 +41,50 @@ export const GeneralMetrics: React.FC = () => {
     console.log('activeConnections', activeConnections)
   
     console.log('metricsData', metricsData);
+  
+  
+  const tableTags: element[] = tablesArray.map(table => {
+    return( 
+      <p className= "general-metrics-numbers"> {`${table.tableName}: ${table.numberOfFields}`}</p>
+    )
+  })
 
+  
 
   return (
 
     <>
-      <div className="dashboard-card">
-        <div className="text-card">
-          <div className="text-sm font-semibold dash-card-titles">Total Database Size (kb)</div>
-          <p className= "general-metrics-numbers">{databaseSizeTotal}</p>
+      <div className="flex flex-col small-card-35 justify-between">
+        <div className="dashboard-card small-card">
+          <div className="text-card-custom">
+            <div className="text-sm font-semibold dash-card-titles">Total Number Of Tables</div>
+            <p className="general-metrics-numbers">{tablesArray.length}</p>
           </div>
-      </div>
-      
-      <div className="dashboard-card">
-        <div className="text-card">
-          <div className="text-sm font-semibold dash-card-titles">Total Number Of Fields</div>
-          <p className="general-metrics-numbers">{totalNumberOfFields}</p>
+        </div>
+        <div className="dashboard-card small-card">
+          <div className="text-card-custom">
+            <div className="text-sm font-semibold dash-card-titles">Total Number Of Fields</div>
+            <p className="general-metrics-numbers">{totalNumberOfFields}</p>
+          </div>
         </div>
       </div>
-      <div className="dashboard-card">
-        <div className="text-card">
-          <div className="text-sm font-semibold dash-card-titles">Active Connections</div>
-          <p className="general-metrics-numbers">{activeConnections}</p>
+      <div className="flex flex-col small-card-35 justify-between">
+      <div className="dashboard-card small-card">
+        <div className="text-card-custom">
+          <div className="text-sm font-semibold dash-card-titles"> Avg. Primary Keys Per Table</div>
+          <p className="general-metrics-numbers">{averagePrimaryKeys}</p>
         </div>
       </div>
-      <div className="dashboard-card">
-        <div className="text-card">
-          <div className="text-sm font-semibold dash-card-titles">Average Foreign Keys Per Table</div>
+      <div className="dashboard-card small-card h-2/4">
+        <div className="text-card-custom">
+        <div className="text-sm font-semibold dash-card-titles">Avg. Foreign Keys Per Table</div>
           <p className="general-metrics-numbers">{averageForeignKeys}</p>
         </div>
       </div>
+      </div>
+
     </>
   );
 }
+{/* <div className="text-sm font-semibold dash-card-titles">Avg. Foreign Keys Per Table</div>
+          <p className="general-metrics-numbers">{averageForeignKeys}</p> */}

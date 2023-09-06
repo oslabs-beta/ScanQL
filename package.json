@@ -10,11 +10,11 @@
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "start": "nodemon --watch './**/*.ts' --exec ts-node-esm ./server/server.ts"
+    "start": "nodemon --watch './**/*.ts' --exec ts-node-esm ./server/server.ts",
+    "test": "vitest --coverage"
   },
   "dependencies": {
     "@auth0/auth0-react": "^2.2.0",
-    "@faker-js/faker": "^8.0.2",
     "@radix-ui/react-dialog": "^1.0.4",
     "@radix-ui/react-dropdown-menu": "^2.0.5",
     "@radix-ui/react-form": "^0.0.3",
@@ -23,9 +23,10 @@
     "@radix-ui/react-separator": "^1.0.3",
     "@radix-ui/react-switch": "^1.0.3",
     "@radix-ui/themes": "^1.0.0",
+    "@tisoap/react-flow-smart-edge": "^3.0.0",
     "@types/express": "^4.17.17",
     "chart.js": "^4.3.3",
-    "concurrently": "^8.2.1",
+    "esbuild": "^0.19.2",
     "express": "^4.18.2",
     "flow": "^0.2.3",
     "nodemon": "^3.0.1",
@@ -33,12 +34,15 @@
     "react": "^18.2.0",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
+    "react-error-boundary": "^4.0.11",
     "react-router-dom": "^6.15.0",
     "reactflow": "^11.8.2",
     "zustand": "^4.4.1"
   },
   "devDependencies": {
-    "@faker-js/faker": "^8.0.2",
+    "@testing-library/jest-dom": "^6.1.2",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.4.3",
     "@types/node": "^20.5.0",
     "@types/pg": "^8.10.2",
     "@types/react": "^18.2.15",
@@ -46,15 +50,19 @@
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
     "@vitejs/plugin-react-swc": "^3.3.2",
+    "@vitest/coverage-v8": "^0.34.3",
     "autoprefixer": "^10.4.15",
+    "concurrently": "^8.2.1",
     "eslint": "^8.45.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.3",
+    "jsdom": "^22.1.0",
     "postcss": "^8.4.28",
     "prettier": "3.0.2",
     "tailwindcss": "^3.3.3",
     "ts-node": "^10.9.1",
     "typescript": "^5.0.2",
-    "vite": "^4.4.5"
+    "vite": "^4.4.5",
+    "vitest": "^0.34.3"
   }
 }

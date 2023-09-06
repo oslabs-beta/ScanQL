@@ -23,6 +23,15 @@ export default {
   ],
   theme: {
     extend: {
+        fontFamily: {
+            'cabin': ['Cabin', 'sans-serif'],
+            'gruppo': ['Gruppo', 'sans-serif'],
+            // 'montserrat': ['Montserrat', 'sans-serif'],
+            'oswald': ['Oswald', 'sans-serif'],
+            'montserrat': ['Nunito Sans', 'sans-serif']
+            // 'montserrat': ['Quicksand', 'sans-serif'],
+            // 'montserrat': ['M PLUS 1p', 'sans-serif']
+        },
       colors: {
         ...blackA,
         ...mauve,

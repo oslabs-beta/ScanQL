@@ -1,9 +1,10 @@
+import React from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { useNavigate } from 'react-router-dom';
-import { TableSize } from '../charts/TableSize'
+import { TableSize } from '../charts/TableSize';
 import { TableIndexSizes } from '../charts/TableIndexSizes';
-import { RowsPerTable } from '../charts/RowsPerTable'
-import { IndexPerTable } from '../charts/IndexPerTable'
+import { RowsPerTable } from '../charts/RowsPerTable';
+import { IndexPerTable } from '../charts/IndexPerTable';
 import { GeneralMetrics } from '../charts/GeneralMetrics';
 import { QueryTimes } from '../charts/QueryTimes';
 import { useEffect } from 'react';
@@ -21,6 +22,12 @@ import {
 } from 'chart.js';
 import { ColumnIndexSizes } from '../charts/ColumnIndexSizes';
 import { MetricsSeparator } from '../ui/MetricsSeparator';
+import { ExecTimesByOperation } from '../charts/execTimeByOperation';
+import { SlowestQueriesTop10 } from '../charts/SlowestQueriesTop10';
+import { SlowestCommonQueriesTop10 } from '../charts/SlowestCommonQueriesTop10';
+import { UpdateIcon } from '@radix-ui/react-icons';
+import { Button } from '@radix-ui/themes';
+import { DBSizeCards } from '../charts/DbSizeCards';
 
 ChartJS.register(
   CategoryScale,
@@ -35,36 +42,70 @@ ChartJS.register(
 
 const MetricsView: React.FC = () => {
   const navigate = useNavigate();
-  const { user, isAuthenticated } = useAuth0();
+  const { isAuthenticated } = useAuth0();
 
   useEffect(() => {
     if (!isAuthenticated) navigate('/');
-  }, [isAuthenticated])
+  }, [isAuthenticated]);
 
-  const { metricsData } = useAppStore();
+  const { metricsData, uri, connectToDatabase, dbName } = useAppStore();
 
-  const executionTableNames: string[] = Object.keys(metricsData.executionPlans);
-  const executionTimes = Object.values(metricsData.executionPlans).map((table, i: number) => {
-    // grab the correct data and pass as props to each component
-    return <QueryTimes key={i} table={table} tableName={executionTableNames[i]} />
+  const handleClick = (): void => {
+    connectToDatabase(uri, dbName);
+  };
 
-  })
+  const executionTableNames: string[] = Object.keys(
+    metricsData.executionPlans
+  );
+
+  const executionTimes = Object.values(metricsData.executionPlans).map(
+    (table, i: number) => {
+      // grab the correct data and pass as props to each component
+      if(table.UPDATE.plan){
+        return (
+          <QueryTimes
+            key={i}
+            table={table}
+            tableName={executionTableNames[i]}
+          />
+        );
+      }
+      return null;
+    }
+  );
+
 
   return (
     <>
-    {/* <h3 className='span-all'>General Metrics:</h3> */}
-      <MetricsSeparator title={'General Metrics'}/>
+      <div className="span-all2">
+        <MetricsSeparator title={'Database Overview'} />
+        <Button>
+          <UpdateIcon
+            onClick={() => {
+              handleClick();
+            }} 
+            className="text-white " 
+            width={25} 
+            height={25}
+          />
+        </Button>
+      </div>
+      <GeneralMetrics />
       <RowsPerTable />
       <IndexPerTable />
-      <GeneralMetrics />
-      <MetricsSeparator title={'Query Execution Time'}/>
-      {executionTimes}
       <MetricsSeparator title={'Database Size'}/>
       <TableSize />
       <TableIndexSizes />
       <ColumnIndexSizes />
+      <DBSizeCards/>
+      <MetricsSeparator title={'Past Query Performance'}/>
+      <ExecTimesByOperation/>
+      <SlowestQueriesTop10/>
+      <SlowestCommonQueriesTop10/>
+      <MetricsSeparator title={'Query Execution Time'}/>
+      {executionTimes}
     </>
-  )
-}
+  );
+};
 
 export default MetricsView;
