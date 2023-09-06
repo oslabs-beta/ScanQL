@@ -19,7 +19,8 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     }}
   >
     <React.StrictMode>
-      {/* <Theme appearance={theme}> */}
+      {/* <Theme 
+      appearance={theme}> */}
       <ErrorBoundary FallbackComponent={AppFallback} >
         <App />
       </ErrorBoundary>

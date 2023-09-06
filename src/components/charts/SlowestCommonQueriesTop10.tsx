@@ -63,7 +63,7 @@ const splitByLength: Array = (inputStr:string, minLength:number, maxLength:numbe
 
 
 export const SlowestCommonQueriesTop10: React.FC = () => {
-  const { metricsData } = useAppStore();
+  const { metricsData, theme } = useAppStore();
   console.log(metricsData);
   // const queryObject: mainArray = metricsData.dbHistMetrics.slowestCommonQueries;
 
@@ -139,7 +139,7 @@ export const SlowestCommonQueriesTop10: React.FC = () => {
       // position: 'top' as const, // Position title at the top
         display: true,
         text: 'Top 10 Slowest Common Executed Queries Ordered By Exec. Count',
-        color: '#17012866',
+        color: theme === "light" ? '#17012866' : '#ffffffac',
         font: {
           size: '15%'
         }, 
@@ -180,7 +180,7 @@ export const SlowestCommonQueriesTop10: React.FC = () => {
     ],
   };
   return (
-    <div className="dashboard-card md-card">
+    <div className="dashboard-card md-card dashboard-card-dark">
       <Bar data={data} options={options} />
     </div>
   );

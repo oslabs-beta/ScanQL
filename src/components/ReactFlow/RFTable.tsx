@@ -30,7 +30,7 @@ export default function RFTable (nodeData: any) {
       <>
         <div>
           <div>
-            <label className = "text-xl  text-indigo-900 text-opacity-70">
+            <label className = "erd-titles text-xl  text-indigo-900 text-opacity-70">
               {nodeData.data.table[0]}
             </label>
           </div>
