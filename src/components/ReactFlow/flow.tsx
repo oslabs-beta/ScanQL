@@ -27,7 +27,7 @@ export default function Flow(): JSX.Element {
   const { edges, setEdges, nodes, setNodes, onNodesChange, onEdgesChange } =
     useFlowStore((state) => state);
 
-  const { metricsData } = useAppStore();
+  const { metricsData, theme } = useAppStore();
   const masterData = metricsData.erDiagram;
   const initialData = createNodes(masterData);
   const initialEdges = createEdges(masterData);
@@ -54,7 +54,7 @@ export default function Flow(): JSX.Element {
           proOptions={proOptions}>
           {/* <MiniMap /> */}
           <Background />
-          <Controls />
+          <Controls style={{background: theme === 'dark' ?  'rgb(255,255,255,0.3)' : undefined }}/>
         </ReactFlow>
       </div>
   );
