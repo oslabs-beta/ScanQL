@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 import { Bar} from 'react-chartjs-2';
 // import { HorizontalBar } from 'react-chartjs-2';
+=======
+import { Bar } from 'react-chartjs-2';
+>>>>>>> dev
 import useAppStore from '../../store/appStore';
 
 // type ExecTimeByOperation = {
@@ -65,10 +69,6 @@ const splitByLength: any = (inputStr:string, minLength:number, maxLength:number)
 export const SlowestCommonQueriesTop10: React.FC = () => {
   const { metricsData, theme } = useAppStore();
   console.log(metricsData);
-  // const queryObject: mainArray = metricsData.dbHistMetrics.slowestCommonQueries;
-
-  //CREATING the object for MinMax 
-  // const m; 
 
   const shortLabelsArr : string[] = [];
   const longLabelsArr : string[] = [];
@@ -76,7 +76,6 @@ export const SlowestCommonQueriesTop10: React.FC = () => {
   const medianArr : number[] = [];
   const countArr : number[] = [];
 
-  console.log('this is the common top 10', metricsData.dbHistMetrics.slowestCommonQueries);
   let count = 0;
   for (const query in metricsData.dbHistMetrics.slowestCommonQueries) {
     if (count >= 10) break; // Limit to top 10
@@ -91,6 +90,7 @@ export const SlowestCommonQueriesTop10: React.FC = () => {
   // const footer = (tooltipItems) => {
   //   let sum = 0;
   
+<<<<<<< HEAD
   //   tooltipItems.forEach(function(tooltipItem) {
   //     sum += 1;
   //     // sum += tooltipItem.parsed.y;
@@ -99,9 +99,18 @@ export const SlowestCommonQueriesTop10: React.FC = () => {
   // };
   // console.log('labelsarr, means arr, medianarr', shortLabelsArr, meanArr, medianArr);
   const options: any = {
+=======
+    tooltipItems.forEach(function(tooltipItem) {
+      sum += 1;
+      // sum += tooltipItem.parsed.y;
+    });
+    return 'Sum: ' + sum;
+  };
+  const options = {
+>>>>>>> dev
     indexAxis: 'y',
     responsive: true,
-    maintainAspectRatio: false, // This will allow the chart to stretch to fill its container
+    maintainAspectRatio: false,
   
     plugins: {
       tooltip: {
@@ -141,7 +150,11 @@ export const SlowestCommonQueriesTop10: React.FC = () => {
         text: 'Top 10 Slowest Common Executed Queries Ordered By Exec. Count',
         color: theme === "light" ? '#17012866' : '#ffffffac',
         font: {
+<<<<<<< HEAD
           size: 15
+=======
+          size: 14
+>>>>>>> dev
         }, 
       },
       legend: {
@@ -149,7 +162,11 @@ export const SlowestCommonQueriesTop10: React.FC = () => {
         position: 'bottom' as const,
         labels:{
           font: {
+<<<<<<< HEAD
             size: 10, // Adjust the percentage value as needed
+=======
+            size: 12
+>>>>>>> dev
           },
         },
       },

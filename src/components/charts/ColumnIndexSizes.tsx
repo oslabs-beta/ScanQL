@@ -19,6 +19,7 @@ export const ColumnIndexSizes: React.FC = () => {
   });
 
   const options = {
+    indexAxis: 'y',
     responsive: true,
     maintainAspectRatio: false,
     layout: {
@@ -32,10 +33,14 @@ export const ColumnIndexSizes: React.FC = () => {
     plugins: {
       title: {
         display: true,
-        text: 'Index Size by Column (kbs)',
+        text: 'Index Size by Column',
         color: theme === "light" ? '#17012866' : '#ffffffac',
         font: {
+<<<<<<< HEAD
           size: 10
+=======
+          size: 14
+>>>>>>> dev
         },
         padding: {
           top: 10,
@@ -43,11 +48,15 @@ export const ColumnIndexSizes: React.FC = () => {
         }
       },
       legend: {
-        display: false,
+        display: true,
         position: 'bottom' as const,
         labels: {
           font: {
+<<<<<<< HEAD
             size: 10,
+=======
+            size: 12,
+>>>>>>> dev
           },
           boxWidth: 10,
           padding: 10
@@ -62,6 +71,7 @@ export const ColumnIndexSizes: React.FC = () => {
           autoSkip: false
         }
       },
+<<<<<<< HEAD
       x: {
         ticks: {
           maxRotation: 90, // Set the maximum rotation angle to 90
@@ -71,6 +81,8 @@ export const ColumnIndexSizes: React.FC = () => {
           },
         }
       }
+=======
+>>>>>>> dev
     }
   };
     
@@ -86,7 +98,7 @@ export const ColumnIndexSizes: React.FC = () => {
     ]
   };
   return (
-    <div className="dashboard-card md-card dashboard-card-dark">
+    <div className="dashboard-card db-size-charts dashboard-card-dark">
       <Bar data={data} options={options} />
     </div>
   );

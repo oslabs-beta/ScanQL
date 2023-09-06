@@ -45,13 +45,12 @@ export const DBSizeCards: React.FC = () => {
   return (
 
     <>
-    <div className="grid-span05">
-      <div className="dashboard-card-dbsize">
+
+      <div className="dashboard-card db-size-card">
         <div className="text-card-dbsize">
           <div className="text-sm font-semibold dash-card-titles">Database Size (kbs)</div>
           <p className= "general-metrics-numbers">{databaseSizeTotal}</p>
           </div>
-      </div>
       </div>
     </>
   );

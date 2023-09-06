@@ -10,8 +10,12 @@ interface schemaControllers {
 }
 //
 const dbERDcontroller: schemaControllers = {
+<<<<<<< HEAD
   getSchemaPostgreSQL: async (_req, res, next) => {
     console.log('in the ERD controller')
+=======
+  getSchemaPostgreSQL: async (req, res, next) => {
+>>>>>>> dev
     try {
       const pg = res.locals.dbConnection;
       // Get all relationships between all tables
@@ -53,7 +57,6 @@ const dbERDcontroller: schemaControllers = {
 
       ORDER BY table_name, ordinal_position;`;
       const schema = await pg.query(query, [currentSchema]);
-      // console.log('SCHEMA', schema.rows);
 
       // Initialize array to hold returned data
       const erDiagram: Record<string, typeof tableObj> = {};

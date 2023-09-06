@@ -23,27 +23,29 @@ export const IndexPerTable: React.FC = () => {
   const options: ChartOptions = {
     indexAxis: "y",
     responsive: true,
-    maintainAspectRatio: false, // This will allow the chart to stretch to fill its container
+    maintainAspectRatio: false,
     layout: {
       padding: 0
     },
     plugins: {
-      
-      // cutout: '100%', // Adjust this value to change the thickness of the doughnut ring
       title: {
         display: true,
         text: 'Indexes Per Table',
         color: theme === "light" ? '#17012866' : '#ffffffac',
         font: {
-          size: 14 // Use absolute value for font size
+          size: 14
         }
       },
       legend: {
-        display:false,
+        display: true,
         position: 'bottom' as const,
         labels:{
           font: {
+<<<<<<< HEAD
             size: 5, // Adjust the percentage value as needed
+=======
+            size: 12
+>>>>>>> dev
           },
         },
       },
@@ -54,7 +56,7 @@ export const IndexPerTable: React.FC = () => {
     labels: indexData.map(table => table.tableName),
     datasets: [
       {
-        label: 'Indexes Per Table',
+        label: 'Number of Indexes',
         data: indexData.map(table => table.numberOfIndexes),
         backgroundColor: 'rgba(53, 162, 235, 0.5)',
         scaleFontColor: '#FFFFFF',
@@ -78,9 +80,8 @@ export const IndexPerTable: React.FC = () => {
       }
     ]
   };
-  //   console.log(`in doughnut chart component: ${indexData[0]}`)
   return (
-    <div className="grid-span3 dashboard-card">
+    <div className="dashboard-card md-card">
       <Bar data={data} options={options} />
     </div>
   );

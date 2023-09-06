@@ -7,8 +7,7 @@ export const TableIndexSizes: React.FC = () => {
   const indexesArray: {}[] = Object.values(metricsData.dbSizeMetrics.indexSizesByTable);
   const indexSizeByTableArray: number[] = indexesArray.map((table: IndexItem)  => {
     let total = 0;
-    // loop through object and at each iteration run the value through toNumInKB function and add it to total
-    // after loop return total
+
     for (const key in table) {
       total += toNumInKB(table[key]);
     }
@@ -16,16 +15,22 @@ export const TableIndexSizes: React.FC = () => {
   });
 
   const options = {
+    indexAxis: 'y',
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
       legend: {
-        display: false,
-        position: 'top' as const,
+        display: true,
+        position: 'bottom' as const,
+        labels: {
+          font: {
+            size: 12
+          }
+        }
       },
       title: {
         display: true,
-        text: 'Index Size by Table (kbs)',
+        text: 'Index Size by Table',
         color: theme === "light" ? '#17012866' : '#ffffffac',
         font: {
           size: 14
@@ -38,7 +43,7 @@ export const TableIndexSizes: React.FC = () => {
     labels: metricsData.dbSizeMetrics.tableNames,
     datasets: [
       {
-        label: 'Total Index Size (kbs)',
+        label: 'Index Size (kbs)',
         data: indexSizeByTableArray,
         backgroundColor: 'rgba(107, 99, 255, 0.5)',
         scaleFontColor: '#FFFFFF',
@@ -46,7 +51,7 @@ export const TableIndexSizes: React.FC = () => {
     ]
   };
   return (
-    <div className="dashboard-card md-card dashboard-card-dark">
+    <div className="dashboard-card db-size-charts dashboard-card-dark">
       <Bar data={data} options={options} />
     </div>
   );

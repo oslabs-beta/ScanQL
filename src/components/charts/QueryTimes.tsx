@@ -1,5 +1,6 @@
 import { Bar } from 'react-chartjs-2';
 import useAppStore from '../../store/appStore';
+<<<<<<< HEAD
 
 // export const options = {
 //   responsive: true,
@@ -76,6 +77,8 @@ import useAppStore from '../../store/appStore';
 //     },
 //   ],
 // };
+=======
+>>>>>>> dev
 
 interface BarGraphProps {
   table: any;
@@ -83,20 +86,14 @@ interface BarGraphProps {
 }
 
 export const QueryTimes: React.FC<BarGraphProps> = ({ table, tableName }) => {
-  //  Insert Execution Metrics
-  // const insertExecutionTime = table.INSERT.plan.rows[0]['QUERY PLAN'][0]['Execution Time'];
-  // const insertPlanningTime = table.INSERT.plan.rows[0]['QUERY PLAN'][0]['Planning Time'];
-
 const {theme} = useAppStore();
 
   const executionTimes = [
-    // table.INSERT.plan.rows[0]['QUERY PLAN'][0]['Execution Time'] * 1000,
     table.SELECT.plan.rows[0]['QUERY PLAN'][0]['Execution Time'] * 1000,
     table.UPDATE.plan.rows[0]['QUERY PLAN'][0]['Execution Time'] * 1000
   ];
 
   const planningTimes = [
-    // table.INSERT.plan.rows[0]['QUERY PLAN'][0]['Planning Time'] * 1000,
     table.SELECT.plan.rows[0]['QUERY PLAN'][0]['Planning Time'] * 1000,
     table.UPDATE.plan.rows[0]['QUERY PLAN'][0]['Planning Time'] * 1000
   ];
@@ -104,10 +101,7 @@ const {theme} = useAppStore();
   const totalTimes = [
     executionTimes[0] + planningTimes[0],
     executionTimes[1] + planningTimes[1],
-    // executionTimes[2] + planningTimes[2]
   ];
-
-  // console.log(`Execution Times: ${executionTimes}, Planning Times: ${planningTimes}`)
 
   const options = {
     responsive: true,
@@ -115,10 +109,14 @@ const {theme} = useAppStore();
     plugins: {
       title: {
         display: true,
-        text: `Planning vs Execution Times (ms) - ${tableName}`,
+        text: `Planning vs Execution Times - ${tableName}`,
         color: theme === "light" ? '#17012866' : '#ffffffac',
         font: {
+<<<<<<< HEAD
           size: 15
+=======
+          size: 14
+>>>>>>> dev
         }
       },
       legend: {
@@ -126,7 +124,11 @@ const {theme} = useAppStore();
         position: 'bottom' as const,
         labels:{
           font: {
+<<<<<<< HEAD
             size: 10
+=======
+            size: 12
+>>>>>>> dev
           }
         }
       },
