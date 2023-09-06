@@ -12,6 +12,7 @@ import CustomQueryView from "../components/layout/CustomQueryView";
 import { ErrorBoundary } from 'react-error-boundary';
 import { AppFallback } from "../components/Errors/AppFallback";
 
+
 const Dashboard: React.FC = () => {
   const navigate = useNavigate();
   const { isAuthenticated } = useAuth0();
