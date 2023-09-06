@@ -27,17 +27,17 @@ const dbOverviewController: DbOverviewController = {
     const db = res.locals.dbConnection;
    
 
-
+    console.log('dboverview')
     try {
         
-      const tablesArr: QueryResult = await db.query(`
+      const tables: QueryResult = await db.query(`
         SELECT tablename FROM pg_catalog.pg_tables WHERE schemaname != 'pg_catalog' AND schemaname != 'information_schema'
    `);
       // console.log('tables array', tablesArr.rows);
 
-      const tables: QueryResult = await db.query(
-        'SELECT tablename FROM pg_catalog.pg_tables WHERE schemaname != \'pg_catalog\' AND schemaname != \'information_schema\';'
-      );
+      // const tables: QueryResult = await db.query(
+      //   'SELECT tablename FROM pg_catalog.pg_tables WHERE schemaname != \'pg_catalog\' AND schemaname != \'information_schema\';'
+      // );
       //array of table names to use in generic metrics function
       const tableNames = tables.rows.map(obj => obj.tablename);
       // console.log('tableNames', tableNames);
@@ -48,6 +48,7 @@ const dbOverviewController: DbOverviewController = {
       const totalSizeQuery: QueryResult = await db.query(
         'SELECT pg_size_pretty(pg_database_size(current_database())) as size;'
       );
+      console.log('line 51')
       const totalDatabaseSize = totalSizeQuery.rows[0].size;
 
       //   //Find the Schema name 
@@ -119,15 +120,15 @@ const dbOverviewController: DbOverviewController = {
         allIndexSizes[row.indexname] = row.index_size;
       }
 
-      // console.log(allIndexSizes);
+      console.log('allIndexSizes');
       /////////////////////////////////////////////////////////////
 
 
       // Log file size
-      const logSizeQuery: QueryResult = await db.query(
-        'SELECT pg_size_pretty(pg_wal_lsn_diff(pg_current_wal_lsn(), \'0/0\'::pg_lsn) * 8192) AS wal_size;'
-      );
-      const logSize = logSizeQuery.rows[0].wal_size;
+      // const logSizeQuery: QueryResult = await db.query(
+      // );        'SELECT pg_size_pretty(pg_wal_lsn_diff(pg_current_wal_lsn(), \'0/0\'::pg_lsn) * 8192) AS wal_size;';
+
+      const logSize = '0' //logSizeQuery.rows[0].wal_size;
       // console.log('log siz results', logSizeQuery);
 
       //current active connections 

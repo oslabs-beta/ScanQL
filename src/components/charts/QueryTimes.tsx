@@ -88,13 +88,13 @@ export const QueryTimes: React.FC<BarGraphProps> = ({ table, tableName }) => {
   // const insertPlanningTime = table.INSERT.plan.rows[0]['QUERY PLAN'][0]['Planning Time'];
 
   const executionTimes = [
-    table.INSERT.plan.rows[0]['QUERY PLAN'][0]['Execution Time'] * 1000,
+    // table.INSERT.plan.rows[0]['QUERY PLAN'][0]['Execution Time'] * 1000,
     table.SELECT.plan.rows[0]['QUERY PLAN'][0]['Execution Time'] * 1000,
     table.UPDATE.plan.rows[0]['QUERY PLAN'][0]['Execution Time'] * 1000
   ];
 
   const planningTimes = [
-    table.INSERT.plan.rows[0]['QUERY PLAN'][0]['Planning Time'] * 1000,
+    // table.INSERT.plan.rows[0]['QUERY PLAN'][0]['Planning Time'] * 1000,
     table.SELECT.plan.rows[0]['QUERY PLAN'][0]['Planning Time'] * 1000,
     table.UPDATE.plan.rows[0]['QUERY PLAN'][0]['Planning Time'] * 1000
   ];
@@ -102,7 +102,7 @@ export const QueryTimes: React.FC<BarGraphProps> = ({ table, tableName }) => {
   const totalTimes = [
     executionTimes[0] + planningTimes[0],
     executionTimes[1] + planningTimes[1],
-    executionTimes[2] + planningTimes[2]
+    // executionTimes[2] + planningTimes[2]
   ];
 
   // console.log(`Execution Times: ${executionTimes}, Planning Times: ${planningTimes}`)
@@ -127,7 +127,36 @@ export const QueryTimes: React.FC<BarGraphProps> = ({ table, tableName }) => {
             size: '10%'
           }
         }
-      }
+      },
+      tooltip: {
+        // enabled: false, // disable default tooltips
+        // backgroundColor: 'rgb(255, 0, 200)',
+        // titleColor:'rgb(0,0,255)',
+        padding: {
+          left: 3,
+          right: 3,
+          top: 2,
+          bottom: 2
+        },
+        bodyFont: {
+          size: 8 // adjust as needed
+        },
+        titleFont: {
+          size: 10 // adjust as needed
+        },
+        // displayColors: false,
+        callbacks:{
+          afterLabel: function(context) {
+            // Assuming that execution count is stored in an array
+            const queryString = context.dataIndex === 0? "Select Query: `EXPLAIN SELECT * FROM ${tableInfo.tableName} WHERE '${sampleColumnsArr[sampleColumnsArr.length - 1]}' = $1`" : "Update Query: `EXPLAIN UPDATE ${tableInfo.tableName} SET ${updateColumn} = $1 WHERE ${pkArray[pkArray.length - 1]} = $2`" 
+
+
+            return [
+              queryString
+            ];
+          },
+        },
+      },
     },
     scales: {
       y: {
@@ -138,7 +167,7 @@ export const QueryTimes: React.FC<BarGraphProps> = ({ table, tableName }) => {
 
   const data = {
     innerHeight: 100,
-    labels: ['Insert', 'Select', 'Update'],
+    labels: ['Select', 'Update'],
     datasets: [
       {
         label: 'Planning Time (ms)',

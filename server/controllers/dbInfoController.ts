@@ -43,7 +43,7 @@ interface CheckConstraintMap {
 
 const dbInfoController: DbInfoController = {
   getDataBaseInfo: async (req, res, next): Promise<void> => {
-    console.log('made it in dbinfo')
+    // console.log('made it in dbinfo');
     // pulling database connection from res locals
     const db = res.locals.dbConnection;
 
@@ -83,7 +83,8 @@ const dbInfoController: DbInfoController = {
           'SELECT COUNT(*) FROM pg_indexes WHERE tablename = $1;',
           [tableName]
         );
-    
+        // console.log('numberOfIndexes', numberOfIndexes);
+
         const foreignKeys: QueryResult = await db.query(`
             SELECT 
               kcu.column_name AS column, 
@@ -106,7 +107,7 @@ const dbInfoController: DbInfoController = {
             referencedColumn: row.referencedcolumn
           };
         }
-    
+      
         const primaryKeys: QueryResult = await db.query(`
           SELECT 
             kcu.column_name AS column,
@@ -134,14 +135,14 @@ const dbInfoController: DbInfoController = {
         }
     
         const sampleData: QueryResult = await db.query(
-          `SELECT * FROM ${tableName} LIMIT 10;`
+          `SELECT * FROM ${tableName} LIMIT 100;`
         );
         // console.log('sample data!!!!!', sampleData.rows[0])
     
         const columnDataTypes: QueryResult = await db.query(`
         SELECT column_name, data_type, column_default, is_nullable 
         FROM information_schema.columns 
-        WHERE table_name = $1
+        WHERE table_name = $1 AND table_schema = 'public'
         ORDER BY ordinal_position;`,
         [tableName]
         );

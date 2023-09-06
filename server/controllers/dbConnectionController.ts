@@ -19,7 +19,7 @@ const dbConnectionController: DbConnectionController = {
     const pool = new Pool({
       connectionString: uri_string,
     });
-    console.log('this is the pool', pool);
+    // console.log('this is the pool', pool);
 
     const db = {
       query: (text: string, params?: Array<string>) => {

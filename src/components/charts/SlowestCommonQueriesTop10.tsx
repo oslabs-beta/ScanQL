@@ -24,6 +24,42 @@ interface SlowQueryObj {
 type mainArray = {
   [queryName:string]:SlowQueryObj
 }
+const splitBySpaces: string[] = (inputStr: string, spaceCount: number) => {
+  let chunks = [];
+  let parts = inputStr.split(' ');
+
+  while (parts.length) {
+    chunks.push(parts.splice(0, spaceCount).join(' '));
+  }
+
+  return chunks;
+};
+const splitByLength: Array = (inputStr:string, minLength:number, maxLength:number) => {
+  const parts = inputStr.split(' ');
+  let chunks = [];
+  let chunk = "";
+
+  for (let part of parts) {
+    // If the current chunk plus the next word is within the limit, add the word to the chunk.
+    if (chunk.length + part.length <= maxLength) {
+      chunk += (chunk ? " " : "") + part;
+    } else {
+      // If it exceeds, push the current chunk to the chunks array and reset the chunk.
+      chunks.push(chunk);
+      chunk = part;
+    }
+  }
+
+  // Ensure that the last chunk doesn't fall below the minimum length.
+  // If it does, merge it with the previous chunk.
+  if (chunks.length && (chunks[chunks.length - 1].length + chunk.length) < minLength) {
+    chunks[chunks.length - 1] += " " + chunk;
+  } else {
+    chunks.push(chunk);
+  }
+
+  return chunks.filter(chunk => chunk.length >= minLength);
+};
 
 
 export const SlowestCommonQueriesTop10: React.FC = () => {
@@ -39,6 +75,7 @@ export const SlowestCommonQueriesTop10: React.FC = () => {
   const meanArr : number[] = [];
   const medianArr : number[] = [];
   const countArr : number[] = [];
+
   console.log('this is the common top 10', metricsData.dbHistMetrics.slowestCommonQueries);
   let count = 0;
   for (const query in metricsData.dbHistMetrics.slowestCommonQueries) {
@@ -55,7 +92,7 @@ export const SlowestCommonQueriesTop10: React.FC = () => {
     let sum = 0;
   
     tooltipItems.forEach(function(tooltipItem) {
-      sum+=1
+      sum += 1;
       // sum += tooltipItem.parsed.y;
     });
     return 'Sum: ' + sum;
@@ -65,60 +102,58 @@ export const SlowestCommonQueriesTop10: React.FC = () => {
     indexAxis: 'y',
     responsive: true,
     maintainAspectRatio: false, // This will allow the chart to stretch to fill its container
-    // layout: {
-    //   padding: {
-    //     top: 0, // Adjust the padding top value to create space for the title
-    //     bottom: 0,
-    //   },
-    // },
+  
     plugins: {
       tooltip: {
-        backgroundColor: 'rgb(255, 0, 200)',
-        titleColor:'rgb(0,0,255)',
+        // enabled: false, // disable default tooltips
+        // backgroundColor: 'rgb(255, 0, 200)',
+        // titleColor:'rgb(0,0,255)',
+        padding: {
+          left: 3,
+          right: 3,
+          top: 2,
+          bottom: 2
+        },
+        bodyFont: {
+          size: 8 // adjust as needed
+        },
+        titleFont: {
+          size: 10 // adjust as needed
+        },
+        // displayColors: false,
         callbacks:{
           afterLabel: function(context) {
-            // Assuming that execution count is stored in an array named countArr
+            // Assuming that execution count is stored in an array
             const execCount = countArr[context.dataIndex];
-            return 'Exec Count: ' + execCount;
-          }
+            let queryString = longLabelsArr[context.dataIndex];
+            let wrappedStringArray = splitByLength(queryString, 20,40);
+
+            return [
+              'Exec Count: ' + execCount,
+              'Query:  ', ...wrappedStringArray
+            ];
+          },
         },
-      }
-        // callbacks: {
-        //     labelColor: function(context) {
-        //         return {
-        //             borderColor: 'rgb(0, 0, 255)',
-        //             backgroundColor: 'rgb(255, 0, 0)',
-        //             borderWidth: 2,
-        //             borderDash: [2, 2],
-        //             borderRadius: 2,
-        //         };
-        //     },
-        //     labelTextColor: function(context) {
-        //         return '#543453';
-        //     }
-        //   }
-        // }
       },
-      // title: {
-      //   // position: 'top' as const, // Position title at the top
-      //   display: true,
-      //   text: 'Top 10 Slowest Common Executed Queries Ordered By Exec. Count',
-      //   color: '#17012866',
-      //   font: {
-      //     size: '15%'
-      //   }, 
-      // },
-      // legend: {
-      //   display: true,
-      //   position: 'bottom' as const,
-      //   labels:{
-      //     font: {
-      //       size: '10%', // Adjust the percentage value as needed
-      //     },
-      //   },
-      // },
-      
-    // },
+      title: {
+      // position: 'top' as const, // Position title at the top
+        display: true,
+        text: 'Top 10 Slowest Common Executed Queries Ordered By Exec. Count',
+        color: '#17012866',
+        font: {
+          size: '15%'
+        }, 
+      },
+      legend: {
+        display: true,
+        position: 'bottom' as const,
+        labels:{
+          font: {
+            size: '10%', // Adjust the percentage value as needed
+          },
+        },
+      },
+    },
     scales: {
       y: {
         beginAtZero: true,
@@ -132,7 +167,7 @@ export const SlowestCommonQueriesTop10: React.FC = () => {
     datasets: [
       {
         label: 'Mean Exec Time (ms)',
-        data: meanArr,
+        data: meanArr.map((el)=> {return (el * 1000);}),
         backgroundColor: 'rgba(53, 162, 235, 0.5)',
         scaleFontColor: '#FFFFFF',
       },
