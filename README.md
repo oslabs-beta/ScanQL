@@ -1,6 +1,6 @@
 # ScanQL
 
-ScanQL is an elegant application and effective tool designed to empower developers aiming for database and query optimization, to ensure their operations run smoothly and efficiently. Beyond optimization, ScanQL offers a holistic view of your database, empowering them to understand the intricate details and interrelations with their database.
+ScanQL is an elegant and effective tool designed to empower developers aiming for database and query optimization to ensure their operations run smoothly and efficiently. Beyond optimization, ScanQL offers a holistic view of a database, empowering one to understand the intricate details and interrelations within their database.
 
 ## 🚀 Features
 
