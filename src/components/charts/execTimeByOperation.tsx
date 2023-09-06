@@ -48,12 +48,11 @@ export const ExecTimesByOperation: React.FC = () => {
     // },
     plugins: {
       title: {
-        // position: 'top' as const, // Position title at the top
         display: true,
         text: 'Mean/Median Exec Times by Operations (All Queries)',
         color: theme === "light" ? '#17012866' : '#ffffffac',
         font: {
-          size: '10%'
+          size: 14
         },
         
       },
@@ -62,7 +61,7 @@ export const ExecTimesByOperation: React.FC = () => {
         position: 'bottom' as const,
         labels:{
           font: {
-            size: '10%', // Adjust the percentage value as needed
+            size: 12
           },
         },
       },

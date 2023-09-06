@@ -20,7 +20,6 @@
     "jsx": "react-jsx",
     "types": [
       "vitest/globals",
-      "vite-plugin-svgr/client"
     ],
     /* Linting */
     "strict": true,
