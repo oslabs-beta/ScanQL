@@ -10,6 +10,8 @@ import { HomeIcon, MoonIcon, SunIcon } from '@radix-ui/react-icons';
 
 import { Button, IconButton } from '@radix-ui/themes';
 
+import HelpModal from '../ui/HelpModal';
+
 // import { Flex } from '@radix-ui/themes';
 import { Switch } from '@radix-ui/react-switch';
 
@@ -34,8 +36,9 @@ const DashNav: React.FC = () => {
       <div className="flex items-center">
         {/* <Switch size="1" radius="full" defaultChecked /> */}
         <Switch checked={theme === 'dark'} onChange={toggleTheme} >
-          {theme === 'light' ? <MoonIcon className = "text-indigo-900"width={22} height={22} /> : <SunIcon width={22} height={22} />}
+          {theme === 'light' ? <MoonIcon className="text-indigo-900 text-opacity-70" width={22} height={22} /> : <SunIcon width={22} height={22} />}
         </Switch>
+        <HelpModal />
         <DropdownMenuDemo />
       </div>
     </div>
