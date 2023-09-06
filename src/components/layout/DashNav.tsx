@@ -8,7 +8,8 @@ import DropdownMenuDemo from "../ui/DropdownMenu";
 import { HomeIcon, MoonIcon, SunIcon } from "@radix-ui/react-icons";
 // import { IconButton } from '@radix-ui/react-button';
 
-import { Button, IconButton } from "@radix-ui/themes";
+import { Button, IconButton } from '@radix-ui/themes';
+import HelpModal from '../ui/HelpModal';
 
 // import { Flex } from '@radix-ui/themes';
 import { Switch } from "@radix-ui/react-switch";
@@ -34,6 +35,7 @@ const DashNav: React.FC = () => {
             </div>
             <div className="flex items-center">
                 <DarkModeToggle />
+                <HelpModal />
                 <DropdownMenuDemo />
             </div>
         </div>

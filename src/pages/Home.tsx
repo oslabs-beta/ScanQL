@@ -33,8 +33,8 @@ const Home: React.FC = () => {
     const { theme } = useAppStore();
 
     useEffect(() => {
-        if (isAuthenticated) navigate("/dashboard");
-    }, []);
+        if (isAuthenticated) navigate('/dashboard');
+    }, [])
 
     return (
         <div>
@@ -68,12 +68,7 @@ const Home: React.FC = () => {
                             Motivation (Our Why)
                         </h3>
                         <p className="mt-3 text-white text-sm">
-                            ScanQL is designed to simplify and enhance your
-                            approach to optimizing your , allowing you to focus
-                            on what truly matters. Our mission is to empower
-                            users with intuitive tools and insightful analytics,
-                            transforming the way you [primary function of the
-                            app].{" "}
+                            ScanQL is designed to simplify and enhance your approach to optimizing your, allowing you to focus on what truly matters. Our mission is to empower users with intuitive tools and insightful analytics, transforming the way you [primary function of the app].{" "}
                         </p>
                     </div>
                     <div className="home-card">
