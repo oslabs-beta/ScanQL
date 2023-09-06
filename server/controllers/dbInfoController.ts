@@ -43,7 +43,6 @@ interface CheckConstraintMap {
 
 const dbInfoController: DbInfoController = {
   getDataBaseInfo: async (req, res, next): Promise<void> => {
-    // console.log('made it in dbinfo');
     // pulling database connection from res locals
     const db = res.locals.dbConnection;
 
@@ -52,7 +51,6 @@ const dbInfoController: DbInfoController = {
       const tables: QueryResult = await db.query(
         'SELECT tablename FROM pg_catalog.pg_tables WHERE schemaname != \'pg_catalog\' AND schemaname != \'information_schema\';'
       );
-      // console.log('tables', tables);
 
       // Check if we have at least one table to work with
       if (tables.rows.length === 0) {
@@ -83,7 +81,6 @@ const dbInfoController: DbInfoController = {
           'SELECT COUNT(*) FROM pg_indexes WHERE tablename = $1;',
           [tableName]
         );
-        // console.log('numberOfIndexes', numberOfIndexes);
 
         const foreignKeys: QueryResult = await db.query(`
             SELECT 
@@ -137,7 +134,6 @@ const dbInfoController: DbInfoController = {
         const sampleData: QueryResult = await db.query(
           `SELECT * FROM ${tableName} LIMIT 100;`
         );
-        // console.log('sample data!!!!!', sampleData.rows[0])
     
         const columnDataTypes: QueryResult = await db.query(`
         SELECT column_name, data_type, column_default, is_nullable 
@@ -153,7 +149,6 @@ const dbInfoController: DbInfoController = {
         // for (const row of columnDataTypes.rows) {
         //   fieldTypes[row.column_name] = row.data_type;
         // }
-        // console.log('columntypes!!!!!!!!!!', columnDataTypes);
         
         // A check constrain is a constraint on a column that requires only specific values be inserted (i.e. "Yes" or "No")
         const checkContraints = await db.query(`
@@ -171,10 +166,8 @@ const dbInfoController: DbInfoController = {
             con.contype = 'c' AND rel.relname = $1;`,
         [tableName]
         );
-          // console.log('this is the check constraint result', checkContraints)
         const checkContraintObj: CheckConstraintMap = {};
         checkContraints.rows.forEach((checkEl : CheckConstraint) => {
-          // console.log(checkEl, 'this is the for each eleement')
           checkContraintObj[checkEl.column_name] = checkEl.constraint_definition;
         });
 
@@ -198,12 +191,10 @@ const dbInfoController: DbInfoController = {
       //  use Promise.all() to wait for all promises to resolve
       // const databaseInfo = await Promise.all(tableInfoPromises);
       Promise.all(tableInfoPromises).then((databaseInfo) => {
-        // console.log('DBINFOARRAY', databaseInfo);
         const databaseInfoMap: { [key: string]: TableInfo } = {};
         databaseInfo.forEach(info => {
           databaseInfoMap[info.tableName] = info;
         });
-        // console.log('this is dbinfooooo!!!!!!',databaseInfoMap)
         res.locals.databaseInfo = databaseInfoMap;
         return next();
       });    
