@@ -1,5 +1,4 @@
-import { Bar, HorizontalBar } from 'react-chartjs-2';
-// import { HorizontalBar } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 import useAppStore from '../../store/appStore';
 
 // type ExecTimeByOperation = {
@@ -65,10 +64,6 @@ const splitByLength: Array = (inputStr:string, minLength:number, maxLength:numbe
 export const SlowestCommonQueriesTop10: React.FC = () => {
   const { metricsData } = useAppStore();
   console.log(metricsData);
-  // const queryObject: mainArray = metricsData.dbHistMetrics.slowestCommonQueries;
-
-  //CREATING the object for MinMax 
-  // const m; 
 
   const shortLabelsArr : string[] = [];
   const longLabelsArr : string[] = [];
@@ -76,7 +71,6 @@ export const SlowestCommonQueriesTop10: React.FC = () => {
   const medianArr : number[] = [];
   const countArr : number[] = [];
 
-  console.log('this is the common top 10', metricsData.dbHistMetrics.slowestCommonQueries);
   let count = 0;
   for (const query in metricsData.dbHistMetrics.slowestCommonQueries) {
     if (count >= 10) break; // Limit to top 10
@@ -97,11 +91,10 @@ export const SlowestCommonQueriesTop10: React.FC = () => {
     });
     return 'Sum: ' + sum;
   };
-  // console.log('labelsarr, means arr, medianarr', shortLabelsArr, meanArr, medianArr);
   const options = {
     indexAxis: 'y',
     responsive: true,
-    maintainAspectRatio: false, // This will allow the chart to stretch to fill its container
+    maintainAspectRatio: false,
   
     plugins: {
       tooltip: {
@@ -141,7 +134,7 @@ export const SlowestCommonQueriesTop10: React.FC = () => {
         text: 'Top 10 Slowest Common Executed Queries Ordered By Exec. Count',
         color: '#17012866',
         font: {
-          size: '15%'
+          size: 14
         }, 
       },
       legend: {
@@ -149,7 +142,7 @@ export const SlowestCommonQueriesTop10: React.FC = () => {
         position: 'bottom' as const,
         labels:{
           font: {
-            size: '10%', // Adjust the percentage value as needed
+            size: 12
           },
         },
       },

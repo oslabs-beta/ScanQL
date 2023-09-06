@@ -13,12 +13,13 @@ export const TableSize: React.FC = () => {
   const tablesArray: Table[] = Object.values(metricsData.dbSizeMetrics.tableSizes);
 
   const options = {
+    indexAxis: 'y',
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
       title: {
         display: true,
-        text: 'Table Sizes (kbs) ',
+        text: 'Table Sizes',
         color: '#17012866',
         font: {
           size: 14
@@ -28,7 +29,7 @@ export const TableSize: React.FC = () => {
         position: 'bottom' as const,
         labels:{
           font: {
-            size: '10%', // Adjust the percentage value as needed
+            size: 12,
           },
         },
       },
@@ -54,10 +55,10 @@ export const TableSize: React.FC = () => {
     ],
   };
   return (
-    <div className="grid-span1">
-    <div className="dashboard-card md-card">
+    <>
+    <div className="dashboard-card db-size-charts">
       <Bar data={data} options={options} />
     </div>
-    </div>
+    </>
   );
 }

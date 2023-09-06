@@ -24,10 +24,12 @@ export const RowsPerTable: React.FC = () => {
     plugins: {
       legend: {
         display: true,
-        position: 'bottom' as const,
-        font: {
-          size: '10%', // Adjust the percentage value as needed
-        },
+        position: 'left' as const,
+        labels: {
+          font: {
+            size: 11
+          },
+        }
       },
       title: {
         display: true,
@@ -68,7 +70,7 @@ export const RowsPerTable: React.FC = () => {
     ]
   };
   return (
-    <div onClick={openModal} className="dashboard-card">
+    <div onClick={openModal} className="dashboard-card md-card">
       <Pie data={data} options={options} />
     </div>
   );
