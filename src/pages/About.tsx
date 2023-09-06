@@ -8,6 +8,7 @@ import dmurcia from "../assets/team_headshots/dmurcia_headshot.jpg"
 import sheck from "../assets/team_headshots/sheck_headshot.jpg"
 import dkim from "../assets/team_headshots/dkim_headshot.jpg"
 import ytalab from "../assets/team_headshots/ytalab_headshot.jpg"
+import TechStackBar from "../components/ui/TechStackBar";
 
 const About: React.FC = () => {
   return (
@@ -78,6 +79,8 @@ const About: React.FC = () => {
                     </div>
                     </div>
                     </div>
+
+                    {/* <TechStackBar/> */}
 
 
         {/* <div className="aboutus-container px-80 mt-20">

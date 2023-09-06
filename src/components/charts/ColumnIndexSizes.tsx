@@ -3,7 +3,7 @@ import useAppStore from '../../store/appStore';
 
 
 export const ColumnIndexSizes: React.FC = () => {
-  const { metricsData, toNumInKB } = useAppStore();
+  const { metricsData, toNumInKB, theme } = useAppStore();
   const indexesArray: {}[] = Object.values( metricsData.dbSizeMetrics.indexSizesByTable);
   console.log(indexesArray);
   const labelsArray: string[] = [];
@@ -33,7 +33,7 @@ export const ColumnIndexSizes: React.FC = () => {
       title: {
         display: true,
         text: 'Index Size by Column (kbs)',
-        color: '#17012866',
+        color: theme === "light" ? '#17012866' : '#ffffffac',
         font: {
           size: '10%'
         },
@@ -86,7 +86,7 @@ export const ColumnIndexSizes: React.FC = () => {
     ]
   };
   return (
-    <div className="dashboard-card md-card">
+    <div className="dashboard-card md-card dashboard-card-dark">
       <Bar data={data} options={options} />
     </div>
   );

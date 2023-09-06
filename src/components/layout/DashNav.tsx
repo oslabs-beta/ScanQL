@@ -23,13 +23,13 @@ const DashNav: React.FC = () => {
         <div className="flex w-screen flex-col items-center justify-center md:flex-row md:justify-between px-8 py-6 mb-8">
             <div className="flex flex-col items-center md:flex-row">
                 <div className="flex justify-center md:mx-0 md:mr-4 md:items-center md:justify-start">
-                    <Link to="/">
+                    {/* <Link to="/"> */}
                         {theme === "light" ? (
                             <img className="logo-nav" src={logo}></img>
                         ) : (
                             <img className="logo-nav" src={logodark}></img>
                         )}
-                    </Link>
+                    {/* </Link> */}
                 </div>
             </div>
             <div className="flex items-center">

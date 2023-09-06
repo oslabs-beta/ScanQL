@@ -1,7 +1,7 @@
 import { RequestHandler, query } from 'express';
 // import { explainQuery } from '../helpers/explainQuery';
 import { PoolClient, QueryResult } from 'pg';
-import { faker } from '@faker-js/faker';
+// import { faker } from '@faker-js/faker';
 
 type GeneralMetricsController = {
     performGenericQueries: RequestHandler;

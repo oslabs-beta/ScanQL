@@ -30,16 +30,16 @@ const FormField: React.FC = () => {
           <Separator.Root className="bg-white data-[orientation=horizontal]:h-px data-[orientation=horizontal]:w-full data-[orientation=vertical]:h-full data-[orientation=vertical]:w-px my-[15px]" />
           <br></br>
 
-          <h2 className="text-sm mb-5">Enter the query you would like to test:</h2>
+          {/* <h2 className="text-sm mb-5">Enter the query you would like to test:</h2> */}
             </Form.Label>
           </div>
           <Form.Control asChild>
             <textarea
-              className="box-border w-full bg-blackA5 h-40 shadow-blackA9 inline-flex appearance-none items-center justify-center rounded-lg p-[10px] text-[15px] leading-none text-white shadow-[0_0_0_1px] outline-none hover:shadow-[0_0_0_1px_black] focus:shadow-[0_0_0_2px_black] selection:color-white selection:bg-blackA9 resize-none"
+              className=" w-full bg-blackA5 h-40  inline-flex appearance-none items-center justify-center rounded-lg p-[10px] text-[15px] leading-none text-indigo-900 text-opacity-90 shadow-[0_0_0_0.5px] outline-none hover:shadow-[0_0_0_0.5px_black] selection:color-white selection:bg-blackA6 resize-none query-textarea-dark"
               required
               id="query-string"
               value={queryString}
-              onChange={(e) => setQuery(e.target.value)}
+              onChange={(e) => setQuery(e.target.value)} placeholder='Ex. SELECT * FROM event;'
             />
           </Form.Control>
             <Form.Message className="text-[13px] text-center text-indigo-900 mt-5 opacity-[0.8]" match="valueMissing">
@@ -47,7 +47,7 @@ const FormField: React.FC = () => {
             </Form.Message>
         </Form.Field>
         <Form.Submit asChild>
-          <button className="box-border w-full rounded-lg font-normal mr-1 ml-1 bg-indigo-900 bg-opacity-20 text-gray-100  shadow-blackA7 hover:bg-indigo-900 hover:bg-opacity-30 inline-flex h-[35px] items-center justify-center px-[15px] leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[10px]">
+          <button className="box-border w-full rounded-lg font-normal mr-1 ml-1 bg-indigo-900 bg-opacity-20 text-gray-100  shadow-blackA7 hover:bg-indigo-900 hover:bg-opacity-30 inline-flex h-[35px] items-center justify-center px-[15px] leading-none shadow-[0_2px_10px] focus:shadow-[0_0_0_2px] focus:shadow-black focus:outline-none mt-[10px] query-submit-dark">
         Submit Query
           </button>
          
