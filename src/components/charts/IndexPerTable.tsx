@@ -1,6 +1,5 @@
-import { Doughnut } from 'react-chartjs-2';
 import { Bar } from 'react-chartjs-2';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend, ChartOptions } from 'chart.js';
 import React from 'react';
 import useAppStore from '../../store/appStore';
 import { TableInfo } from '../../store/appStore';
@@ -21,8 +20,8 @@ export const IndexPerTable: React.FC = () => {
   // Sort the indexData array based on the numberOfIndexes in descending order
   indexData.sort((a, b) => b.numberOfIndexes - a.numberOfIndexes);
   
-  const options = {
-    indexAxis: 'y',
+  const options: ChartOptions = {
+    indexAxis: "y",
     responsive: true,
     maintainAspectRatio: false, // This will allow the chart to stretch to fill its container
     layout: {
@@ -44,7 +43,7 @@ export const IndexPerTable: React.FC = () => {
         position: 'bottom' as const,
         labels:{
           font: {
-            size: '5%', // Adjust the percentage value as needed
+            size: 5, // Adjust the percentage value as needed
           },
         },
       },

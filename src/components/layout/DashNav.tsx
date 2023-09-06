@@ -5,10 +5,9 @@ import logo from '../../assets/logo-horizontal-v2.png';
 
 import DropdownMenuDemo from '../ui/DropdownMenu';
 
-import { HomeIcon, MoonIcon, SunIcon } from '@radix-ui/react-icons';
+import {  MoonIcon, SunIcon } from '@radix-ui/react-icons';
 // import { IconButton } from '@radix-ui/react-button';
 
-import { Button, IconButton } from '@radix-ui/themes';
 
 import HelpModal from '../ui/HelpModal';
 
@@ -19,7 +18,7 @@ import useAppStore from '../../store/appStore';
 
 const DashNav: React.FC = () => {
 
-  const { setView, theme, toggleTheme } = useAppStore();
+  const { theme, toggleTheme } = useAppStore();
 
   return (
 

@@ -1,6 +1,6 @@
 
 import { RequestHandler } from 'express';
-import { QueryResult } from 'pg';
+// import { QueryResult } from 'pg';
 import pkg from 'pg';
 const { Pool } = pkg;
 type CustomDBController = {
@@ -8,21 +8,21 @@ type CustomDBController = {
   // queryTimeSQL: RequestHandler;
 };
 
-type CustomMetricsObj = {
-  meanTime: number;
-  queryString: string;
-  customMetrics: {
-    planningTime: number,
-    executionTime: number,
-    totalTime: number;
-    cacheSize: number;
-    workingMem: number;
-    sharedHitBlocks: number;
-    sharedReadBlocks: number;
-  }[];
-  queryDelay: number;
-  queryCount: number;
-}
+// type CustomMetricsObj = {
+//   meanTime: number;
+//   queryString: string;
+//   customMetrics: {
+//     planningTime: number,
+//     executionTime: number,
+//     totalTime: number;
+//     cacheSize: number;
+//     workingMem: number;
+//     sharedHitBlocks: number;
+//     sharedReadBlocks: number;
+//   }[];
+//   queryDelay: number;
+//   queryCount: number;
+// }
 
 
 // Takes in query & URI from client and gathers query metrics using client's database

@@ -11,19 +11,19 @@ type DbSizeMetrics = {
   logSize: string;
   activeConnections: number;
 };
-type DbPerformanceMetrics = {
-    avgQueryResponseTime: string;
-    queriesPerSecond: number;
-    slowestQueries: { query: string, executionTime: string }[];
-    cacheHitRate: number;
-  };
+// type DbPerformanceMetrics = {
+//     avgQueryResponseTime: string;
+//     queriesPerSecond: number;
+//     slowestQueries: { query: string, executionTime: string }[];
+//     cacheHitRate: number;
+//   };
 type DbOverviewController = {
   dbSizeMetrics: RequestHandler;
 //   dbPerformanceMetrics: RequestHandler;
 };
 
 const dbOverviewController: DbOverviewController = {
-  dbSizeMetrics: async (req, res, next): Promise<void> => {
+  dbSizeMetrics: async (_req, res, next): Promise<void> => {
     const db = res.locals.dbConnection;
    
 

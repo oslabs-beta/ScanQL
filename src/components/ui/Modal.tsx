@@ -6,7 +6,7 @@ import useAppStore from '../../store/appStore';
 import { RowsPerTable } from '../charts/RowsPerTable';
 
 const Modal: React.FC = () => {
-    const { isModalOpen, closeModal } = useAppStore();
+    const { closeModal } = useAppStore();
 
   return (
     <Dialog.Root >

@@ -2,7 +2,6 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { PolarArea } from 'react-chartjs-2';
 import { RowsInfoArray } from '../../types';
 import React from 'react';
-import useAppStore from '../../store/appStore';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 

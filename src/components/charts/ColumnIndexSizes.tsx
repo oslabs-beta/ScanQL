@@ -1,6 +1,6 @@
 import { Bar } from 'react-chartjs-2';
 import useAppStore from '../../store/appStore';
-
+import { IndexItem } from '../../types';
 
 export const ColumnIndexSizes: React.FC = () => {
   const { metricsData, toNumInKB } = useAppStore();
@@ -11,7 +11,7 @@ export const ColumnIndexSizes: React.FC = () => {
   // loop through indexes Array
   // loop through keys in current object element of indexesArray
   // create an array of
-  indexesArray.forEach((table): void => {
+  indexesArray.forEach((table: IndexItem): void => {
     for (const name in table) {
       labelsArray.push(name.slice(0, -2));
       indexData.push(toNumInKB(table[name]));
@@ -35,7 +35,7 @@ export const ColumnIndexSizes: React.FC = () => {
         text: 'Index Size by Column (kbs)',
         color: '#17012866',
         font: {
-          size: '10%'
+          size: 10
         },
         padding: {
           top: 10,
@@ -47,7 +47,7 @@ export const ColumnIndexSizes: React.FC = () => {
         position: 'bottom' as const,
         labels: {
           font: {
-            size: '10%',
+            size: 10,
           },
           boxWidth: 10,
           padding: 10
@@ -67,7 +67,7 @@ export const ColumnIndexSizes: React.FC = () => {
           maxRotation: 90, // Set the maximum rotation angle to 90
           minRotation: 90,  // Set the minimum rotation angle to 90
           font: {
-            size: '10%'
+            size: 10
           },
         }
       }

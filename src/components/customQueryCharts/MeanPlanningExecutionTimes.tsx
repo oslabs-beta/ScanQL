@@ -21,7 +21,7 @@ export const MeanPlanningExecutionTimes: React.FC = () => {
         text: 'Mean Exec & Planning Times (Among All 10 Queries)',
         color: '#17012866',
         font: {
-          size: '10%'
+          size: 10
         },
         
       },
@@ -30,7 +30,7 @@ export const MeanPlanningExecutionTimes: React.FC = () => {
         position: 'bottom' as const,
         labels:{
           font: {
-            size: '10%', // Adjust the percentage value as needed
+            size: 10, // Adjust the percentage value as needed
           },
         },
       },

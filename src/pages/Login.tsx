@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import * as Form from '@radix-ui/react-form';
 import { Link } from 'react-router-dom';
 
 const Login: React.FC = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   return (
     <div>

@@ -1,11 +1,11 @@
-import { Bar } from 'react-chartjs-2';
 import useAppStore from '../../store/appStore';
-
+import { Bar } from 'react-chartjs-2';
+import { IndexItem } from '../../types';
 
 export const TableIndexSizes: React.FC = () => {
   const { metricsData, toNumInKB } = useAppStore();
   const indexesArray: {}[] = Object.values(metricsData.dbSizeMetrics.indexSizesByTable);
-  const indexSizeByTableArray: number[] = indexesArray.map(table => {
+  const indexSizeByTableArray: number[] = indexesArray.map((table: IndexItem)  => {
     let total = 0;
     // loop through object and at each iteration run the value through toNumInKB function and add it to total
     // after loop return total
@@ -28,7 +28,7 @@ export const TableIndexSizes: React.FC = () => {
         text: 'Index Size by Table (kbs)',
         color: '#17012866',
         font: {
-          size: '14'
+          size: 14
         }
       },
     },

@@ -28,7 +28,7 @@ export const TableSize: React.FC = () => {
         position: 'bottom' as const,
         labels:{
           font: {
-            size: '10%', // Adjust the percentage value as needed
+            size: 10, // Adjust the percentage value as needed
           },
         },
       },

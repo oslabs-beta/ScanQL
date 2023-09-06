@@ -1,5 +1,4 @@
-import { Request, Response, NextFunction, RequestHandler } from 'express';
-import { Pool } from 'pg';
+import { RequestHandler } from 'express';
 // import dotenv from 'dotenv';
 // import db from '../models/userModel';
 // import { table } from 'console';
@@ -11,7 +10,7 @@ interface schemaControllers {
 }
 //
 const dbERDcontroller: schemaControllers = {
-  getSchemaPostgreSQL: async (req, res, next) => {
+  getSchemaPostgreSQL: async (_req, res, next) => {
     console.log('in the ERD controller')
     try {
       const pg = res.locals.dbConnection;

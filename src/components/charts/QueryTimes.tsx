@@ -1,5 +1,4 @@
 import { Bar } from 'react-chartjs-2';
-import { faker } from '@faker-js/faker';
 
 // export const options = {
 //   responsive: true,
@@ -116,7 +115,7 @@ export const QueryTimes: React.FC<BarGraphProps> = ({ table, tableName }) => {
         text: `Planning vs Execution Times (ms) - ${tableName}`,
         color: '#17012866',
         font: {
-          size: '15%'
+          size: 15
         }
       },
       legend: {
@@ -124,7 +123,7 @@ export const QueryTimes: React.FC<BarGraphProps> = ({ table, tableName }) => {
         position: 'bottom' as const,
         labels:{
           font: {
-            size: '10%'
+            size: 10
           }
         }
       },
@@ -146,7 +145,7 @@ export const QueryTimes: React.FC<BarGraphProps> = ({ table, tableName }) => {
         },
         // displayColors: false,
         callbacks:{
-          afterLabel: function(context) {
+          afterLabel: function(context: any) {
             // Assuming that execution count is stored in an array
             const queryString = context.dataIndex === 0? "Select Query: `EXPLAIN SELECT * FROM ${tableInfo.tableName} WHERE '${sampleColumnsArr[sampleColumnsArr.length - 1]}' = $1`" : "Update Query: `EXPLAIN UPDATE ${tableInfo.tableName} SET ${updateColumn} = $1 WHERE ${pkArray[pkArray.length - 1]} = $2`" 
 

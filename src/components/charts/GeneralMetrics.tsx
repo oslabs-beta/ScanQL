@@ -27,7 +27,7 @@ export const GeneralMetrics: React.FC = () => {
 
   const totalNumberOfFields = rows.reduce((sum, table) => sum + table.numberOfFields, 0);
   
-  const averageNumberOfFields = totalNumberOfFields / rows.length;
+  // const averageNumberOfFields = totalNumberOfFields / rows.length;
 
   // console.log(`Total foreign keys: ${totalNumberOfFields}`)
   // console.log(`Average number of foreign keys: ${averageNumberOfFields}`)
@@ -43,11 +43,11 @@ export const GeneralMetrics: React.FC = () => {
     console.log('metricsData', metricsData);
   
   
-  const tableTags: element[] = tablesArray.map(table => {
-    return( 
-      <p className= "general-metrics-numbers"> {`${table.tableName}: ${table.numberOfFields}`}</p>
-    )
-  })
+  // const tableTags: element[] = tablesArray.map(table => {
+  //   return( 
+  //     <p className= "general-metrics-numbers"> {`${table.tableName}: ${table.numberOfFields}`}</p>
+  //   )
+  // })
 
   
 

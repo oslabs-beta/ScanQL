@@ -17,7 +17,7 @@ pgRoute.post(
   genericMetricsController.performGenericQueries,
   dbOverviewController.dbSizeMetrics,
   dBHistoryController.dbPastMetrics,
-  (req, res) => {
+  (_req, res) => {
     return res.status(200).json(res.locals);
   }
 );
@@ -26,7 +26,7 @@ pgRoute.post(
   customDBController.customQueryMetrics,
   //new controller
 
-  (req, res) => {
+  (_req, res) => {
     return res.status(200).json(res.locals.customMetrics);
   }
 );

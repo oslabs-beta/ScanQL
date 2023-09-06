@@ -1,10 +1,9 @@
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
-import React, { useState } from 'react';
+import React from 'react';
 import useAppStore from '../../store/appStore';
 import { TableInfo } from '../../store/appStore';
 
-import { Dialog } from '@radix-ui/react-dialog';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
