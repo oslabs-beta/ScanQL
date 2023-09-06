@@ -26,7 +26,7 @@ const HomeDropdownMenuIcon = () => {
           // className="rounded-full w-[35px] h-[35px] inline-flex items-center justify-center text-violet11 bg-white shadow-[0_2px_10px] shadow-blackA7 outline-none hover:bg-violet3 focus:shadow-[0_0_0_2px] focus:shadow-black"
           aria-label="Customize options"
         >
-          <HamburgerMenuIcon width={25} height={25} />
+          <HamburgerMenuIcon className="text-indigo-900 text-opacity-70" width={25} height={25} />
         </button>
       </DropdownMenu.Trigger>
 
@@ -36,7 +36,7 @@ const HomeDropdownMenuIcon = () => {
           sideOffset={5}
         >
           <DropdownMenu.Item onClick={handleNavigateDashboard} className="group text-[13px] leading-none text-indigo-900 text-opacity-80 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-indigo-900 data-[highlighted]:text-violet1">
-            Dashboard 
+            Dashboard
             <div className="ml-auto pl-[20px] text-mauve11 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8">
               ⌘+D
             </div>

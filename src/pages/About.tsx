@@ -1,11 +1,13 @@
 import Footer from "../components/layout/Footer"
 import NavBar from "../components/layout/NavBar"
-import { GitHubLogoIcon, LinkedInLogoIcon} from '@radix-ui/react-icons'
+import { GitHubLogoIcon, LinkedInLogoIcon } from '@radix-ui/react-icons'
+
 
 const About: React.FC = () => {
   return (
-    <div className = "">
+    <div className="">
       <NavBar />
+
       <div className="mt-20 flex flex-col items-center">
         <header>
           <p className="text-center mb-5 text-indigo-900 text-opacity-70 text-4xl font-montserrat">
@@ -236,7 +238,7 @@ const About: React.FC = () => {
           <p className="text-center font-montserrat text-indigo-900 text-xl mt-2">Previous Contributors</p>
           <div className="grid grid-cols-5 mx-40 my-10">
             <div className="flex gap-2 m-2">
-              <p className ="text-indigo-900 ">Kurt Bulau</p>
+              <p className="text-indigo-900 ">Kurt Bulau</p>
               <div className="flex gap-2 justify">
                 <a href="https://github.com/kbulau">
                   <img
@@ -253,7 +255,7 @@ const About: React.FC = () => {
               </div>
             </div>
             <div className="flex gap-2 m-2">
-              <p className= "text-indigo-900" >Kurt Bulau</p>
+              <p className="text-indigo-900" >Kurt Bulau</p>
               <div className="flex gap-2 justify">
                 <a href="https://github.com/kbulau">
                   <img
@@ -270,7 +272,7 @@ const About: React.FC = () => {
               </div>
             </div>
             <div className="flex gap-2 m-2">
-              <p className= "text-indigo-900">Kurt Bulau</p>
+              <p className="text-indigo-900">Kurt Bulau</p>
               <div className="flex gap-2 justify">
                 <a href="https://github.com/kbulau">
                   <img
@@ -287,7 +289,7 @@ const About: React.FC = () => {
               </div>
             </div>
             <div className="flex gap-2 m-2">
-              <p className= "text-indigo-900">Kurt Bulau</p>
+              <p className="text-indigo-900">Kurt Bulau</p>
               <div className="flex gap-2 justify">
                 <a href="https://github.com/kbulau">
                   <img
@@ -304,7 +306,7 @@ const About: React.FC = () => {
               </div>
             </div>
             <div className="flex gap-2 m-2">
-              <p className= "text-indigo-900">Kurt Bulau</p>
+              <p className="text-indigo-900">Kurt Bulau</p>
               <div className="flex gap-2 justify">
                 <a href="https://github.com/kbulau">
                   <img
