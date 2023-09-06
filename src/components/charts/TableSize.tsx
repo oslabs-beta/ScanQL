@@ -8,7 +8,7 @@ interface Table {
 
 
 export const TableSize: React.FC = () => {
-  const { metricsData, toNumInKB } = useAppStore();
+  const { metricsData, toNumInKB, theme } = useAppStore();
   console.log('metrics data',metricsData)
   const tablesArray: Table[] = Object.values(metricsData.dbSizeMetrics.tableSizes);
 
@@ -20,7 +20,7 @@ export const TableSize: React.FC = () => {
       title: {
         display: true,
         text: 'Table Sizes',
-        color: '#17012866',
+        color: theme === "light" ? '#17012866' : '#ffffffac',
         font: {
           size: 14
         }
@@ -56,7 +56,7 @@ export const TableSize: React.FC = () => {
   };
   return (
     <>
-    <div className="dashboard-card db-size-charts">
+    <div className="dashboard-card db-size-charts dashboard-card-dark">
       <Bar data={data} options={options} />
     </div>
     </>

@@ -8,7 +8,7 @@ export type TableInfo = {
   numberOfIndexes: number;
   numberOfFields: number;
   numberOfForeignKeys: number;
-  numberOfPrimaryKeys:number;
+  numberOfPrimaryKeys: number;
   checkConstraints: object;
   foreignKeysObj: object;
   primaryKeysObj: object;
@@ -114,10 +114,11 @@ interface AppState {
   openModal: () => void;
   closeModal: () => void;
 
+
   openConnectDB: () => void;
   closeConnectDB: () => void;
   setView: (view: 'metrics' | 'erd' | 'custom' | 'loading') => void;
-  
+
   setDBName: (dbName: string) => void;
   setUri: (uri: string) => void;
   setIsDBConnected: (isDBConnected: boolean) => void;
@@ -192,6 +193,7 @@ const useAppStore = create<AppState>((set) => ({
   //toggle light/dark mode
   toggleTheme: () => { set((state) => ({ theme: state.theme === 'light' ? 'dark' : 'light' })); },
 
+
   openConnectDB: () => set({ isConnectDBOpen: true }),
   closeConnectDB: () => set({ isConnectDBOpen: false }),
   setView: (view) => set({ view }), // method to set viewState
@@ -243,7 +245,7 @@ const useAppStore = create<AppState>((set) => ({
         set({ view: 'metrics' });
         set({ isConnectDBOpen: true });
         // add a view for invalid uri
-        set({ invalidURIMessage: true})
+        set({ invalidURIMessage: true })
         console.log(res.error)
         set({ isDBConnected: false, errorMessage: 'Failed to connect to the database.' });
       } else {

@@ -3,21 +3,21 @@ import { RequestHandler, query } from 'express';
 import { PoolClient, QueryResult } from 'pg';
 
 type GeneralMetricsController = {
-    performGenericQueries: RequestHandler;
-  };
+  performGenericQueries: RequestHandler;
+};
 type QueryResults = {
-    query?: string;
-    plan?: QueryResult;
-    values?: any;
-    otherExecutions?: TableResults
+  query?: string;
+  plan?: QueryResult;
+  values?: any;
+  otherExecutions?: TableResults
 };
 
 type TableResults = {
-    [operationName: string]: QueryResults
+  [operationName: string]: QueryResults
 };
 
 type ExecutionPlans = {
-    [tablename: string]: TableResults;
+  [tableName: string]: TableResults;
 };
 ///Using for helper functions on delete 
 interface ForeignKey {
@@ -25,9 +25,9 @@ interface ForeignKey {
   referencedTable: string;
   referencedColumn: string;
 }
-type ForeignKeyInfo = {[columName: string]: ForeignKey}
+type ForeignKeyInfo = { [columName: string]: ForeignKey }
 type PrimaryKeyInfo = {
-  [columnName: string]: {datatype: string, isAutoIncrementing: boolean};
+  [columnName: string]: { datatype: string, isAutoIncrementing: boolean };
 };
 interface TableInfo {
   tableName: string;
@@ -36,10 +36,10 @@ interface TableInfo {
   numberOfFields: number;
   numberOfForeignKeys: number;
   foreignKeysObj: ForeignKeyInfo
-  primaryKeysObj: PrimaryKeyInfo 
+  primaryKeysObj: PrimaryKeyInfo
 }
 interface DBinfo {
-  [tablename: string]: TableInfo;
+  [tableName: string]: TableInfo;
 }
 
 const dbGenericQueryTesting: GeneralMetricsController = {
@@ -55,7 +55,7 @@ const dbGenericQueryTesting: GeneralMetricsController = {
 
     // await db.query('BEGIN'); // Start the transaction
     console.log('in the genericMetricsController line 205', tableNames);
-    try{  
+    try {
       for (const tableName of tableNames) {
         //Initialize exec plans for the table
         executionPlans[tableName] = {};
@@ -71,11 +71,11 @@ const dbGenericQueryTesting: GeneralMetricsController = {
         const pkArray = [...Object.keys(primaryKeysObject)];
         const sampleValuesArr = Object.values(sampleData);
         const sampleColumnsArr = Object.keys(sampleData);
-        const unchangedSample = { ...sampleData}; 
+        const unchangedSample = { ...sampleData };
         //SELECT Test
         // SELECT test we make a select from the sample we pulled in the dbinfo tab
         const selectQuery = `SELECT * FROM ${tableInfo.tableName} WHERE '${sampleColumnsArr[sampleColumnsArr.length - 1]}' = $1`;
-        console.log('this is the unchangedSample', unchangedSample, 'and this is the primaryKey',tableInfo.primaryKeysObj, 'selectQuery', selectQuery);
+        console.log('this is the unchangedSample', unchangedSample, 'and this is the primaryKey', tableInfo.primaryKeysObj, 'selectQuery', selectQuery);
         const selectPlan = await db.query(`EXPLAIN (ANALYZE true, COSTS true, SETTINGS true, BUFFERS true, WAL true, SUMMARY true,FORMAT JSON) ${selectQuery}`, [sampleValuesArr[sampleValuesArr.length - 1]]);
         console.log('le 79');
 
@@ -84,14 +84,14 @@ const dbGenericQueryTesting: GeneralMetricsController = {
         console.log('line 81');
         //UPDATe Test
         //we want to update the sample row by changing only the non constrained column values
-        let updateColumn = sampleColumnsArr[0] ;
+        let updateColumn = sampleColumnsArr[0];
         let updateValue = sampleValuesArr[0];
         let col;
         const columns = Object.keys(sampleData);
-        for(let i = 0; i < columns.length; i++){
+        for (let i = 0; i < columns.length; i++) {
           col = columns[i];
           console.log(sampleData);
-          if(!primaryKeysObject[col] && !foreignKeysObj[col]){
+          if (!primaryKeysObject[col] && !foreignKeysObj[col]) {
             // console.log('entered the if block and the column is', column)
             updateColumn = col;
             updateValue = unchangedSample[col];
@@ -101,11 +101,11 @@ const dbGenericQueryTesting: GeneralMetricsController = {
 
         console.log('update col and val', updateColumn, updateValue);
         const updateQuery = `UPDATE ${tableInfo.tableName} SET ${updateColumn} = $1 WHERE ${pkArray[pkArray.length - 1]} = $2`;
-        if(updateColumn && updateValue){
+        if (updateColumn && updateValue) {
           const updatePlan = await db.query(`EXPLAIN (ANALYZE true, COSTS true, SETTINGS true, BUFFERS true, WAL true, SUMMARY true,FORMAT JSON) ${updateQuery}`, [updateValue, unchangedSample[pkArray[pkArray.length - 1]]]);
           executionPlans[tableName].UPDATE = { query: updateQuery, plan: updatePlan };
-        }else{
-          executionPlans[tableName].UPDATE = { query: `Table ${tableName} has no rows`};
+        } else {
+          executionPlans[tableName].UPDATE = { query: `Table ${tableName} has no rows` };
         }
 
         //done with update
@@ -113,7 +113,7 @@ const dbGenericQueryTesting: GeneralMetricsController = {
       res.locals.executionPlans = executionPlans;
       return next();
     }
-    catch(error) {
+    catch (error) {
       //Rollback if an error is caught
       // await db.query('ROLLBACK');
       // console.log('insertQuery');

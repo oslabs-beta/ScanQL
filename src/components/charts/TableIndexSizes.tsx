@@ -3,7 +3,7 @@ import useAppStore from '../../store/appStore';
 
 
 export const TableIndexSizes: React.FC = () => {
-  const { metricsData, toNumInKB } = useAppStore();
+  const { metricsData, toNumInKB, theme } = useAppStore();
   const indexesArray: {}[] = Object.values(metricsData.dbSizeMetrics.indexSizesByTable);
   const indexSizeByTableArray: number[] = indexesArray.map(table => {
     let total = 0;
@@ -31,7 +31,7 @@ export const TableIndexSizes: React.FC = () => {
       title: {
         display: true,
         text: 'Index Size by Table',
-        color: '#17012866',
+        color: theme === "light" ? '#17012866' : '#ffffffac',
         font: {
           size: 14
         }
@@ -51,7 +51,7 @@ export const TableIndexSizes: React.FC = () => {
     ]
   };
   return (
-    <div className="dashboard-card db-size-charts">
+    <div className="dashboard-card db-size-charts dashboard-card-dark">
       <Bar data={data} options={options} />
     </div>
   );

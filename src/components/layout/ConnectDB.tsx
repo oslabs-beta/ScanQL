@@ -15,7 +15,7 @@ const ConnectDB: React.FC = () => {
     <Dialog.Root open={isConnectDBOpen} >
       <Dialog.Portal >
         <Dialog.Overlay onClick={closeConnectDB} className="bg-blackA11 data-[state=open]:animate-overlayShow fixed inset-0" />
-        <Dialog.Content className="data-[state=open]:animate-contentShow fixed top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded-[20px] bg-purple-200 bg-opacity-50 border border-opacity-50 border-white p-[25px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none">
+        <Dialog.Content className="data-[state=open]:animate-contentShow fixed top-[50%] left-[50%] max-h-[85vh] w-[90vw] max-w-[450px] translate-x-[-50%] translate-y-[-50%] rounded-[20px] bg-purple-200 bg-opacity-70 border border-opacity-50 border-white p-[25px] shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] focus:outline-none">
           <Dialog.Title className="text-white m-0 text-[22px] font-medium">
             Connect to Database
           </Dialog.Title>
