@@ -2,9 +2,9 @@ import * as React from "react";
 import { useEffect } from "react";
 import logo from "../assets/logo-horizontal-v2.png";
 import logodark from "../assets/logo-horizontal-v2-darkmode.png";
-import screenshot1 from "../assets/screenshots/screenshot1.jpg";
-import screenshot2 from "../assets/screenshots/screenshot2.jpg";
-import screenshot3 from "../assets/screenshots/screenshot3.jpg";
+import gif1 from "../assets/GIFs/Dashboard_gif.gif";
+import gif2 from "../assets/GIFs/ERD_gif.gif";
+import gif3 from "../assets/GIFs/Customquery_gif.gif";
 // import headshotkim from "../assets/team_headshots/other_dkim.jpg";
 
 import {
@@ -153,12 +153,12 @@ const Home: React.FC = () => {
                         </p>
                     </div>
                     <div className="home-panel-img">
-                        <img className="home-demo-img" src={screenshot1}></img>
+                        <img className="home-demo-img" src={gif1}></img>
                     </div>
                 </div>
                 <div className="home-section2">
                     <div className="home-panel-img">
-                        <img className="home-demo-img" src={screenshot2}></img>
+                        <img className="home-demo-img" src={gif2}></img>
                     </div>
                     <div className="home-panel">
                         <h2 className="mt-5 font-semibold text-3xl font-montserrat text-indigo-900 text-opacity-60 text-dark-mode">
@@ -181,7 +181,7 @@ const Home: React.FC = () => {
                     </p>
                 </div>
                 <div className="home-panel-img">
-                    <img className="home-demo-img" src={screenshot3}></img>
+                    <img className="home-demo-img" src={gif3}></img>
                 </div>
             </div>
 
