@@ -37,14 +37,14 @@ const HomeDropdownMenuIcon = () => {
           <DropdownMenu.Item onClick={handleNavigateDashboard} className="group text-[13px] leading-none text-indigo-900 text-opacity-80 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-indigo-900 data-[highlighted]:text-violet1 hamburger-menu-text">
             Dashboard
 
-            <div className="ml-auto pl-[20px] text-mauve11 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8">
+            <div className="ml-auto pl-[20px] text-mauve11 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8 text-dark-mode">
               <BarChartIcon />
             </div>
           </DropdownMenu.Item>
 
           <DropdownMenu.Item onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })} className="group text-[13px] leading-none text-indigo-900 text-opacity-80 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-indigo-900 bg-opacity-80 data-[highlighted]:text-violet1 hamburger-menu-text">
             Logout
-            <div className="ml-auto pl-[20px] text-indigo-900 text-opacity-80 group-data-[highlighted]:text-white group-data-[disabled]:text-violet1">
+            <div className="ml-auto pl-[20px] text-indigo-900 text-opacity-80 group-data-[highlighted]:text-white group-data-[disabled]:text-violet1 text-dark-mode">
               <CircleBackslashIcon />
             </div>
 
