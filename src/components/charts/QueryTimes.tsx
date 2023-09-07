@@ -7,18 +7,16 @@ interface BarGraphProps {
 }
 
 export const QueryTimes: React.FC<BarGraphProps> = ({ table, tableName }) => {
-const {theme} = useAppStore();
+  const {theme} = useAppStore();
 
   const executionTimes = [
     table.SELECT.plan.rows[0]['QUERY PLAN'][0]['Execution Time'] * 1000,
     table.UPDATE.plan.rows[0]['QUERY PLAN'][0]['Execution Time'] * 1000
   ];
-
   const planningTimes = [
     table.SELECT.plan.rows[0]['QUERY PLAN'][0]['Planning Time'] * 1000,
     table.UPDATE.plan.rows[0]['QUERY PLAN'][0]['Planning Time'] * 1000
   ];
-
   const totalTimes = [
     executionTimes[0] + planningTimes[0],
     executionTimes[1] + planningTimes[1],
@@ -56,10 +54,10 @@ const {theme} = useAppStore();
           bottom: 2
         },
         bodyFont: {
-          size: 8 // adjust as needed
+          size: 8
         },
         titleFont: {
-          size: 10 // adjust as needed
+          size: 10
         },
         // displayColors: false,
         callbacks:{
@@ -112,41 +110,3 @@ const {theme} = useAppStore();
     </div>
   );
 }
-
-
-
-
-
-// export const options2 = {
-//   responsive: true,
-//   plugins: {
-//     legend: {
-//       position: 'top' as const,
-//     },
-//     title: {
-//       display: true,
-//       text: 'Chart.js Bar Chart',
-//       color: '#ffffffc8'
-//     },
-//   },
-// };
-
-// const labels2 = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-
-// export const data2 = {
-//   labels,
-//   datasets: [
-//     {
-//       label: 'Dataset 1',
-//       data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-//       backgroundColor: 'rgba(107, 99, 255, 0.5)',
-//       scaleFontColor: "#FFFFFF",
-//     },
-//     {
-//       label: 'Dataset 2',
-//       data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-//       backgroundColor: 'rgba(53, 162, 235, 0.5)',
-//       scaleFontColor: "#FFFFFF",
-//     },
-//   ],
-// };
