@@ -85,16 +85,20 @@ const About: React.FC = () => {
                                 Daniel Kim
                             </h3>
                             <div className="flex flex-row mt-2">
-                                <LinkedInLogoIcon
-                                    width={22}
-                                    height={22}
-                                    className="text-indigo-900 text-opacity-70 mr-3 text-dark-mode-2"
-                                ></LinkedInLogoIcon>
-                                <GitHubLogoIcon
-                                    width={22}
-                                    height={22}
-                                    className="text-indigo-900 text-opacity-70 text-dark-mode-2"
-                                ></GitHubLogoIcon>
+                            <a href="https://www.linkedin.com/in/daniel-y-kim">
+                                    <LinkedInLogoIcon
+                                        width={22}
+                                        height={22}
+                                        className="text-indigo-900 text-opacity-70 mr-3 text-dark-mode-2"
+                                    ></LinkedInLogoIcon>
+                                </a>
+                                <a href="https://github.com/danykdev">
+                                    <GitHubLogoIcon
+                                       width={22}
+                                       height={22}
+                                        className="text-indigo-900 text-opacity-70 text-dark-mode-2"
+                                    ></GitHubLogoIcon>
+                                </a>
                             </div>
                         </div>
                         <div className="home-team-card">

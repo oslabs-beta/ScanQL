@@ -18,13 +18,13 @@ const NavBar: React.FC = () => {
         </div>
         <div className="flex justify-center md:mx-0 md:mr-4 md:items-center md:justify-start gap-6">
         <DarkModeToggle></DarkModeToggle>
-        {/* <Switch checked={theme === 'dark'} onChange={toggleTheme} >
-          {theme === 'light' ? <MoonIcon className = "text-indigo-900"width={22} height={22} /> : <SunIcon width={22} height={22} />}
-        </Switch> */}
           <IconButton>
-            <Link to="/">
+           
+            <a href = "https://github.com/oslabs-beta/ScanQL">
               <GitHubLogoIcon className="w-6 h-6 text-indigo-900 text-opacity-80 text-dark-mode-2" />
-            </Link>
+            </a>
+
+        
           </IconButton>
         {(isAuthenticated) ? <HomeDropdownMenuIcon /> : <button className="rounded-lg font-normal mr-1  ml-1 bg-gray-500 bg-opacity-10 text-indigo-900 text-dark-mode-2" onClick={() => loginWithRedirect()}>Log In</button>}
       </div>
