@@ -52,7 +52,6 @@ export default function Flow(): JSX.Element {
           edgeTypes={edgeTypes}
           fitView
           proOptions={proOptions}>
-          {/* <MiniMap /> */}
           <Background />
           <Controls style={{background: theme === 'dark' ?  'rgb(255,255,255,0.3)' : undefined }}/>
         </ReactFlow>
