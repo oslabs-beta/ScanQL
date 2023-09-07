@@ -5,27 +5,19 @@ import logodark from "../assets/logo-horizontal-v2-darkmode.png";
 import gif1 from "../assets/GIFs/Dashboard_gif.gif";
 import gif2 from "../assets/GIFs/ERD_gif.gif";
 import gif3 from "../assets/GIFs/Customquery_gif.gif";
-// import headshotkim from "../assets/team_headshots/other_dkim.jpg";
 
 import {
-    // FaceIcon,
-    ImageIcon,
-    // SunIcon,
     LightningBoltIcon,
-    Crosshair2Icon,
-    // GitHubLogoIcon,
-    // LinkedInLogoIcon,
     LockClosedIcon,
     DashboardIcon,
     MagnifyingGlassIcon,
     SunIcon,
-    GlobeIcon,
+    KeyboardIcon,
 } from "@radix-ui/react-icons";
 
 import NavBar from "../components/layout/NavBar";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useNavigate } from "react-router-dom";
-// import Loading from "../components/ui/Loading";
 import useAppStore from "../store/appStore";
 
 import { Button } from "@radix-ui/themes";
@@ -37,7 +29,6 @@ const Home: React.FC = () => {
     const { theme } = useAppStore();
     
     useEffect(() => {
-        console.log(isAuthenticated)
         if (isAuthenticated) {
             navigate('/dashboard');
         }
@@ -79,6 +70,19 @@ const Home: React.FC = () => {
                         </p>
                     </div>
                     <div className="home-card">
+                        <h3 className="text-indigo-900 font-semibold mt-5 text-xl font-montserrat text-opacity-60 text-dark-mode">
+                            Quick Setup
+                        </h3>
+                        <LightningBoltIcon
+                            height={40}
+                            width={40}
+                            className="text-indigo-900 text-opacity-60 mt-4 text-dark-mode"
+                        ></LightningBoltIcon>
+                        <p className="mt-3 text-sm text-white">
+                            Connect to your database and deploy in seconds with our simple setup process.
+                        </p>
+                    </div>
+                    <div className="home-card">
                         <h3 className="text-indigo-900 text-opacity-60 text-dark-mode  font-semibold mt-5 text-xl font-montserrat">
                             Interactive Dashboard
                         </h3>
@@ -89,19 +93,6 @@ const Home: React.FC = () => {
                         ></DashboardIcon>
                         <p className="mt-3 text-white text-sm">
                             Our dynamic dashboard provides users contextual information and clarity making data interpretation intuitive and effortless.
-                        </p>
-                    </div>
-                    <div className="home-card">
-                        <h3 className="text-indigo-900 font-semibold mt-5 text-xl font-montserrat text-opacity-60 text-dark-mode">
-                            Universal Deployment
-                        </h3>
-                        <GlobeIcon
-                            height={40}
-                            width={40}
-                            className="text-indigo-900 text-opacity-60 mt-4 text-dark-mode"
-                        ></GlobeIcon>
-                        <p className="mt-3 text-sm text-white">
-                            Launch effortlessly on any platform using containerization.
                         </p>
                     </div>
                 </div>
@@ -121,17 +112,18 @@ const Home: React.FC = () => {
                     </div>
                     <div className="home-card">
                         <h3 className="text-indigo-900 font-semibold mt-5 text-xl font-montserrat text-opacity-60 text-dark-mode">
-                            Quick Setup
+                            Query Builder
                         </h3>
-                        <LightningBoltIcon
+                        <KeyboardIcon
                             height={40}
                             width={40}
                             className="text-indigo-900 text-opacity-60 mt-4 text-dark-mode"
-                        ></LightningBoltIcon>
+                        ></KeyboardIcon>
                         <p className="mt-3 text-sm text-white">
-                            Connect to your database and deploy in seconds with our simple setup process.
+                          Visualize how your query will be executed for optimization.
                         </p>
                     </div>
+                    
                     <div className="home-card">
                         <h3 className="text-indigo-900 font-semibold mt-5 text-xl font-montserrat text-opacity-60 text-dark-mode">
                             Customizable Themes

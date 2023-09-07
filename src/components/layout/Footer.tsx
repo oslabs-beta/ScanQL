@@ -26,11 +26,6 @@ const Footer: React.FC = () => {
                 About Us
               </a>
             </li>
-            <li className="pt-2">
-              <a href="" className="text-gray-200 text-s text-dark-mode-2">
-                App
-              </a>
-            </li>
           </ul>
         </div>
         <div>
@@ -39,38 +34,23 @@ const Footer: React.FC = () => {
                     ) : (
                         <img className="w-60 h-auto mt-6" src={logodark}></img>
                     )}
-
-    
-
-
-
         </div>
         <div className="">
           <h3 className="text-xl text-indigo-900 text-opacity-80 text-dark-mode">Community</h3>
           <ul>
             <li className="pt-2">
-              <a href="" className="text-gray-200 text-s text-dark-mode-2">
+              <a href="https://github.com/oslabs-beta/ScanQL" target='_blank' className="text-gray-200 text-s text-dark-mode-2">
                 GitHub
               </a>
             </li>
             <li className="pt-2">
-              <a href="" className="text-gray-200 text-s mt- text-dark-mode-2">
-                Linkedin
-              </a>
-            </li>
-            <li className="pt-2">
-              <a href="" className="text-gray-200 text-s text-dark-mode-2">
+              <a href="https://medium.com/@danielmurcia_40019/introducing-scanql-a-database-query-optimization-tool-86ad5ac69d9d" target='_blank' className="text-gray-200 text-s text-dark-mode-2">
                 Medium
               </a>
             </li>
           </ul>
         </div>
         <div>
-          {/* <img
-            src="src/assets/logo-horizontal-v2.png"
-            className="w-60 h-auto mt-6"
-          /> */}
-          {/* <p className='text-center'>Thank you for visiting <br/></p> */}
         </div>
       </div>
       <div className="pt-16">

@@ -43,8 +43,6 @@ export default function RFTable (nodeData: any) {
                   <th>Column</th>
                   <th>Type</th>
                   <th>Constraints</th>
-                  {/* <th>PK</th>
-                  <th>FK</th> */}
                 </tr>
               </thead>
               <tbody>

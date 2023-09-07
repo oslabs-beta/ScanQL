@@ -20,7 +20,7 @@ const NavBar: React.FC = () => {
         <DarkModeToggle></DarkModeToggle>
           <IconButton>
            
-            <a href = "https://github.com/oslabs-beta/ScanQL">
+            <a href = "https://github.com/oslabs-beta/ScanQL" target='_blank'>
               <GitHubLogoIcon className="w-6 h-6 text-indigo-900 text-opacity-80 text-dark-mode-2" />
             </a>
 
