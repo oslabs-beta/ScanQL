@@ -118,7 +118,9 @@
 .home-logo-container {
     display: flex;
     flex-direction: column;
-    height: 65vh;
+    /* height: 65vh; */
+    padding-top: 15rem;
+    padding-bottom: 3rem;
     align-items: center;
     justify-content: center;
 }
@@ -137,11 +139,12 @@
 }
 
 .home-card {
-    height: 14rem;
-    width: 21rem;
+    height: 13rem;
+    width: 20rem;
     margin: 30px;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
     border: 1px solid;
     border-color: rgba(255, 255, 255, 0.226);
     background-color: rgba(206, 206, 206, 0.23);
@@ -175,7 +178,8 @@
     height: 20rem;
     width: 30rem;
     margin: 40px;
-    text-align: center;
+    position: relative;
+    top: 50px;
 }
 
 .home-demo-img {
