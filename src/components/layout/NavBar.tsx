@@ -2,15 +2,13 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react'
 import HomeDropdownMenuIcon from '../ui/HomeDropdownMenu';
-import { GitHubLogoIcon, MoonIcon, SunIcon } from '@radix-ui/react-icons';
+import { GitHubLogoIcon} from '@radix-ui/react-icons';
 import { IconButton } from '@radix-ui/themes';
-import { Switch } from '@radix-ui/react-switch';
-import useAppStore from '../../store/appStore';
+
 import DarkModeToggle from '../ui/DarkModeToggle';
 
 const NavBar: React.FC = () => {
   const { isAuthenticated, loginWithRedirect } = useAuth0();
-  const { setView, theme, toggleTheme } = useAppStore();
 
   return (
     <div className="flex w-screen flex-col items-center justify-center md:flex-row md:justify-between px-8 py-4">

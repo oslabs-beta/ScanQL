@@ -1,5 +1,6 @@
 import { Bar } from 'react-chartjs-2';
 import useAppStore from '../../store/appStore';
+import { ChartOptions } from 'chart.js';
 
 interface Table {
   diskSize: string;
@@ -12,13 +13,14 @@ export const TableSize: React.FC = () => {
   console.log('metrics data',metricsData)
   const tablesArray: Table[] = Object.values(metricsData.dbSizeMetrics.tableSizes);
 
-  const options = {
+  const options: ChartOptions = {
+    indexAxis: 'y',
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
       title: {
         display: true,
-        text: 'Table Sizes (kbs) ',
+        text: 'Table Sizes',
         color: theme === "light" ? '#17012866' : '#ffffffac',
         font: {
           size: 14
@@ -28,7 +30,7 @@ export const TableSize: React.FC = () => {
         position: 'bottom' as const,
         labels:{
           font: {
-            size: '10%', // Adjust the percentage value as needed
+            size: 12,
           },
         },
       },
@@ -54,10 +56,10 @@ export const TableSize: React.FC = () => {
     ],
   };
   return (
-    <div className="grid-span1">
-    <div className="dashboard-card md-card dashboard-card-dark">
+    <>
+    <div className="dashboard-card db-size-charts dashboard-card-dark">
       <Bar data={data} options={options} />
     </div>
-    </div>
+    </>
   );
 }

@@ -1,5 +1,4 @@
-import { Bar, HorizontalBar } from 'react-chartjs-2';
-// import { HorizontalBar } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 import useAppStore from '../../store/appStore';
 
 // type ExecTimeByOperation = {
@@ -15,28 +14,28 @@ import useAppStore from '../../store/appStore';
 //   }
 // }
 
-interface SlowQueryObj {
-  query:string;
-  median: number;
-  mean: number;
-}
+// interface SlowQueryObj {
+//   query:string;
+//   median: number;
+//   mean: number;
+// }
 
-type mainArray = {
-  [queryName:string]:SlowQueryObj
-}
+// type mainArray = {
+//   [queryName:string]:SlowQueryObj
+// }
 
-const splitBySpaces: Array = (inputStr: string, spaceCount: number) => {
-  let chunks = [];
-  let parts = inputStr.split(' ');
+// const splitBySpaces: any = (inputStr: string, spaceCount: number) => {
+//   let chunks = [];
+//   let parts = inputStr.split(' ');
 
-  while (parts.length) {
-    chunks.push(parts.splice(0, spaceCount).join(' '));
-  }
+//   while (parts.length) {
+//     chunks.push(parts.splice(0, spaceCount).join(' '));
+//   }
 
-  return chunks;
-};
+//   return chunks;
+// };
 
-const splitByLength: Array = (inputStr:string, minLength:number, maxLength:number) => {
+const splitByLength: any = (inputStr:string, minLength:number, maxLength:number) => {
   const parts = inputStr.split(' ');
   let chunks = [];
   let chunk = "";
@@ -65,17 +64,11 @@ const splitByLength: Array = (inputStr:string, minLength:number, maxLength:numbe
 
 export const SlowestQueriesTop10: React.FC = () => {
   const { metricsData, theme } = useAppStore();
-  console.log(metricsData);
-  // const queryObject: mainArray = metricsData.dbHistMetrics.slowestTotalQueries;
-
-  //CREATING the object for MinMax 
-  // const m; 
-
   const shortLabelsArr : string[] = [];
   const longLabelsArr : string[] = [];
   const meanArr : number[] = [];
   const medianArr : number[] = [];
-  // console.log('this is the importes onj top 10', metricsData.dbHistMetrics.slowestTotalQueries);
+
   let count = 0;
   for (const query in metricsData.dbHistMetrics.slowestTotalQueries) {
     if (count >= 10) break; // Limit to top 10
@@ -86,11 +79,11 @@ export const SlowestQueriesTop10: React.FC = () => {
   
     count++;
   }
-  // console.log('labelsarr, means arr, medianarr', shortLabelsArr, meanArr, medianArr);
-  const options = {
+
+  const options: any = {
     indexAxis: 'y',
     responsive: true,
-    maintainAspectRatio: false, // This will allow the chart to stretch to fill its container
+    maintainAspectRatio: false,
     // layout: {
     //   padding: {
     //     top: 0, // Adjust the padding top value to create space for the title
@@ -104,7 +97,7 @@ export const SlowestQueriesTop10: React.FC = () => {
         text: 'Top 10 Slowest Previously Executed Queries',
         color: theme === "light" ? '#17012866' : '#ffffffac',
         font: {
-          size: '15%'
+          size: 14
         },
         
       },
@@ -113,7 +106,7 @@ export const SlowestQueriesTop10: React.FC = () => {
         position: 'bottom' as const,
         labels:{
           font: {
-            size: '10%', // Adjust the percentage value as needed
+            size: 12,
           },
         },
       },
@@ -125,13 +118,13 @@ export const SlowestQueriesTop10: React.FC = () => {
           bottom: 2
         },
         bodyFont: {
-          size: 7 // adjust as needed
+          size: 7
         },
         titleFont: {
-          size: 10 // adjust as needed
+          size: 10
         },
         callbacks:{
-          afterLabel: function(context) {
+          afterLabel: function(context: any) {
          
 
             let queryString = longLabelsArr[context.dataIndex];

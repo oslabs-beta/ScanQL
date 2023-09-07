@@ -1,10 +1,9 @@
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
-import React, { useState } from 'react';
+import React from 'react';
 import useAppStore from '../../store/appStore';
 import { TableInfo } from '../../store/appStore';
 
-import { Dialog } from '@radix-ui/react-dialog';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -24,10 +23,12 @@ export const RowsPerTable: React.FC = () => {
     plugins: {
       legend: {
         display: true,
-        position: 'bottom' as const,
-        font: {
-          size: '10%', // Adjust the percentage value as needed
-        },
+        position: 'left' as const,
+        labels: {
+          font: {
+            size: 11
+          },
+        }
       },
       title: {
         display: true,
@@ -68,7 +69,7 @@ export const RowsPerTable: React.FC = () => {
     ]
   };
   return (
-    <div onClick={openModal} className="dashboard-card dashboard-card-dark">
+    <div onClick={openModal} className="dashboard-card md-card dashboard-card-dark">
       <Pie data={data} options={options} />
     </div>
   );

@@ -1,4 +1,4 @@
-import { RequestHandler, query } from 'express';
+import { RequestHandler } from 'express';
 import { QueryResult } from 'pg';
 
 type DBHistoryMetrics = {
@@ -73,7 +73,7 @@ type DBHistoryController = {
 };
 
 const dBHistoryController: DBHistoryController = {
-  dbPastMetrics: async (req, res, next) => {
+  dbPastMetrics: async (_req, res, next) => {
     try {
       const db = res.locals.dbConnection;
             
@@ -99,7 +99,6 @@ const dBHistoryController: DBHistoryController = {
         ORDER BY 
           mean_exec_time DESC
         LIMIT 10;   `);
-      // console.log('slowestTotalQueriesString array', slowestTotalQueriesString.rows);
       const slowestTotalQueriesResults: SlowestTotalQueryInfo[] = [...slowestTotalQueriesString.rows]; //copy of array
     
       const totalQueries: SlowestTotalMedianMean = {}; 
@@ -112,7 +111,6 @@ const dBHistoryController: DBHistoryController = {
           };
         }
       });
-      console.log('this is totalQueriestop10', slowestTotalQueriesString.rows)
 
       //   res.locals.totalQueries = totalQueries;
       const slowestCommonQueriesString: QueryResult = await db.query(`
@@ -138,7 +136,6 @@ const dBHistoryController: DBHistoryController = {
             execution_count DESC
         LIMIT 10;`      );
         
-      // console.log('slowestCommonQueriesString array', slowestCommonQueriesString.rows);
 
       const slowestCommonQueriesResults: SlowestCommonQueryInfo[] = [...slowestCommonQueriesString.rows]; //copy of array
     
@@ -212,7 +209,6 @@ const dBHistoryController: DBHistoryController = {
           };
         }
       });
-      // console.log('overAllQueryAggregatesString array', overAllQueryAggregates);
       //   res.locals.overAllQueries = overAllQueryAggregatesString.rows;
 
       // // Building the result object

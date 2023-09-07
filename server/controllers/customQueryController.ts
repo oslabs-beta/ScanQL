@@ -1,6 +1,6 @@
 
 import { RequestHandler } from 'express';
-import { QueryResult } from 'pg';
+// import { QueryResult } from 'pg';
 import pkg from 'pg';
 const { Pool } = pkg;
 type CustomDBController = {
@@ -8,21 +8,21 @@ type CustomDBController = {
   // queryTimeSQL: RequestHandler;
 };
 
-type CustomMetricsObj = {
-  meanTime: number;
-  queryString: string;
-  customMetrics: {
-    planningTime: number,
-    executionTime: number,
-    totalTime: number;
-    cacheSize: number;
-    workingMem: number;
-    sharedHitBlocks: number;
-    sharedReadBlocks: number;
-  }[];
-  queryDelay: number;
-  queryCount: number;
-}
+// type CustomMetricsObj = {
+//   meanTime: number;
+//   queryString: string;
+//   customMetrics: {
+//     planningTime: number,
+//     executionTime: number,
+//     totalTime: number;
+//     cacheSize: number;
+//     workingMem: number;
+//     sharedHitBlocks: number;
+//     sharedReadBlocks: number;
+//   }[];
+//   queryDelay: number;
+//   queryCount: number;
+// }
 
 
 // Takes in query & URI from client and gathers query metrics using client's database
@@ -30,14 +30,11 @@ const customDBController: CustomDBController = {
 
 
   customQueryMetrics: async (req, res, next) => {
-    console.log('in the customQueryController!!!!!!!!!!!!!!!');
     // const { uri, queryString, queryName, queryCount, queryDelay } = req.body;
     const { uri, queryString } = req.body;
-    console.log('this is the queryString and uri', queryString, uri);
     const pool = new Pool({
       connectionString: uri,
     });
-    console.log('this is the pool', pool);
 
     const clientDBModel = {
       query: (text: string, params?: Array<string>) => {
@@ -76,11 +73,8 @@ const customDBController: CustomDBController = {
 
     try {
       for (let i = 0; i < queryCountDef; i++) {
-        console.log('on query number', i);
-
         const data = await clientDBModel.query(query);
         const parsedData = data.rows;
-        console.log('this is the returned data for query ', i, ' :', parsedData[0]['QUERY PLAN']);
         const planningTime = parsedData[0]['QUERY PLAN'][0]['Planning Time'];
         const executionTime = parsedData[0]['QUERY PLAN'][0]['Execution Time'];
         const totalTime = Number((planningTime + executionTime).toFixed(2));
@@ -112,7 +106,6 @@ const customDBController: CustomDBController = {
       const delayedTasks = await Promise.all(
         Array.from({ length: queryCountDef }, (_, i) => i).map(async (i) => {
           await new Promise((resolve) => setTimeout(resolve, i * (delayTimeDef * 1000))); //1 sec
-          console.log('on query number', i);
           const data: QueryResult = await clientDBModel.query(query);
           const parsedData = data.rows;
         //   const planningTime = parsedData[0]['QUERY PLAN'][0]['Planning Time'];
@@ -156,9 +149,6 @@ const customDBController: CustomDBController = {
         queryCount: queryCountDef
       };
 
-
-
-      console.log('This is the Custom Metrics!!!!!!!!!!!:', customMetricsObj);
       res.locals.customMetrics = customMetricsObj;
       return next();
     } catch (err) {

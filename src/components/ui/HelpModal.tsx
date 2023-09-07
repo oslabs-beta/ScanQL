@@ -1,7 +1,6 @@
 import React from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
 // import { Cross2Icon } from '@radix-ui/react-icons';
-import useAppStore from '../../store/appStore';
 import { Cross1Icon, QuestionMarkCircledIcon } from '@radix-ui/react-icons';
 // import { RowsPerTable } from '../charts/RowsPerTable';
 

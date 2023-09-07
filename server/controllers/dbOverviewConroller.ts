@@ -11,36 +11,32 @@ type DbSizeMetrics = {
   logSize: string;
   activeConnections: number;
 };
-type DbPerformanceMetrics = {
-    avgQueryResponseTime: string;
-    queriesPerSecond: number;
-    slowestQueries: { query: string, executionTime: string }[];
-    cacheHitRate: number;
-  };
+// type DbPerformanceMetrics = {
+//     avgQueryResponseTime: string;
+//     queriesPerSecond: number;
+//     slowestQueries: { query: string, executionTime: string }[];
+//     cacheHitRate: number;
+//   };
 type DbOverviewController = {
   dbSizeMetrics: RequestHandler;
 //   dbPerformanceMetrics: RequestHandler;
 };
 
 const dbOverviewController: DbOverviewController = {
-  dbSizeMetrics: async (req, res, next): Promise<void> => {
+  dbSizeMetrics: async (_req, res, next): Promise<void> => {
     const db = res.locals.dbConnection;
    
-
-    console.log('dboverview')
     try {
         
       const tables: QueryResult = await db.query(`
         SELECT tablename FROM pg_catalog.pg_tables WHERE schemaname != 'pg_catalog' AND schemaname != 'information_schema'
    `);
-      // console.log('tables array', tablesArr.rows);
 
       // const tables: QueryResult = await db.query(
       //   'SELECT tablename FROM pg_catalog.pg_tables WHERE schemaname != \'pg_catalog\' AND schemaname != \'information_schema\';'
       // );
       //array of table names to use in generic metrics function
       const tableNames = tables.rows.map(obj => obj.tablename);
-      // console.log('tableNames', tableNames);
       // const tableNames: string[] = res.locals.tableNames; // Assuming you have the table names in dbInfo
       // Check if we have at least one table to work with
 
@@ -48,7 +44,6 @@ const dbOverviewController: DbOverviewController = {
       const totalSizeQuery: QueryResult = await db.query(
         'SELECT pg_size_pretty(pg_database_size(current_database())) as size;'
       );
-      console.log('line 51')
       const totalDatabaseSize = totalSizeQuery.rows[0].size;
 
       //   //Find the Schema name 
@@ -56,9 +51,6 @@ const dbOverviewController: DbOverviewController = {
       //   FROM pg_namespace 
       //   WHERE nspname NOT LIKE 'pg_%' 
       //   AND nspname != 'information_schema';`);
-      
-      //   console.log('here are the schemas', schemaNameRes);
-
 
       const tableSizes: { [key: string]: { diskSize: string, rowSize: string } } = {};
 
@@ -67,9 +59,6 @@ const dbOverviewController: DbOverviewController = {
           `SELECT pg_size_pretty(pg_total_relation_size('${table}')) as diskSize,
              pg_size_pretty(pg_relation_size('${table}')) as rowSize`
         );
-      
-        // console.log('table size results', sizeQuery);
-      
         if (sizeQuery.rows && sizeQuery.rows[0]) {
           tableSizes[table] = {
             diskSize: sizeQuery.rows[0].disksize,
@@ -78,7 +67,6 @@ const dbOverviewController: DbOverviewController = {
         }
       }
       
-      // console.log('here are the table sizes', tableSizes);
       // Size of each index
       const indexSizeResults : QueryResult = await db.query(`
         SELECT 
@@ -91,9 +79,6 @@ const dbOverviewController: DbOverviewController = {
         WHERE 
         schemaname = 'public';  -- adjust for your schema if different
         `); //we will need to generalize publ
-
-      // console.log('this is the index size from me', indexSizeResults);
-
 
       //size of each index for each table
       // Size of each index
@@ -113,14 +98,12 @@ const dbOverviewController: DbOverviewController = {
           };
         }));
       const indexSizesByTable = Object.assign({}, ...indexSizesRes);
-      // console.log('index sizes fancy',indexSizesByTable );
       // Convert results into a key-value pair object
       const allIndexSizes: { [indexName: string]: string } = {};
       for (const row of indexSizeResults.rows) {
         allIndexSizes[row.indexname] = row.index_size;
       }
 
-      console.log('allIndexSizes');
       /////////////////////////////////////////////////////////////
 
 
@@ -129,7 +112,6 @@ const dbOverviewController: DbOverviewController = {
       // );        'SELECT pg_size_pretty(pg_wal_lsn_diff(pg_current_wal_lsn(), \'0/0\'::pg_lsn) * 8192) AS wal_size;';
 
       const logSize = '0' //logSizeQuery.rows[0].wal_size;
-      // console.log('log siz results', logSizeQuery);
 
       //current active connections 
       const dbNameRes: QueryResult = await db.query('SELECT current_database()');
@@ -155,7 +137,6 @@ const dbOverviewController: DbOverviewController = {
       };
 
       res.locals.dbSizeMetrics = dbSizeMetrics;
-      // console.log('dbSizeMetrics', dbSizeMetrics);
       return next();
     } catch (error) {
       return next(error);
@@ -201,7 +182,6 @@ const dbOverviewController: DbOverviewController = {
             GROUP BY capture_time
             ORDER BY capture_time DESC
         `);
-        console.log('overTime.rows' ,overTime);
       // 3. Slowest queries and their execution times
       const slowestQueriesRes: QueryResult = await db.query(
         `SELECT query, total_exec_time / calls AS avg_exec_time 
@@ -230,7 +210,6 @@ const dbOverviewController: DbOverviewController = {
       };
 
       res.locals.dbPerformanceMetrics = dbPerformanceMetrics;
-      console.log('dbPerformanceMetrics', dbPerformanceMetrics);
       return next();
 
     } catch (error) {

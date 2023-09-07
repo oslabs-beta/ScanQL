@@ -1,14 +1,13 @@
 import React from 'react';
-import * as Progress from '@radix-ui/react-progress';
 import logo from '../../assets/logo-horizontal-v2.png';
 
 const Loading: React.FC = () => {
   const [progress, setProgress] = React.useState(13);
-
+  
   React.useEffect(() => {
     const timer = setTimeout(() => setProgress(66), 600);
     return () => clearTimeout(timer);
-  }, []);
+  }, [progress]);
 
   return (
     <div className='flex justify-center .items-center loading-center' >
