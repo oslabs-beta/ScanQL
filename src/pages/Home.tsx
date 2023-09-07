@@ -2,9 +2,9 @@ import * as React from "react";
 import { useEffect } from "react";
 import logo from "../assets/logo-horizontal-v2.png";
 import logodark from "../assets/logo-horizontal-v2-darkmode.png";
-import screenshot1 from "../assets/screenshots/screenshot1.jpg";
-import screenshot2 from "../assets/screenshots/screenshot2.jpg";
-import screenshot3 from "../assets/screenshots/screenshot3.jpg";
+import gif1 from "../assets/GIFs/Dashboard_gif.gif";
+import gif2 from "../assets/GIFs/ERD_gif.gif";
+import gif3 from "../assets/GIFs/Customquery_gif.gif";
 // import headshotkim from "../assets/team_headshots/other_dkim.jpg";
 
 import {
@@ -15,6 +15,11 @@ import {
     Crosshair2Icon,
     // GitHubLogoIcon,
     // LinkedInLogoIcon,
+    LockClosedIcon,
+    DashboardIcon,
+    MagnifyingGlassIcon,
+    SunIcon,
+    GlobeIcon,
 } from "@radix-ui/react-icons";
 
 import NavBar from "../components/layout/NavBar";
@@ -49,87 +54,121 @@ const Home: React.FC = () => {
                         <img className="home-logo-nav" src={logodark}></img>
                     )}
 
-                    <p className="home-description-text text-2xl ml-7 text-indigo-900 text-opacity-70 font-montserrat text-dark-mode-2">
-                        Elegant data visualization for PostgresQL
+                    <p className="home-description-text text-2xl mt-5 ml-7 text-indigo-900 text-opacity-70 font-montserrat text-dark-mode-2">
+                        Real-Time PostgreSQL monitoring, analysis, and visualization tool
                     </p>
                     <Button
                         onClick={() => loginWithRedirect()}
-                        className="mt-10 border border-indigo-900 border border-opacity-30 bg-indigo-900 bg-opacity-50 text-gray-100 rounded-lg font-montserrat"
+                        className="mt-10 border border-indigo-900 border-opacity-30 bg-indigo-900 bg-opacity-50 text-gray-100 rounded-lg font-montserrat"
                     >
                         Get Started
                     </Button>
                 </div>
                 <div className="home-cards-section">
                     <div className="home-card">
+                        <h3 className="text-indigo-900 font-semibold mt-5 text-xl font-montserrat text-opacity-60 text-dark-mode">
+                            Adaptive Live Analysis
+                        </h3>
+                        <MagnifyingGlassIcon
+                            height={40}
+                            width={40}
+                            className="text-indigo-900 text-opacity-60 mt-4 text-dark-mode"
+                        ></MagnifyingGlassIcon>
+                        <p className="mt-3 text-white text-sm">
+                            Modify your database and receive real-time analysis upon page refresh.
+                        </p>
+                    </div>
+                    <div className="home-card">
+                        <h3 className="text-indigo-900 text-opacity-60 text-dark-mode  font-semibold mt-5 text-xl font-montserrat">
+                            Interactive Dashboard
+                        </h3>
+                        <DashboardIcon
+                            height={40}
+                            width={40}
+                            className="text-indigo-900 text-opacity-60 mt-4 text-dark-mode"
+                        ></DashboardIcon>
+                        <p className="mt-3 text-white text-sm">
+                            Our dynamic dashboard provides users contextual information and clarity making data interpretation intuitive and effortless.
+                        </p>
+                    </div>
+                    <div className="home-card">
+                        <h3 className="text-indigo-900 font-semibold mt-5 text-xl font-montserrat text-opacity-60 text-dark-mode">
+                            Universal Deployment
+                        </h3>
+                        <GlobeIcon
+                            height={40}
+                            width={40}
+                            className="text-indigo-900 text-opacity-60 mt-4 text-dark-mode"
+                        ></GlobeIcon>
+                        <p className="mt-3 text-sm text-white">
+                            Launch effortlessly on any platform using containerization.
+                        </p>
+                    </div>
+                </div>
+                <div className="home-cards-section">
+                    <div className="home-card">
+                        <h3 className="text-indigo-900 font-semibold mt-5 text-xl font-montserrat text-opacity-60 text-dark-mode">
+                            Privacy and Security
+                        </h3>
+                        <LockClosedIcon
+                            height={40}
+                            width={40}
+                            className="text-indigo-900 text-opacity-60 mt-4 text-dark-mode"
+                        ></LockClosedIcon>
+                        <p className="mt-3 text-sm text-white">
+                            All monitoring and analysis occur in real-time, directly on your infrastructure, ensuring that your data remains solely in your possession and control at all times.
+                        </p>
+                    </div>
+                    <div className="home-card">
+                        <h3 className="text-indigo-900 font-semibold mt-5 text-xl font-montserrat text-opacity-60 text-dark-mode">
+                            Quick Setup
+                        </h3>
                         <LightningBoltIcon
-                            height={30}
-                            width={30}
+                            height={40}
+                            width={40}
                             className="text-indigo-900 text-opacity-60 mt-4 text-dark-mode"
                         ></LightningBoltIcon>
-                        <h3 className="text-white font-semibold mt-3 text-xl font-montserrat">
-                            Motivation (Our Why)
-                        </h3>
-                        <p className="mt-3 text-white text-sm">
-                            ScanQL is designed to simplify and enhance your approach to optimizing your, allowing you to focus on what truly matters. Our mission is to empower users with intuitive tools and insightful analytics, transforming the way you [primary function of the app].{" "}
-                        </p>
-                    </div>
-                    <div className="home-card">
-                        <Crosshair2Icon
-                            height={30}
-                            width={30}
-                            className="text-indigo-900 text-opacity-60 mt-4 text-dark-mode"
-                        ></Crosshair2Icon>
-                        <h3 className="text-white  font-semibold mt-5 text-xl font-montserrat">
-                            Benefits & Value
-                        </h3>
-                        <p className="mt-3 text-white text-sm">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit, sed do eiusmod tempor incididunt ut labore et
-                            dolore magna aliqua.
-                        </p>
-                    </div>
-                    <div className="home-card">
-                        <ImageIcon
-                            height={30}
-                            width={30}
-                            className="text-indigo-900 text-opacity-60 mt-4 text-dark-mode"
-                        ></ImageIcon>
-                        <h3 className="text-white font-semibold mt-5 text-xl font-montserrat">
-                            Continued Commitment
-                        </h3>
                         <p className="mt-3 text-sm text-white">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit, sed do eiusmod tempor incididunt ut labore et
-                            dolore magna aliqua.{" "}
+                            Connect to your database and deploy in seconds with our simple setup process.
+                        </p>
+                    </div>
+                    <div className="home-card">
+                        <h3 className="text-indigo-900 font-semibold mt-5 text-xl font-montserrat text-opacity-60 text-dark-mode">
+                            Customizable Themes
+                        </h3>
+                        <SunIcon
+                            height={40}
+                            width={40}
+                            className="text-indigo-900 text-opacity-60 mt-4 text-dark-mode"
+                        ></SunIcon>
+                        <p className="mt-3 text-sm text-white">
+                            Transition seamlessly between light and dark themes to match user preference.
                         </p>
                     </div>
                 </div>
                 <div className="home-section1">
                     <div className="home-panel">
-                        <h2 className="mt-10 font-semibold text-3xl text-white  font-montserrat">
-                            Database Overview
+                        <h2 className="mt-5 font-semibold text-3xl font-montserrat text-indigo-900 text-opacity-60 text-dark-mode">
+                            Database Monitoring and Analysis
                         </h2>
                         <p className="mt-10 text-white">
-                            View in-depth metrics across your database on a
-                            sleek dashboard, providing a bird's eye view of your
-                            database performance.
+                            Access live updates and immediate feedback on your PostgreSQL database's operational health and query performance. Explore a detailed database overview of current size metrics, historical query performance, and real-time execution durations.
                         </p>
                     </div>
                     <div className="home-panel-img">
-                        <img className="home-demo-img" src={screenshot1}></img>
+                        <img className="home-demo-img" src={gif1}></img>
                     </div>
                 </div>
                 <div className="home-section2">
                     <div className="home-panel-img">
-                        <img className="home-demo-img" src={screenshot2}></img>
+                        <img className="home-demo-img" src={gif2}></img>
                     </div>
                     <div className="home-panel">
-                        <h2 className="mt-10 font-semibold text-3xl text-white font-montserrat">
-                            Entity Relationship Diagrams
+                        <h2 className="mt-5 font-semibold text-3xl font-montserrat text-indigo-900 text-opacity-60 text-dark-mode">
+                            Detailed Relationship Mapping
                         </h2>
                         <p className="mt-10 text-white">
-                            Visualize your database tables like never before
-                            with a beautifully designed and responsive GUI.
+                            Visualize intricacies of your database structure with our enhanced ERD Diagram. Experience an interactive representation of your database's relationships and dependencies, making comprehension and optimization more intuitive than ever.
                         </p>
                     </div>
                 </div>
@@ -137,17 +176,15 @@ const Home: React.FC = () => {
             <div className="home-section1">
                 <div className="home-panel">
                     <div></div>
-                    <h2 className="mt-5 mb-10 font-semibold text-3xl text-white  font-montserrat ">
-                        Custom Queries
+                    <h2 className="mt-5 font-semibold text-3xl font-montserrat text-indigo-900 text-opacity-60 text-dark-mode">
+                        Custom Query Metrics
                     </h2>
                     <p className="mt-10 text-white ">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua.
+                        Evaluate the efficiency of your custom queries with detailed runtime statistics and resource usage metrics. Transform your custom query results into dynamic charts and graphs for clearer insights.
                     </p>
                 </div>
                 <div className="home-panel-img">
-                    <img className="home-demo-img" src={screenshot3}></img>
+                    <img className="home-demo-img" src={gif3}></img>
                 </div>
             </div>
 
