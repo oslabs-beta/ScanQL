@@ -1,90 +1,163 @@
-import Footer from "../components/layout/Footer"
-import NavBar from "../components/layout/NavBar"
-import { GitHubLogoIcon, LinkedInLogoIcon} from '@radix-ui/react-icons'
+import Footer from "../components/layout/Footer";
+import NavBar from "../components/layout/NavBar";
+import { GitHubLogoIcon, LinkedInLogoIcon } from "@radix-ui/react-icons";
 import logo from "../assets/logo-horizontal-v2.png";
 import logodark from "../assets/logo-horizontal-v2-darkmode.png";
-import headshotkim from "../assets/team_headshots/other_dkim.jpg"
-import dmurcia from "../assets/team_headshots/dmurcia_headshot.jpg"
-import sheck from "../assets/team_headshots/sheck_headshot.jpg"
-import dkim from "../assets/team_headshots/dkim_headshot.jpg"
-import ytalab from "../assets/team_headshots/ytalab_headshot.jpg"
+import headshotkim from "../assets/team_headshots/other_dkim.jpg";
+import kbulau from "../assets/team_headshots/kbulau_headshot.png";
+import dmurcia from "../assets/team_headshots/dmurcia_headshot.jpg";
+import sheck from "../assets/team_headshots/sheck_headshot.jpg";
+import dkim from "../assets/team_headshots/dkim_headshot.jpg";
+import ytalab from "../assets/team_headshots/ytalab_headshot.jpg";
 import TechStackBar from "../components/ui/TechStackBar";
 
 const About: React.FC = () => {
-  return (
-    <div className="">
-      <NavBar />
+    return (
+        <div className="">
+            <NavBar />
 
-      <div className="mt-20 flex flex-col items-center">
-        <header>
-          <p className="text-center mb-5 text-indigo-900 text-opacity-70 text-4xl font-montserrat text-dark-mode">
-            Meet the Team
-          </p>
-        </header>
+            <div className="mt-20 flex flex-col items-center">
+                <header>
+                    <p className="text-center mb-5 text-indigo-900 text-opacity-70 text-4xl font-montserrat text-dark-mode">
+                        Meet the Team
+                    </p>
+                </header>
 
-        <div className="home-team-section">
-                <div className="home-team-title">
-
-                </div>
-                        <div className="home-team-card-section">
+                <div className="home-team-section">
+                    <div className="home-team-title"></div>
+                    <div className="home-team-card-section">
                         <div className="home-team-card">
-                        <img className = "mt-5 rounded-full w-24" src = {headshotkim}></img>
-                        <h3 className="text-indigo-900 text-opacity-70   mt-4 text-large font-montserrat text-dark-mode">
-                            Kurt Bulau
-                        </h3>
-                        <div className= "flex flex-row mt-2">
-                            <LinkedInLogoIcon width = {20} height = {20} className="text-indigo-900 text-opacity-70 mr-3 text-dark-mode-2"></LinkedInLogoIcon>
-                            <GitHubLogoIcon width = {20} height = {20} className="text-indigo-900 text-opacity-70 text-dark-mode-2"></GitHubLogoIcon>
+                            <img
+                                className="mt-5 rounded-full w-24"
+                                src={kbulau}
+                            ></img>
+                            <h3 className="text-indigo-900 text-opacity-70   mt-4 text-[18px] font-montserrat text-dark-mode">
+                                Kurt Bulau
+                            </h3>
+                            <div className="flex flex-row mt-2">
+                            <a href="https://www.linkedin.com/in/kurt-bulau/">
+                                    <LinkedInLogoIcon
+                                         width={22}
+                                         height={22}
+                                        className="text-indigo-900 text-opacity-70 mr-3 text-dark-mode-2"
+                                    ></LinkedInLogoIcon>
+                                </a>
+                                <a href="https://github.com/kbulau">
+                                    <GitHubLogoIcon
+                                       width={22}
+                                       height={22}
+                                        className="text-indigo-900 text-opacity-70 text-dark-mode-2"
+                                    ></GitHubLogoIcon>
+                                </a>
+                            </div>
+                        </div>
+                        <div className="home-team-card">
+                            <img
+                                className="mt-5 rounded-full w-24"
+                                src={sheck}
+                            ></img>
+                            <h3 className="text-indigo-900 text-opacity-70  mt-4 text-[18px] font-montserrat text-dark-mode">
+                                Sam Heck
+                            </h3>
+                            <div className="flex flex-row mt-2">
+                            <a href="https://www.linkedin.com/in/samuelheck/">
+                                    <LinkedInLogoIcon
+                                        width={22}
+                                        height={22}
+                                        className="text-indigo-900 text-opacity-70 mr-3 text-dark-mode-2"
+                                    ></LinkedInLogoIcon>
+                                </a>
+                                <a href="https://github.com/Sam-Heck">
+                                    <GitHubLogoIcon
+                                       width={22}
+                                       height={22}
+                                        className="text-indigo-900 text-opacity-70 text-dark-mode-2"
+                                    ></GitHubLogoIcon>
+                                </a>
+                            </div>
+                        </div>
+                        <div className="home-team-card">
+                            <img
+                                className="mt-5 rounded-full w-24"
+                                src={dkim}
+                            ></img>
+                            <h3 className="text-indigo-900 text-opacity-70   mt-4 text-[18px] font-montserrat text-dark-mode">
+                                Daniel Kim
+                            </h3>
+                            <div className="flex flex-row mt-2">
+                                <LinkedInLogoIcon
+                                    width={22}
+                                    height={22}
+                                    className="text-indigo-900 text-opacity-70 mr-3 text-dark-mode-2"
+                                ></LinkedInLogoIcon>
+                                <GitHubLogoIcon
+                                    width={22}
+                                    height={22}
+                                    className="text-indigo-900 text-opacity-70 text-dark-mode-2"
+                                ></GitHubLogoIcon>
+                            </div>
+                        </div>
+                        <div className="home-team-card">
+                            <img
+                                className="mt-5 rounded-full w-24"
+                                src={dmurcia}
+                            ></img>
+                            <h3 className="text-indigo-900 text-opacity-70   mt-4 text-[18px] font-montserrat text-dark-mode">
+                                Danny Murcia
+                            </h3>
+                            <div className="flex flex-row mt-2">
+                                <a href="https://www.linkedin.com/in/danny-murcia/">
+                                    <LinkedInLogoIcon
+                                         width={22}
+                                         height={22}
+                                        className="text-indigo-900 text-opacity-70 mr-3 text-dark-mode-2"
+                                    ></LinkedInLogoIcon>
+                                </a>
+                                <a href="https://github.com/dm2800">
+                                    <GitHubLogoIcon
+                                         width={22}
+                                         height={22}
+                                        className="text-indigo-900 text-opacity-70 text-dark-mode-2"
+                                    ></GitHubLogoIcon>
+                                </a>
+                            </div>
+                        </div>
+                        <div className="home-team-card">
+                            <img
+                                className="mt-5 rounded-full w-24"
+                                src={ytalab}
+                            ></img>
+                            <h3 className="text-indigo-900 text-opacity-70  mt-4 text-[18px] font-montserrat text-dark-mode">
+                                Yahya Talab
+                            </h3>
+                            <div className="flex flex-row mt-2">
+                                <a href="http://www.linkedin.com/in/yahya-talab-5329a9176">
+                                    <LinkedInLogoIcon
+                                        width={22}
+                                        height={22}
+                                        className="text-indigo-900 text-opacity-70 mr-3 text-dark-mode-2"
+                                    ></LinkedInLogoIcon>
+                                </a>
+                                <a href="https://github.com/YahyaT95">
+                                    <GitHubLogoIcon
+                                        width={22}
+                                        height={22}
+                                        className="text-indigo-900 text-opacity-70 text-dark-mode-2"
+                                    ></GitHubLogoIcon>
+                                </a>
+                            </div>
                         </div>
                     </div>
-                    <div className="home-team-card">
-                    <img className = "mt-5 rounded-full w-24" src = {sheck}></img>
-                        <h3 className="text-indigo-900 text-opacity-70  mt-4 text-large font-montserrat text-dark-mode">
-                            Sam Heck
-                        </h3>
-                        <div className= "flex flex-row mt-2">
-                            <LinkedInLogoIcon width = {20} height = {20} className="text-indigo-900 text-opacity-70 mr-3 text-dark-mode-2"></LinkedInLogoIcon>
-                            <GitHubLogoIcon width = {20} height = {20} className="text-indigo-900 text-opacity-70 text-dark-mode-2"></GitHubLogoIcon>
-                        </div>
-                    </div>
-                    <div className="home-team-card">
-                        <img className = "mt-5 rounded-full w-24" src = {dkim}></img>
-                        <h3 className="text-indigo-900 text-opacity-70   mt-4 text-large font-montserrat text-dark-mode">
-                            Daniel Kim
-                        </h3>
-                        <div className= "flex flex-row mt-2">
-                            <LinkedInLogoIcon width = {20} height = {20} className="text-indigo-900 text-opacity-70 mr-3 text-dark-mode-2"></LinkedInLogoIcon>
-                            <GitHubLogoIcon width = {20} height = {20} className="text-indigo-900 text-opacity-70 text-dark-mode-2"></GitHubLogoIcon>
-                        </div>
-                    </div>
-                    <div className="home-team-card">
-                    <img className = "mt-5 rounded-full w-24" src = {dmurcia}></img>
-                        <h3 className="text-indigo-900 text-opacity-70   mt-4 text-large font-montserrat text-dark-mode">
-                            Danny Murcia
-                        </h3>
-                        <div className= "flex flex-row mt-2">
-                            <LinkedInLogoIcon width = {20} height = {20} className="text-indigo-900 text-opacity-70  mr-3 text-dark-mode-2"></LinkedInLogoIcon>
-                            <GitHubLogoIcon width = {20} height = {20} className="text-indigo-900 text-opacity-70  text-dark-mode-2"></GitHubLogoIcon>
-                        </div>
-   
-                    </div>
-                    <div className="home-team-card">
-                    <img className = "mt-5 rounded-full w-24" src = {ytalab}></img>
-                        <h3 className="text-indigo-900 text-opacity-70  mt-4 text-large font-montserrat text-dark-mode">
-                            Yahya Talab
-                        </h3>
-                        <div className= "flex flex-row mt-2">
-                            <LinkedInLogoIcon width = {20} height = {20} className="text-indigo-900 text-opacity-70 mr-3 text-dark-mode-2"></LinkedInLogoIcon>
-                            <GitHubLogoIcon width = {20} height = {20} className="text-indigo-900 text-opacity-70 text-dark-mode-2"></GitHubLogoIcon>
-                        </div>
-                    </div>
-                    </div>
-                    </div>
+                </div>
 
-                    {/* <TechStackBar/> */}
+                <header>
+                    <p className="text-center mb-5 text-indigo-900 text-opacity-70 text-3xl font-montserrat text-dark-mode">
+                        Our Technologies
+                    </p>
+                </header>
+                <TechStackBar />
 
-
-        {/* <div className="aboutus-container px-80 mt-20">
+                {/* <div className="aboutus-container px-80 mt-20">
           <div className="border border-solid rounded-[20px] border-white border-opacity-40 flex gap-32">
             <div className="flex-column items-center  p-6">
               <div className="w-52 h-52">
@@ -393,11 +466,11 @@ const About: React.FC = () => {
               </div>
             </div>
           </div> 
-  </div> */ }
-      </div>
-      <Footer />
-    </div>
-  );
+  </div> */}
+            </div>
+            <Footer />
+        </div>
+    );
 };
 
-export default About
+export default About;
