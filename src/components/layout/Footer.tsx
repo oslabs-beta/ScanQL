@@ -75,7 +75,7 @@ const Footer: React.FC = () => {
       </div>
       <div className="pt-16">
         <div className="border-t py-6">
-          <p className="text-xs text-center">© 2023 ScanQL | MIT License</p>
+          <p className="text-xs text-center text-indigo-950 footer-text">© 2023 ScanQL | MIT License</p>
         </div>
       </div>
     </div>
