@@ -17,28 +17,28 @@ const CustomQueryView: React.FC = () => {
     <>
       <FormField />
       <div className='custom-query-container custom-query-charts h-full'>
-      {!customQueryData.labelsArr.length && view !== 'loading' &&
+        {!customQueryData.labelsArr.length && view !== 'loading' &&
           <div className="invalid-uri">
-          <div
-          className="enter-query-box text-indigo-900 text-opacity-80"
-          >
-            Enter a query to see results
-          </div>
+            <div
+              className="enter-query-box text-indigo-900 text-opacity-80 text-dark-mode"
+            >
+              Enter a query to see results
+            </div>
           </div>
         }
-      {customQueryData.labelsArr.length > 0 && 
-        <>
-          <div className='custom-query-card-box h-32 span-all'>
-            <CustomQueryGeneralMetrics />
-          </div>
-          <div className='query-card span-all'>
-            <PlanningExecutionTimes />
-          </div>
-          <div className='query-card span-all'>
-            <MeanPlanningExecutionTimes />
-          </div>
-        </>
-      }
+        {customQueryData.labelsArr.length > 0 &&
+          <>
+            <div className='custom-query-card-box h-32 span-all'>
+              <CustomQueryGeneralMetrics />
+            </div>
+            <div className='query-card span-all'>
+              <PlanningExecutionTimes />
+            </div>
+            <div className='query-card span-all'>
+              <MeanPlanningExecutionTimes />
+            </div>
+          </>
+        }
       </div>
     </>
   );

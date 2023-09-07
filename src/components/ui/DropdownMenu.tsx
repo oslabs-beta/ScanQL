@@ -3,7 +3,9 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import {
-  HamburgerMenuIcon
+  HamburgerMenuIcon,
+  RocketIcon,
+  CircleBackslashIcon,
 } from '@radix-ui/react-icons';
 
 
@@ -19,7 +21,7 @@ const DropdownMenuIcon = () => {
           // className="rounded-full w-[35px] h-[35px] inline-flex items-center justify-center text-violet11 bg-white shadow-[0_2px_10px] shadow-blackA7 outline-none hover:bg-violet3 focus:shadow-[0_0_0_2px] focus:shadow-black"
           aria-label="Customize options"
         >
-          <HamburgerMenuIcon className="text-indigo-900 text-opacity-70" width={25} height={25} />
+          <HamburgerMenuIcon className="text-indigo-900 text-opacity-70 text-dark-mode" width={25} height={25} />
         </button>
       </DropdownMenu.Trigger>
 
@@ -30,15 +32,15 @@ const DropdownMenuIcon = () => {
         >
           <DropdownMenu.Item onClick={() => openConnectDB()} className="group text-[13px] leading-none text-indigo-900 text-opacity-80 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-indigo-900 bg-opacity-80 data-[highlighted]:text-violet1">
             Connect to Database
-            <div className="ml-auto pl-[20px] text-mauve11 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8">
-
+            <div className="ml-auto pl-[20px] text-indigo-900 text-opacity-80 group-data-[highlighted]:text-white group-data-[disabled]:text-violet1">
+              <RocketIcon />
             </div>
           </DropdownMenu.Item>
 
           <DropdownMenu.Item onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })} className="group text-[13px] leading-none text-indigo-900 text-opacity-80 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-indigo-900 bg-opacity-80 data-[highlighted]:text-violet1">
-            Logout{' '}
-            <div className="ml-auto pl-[20px] text-mauve11 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8">
-
+            Logout
+            <div className="ml-auto pl-[20px] text-indigo-900 text-opacity-80 group-data-[highlighted]:text-white group-data-[disabled]:text-violet1">
+              <CircleBackslashIcon />
             </div>
           </DropdownMenu.Item>
           <DropdownMenu.Arrow className="fill-white" />
