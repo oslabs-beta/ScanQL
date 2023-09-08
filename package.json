@@ -12,7 +12,7 @@
     "preview": "vite preview",
     "build:server": "tsc -p tsconfig.node.json",
     "start": "nodemon --watch './**/*.ts' --exec ts-node-esm ./server/server.ts",
-    "test": "vitest --coverage",
+    "test": "vitest",
     "cypress:open": "cypress open"
   },
   "dependencies": {
