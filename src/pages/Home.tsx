@@ -4,7 +4,7 @@ import logo from "../assets/logo-horizontal-v2.png";
 import logodark from "../assets/logo-horizontal-v2-darkmode.png";
 import gif1 from "../assets/GIFs/Dashboard_gif.gif";
 import gif2 from "../assets/GIFs/ERD_gif.gif";
-import gif3 from "../assets/GIFs/Customquery_gif.gif";
+import gif3 from "../assets/GIFs/CustomQuery_gif.gif";
 
 import {
     LightningBoltIcon,
