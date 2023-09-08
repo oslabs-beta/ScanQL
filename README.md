@@ -11,8 +11,8 @@
 
 <br />
 <div align="center">
-  <a href="https://github.com/oslabs-beta/ScanQL">
-    <img src="https://www.scanql.dev/assets/logo-horizontal-v2-darkmode-c062832e.png" alt="Logo" width="550" height="auto">
+  <a href="https://scanql.dev">
+    <img src="https://github.com/oslabs-beta/ScanQL/blob/main/src/assets/logo-horizontal-v2-darkmode.png" alt="Logo" width="550" height="auto">
   </a>
   <br />
   https://scanql.dev/
@@ -45,16 +45,7 @@
 
 + Query Performance Analysis: With ScanQL's testing mechanism, analyze the planning and execution times of generic SELECT and UPDATE queries, pinpointing potential bottlenecks and inefficiencies.
 
-+ Optimization Suggestions: Based on the query tests, ScanQL provides actionable insights and suggestions for improving query performance and database structure.
-
-<div align="center">
-  <a href="https://github.com/oslabs-beta/ScanQL">
-    <img src="https://scanql.dev/assets/Dashboard_gif-2be55f69.gif" alt="Logo" width="550" height="auto">
-  </a>
-  <br />
-</div>
-
-
++ ER Diagram: Visualize intricacies of your database structure with our enhanced ER Diagram. Experience an interactive representation of your database's relationships and dependencies, making comprehension and optimization more intuitive than ever.
 
 
 ## Why ScanQL?
@@ -67,12 +58,24 @@
 
 ## How ScanQL Works
 
-+ Visualizing the Database: Simply connect to your database by submitting your URI connection string for your Postgres database, and our tool will automatically provide you with an overciew of the composition of your database, a detailed analysis of its size through various metrics, past performance analysis of quiries run on your database (Note: limited for unpaid versions of postgres databases), and also map out the database structure in the ERD tab, providing a visual representation of tables, relations, and more.
++ Visualizing the Database: Simply connect to your database by submitting your URI connection string for your Postgres database, and our tool will automatically provide you with an overview of the composition of your database, a detailed analysis of its size through various metrics, past performance analysis of quiries run on your database (Note: limited for unpaid versions of postgres databases), and also map out the database structure in the ERD tab, providing a visual representation of tables, relations, and more.
+
+<p align="center">
+  <img src="https://github.com/oslabs-beta/ScanQL/blob/main/src/assets/GIFs/Dashboard_gif.gif" alt="animated" />
+</p>
 
 + Performing Query Tests: ScanQL will run a series of generic SELECT and UPDATE queries on each table in your database to determine planning and execution times. This provides a baseline understanding of how optimized your current setup is.
 
+<p align="center">
+  <img src="https://github.com/oslabs-beta/ScanQL/blob/main/src/assets/GIFs/ERD_gif.gif" alt="animated" />
+</p>
+
 + Custom Query Testing: Input any query of your choice and get a comprehensive analysis of the performance of running that query. Understand metrics such as time taken, caching details, the type of scan used, and the number of rows hit. This deep dive enables fine-tuning and precise optimization of your database queries
 
+<p align="center">
+  <img src="https://github.com/oslabs-beta/ScanQL/blob/main/src/assets/GIFs/CustomQuery_gif.gif" alt="animated" />
+</p>
+  
 
 ## Privacy & Security
 
@@ -110,6 +113,6 @@ ScanQL is licensed under the MIT License. See LICENSE.md for more details.
 [license-shield]: https://img.shields.io/github/license/oslabs-beta/ScanQL.svg?style=for-the-badge
 [license-url]: https://github.com/oslabs-beta/ScanQLr/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://www.linkedin.com/company/
+[linkedin-url]: https://www.linkedin.com/company/scanql/
 
 
