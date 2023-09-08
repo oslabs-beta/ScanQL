@@ -1,32 +1,22 @@
 import * as React from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import * as Form from '@radix-ui/react-form';
 import { Link } from 'react-router-dom';
 
 const Login: React.FC = () => {
-
-  const navigate = useNavigate();
-
-
-  // const handleSignupSubmit = () => {
-  //   navigate('/signup');
-  // };
-
+  // const navigate = useNavigate();
 
   return (
     <div>
-
-<div className="flex w-screen flex-col items-center justify-center md:flex-row md:justify-between px-8 py-4">
-      <div className="flex flex-col items-center md:flex-row">
-        <div className="flex justify-center md:mx-0 md:mr-4 md:items-center md:justify-start">
-         <Link className = "text-indigo-800" to="/">Home</Link>
+      <div className="flex w-screen flex-col items-center justify-center md:flex-row md:justify-between px-8 py-4">
+        <div className="flex flex-col items-center md:flex-row">
+          <div className="flex justify-center md:mx-0 md:mr-4 md:items-center md:justify-start">
+            <Link className = "text-indigo-800" to="/">Home</Link>
+          </div>
         </div>
-      </div>
-    </div>      
-
+      </div>      
       <div className="login-page">
         <h1 className="text-gray-200 mb-10">Login</h1>
-
         <div className="login-container">
           <Form.Root className="FormRoot">
             <Form.Field className="FormField" name="email">
@@ -61,7 +51,6 @@ const Login: React.FC = () => {
             </Form.Submit>
           </Form.Root>
         </div>
-
       </div>
     </div>
   )

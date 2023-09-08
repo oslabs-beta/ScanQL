@@ -1,5 +1,4 @@
-import { Request, Response, NextFunction, RequestHandler } from 'express';
-import { Pool } from 'pg';
+import { RequestHandler } from 'express';
 // import dotenv from 'dotenv';
 // import db from '../models/userModel';
 // import { table } from 'console';
@@ -11,7 +10,7 @@ interface schemaControllers {
 }
 //
 const dbERDcontroller: schemaControllers = {
-  getSchemaPostgreSQL: async (req, res, next) => {
+  getSchemaPostgreSQL: async (_req, res, next) => {
     try {
       const pg = res.locals.dbConnection;
       // Get all relationships between all tables
@@ -47,16 +46,15 @@ const dbERDcontroller: schemaControllers = {
         RIGHT JOIN information_schema.columns c
         ON c.table_name = kc.table_name AND c.column_name = kc.column_name
 
-        WHERE c.table_schema = '${currentSchema}' AND is_updatable = 'YES'
+        WHERE c.table_schema = $1 AND is_updatable = 'YES'
 
         ORDER BY c.table_name, c.column_name, is_primary_key desc, table_origin) subquery
 
       ORDER BY table_name, ordinal_position;`;
-      const schema = await pg.query(query);
-      // console.log('SCHEMA', schema.rows);
+      const schema = await pg.query(query, [currentSchema]);
 
       // Initialize array to hold returned data
-      let erDiagram: Record<string, typeof tableObj> = {};
+      const erDiagram: Record<string, typeof tableObj> = {};
       let tableObj: Record<string, any> = {};
       // Make custom type for any on tableObj
 

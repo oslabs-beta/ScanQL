@@ -2,15 +2,13 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
 import './index.css'
-import { Theme } from '@radix-ui/themes';
+// import { Theme } from '@radix-ui/themes';
 import { Auth0Provider } from '@auth0/auth0-react';
-import  useAppStore from './store/appStore.ts';
-// lol i didn't know you were in here
-// bruh sam i thoight i was in mine but i edited on yours LOL
-// fsho in here already
+// import  useAppStore from './store/appStore.ts';
+import { ErrorBoundary } from 'react-error-boundary';
+import { AppFallback } from './components/Errors/AppFallback.tsx';
 
-
-const theme = useAppStore.getState().theme;
+// const theme = useAppStore.getState().theme;
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <Auth0Provider
@@ -21,10 +19,14 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     }}
   >
     <React.StrictMode>
-      <Theme appearance={theme}>
+      {/* <Theme 
+      appearance={theme}> */}
+      <ErrorBoundary FallbackComponent={AppFallback} >
         <App />
-      </Theme>
+      </ErrorBoundary>
+      {/* </Theme> */}
     </React.StrictMode>
   </Auth0Provider>
 )
+
 

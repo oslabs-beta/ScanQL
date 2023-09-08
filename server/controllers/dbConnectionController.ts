@@ -4,7 +4,7 @@ const { Pool } = pkg;
 
 type DbConnectionController = {
   connectAndInitializeDB: RequestHandler;
-  // createExtension: RequestHandler;
+  createExtension: RequestHandler;
   checkUserPermissions: RequestHandler;
 };
 
@@ -28,7 +28,18 @@ const dbConnectionController: DbConnectionController = {
         return pool.query(`EXPLAIN (ANALYZE true, COSTS true, SETTINGS true, BUFFERS true, WAL true, SUMMARY true, FORMAT JSON) ${text}`, params);
       },
     };
-
+    // Sam added try catch block because there was no error being caught on the server when an invalid URI was entered - it was causing the server to crash. 
+    try {
+      await db.query('SELECT tablename FROM pg_catalog.pg_tables WHERE schemaname != \'pg_catalog\' AND schemaname != \'information_schema\';');
+    } catch (err) {
+      return next({
+        log: 'URI invalid, could not connect to database',
+        status: 400,
+        message: {
+          error: `URI invalid, could not connect to database: ${err}`,
+        }
+      });
+    }
     res.locals.dbConnection = db;
     res.locals.result = {};
 
@@ -69,6 +80,24 @@ const dbConnectionController: DbConnectionController = {
   //     });
   //   }
   // },
+    // initializes pg_stat_statements if not already initialized
+  // first controller to stop response cycle and return an error if connection fails
+  createExtension: async (_req, res, next) => {
+    const db = res.locals.dbConnection;
+    const queryString = 'CREATE EXTENSION IF NOT EXISTS pg_stat_statements';
+    try {
+      await db.query(queryString);
+      res.locals.result.validURI = true;
+      return next();
+    } catch (error) {
+      return next({
+        log: `ERROR caught in connectController.createExtension: ${error}`,
+        status: 400,
+        message:
+          'ERROR: error has occured in connectController.createExtension',
+      });
+    }
+  },
   checkUserPermissions: async (req, res, next) => {
     const db = res.locals.dbConnection;
     const username = req.body.username; // Assume the username is passed in the request body
@@ -90,7 +119,6 @@ const dbConnectionController: DbConnectionController = {
       const permissions = await db.query(permissionsQuery, [username]);//the permissions of that user
       const userPermissions = permissions.rows
       res.locals.userPermissions = userPermissions
-      // console.log(userPermissions) //just to see what we recieve
       if (canConnect) {
         return next(); // User has CONNECT privilege, so continue to the next middleware
       } else {

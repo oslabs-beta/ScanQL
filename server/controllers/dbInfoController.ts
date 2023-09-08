@@ -3,6 +3,8 @@ import { RequestHandler } from 'express';
 import { QueryResult } from 'pg';
 // QueryResult doesn't exist in pg package. May need to install another package.
 
+//PURPOSE: The purpose of this controller is mainly to provide the user a comprehensive birds-eye view of their database. For convience it is also use to supply other controllers with necessary information.
+
 type DbInfoController = {
   getDataBaseInfo: RequestHandler;
 };
@@ -40,16 +42,16 @@ interface CheckConstraintMap {
   
 
 const dbInfoController: DbInfoController = {
-  getDataBaseInfo: async (req, res, next): Promise<void> => {
-
+  getDataBaseInfo: async (_req, res, next): Promise<void> => {
+    // console.log('made it in dbinfo');
     // pulling database connection from res locals
     const db = res.locals.dbConnection;
 
     try {
+      // Retrievie table names
       const tables: QueryResult = await db.query(
         'SELECT tablename FROM pg_catalog.pg_tables WHERE schemaname != \'pg_catalog\' AND schemaname != \'information_schema\';'
       );
-      // console.log('tables', tables);
 
       // Check if we have at least one table to work with
       if (tables.rows.length === 0) {
@@ -80,7 +82,7 @@ const dbInfoController: DbInfoController = {
           'SELECT COUNT(*) FROM pg_indexes WHERE tablename = $1;',
           [tableName]
         );
-    
+
         const foreignKeys: QueryResult = await db.query(`
             SELECT 
               kcu.column_name AS column, 
@@ -103,7 +105,7 @@ const dbInfoController: DbInfoController = {
             referencedColumn: row.referencedcolumn
           };
         }
-    
+      
         const primaryKeys: QueryResult = await db.query(`
           SELECT 
             kcu.column_name AS column,
@@ -131,14 +133,13 @@ const dbInfoController: DbInfoController = {
         }
     
         const sampleData: QueryResult = await db.query(
-          `SELECT * FROM ${tableName} LIMIT 10;`
+          `SELECT * FROM ${tableName} LIMIT 100;`
         );
-        // console.log('sample data!!!!!', sampleData.rows[0])
     
         const columnDataTypes: QueryResult = await db.query(`
         SELECT column_name, data_type, column_default, is_nullable 
         FROM information_schema.columns 
-        WHERE table_name = $1
+        WHERE table_name = $1 AND table_schema = 'public'
         ORDER BY ordinal_position;`,
         [tableName]
         );
@@ -149,8 +150,8 @@ const dbInfoController: DbInfoController = {
         // for (const row of columnDataTypes.rows) {
         //   fieldTypes[row.column_name] = row.data_type;
         // }
-        // console.log('columntypes!!!!!!!!!!', columnDataTypes);
-    
+        
+        // A check constrain is a constraint on a column that requires only specific values be inserted (i.e. "Yes" or "No")
         const checkContraints = await db.query(`
         SELECT 
             conname AS constraint_name, 
@@ -166,10 +167,8 @@ const dbInfoController: DbInfoController = {
             con.contype = 'c' AND rel.relname = $1;`,
         [tableName]
         );
-          // console.log('this is the check constraint result', checkContraints)
         const checkContraintObj: CheckConstraintMap = {};
         checkContraints.rows.forEach((checkEl : CheckConstraint) => {
-          // console.log(checkEl, 'this is the for each eleement')
           checkContraintObj[checkEl.column_name] = checkEl.constraint_definition;
         });
 
@@ -179,6 +178,7 @@ const dbInfoController: DbInfoController = {
           numberOfIndexes: parseInt(numberOfIndexes.rows[0].count, 10),
           numberOfFields: parseInt(numberOfFields.rows[0].count, 10),
           numberOfForeignKeys: foreignKeys.rowCount,
+          numberOfPrimaryKeys: primaryKeys.rowCount,
           checkConstraints: checkContraintObj,
           foreignKeysObj: foreignKeyObject || {},
           primaryKeysObj: primaryKeyObject || {},
@@ -192,12 +192,10 @@ const dbInfoController: DbInfoController = {
       //  use Promise.all() to wait for all promises to resolve
       // const databaseInfo = await Promise.all(tableInfoPromises);
       Promise.all(tableInfoPromises).then((databaseInfo) => {
-        // console.log('DBINFOARRAY', databaseInfo);
         const databaseInfoMap: { [key: string]: TableInfo } = {};
         databaseInfo.forEach(info => {
           databaseInfoMap[info.tableName] = info;
         });
-        // console.log('this is dbinfooooo!!!!!!',databaseInfoMap)
         res.locals.databaseInfo = databaseInfoMap;
         return next();
       });    
@@ -209,60 +207,3 @@ const dbInfoController: DbInfoController = {
 };
 
 export default dbInfoController;
-
-// 
-// Example result:
-/*
-[
-  {
-    "tableName": "users",
-    "numberOfRows": 100,
-    "numberOfIndexes": 2,
-    "numberOfFields": 5,
-    "numberOfForeignKeys": 0,
-    "foreignKeys": [],
-    "primaryKey": "id",
-    "firstRowData": {
-      "id": 1,
-      "name": "John Doe",
-      "email": "johndoe@example.com",
-      "created_at": "2023-01-01",
-      "is_active": true
-    },
-    "fieldTypes": {
-      "id": "integer",
-      "name": "text",
-      "email": "text",
-      "created_at": "timestamp",
-      "is_active": "boolean"
-    }
-  },
-  {
-    "tableName": "orders",
-    "numberOfRows": 200,
-    "numberOfIndexes": 1,
-    "numberOfFields": 4,
-    "numberOfForeignKeys": 1,
-    "foreignKeys": [
-      {
-        "column": "user_id",
-        "referencedTable": "users",
-        "referencedColumn": "id"
-      }
-    ],
-    "primaryKey": "id",
-    "firstRowData": {
-      "id": 1,
-      "user_id": 1,
-      "order_date": "2023-01-02",
-      "amount": 99.99
-    },
-    "fieldTypes": {
-      "id": "integer",
-      "user_id": "integer",
-      "order_date": "date",
-      "amount": "numeric"
-    }
-  }
-]
-*/
