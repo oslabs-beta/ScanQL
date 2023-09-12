@@ -28,6 +28,8 @@
 
 ## About The Project
 
+<div align="center" width="100%">
+
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
 ![Javascript](https://img.shields.io/badge/javascript-%23424242.svg?style=for-the-badge&logo=javascript&logoColor=F7DF1E)
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
@@ -47,6 +49,8 @@
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=CSS3&logoColor=white)
 ![RadixUI](https://img.shields.io/badge/radixui-E1E2E4?style=for-the-badge&logo=radixui&logoColor=161618)
 ![Chart.js](https://img.shields.io/badge/Chart.js-242121?style=for-the-badge&logo=chart.js&logoColor=FF6384)
+
+</div>
 
 
 
@@ -86,7 +90,16 @@
 <p align="center">
   <img src="https://github.com/oslabs-beta/ScanQL/blob/main/src/assets/GIFs/CustomQuery_gif.gif" alt="animated" />
 </p>
-  
+
+\*\*Note\*\*
+ 
+- **PostgreSQL Database Provider Access:** Ensure you have the appropriate permissions with your PostgreSQL database provider. Some metrics might be restricted depending on the access 
+ level you have.
+
+- **pg_stats:** If you are leveraging `pg_stats` for metrics, you may need additional privileges or access rights. Check with your PostgreSQL database provider or your system 
+ administrator for assistance.
+
+ If you encounter any issues or need more information, consult your PostgreSQL documentation or feel free to reach out to us! 
 
 ## Privacy & Security
 
@@ -107,11 +120,13 @@ ScanQL is licensed under the MIT License. See LICENSE.md for more details.
 
 ## Authors
 
-- Daniel Kim [@danykdev](https://github.com/danykdev)
-- Sam Heck [@Sam-Heck](https://github.com/Sam-Heck)
-- Yahya Talab [@YahyaT95](https://github.com/YahyaT95)
-- Danny Murcia [@dm2800](https://github.com/dm2800)
-- Kurt Bulau [@kbulau](https://github.com/kbulau)
+| Developed By | Github |
+| :-: | :-: |
+| Daniel Kim |[![Github](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/danykdev)
+| Sam Heck |[![Github](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Sam-Heck)
+| Yahya Tala |[![Github](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/YahyaT95)
+| Danny Murcia |[![Github](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/dm2800)
+| Kurt Bulau |[![Github](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/kbulau)
 
 [contributors-shield]: https://img.shields.io/github/contributors/oslabs-beta/ScanQL.svg?style=for-the-badge
 [contributors-url]: https://github.com/oslabs-beta/ScanQL/graphs/contributors
