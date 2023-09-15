@@ -124,7 +124,7 @@ ScanQL is licensed under the MIT License. See LICENSE.md for more details.
 | :-: | :-: |
 | Daniel Kim |[![Github](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/danykdev)
 | Sam Heck |[![Github](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Sam-Heck)
-| Yahya Tala |[![Github](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/YahyaT95)
+| Yahya Talab |[![Github](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/YahyaT95)
 | Danny Murcia |[![Github](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/dm2800)
 | Kurt Bulau |[![Github](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/kbulau)
 
